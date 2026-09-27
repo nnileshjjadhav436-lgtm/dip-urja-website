@@ -1,506 +1,597 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DIP URJA POWER SOLUTIONS | Solar | Home UPS | Lift UPS</title>
+
+<meta name="description"
+content="DIP URJA POWER SOLUTIONS - Professional Solar, Home UPS and Lift UPS solutions with reliable installation and service support.">
+
 <style>
-  /* Container for the Public.png section */
-  .public-banner-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 25px auto;
-    text-align: center;
-    padding: 0 15px;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-  }
+}
 
-  .public-banner-container img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fa;
+    color: #1c2633;
+    line-height: 1.6;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.logo-area img {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #17212b;
+}
+
+.brand span {
     display: block;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #68717c;
+    margin-top: 2px;
+}
 
-  /* Social Button Container */
-  .instagram-container {
-    text-align: center;
-    margin: 30px auto 20px auto;
-  }
+nav {
+    display: flex;
+    gap: 25px;
+}
 
-  /* Clickable Instagram Button */
-  .instagram-btn {
-    display: inline-flex;
+nav a {
+    text-decoration: none;
+    color: #26323e;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #d08a00;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    background:
+        linear-gradient(rgba(15,25,35,0.70), rgba(15,25,35,0.70)),
+        url("images/hero.jpg") center/cover no-repeat;
+
+    min-height: 600px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: #ffffff !important;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero-content {
+    max-width: 850px;
+    color: white;
+}
+
+.hero h1 {
+    font-size: clamp(35px, 6vw, 65px);
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #f0b429;
+}
+
+.hero p {
+    font-size: 19px;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    color: #f1f3f5;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 28px;
+    margin: 6px;
+    border-radius: 6px;
     text-decoration: none;
-    font-family: Arial, sans-serif;
-    font-size: 15px;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    padding: 12px 24px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(220, 39, 67, 0.35);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+    font-size: 15px;
+    transition: 0.3s;
+}
 
-  /* Hover and Tap Effects */
-  .instagram-btn:hover {
+.btn-primary {
+    background: #d89a13;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #b77b00;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(220, 39, 67, 0.5);
-  }
+}
 
-  .instagram-btn:active {
-    transform: translateY(0);
-  }
+.btn-light {
+    background: white;
+    color: #1d2935;
+}
 
-  /* Instagram Icon size */
-  .instagram-btn img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
+.btn-light:hover {
+    background: #eef1f4;
+}
+
+/* ================= GENERAL ================= */
+
+section {
+    padding: 80px 20px;
+}
+
+.container {
+    max-width: 1150px;
+    margin: auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+    font-size: 34px;
+    color: #17212b;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #68717c;
+    max-width: 650px;
+    margin: auto;
+}
+
+/* ================= PRODUCTS ================= */
+
+.products {
+    background: white;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.product-card {
+    background: #ffffff;
+    border: 1px solid #e4e8ed;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.10);
+}
+
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.product-content {
+    padding: 25px;
+}
+
+.product-content h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #1c2935;
+}
+
+.product-content p {
+    color: #68717c;
+    font-size: 15px;
+}
+
+/* ================= ABOUT ================= */
+
+.about {
+    background: #f5f7fa;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+}
+
+.about-text h2 {
+    font-size: 36px;
+    margin-bottom: 18px;
+}
+
+.about-text p {
+    color: #5f6974;
+    margin-bottom: 15px;
+}
+
+/* ================= WHY CHOOSE US ================= */
+
+.why-us {
+    background: white;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.why-card {
+    text-align: center;
+    padding: 30px 20px;
+    border: 1px solid #e5e8ec;
+    border-radius: 10px;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.why-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #f2f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.why-card h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.why-card p {
+    font-size: 14px;
+    color: #68717c;
+}
+
+/* ================= CTA ================= */
+
+.cta {
+    background: #17212b;
+    color: white;
+    text-align: center;
+}
+
+.cta h2 {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.cta p {
+    color: #d5dbe0;
+    margin-bottom: 25px;
+}
+
+/* ================= INSTAGRAM ================= */
+
+.instagram {
+    background: #f5f7fa;
+    text-align: center;
+}
+
+.instagram-box {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 40px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.instagram-box h2 {
+    margin-bottom: 10px;
+}
+
+.instagram-box p {
+    color: #68717c;
+    margin-bottom: 20px;
+}
+
+.instagram-btn {
+    display: inline-block;
+    padding: 13px 25px;
+    background: #17212b;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+.instagram-btn:hover {
+    background: #d08a00;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #101820;
+    color: white;
+    padding: 45px 20px 20px;
+}
+
+.footer-grid {
+    max-width: 1150px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+}
+
+footer h3 {
+    margin-bottom: 15px;
+}
+
+footer p,
+footer a {
+    color: #b9c1c8;
+    font-size: 14px;
+}
+
+footer a {
+    text-decoration: none;
     display: block;
-  }
+    margin-bottom: 8px;
+}
+
+footer a:hover {
+    color: white;
+}
+
+.copyright {
+    max-width: 1150px;
+    margin: 30px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #29323a;
+    text-align: center;
+    color: #8e979f;
+    font-size: 13px;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+
+    nav {
+        display: none;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .navbar {
+        padding: 12px 15px;
+    }
+
+    .logo-area img {
+        width: 52px;
+        height: 52px;
+    }
+
+    .brand {
+        font-size: 16px;
+    }
+
+    .hero {
+        min-height: 520px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    section {
+        padding: 60px 15px;
+    }
+
+    .section-title h2,
+    .about-text h2,
+    .cta h2 {
+        font-size: 28px;
+    }
+
+    .why-grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIP URJA POWER SOLUTIONS | Solar & Power Backup</title>
-    <style>
-        :root {
-            --primary: #f39c12;
-            --primary-dark: #d35400;
-            --dark: #2c3e50;
-            --light: #f8f9fa;
-            --text: #333333;
-            --whatsapp: #25D366;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            color: var(--text);
-            background-color: #ffffff;
-            line-height: 1.6;
-        }
-
-        /* Top Banner */
-        .top-banner {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            line-height: 0;
-            background-color: #0d1b2a;
-        }
-        .top-banner img {
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        /* Navigation */
-        nav {
-            background: #ffffff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 8%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo {
-            font-weight: 800;
-            font-size: 1.3rem;
-            color: var(--primary-dark);
-            letter-spacing: 0.5px;
-        }
-        .nav-links a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover {
-            color: var(--primary-dark);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)), 
-                        url('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80') center/cover;
-            color: #ffffff;
-            text-align: center;
-            padding: 90px 20px;
-        }
-        .hero h1 {
-            font-size: 2.6rem;
-            margin-bottom: 15px;
-            color: #f1c40f;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 650px;
-            margin: 0 auto 30px auto;
-        }
-        .cta-btn {
-            background: var(--whatsapp);
-            color: #ffffff;
-            padding: 12px 28px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 30px;
-            display: inline-block;
-            transition: transform 0.2s, background 0.3s;
-        }
-        .cta-btn:hover {
-            transform: scale(1.05);
-            background: #1ebc59;
-        }
-
-        /* Section Container */
-        .section {
-            padding: 70px 8%;
-            text-align: center;
-        }
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: var(--dark);
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background: var(--primary);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        /* Service Cards */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        .card {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 30px 20px;
-            border-top: 4px solid var(--primary);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            transition: transform 0.3s ease;
-            text-align: left;
-        }
-        .card:hover {
-            transform: translateY(-6px);
-        }
-        .card h3 {
-            color: var(--dark);
-            margin-bottom: 12px;
-            font-size: 1.25rem;
-        }
-        .card p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        /* Why Choose Us */
-        .why-us {
-            background: #fdfefe;
-        }
-        .badge-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .badge {
-            padding: 20px;
-            background: #ffffff;
-            border: 1px solid #e1e8ed;
-            border-radius: 8px;
-        }
-        .badge strong {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--primary-dark);
-            font-size: 1.1rem;
-        }
-
-        /* Contact Section */
-        .contact-box {
-            background: var(--dark);
-            color: #ffffff;
-            padding: 40px 20px;
-            border-radius: 12px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .contact-box h2 {
-            margin-bottom: 15px;
-            color: #f1c40f;
-        }
-        .contact-box p {
-            margin-bottom: 25px;
-        }
-        .contact-actions a {
-            margin: 8px;
-            padding: 12px 24px;
-            display: inline-block;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-        }
-        .btn-call {
-            background: var(--primary);
-            color: #ffffff;
-        }
-        .btn-wa {
-            background: var(--whatsapp);
-            color: #ffffff;
-        }
-
-        /* Showcase Video */
-        .video-wrapper {
-            max-width: 900px;
-            margin: 40px auto 20px auto;
-            padding: 0 15px;
-            text-align: center;
-        }
-        .video-wrapper h2 {
-            font-family: Arial, sans-serif;
-            color: #0d1b2a;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-        .video-container {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            background-color: #000;
-        }
-        .video-container video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Footer */
-        footer {
-            background: #1a252f;
-            color: #bdc3c7;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            nav { flex-direction: column; gap: 10px; }
-            .nav-links a { margin: 0 10px; }
-        }
-    </style>
 </head>
+
 <body>
 
-    <!-- Top Banner Image -->
-    <div class="top-banner">
-        <img src="DUPS.jpg" alt="DIP URJA POWER SOLUTIONS - Solar & Power Solutions">
-    </div>
+<!-- ================= HEADER ================= -->
 
-    <!-- Header Navigation -->
-    <nav>
-        <div class="logo">⚡ DIP URJA POWER</div>
-        <div class="nav-links">
+<header>
+    <div class="navbar">
+
+        <div class="logo-area">
+            <img src="images/logo.png" alt="DIP URJA POWER SOLUTIONS Logo">
+
+            <div class="brand">
+                DIP URJA POWER SOLUTIONS
+                <span>POWER • SOLAR • BACKUP SOLUTIONS</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
             <a href="#about">About</a>
-            <a href="#services">Services</a>
             <a href="#why-us">Why Us</a>
             <a href="#contact">Contact</a>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <h1>Clean Solar & Uninterrupted Power</h1>
-        <p>Expert rooftop solar installations, commercial UPS solutions, inverter servicing, and annual maintenance contracts (AMC).</p>
-        <a href="https://wa.me/919226194332?text=Hello%20Dip%20Urja,%20I%20would%20like%20a%20free%20consultation" class="cta-btn" target="_blank">Chat on WhatsApp</a>
-    </header>
+    </div>
+</header>
 
-    <!-- About Us Section -->
-    <section class="section" id="about" style="background-color: #fcfcfc;">
-        <h2 class="section-title">About Dip Urja Power Solutions</h2>
-        <div style="max-width: 800px; margin: 0 auto; text-align: left; font-size: 1.05rem; color: #444; line-height: 1.8;">
-            <p style="margin-bottom: 16px;">
-                Welcome to <strong>Dip Urja Power Solutions</strong>, your trusted partner for clean solar energy and uninterrupted power backup systems. We specialize in designing, installing, and servicing high-efficiency rooftop solar installations, commercial and domestic UPS units, inverters, and battery systems.
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>
+            Reliable Power.<br>
+            <span>Smarter Energy.</span>
+        </h1>
+
+        <p>
+            Professional Solar, Home UPS and Lift UPS solutions
+            designed for dependable performance and long-term service.
+        </p>
+
+        <a href="#products" class="btn btn-primary">
+            Explore Solutions
+        </a>
+
+        <a href="#contact" class="btn btn-light">
+            Contact Us
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section class="products" id="products">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Our Solutions</h2>
+            <p>
+                Reliable power and energy solutions for homes,
+                businesses and residential projects.
             </p>
-            <p style="margin-bottom: 16px;">
-                Our mission is to help homes, commercial establishments, and industrial units cut electricity costs while securing reliable power. Whether you are transitioning to on-grid solar under government subsidy programs or need an annual maintenance contract (AMC) for your power backup infrastructure, our team delivers high-quality engineering and dependable local service.
-            </p>
-            <div style="margin-top: 25px; padding: 20px; background: #fff; border-left: 4px solid #d35400; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                <h4 style="color: #2c3e50; margin-bottom: 8px;">Our Core Commitment:</h4>
-                <ul style="list-style-type: none; padding-left: 0;">
-                    <li>✔ High-grade Tier-1 solar modules and certified inverters</li>
-                    <li>✔ End-to-end site survey, design, net-metering, and installation</li>
-                    <li>✔ Prompt on-site troubleshooting and regular maintenance</li>
-                </ul>
-            </div>
         </div>
-    </section>
 
-    <!-- Services -->
-    <section class="section" id="services">
-        <h2 class="section-title">Our Power Solutions</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>☀️ Solar Rooftop Systems</h3>
-                <p>On-Grid, Off-Grid, and Hybrid solar solutions designed for residential homes, agricultural pumps, and industrial facilities.</p>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <img src="images/home-ups.jpg"
+                     alt="Home UPS">
+
+                <div class="product-content">
+                    <h3>Home UPS</h3>
+
+                    <p>
+                        Dependable backup power solutions for
+                        uninterrupted comfort at home.
+                    </p>
+                </div>
             </div>
-            <div class="card">
-                <h3>🔋 Industrial & Home UPS</h3>
-                <p>High-efficiency UPS systems and inverter setups to guarantee 24/7 backup power for sensitive machinery and IT equipment.</p>
+
+
+            <div class="product-card">
+                <img src="images/lift-ups.jpg"
+                     alt="Lift UPS">
+
+                <div class="product-content">
+                    <h3>Lift UPS</h3>
+
+                    <p>
+                        Reliable emergency power backup for
+                        residential and commercial elevators.
+                    </p>
+                </div>
             </div>
-            <div class="card">
-                <h3>🛠️ Annual Maintenance (AMC)</h3>
-                <p>Periodic maintenance, solar panel cleaning, inverter diagnostics, and battery health servicing for long equipment life.</p>
-            </div>
-            <div class="card">
-                <h3>⚡ Battery Sales & Service</h3>
-                <p>Genuine lead-acid and lithium batteries with warranty support, testing, and replacement services.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us -->
-    <section class="section why-us" id="why-us">
-        <h2 class="section-title">Why Choose Dip Urja</h2>
-        <div class="badge-grid">
-            <div class="badge">
-                <strong>Local Expertise</strong>
-                Fast on-site inspections, surveys, and technical support.
-            </div>
-            <div class="badge">
-                <strong>Quality Components</strong>
-                Tier-1 solar panels, certified inverters, and branded batteries.
-            </div>
-            <div class="badge">
-                <strong>Transparent Pricing</strong>
-                Clear estimates without hidden charges.
-            </div>
-            <div class="badge">
-                <strong>Government Subsidies</strong>
-                Full guidance for PM Surya Ghar and state solar subsidy schemes.
-            </div>
-        </div>
-    </section>
-
-    <!-- Showcase Video Section -->
-    <section class="video-wrapper">
-        <h2>Watch Our Showcase</h2>
-        <div class="video-container">
-            <video controls autoplay muted playsinline>
-                <source src="12.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </section>
-
-    <!-- Contact Callout -->
-    <section class="section" id="contact">
-        <div class="contact-box">
-            <h2>Ready to Switch to Solar?</h2>
-            <p>Get in touch for a site survey, system capacity assessment, or a free quote.</p>
-            <div class="contact-actions">
-                <a href="tel:9226194332" class="btn-call">📞 Call Now</a>
-                <a href="https://wa.me/919226194332?text=Hi,%20I%20need%20details%20about%20your%20services" class="btn-wa" target="_blank">💬 WhatsApp</a>
-            </div>
-        </div>
-    </section><!DOCTYPE html>
-<html>
-<head>
-<title>Adding Image Example</title>
-<style>
-/* Base styling for the footer to make it clear where the image is */
-footer {
-  background-color: #f1f1f1;
-  padding: 20px;
-  text-align: center;
-}
-
-/* Base styling for the main content area */
-main {
-  padding: 20px;
-}
-</style>
-</head>
-<body>
-
-<footer>
-    <p>Footer Content - Copyright 2023</p>
-
-    <!-- 
-      THIS IS THE CODE TO ADD YOUR IMAGE:
-      - The `img` tag is used to embed images.
-      - The `src` attribute is *crucial*. It tells the browser where to find the image file.
-      - Replace "Public.png" with the actual path to your image file.
-        - If the image is in the same folder as your HTML file, you just need the name: "Public.png".
-        - If it's in a folder called "images", you'd use "images/Public.png".
-      - The `alt` attribute provides "alternate text" for screen readers and if the image can't be loaded. It's very important for accessibility. Describe the image briefly.
-      - `width="300"` is an optional attribute to set the width of the image. You can use CSS instead for better control.
-    -->
-    <img src="Public.png" alt="A description of what is in Public.png, e.g., 'Company Logo' or 'A decorative photo'" width="300">
-  </footer>.instagram-link {
-  background-color: #c13584; /* Instagram-like color */
-  color: white; /* Text color */
-  padding: 10px 20px; /* Space around the text */
-  text-decoration: none; /* No underline */
-  border-radius: 5px; /* Rounded corners */
-  font-weight: bold;
-  display: inline-block; /* This allows padding and margins to work correctly */
-  margin-top: 10px; /* Space above the button */
-  transition: background-color 0.3s ease; /* A smooth transition effect on hover */
-}
-
-/* Hover effect for the button */
-.instagram-link:hover {
-  background-color: #a32d6f; /* A slightly darker color on hover */
-}
 
 
-</body>
-</html>
+            <div class="product-card">
+                <img src="images/solar.jpg"
+                     alt="Solar Panel">
 
+                <div class="product-content">
+                    <h3>Solar Solutions</h3>
 
-    <!-- Footer -->
-    <footer><!-- 1. Banner Image Section (After Video) -->
-<div class="public-banner-container">
-  <img src="Public.png" alt="Why Indian Homes Are Choosing Dip Urja Solar">
-</div>
-
-<!-- 2. Follow Us on Instagram Button -->
-<div class="instagram-container">
-  <a href="https://www.instagram.com/dipurjapower" target="_blank" rel="noopener noreferrer" class="instagram-btn">
-    <img src="insta.png" alt="Instagram Icon">
-    <span>FOLLOW US ON INSTAGRAM</span>
-  </a>
-</div>
-
-        <p>&copy; 2026 Dip Urja Power Solutions. All rights reserved.</p>
-    </footer>
-
-</body>
-</html>
+                    <p>
+                        Efficient solar power systems designed
+                       
