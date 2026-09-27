@@ -1,5 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+  /* Container for the Public.png section */
+  .public-banner-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 25px auto;
+    text-align: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+
+  .public-banner-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Social Button Container */
+  .instagram-container {
+    text-align: center;
+    margin: 30px auto 20px auto;
+  }
+
+  /* Clickable Instagram Button */
+  .instagram-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 12px 24px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(220, 39, 67, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  /* Hover and Tap Effects */
+  .instagram-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 39, 67, 0.5);
+  }
+
+  .instagram-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Instagram Icon size */
+  .instagram-btn img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+  }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
