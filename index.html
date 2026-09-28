@@ -461,6 +461,93 @@
       vertical-align: middle;
       fill: #ffffff;
     }
+<div class="consult-card-wrapper">
+  <div class="consult-card">
+    <h2>Book a FREE Solar Consultation</h2>
+    <p class="sub-text">And save up to ₹78,000 with subsidy</p>
+
+    <form id="solarConsultForm" onsubmit="sendToWhatsApp(event)">
+      <!-- Name Input -->
+      <div class="form-group">
+        <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />
+      </div>
+
+      <!-- WhatsApp Number Input -->
+      <div class="form-group">
+        <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />
+      </div>
+
+      <!-- Electricity Bill Selection -->
+      <label class="bill-label">Monthly Electricity Bill ⓘ</label>
+      <div class="bill-options">
+        <div class="bill-option">
+          <input type="radio" id="bill1" name="bill_range" value="Less than ₹1500" checked />
+          <label for="bill1">Less than ₹1500</label>
+        </div>
+        <div class="bill-option">
+          <input type="radio" id="bill2" name="bill_range" value="₹1500 - ₹2500" />
+          <label for="bill2">₹1500 - ₹2500</label>
+        </div>
+        <div class="bill-option">
+          <input type="radio" id="bill3" name="bill_range" value="₹2500 - ₹4000" />
+          <label for="bill3">₹2500 - ₹4000</label>
+        </div>
+        <div class="bill-option">
+          <input type="radio" id="bill4" name="bill_range" value="₹4000 - ₹8000" />
+          <label for="bill4">₹4000 - ₹8000</label>
+        </div>
+        <div class="bill-option">
+          <input type="radio" id="bill5" name="bill_range" value="More than ₹8000" />
+          <label for="bill5">More than ₹8000</label>
+        </div>
+      </div>
+
+      <!-- PIN Code Input -->
+      <div class="form-group">
+        <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />
+      </div>
+
+      <!-- Terms Checkbox -->
+      <div class="consent-group">
+        <input type="checkbox" id="termsConsent" checked required />
+        <label for="termsConsent">
+          I agree to Dip Urja <a href="#privacy">Terms of use</a> and <a href="#privacy">Privacy Policy</a>.
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>
+    </form>
+  </div>
+</div>
+
+<script>
+function sendToWhatsApp(e) {
+  e.preventDefault();nput[name="bill_range"]:checked').value;
+
+  // Pre-formatted message that will be sent to your WhatsApp
+  var message = "☀️ *New Free Solar Consultation Request*\n\n" +
+                "👤 *Name:* " + name + "\n"
+
+  // Enter your receiving business WhatsApp number here (with country code, no + or spaces)
+  var myWhatsAppNumber = "919226194332";
+
+  var name = document.getElementById("custName").value.trim();
+  var phone = document.getElementById("custPhone").value.trim();
+  var pincode = document.getElementById("custPincode").value.trim();
+  var bill = document.querySelector('i +
+                "📱 *WhatsApp:* " + phone + "\n" +
+                "⚡ *Monthly Bill:* " + bill + "\n" +
+                "📍 *PIN Code:* " + pincode;
+
+  var waUrl = "https://api.whatsapp.com/send?phone=" + myWhatsAppNumber + "&text=" + encodeURIComponent(message);
+
+  // Open WhatsApp in a new tab
+  window.open(waUrl, "_blank");
+}
+</script>
+</body>
+</html>
 
     /* Footer */
     footer {
@@ -644,90 +731,3 @@
     <p>&copy; 2026 DIP URJA POWER SOLUTIONS. All Rights Reserved.</p>
     <p style="font-size: 0.8rem; margin-top: 6px;">Solar Today | Savings Tomorrow</p>
   </footer>
-<div class="consult-card-wrapper">
-  <div class="consult-card">
-    <h2>Book a FREE Solar Consultation</h2>
-    <p class="sub-text">And save up to ₹78,000 with subsidy</p>
-
-    <form id="solarConsultForm" onsubmit="sendToWhatsApp(event)">
-      <!-- Name Input -->
-      <div class="form-group">
-        <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />
-      </div>
-
-      <!-- WhatsApp Number Input -->
-      <div class="form-group">
-        <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />
-      </div>
-
-      <!-- Electricity Bill Selection -->
-      <label class="bill-label">Monthly Electricity Bill ⓘ</label>
-      <div class="bill-options">
-        <div class="bill-option">
-          <input type="radio" id="bill1" name="bill_range" value="Less than ₹1500" checked />
-          <label for="bill1">Less than ₹1500</label>
-        </div>
-        <div class="bill-option">
-          <input type="radio" id="bill2" name="bill_range" value="₹1500 - ₹2500" />
-          <label for="bill2">₹1500 - ₹2500</label>
-        </div>
-        <div class="bill-option">
-          <input type="radio" id="bill3" name="bill_range" value="₹2500 - ₹4000" />
-          <label for="bill3">₹2500 - ₹4000</label>
-        </div>
-        <div class="bill-option">
-          <input type="radio" id="bill4" name="bill_range" value="₹4000 - ₹8000" />
-          <label for="bill4">₹4000 - ₹8000</label>
-        </div>
-        <div class="bill-option">
-          <input type="radio" id="bill5" name="bill_range" value="More than ₹8000" />
-          <label for="bill5">More than ₹8000</label>
-        </div>
-      </div>
-
-      <!-- PIN Code Input -->
-      <div class="form-group">
-        <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />
-      </div>
-
-      <!-- Terms Checkbox -->
-      <div class="consent-group">
-        <input type="checkbox" id="termsConsent" checked required />
-        <label for="termsConsent">
-          I agree to Dip Urja <a href="#privacy">Terms of use</a> and <a href="#privacy">Privacy Policy</a>.
-        </label>
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>
-    </form>
-  </div>
-</div>
-
-<script>
-function sendToWhatsApp(e) {
-  e.preventDefault();
-
-  // Enter your receiving business WhatsApp number here (with country code, no + or spaces)
-  var myWhatsAppNumber = "919226194332";
-
-  var name = document.getElementById("custName").value.trim();
-  var phone = document.getElementById("custPhone").value.trim();
-  var pincode = document.getElementById("custPincode").value.trim();
-  var bill = document.querySelector('input[name="bill_range"]:checked').value;
-
-  // Pre-formatted message that will be sent to your WhatsApp
-  var message = "☀️ *New Free Solar Consultation Request*\n\n" +
-                "👤 *Name:* " + name + "\n" +
-                "📱 *WhatsApp:* " + phone + "\n" +
-                "⚡ *Monthly Bill:* " + bill + "\n" +
-                "📍 *PIN Code:* " + pincode;
-
-  var waUrl = "https://api.whatsapp.com/send?phone=" + myWhatsAppNumber + "&text=" + encodeURIComponent(message);
-
-  // Open WhatsApp in a new tab
-  window.open(waUrl, "_blank");
-}
-</script>
-</body>
-</html>
