@@ -15,142 +15,7 @@
       --text-dark: #1e293b;
       --text-muted: #64748b;
     }
-/* Consultation Card Window */
-.consult-card-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-}
 
-.consult-card {
-  background: #ffffff;
-  border-radius: 28px;
-  padding: 36px 32px;
-  max-width: 440px;
-  width: 100%;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-  border: 1px solid #e2e8f0;
-}
-
-.consult-card h2 {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #0d1b2a;
-  margin-bottom: 6px;
-  line-height: 1.25;
-}
-
-.consult-card .sub-text {
-  font-size: 0.95rem;
-  color: #64748b;
-  margin-bottom: 24px;
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-
-.consult-input {
-  width: 100%;
-  padding: 14px 18px;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  color: #1e293b;
-  outline: none;
-  transition: border-color 0.2s;
-  box-sizing: border-box;
-}
-
-.consult-input:focus {
-  border-color: #0b2545;
-}
-
-.bill-label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #475569;
-  margin-bottom: 10px;
-  display: block;
-}
-
-/* Bill Amount Options Pill Grid */
-.bill-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-
-.bill-option {
-  position: relative;
-}
-
-.bill-option input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.bill-option label {
-  display: block;
-  padding: 9px 14px;
-  background: #f8fafc;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #0f172a;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.bill-option input[type="radio"]:checked + label {
-  background: #0b2545;
-  border-color: #0b2545;
-  color: #ffffff;
-}
-
-/* Consent Checkbox */
-.consent-group {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 16px 0 22px;
-  font-size: 0.82rem;
-  color: #64748b;
-}
-
-.consent-group input {
-  margin-top: 3px;
-  accent-color: #0b2545;
-  cursor: pointer;
-}
-
-.consent-group a {
-  color: #0b2545;
-  font-weight: 600;
-  text-decoration: underline;
-}
-
-/* Submit Button */
-.btn-submit-consult {
-  width: 100%;
-  padding: 16px;
-  background-color: #091a3e;
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.btn-submit-consult:hover {
-  background-color: #134074;
-}
     * {
       box-sizing: border-box;
       margin: 0;
@@ -258,6 +123,145 @@
       height: auto;
       display: block;
       object-fit: cover;
+    }
+
+    /* Consultation Card Window */
+    .consult-card-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+    }
+
+    .consult-card {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 36px 32px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+    }
+
+    .consult-card h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #0d1b2a;
+      margin-bottom: 6px;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .consult-card .sub-text {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .consult-input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: #1e293b;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .consult-input:focus {
+      border-color: #0b2545;
+    }
+
+    .bill-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* Bill Amount Options Pill Grid */
+    .bill-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .bill-option {
+      position: relative;
+    }
+
+    .bill-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .bill-option label {
+      display: block;
+      padding: 9px 14px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #0f172a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .bill-option input[type="radio"]:checked + label {
+      background: #0b2545;
+      border-color: #0b2545;
+      color: #ffffff;
+    }
+
+    /* Consent Checkbox */
+    .consent-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 16px 0 22px;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    .consent-group input {
+      margin-top: 3px;
+      accent-color: #0b2545;
+      cursor: pointer;
+    }
+
+    .consent-group a {
+      color: #0b2545;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    /* Submit Button */
+    .btn-submit-consult {
+      width: 100%;
+      padding: 16px;
+      background-color: #091a3e;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit-consult:hover {
+      background-color: #134074;
     }
 
     /* Common Section Layout */
@@ -420,7 +424,7 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
-    /* Instagram Button Section & Small Icon Control */
+    /* Instagram Button Section */
     .instagram-btn-wrapper {
       display: flex;
       justify-content: center;
@@ -448,106 +452,12 @@
       box-shadow: 0 6px 20px rgba(220, 39, 67, 0.4);
     }
 
-    /* Strict small sizing for SVG icon */
     .instagram-icon {
-      width: 22px !important;
-      height: 22px !important;
-      min-width: 22px !important;
-      min-height: 22px !important;
-      max-width: 22px !important;
-      max-height: 22px !important;
+      width: 22px;
+      height: 22px;
       flex-shrink: 0;
-      display: inline-block;
-      vertical-align: middle;
       fill: #ffffff;
     }
-<div class="consult-card-wrapper">
-  <div class="consult-card">
-    <h2>Book a FREE Solar Consultation</h2>
-    <p class="sub-text">And save up to ₹78,000 with subsidy</p>
-
-    <form id="solarConsultForm" onsubmit="sendToWhatsApp(event)">
-      <!-- Name Input -->
-      <div class="form-group">
-        <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />
-      </div>
-
-      <!-- WhatsApp Number Input -->
-      <div class="form-group">
-        <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />
-      </div>
-
-      <!-- Electricity Bill Selection -->
-      <label class="bill-label">Monthly Electricity Bill ⓘ</label>
-      <div class="bill-options">
-        <div class="bill-option">
-          <input type="radio" id="bill1" name="bill_range" value="Less than ₹1500" checked />
-          <label for="bill1">Less than ₹1500</label>
-        </div>
-        <div class="bill-option">
-          <input type="radio" id="bill2" name="bill_range" value="₹1500 - ₹2500" />
-          <label for="bill2">₹1500 - ₹2500</label>
-        </div>
-        <div class="bill-option">
-          <input type="radio" id="bill3" name="bill_range" value="₹2500 - ₹4000" />
-          <label for="bill3">₹2500 - ₹4000</label>
-        </div>
-        <div class="bill-option">
-          <input type="radio" id="bill4" name="bill_range" value="₹4000 - ₹8000" />
-          <label for="bill4">₹4000 - ₹8000</label>
-        </div>
-        <div class="bill-option">
-          <input type="radio" id="bill5" name="bill_range" value="More than ₹8000" />
-          <label for="bill5">More than ₹8000</label>
-        </div>
-      </div>
-
-      <!-- PIN Code Input -->
-      <div class="form-group">
-        <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />
-      </div>
-
-      <!-- Terms Checkbox -->
-      <div class="consent-group">
-        <input type="checkbox" id="termsConsent" checked required />
-        <label for="termsConsent">
-          I agree to Dip Urja <a href="#privacy">Terms of use</a> and <a href="#privacy">Privacy Policy</a>.
-        </label>
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>
-    </form>
-  </div>
-</div>
-
-<script>
-function sendToWhatsApp(e) {
-  e.preventDefault();nput[name="bill_range"]:checked').value;
-
-  // Pre-formatted message that will be sent to your WhatsApp
-  var message = "☀️ *New Free Solar Consultation Request*\n\n" +
-                "👤 *Name:* " + name + "\n"
-
-  // Enter your receiving business WhatsApp number here (with country code, no + or spaces)
-  var myWhatsAppNumber = "919226194332";
-
-  var name = document.getElementById("custName").value.trim();
-  var phone = document.getElementById("custPhone").value.trim();
-  var pincode = document.getElementById("custPincode").value.trim();
-  var bill = document.querySelector('i +
-                "📱 *WhatsApp:* " + phone + "\n" +
-                "⚡ *Monthly Bill:* " + bill + "\n" +
-                "📍 *PIN Code:* " + pincode;
-
-  var waUrl = "https://api.whatsapp.com/send?phone=" + myWhatsAppNumber + "&text=" + encodeURIComponent(message);
-
-  // Open WhatsApp in a new tab
-  window.open(waUrl, "_blank");
-}
-</script>
-</body>
-</html>
 
     /* Footer */
     footer {
@@ -597,8 +507,9 @@ function sendToWhatsApp(e) {
       <a href="#" class="logo-text">DIP URJA <span>POWER SOLUTIONS</span></a>
       <nav>
         <ul class="nav-links">
+          <li><a href="#consultation">Get Subsidy</a></li>
           <li><a href="#why-us">Why Dip Urja</a></li>
-          <li><a href="#services">Our Services & Products</a></li>
+          <li><a href="#services">Services & Products</a></li>
           <li><a href="#about">About Us</a></li>
           <li><a href="#contact" class="btn-nav-contact">Contact Us</a></li>
         </ul>
@@ -609,6 +520,67 @@ function sendToWhatsApp(e) {
   <!-- Banner Image at Top (DUPS.jpg) -->
   <div class="hero-banner">
     <img src="DUPS.jpg" alt="Dip Urja Power Solutions Banner" />
+  </div>
+
+  <!-- Consultation Booking Form Section -->
+  <div class="consult-card-wrapper" id="consultation">
+    <div class="consult-card">
+      <h2>Book a FREE Solar Consultation</h2>
+      <p class="sub-text">And save up to ₹78,000 with subsidy</p>
+
+      <form id="solarConsultForm" onsubmit="sendToWhatsApp(event)">
+        <!-- Name Input -->
+        <div class="form-group">
+          <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />
+        </div>
+
+        <!-- WhatsApp Number Input -->
+        <div class="form-group">
+          <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />
+        </div>
+
+        <!-- Electricity Bill Selection -->
+        <label class="bill-label">Monthly Electricity Bill</label>
+        <div class="bill-options">
+          <div class="bill-option">
+            <input type="radio" id="bill1" name="bill_range" value="Less than ₹1500" checked />
+            <label for="bill1">Less than ₹1500</label>
+          </div>
+          <div class="bill-option">
+            <input type="radio" id="bill2" name="bill_range" value="₹1500 - ₹2500" />
+            <label for="bill2">₹1500 - ₹2500</label>
+          </div>
+          <div class="bill-option">
+            <input type="radio" id="bill3" name="bill_range" value="₹2500 - ₹4000" />
+            <label for="bill3">₹2500 - ₹4000</label>
+          </div>
+          <div class="bill-option">
+            <input type="radio" id="bill4" name="bill_range" value="₹4000 - ₹8000" />
+            <label for="bill4">₹4000 - ₹8000</label>
+          </div>
+          <div class="bill-option">
+            <input type="radio" id="bill5" name="bill_range" value="More than ₹8000" />
+            <label for="bill5">More than ₹8000</label>
+          </div>
+        </div>
+
+        <!-- PIN Code Input -->
+        <div class="form-group">
+          <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />
+        </div>
+
+        <!-- Terms Checkbox -->
+        <div class="consent-group">
+          <input type="checkbox" id="termsConsent" checked required />
+          <label for="termsConsent">
+            I agree to Dip Urja <a href="#about">Terms of use</a> and <a href="#about">Privacy Policy</a>.
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>
+      </form>
+    </div>
   </div>
 
   <!-- 1. Why Dip Urja Section -->
@@ -716,7 +688,7 @@ function sendToWhatsApp(e) {
     </div>
   </section>
 
-  <!-- 7. Instagram Link & Small Icon -->
+  <!-- 7. Instagram Link Section -->
   <div class="instagram-btn-wrapper">
     <a href="https://www.instagram.com/dipurjapower/" target="_blank" rel="noopener noreferrer" class="instagram-link-btn">
       <svg class="instagram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -731,3 +703,30 @@ function sendToWhatsApp(e) {
     <p>&copy; 2026 DIP URJA POWER SOLUTIONS. All Rights Reserved.</p>
     <p style="font-size: 0.8rem; margin-top: 6px;">Solar Today | Savings Tomorrow</p>
   </footer>
+
+  <!-- Consultation Form WhatsApp Logic -->
+  <script>
+    function sendToWhatsApp(e) {
+      e.preventDefault();
+
+      var myWhatsAppNumber = "919226194332";
+      var name = document.getElementById("custName").value.trim();
+      var phone = document.getElementById("custPhone").value.trim();
+      var pincode = document.getElementById("custPincode").value.trim();
+      
+      var billElement = document.querySelector('input[name="bill_range"]:checked');
+      var bill = billElement ? billElement.value : "Not Specified";
+
+      var message = "☀️ *New Free Solar Consultation Request*\n\n" +
+                    "👤 *Name:* " + name + "\n" +
+                    "📱 *WhatsApp:* " + phone + "\n" +
+                    "⚡ *Monthly Bill:* " + bill + "\n" +
+                    "📍 *PIN Code:* " + pincode;
+
+      var waUrl = "https://api.whatsapp.com/send?phone=" + myWhatsAppNumber + "&text=" + encodeURIComponent(message);
+
+      window.open(waUrl, "_blank");
+    }
+  </script>
+</body>
+</html>
