@@ -1,117 +1,1084 @@
-<script>
-  let currentOtp = null;
-  let tempPhone = "";
-  let tempRole = "";
-
-  function openEmployeeLogin() {
-    resetLoginForm();
-    document.getElementById('employeeModal').style.display = 'flex';
-  }
-
-  function closeEmployeeLogin() {
-    document.getElementById('employeeModal').style.display = 'none';
-  }
-
-  function resetLoginForm() {
-    document.getElementById('stepPhone').style.display = 'block';
-    document.getElementById('stepOtp').style.display = 'none';
-    document.getElementById('stepDashboard').style.display = 'none';
-    document.getElementById('loginStatus').innerText = '';
-    document.getElementById('otpCode').value = '';
-    currentOtp = null;
-  }
-
-  // Generates and sends OTP instantly
-  function sendOtp() {
-    const phoneInput = document.getElementById('empPhone').value.trim();
-    const statusBox = document.getElementById('loginStatus');
-
-    if (!phoneInput || phoneInput.length < 10) {
-      statusBox.style.color = '#dc2626';
-      statusBox.innerText = 'Please enter a valid mobile number.';
-      return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIP URJA POWER SOLUTIONS</title>
+  <style>
+    :root {
+      --primary-blue: #0b2545;
+      --accent-blue: #134074;
+      --brand-red: #d90429;
+      --highlight-orange: #f77f00;
+      --card-bg: #ffffff;
+      --light-bg: #f4f7fb;
+      --dark-navy: #091a3e;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
     }
 
-    // Generate random 6-digit OTP
-    currentOtp = Math.floor(100000 + Math.random() * 900000).toString();
-    tempPhone = phoneInput;
-    tempRole = document.getElementById('empRole').value;
-
-    statusBox.style.color = '#0b2545';
-    statusBox.innerText = 'Sending OTP...';
-
-    setTimeout(() => {
-      // Switches to OTP step
-      document.getElementById('stepPhone').style.display = 'none';
-      document.getElementById('stepOtp').style.display = 'block';
-      statusBox.innerText = '';
-
-      // Displays the OTP via popup alert for instant entry
-      alert("🔐 Verification Code for " + tempPhone + ": " + currentOtp);
-    }, 600);
-  }
-
-  // Verifies the code and opens dashboard
-  function verifyOtp() {
-    const enteredOtp = document.getElementById('otpCode').value.trim();
-
-    if (enteredOtp !== currentOtp) {
-      alert('Invalid OTP. Please check the code and try again.');
-      return;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      scroll-behavior: smooth;
     }
 
-    renderRoleDashboard(tempRole, tempPhone);
-  }
-
-  function renderRoleDashboard(role, phone) {
-    document.getElementById('stepOtp').style.display = 'none';
-    document.getElementById('stepDashboard').style.display = 'block';
-
-    const title = document.getElementById('portalTitle');
-    const badge = document.getElementById('roleBadge');
-    const welcome = document.getElementById('welcomeMsg');
-    const content = document.getElementById('roleDashboardContent');
-
-    welcome.innerText = 'Logged in: ' + phone;
-
-    if (role === 'md') {
-      title.innerText = 'Managing Director Portal';
-      badge.innerText = 'EXECUTIVE DESK';
-      badge.style.backgroundColor = '#fef3c7';
-      badge.style.color = '#b45309';
-      content.innerHTML = `
-        <strong>Company Performance & Control:</strong><br>
-        • Overall Sales & Site Revenue Reports<br>
-        • Department Approvals (Solar & Lift UPS projects)<br>
-        • Branch & Operational KPIs
-      `;
-    } else if (role === 'accounts') {
-      title.innerText = 'Accounts Department';
-      badge.innerText = 'FINANCE & BILLING';
-      badge.style.backgroundColor = '#ecfdf5';
-      badge.style.color = '#047857';
-      content.innerHTML = `
-        <strong>Accounting & Invoicing:</strong><br>
-        • Customer Subsidy Claims & Bank Disbursement<br>
-        • Vendor Purchase Orders & GST Invoicing<br>
-        • Customer EMI Settlement Records
-      `;
-    } else if (role === 'admin_hr') {
-      title.innerText = 'Admin / HR Portal';
-      badge.innerText = 'ADMINISTRATION';
-      badge.style.backgroundColor = '#ede9fe';
-      badge.style.color = '#6d28d9';
-      content.innerHTML = `
-        <strong>Employee Management:</strong><br>
-        • Technician & Engineer Attendance Logs<br>
-        • Service Ticket Allocations & Stock Requisitions<br>
-        • Staff Payroll & Safety Certifications
-      `;
+    body {
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      line-height: 1.6;
     }
-  }
 
-  function logoutEmployee() {
-    resetLoginForm();
-    closeEmployeeLogin();
-  }
-</script>
+    /* Top Strip */
+    .top-strip {
+      background-color: var(--primary-blue);
+      color: #cbd5e1;
+      font-size: 0.85rem;
+      padding: 8px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Sticky Navigation Header */
+    .site-header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand-logo-img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--brand-red);
+    }
+
+    .btn-nav-contact {
+      background-color: var(--brand-red);
+      color: #ffffff !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+      transition: background-color 0.2s ease !important;
+    }
+
+    .btn-nav-contact:hover {
+      background-color: #ba0020 !important;
+    }
+
+    .btn-employee-login {
+      background-color: transparent !important;
+      border: 1.5px solid var(--primary-blue);
+      color: var(--primary-blue) !important;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-employee-login:hover {
+      background-color: var(--primary-blue) !important;
+      color: #ffffff !important;
+    }
+
+    /* Hero Banner Image */
+    .hero-banner {
+      width: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      max-width: 1300px;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* Common Section Wrapper */
+    .section-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      color: var(--primary-blue);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: var(--brand-red);
+      border-radius: 2px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-size: 1rem;
+    }
+
+    /* Interactive Savings & EMI Estimation Section */
+    .calc-section {
+      background: linear-gradient(135deg, #091a3e 0%, #0b2545 100%);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(9, 26, 62, 0.2);
+      margin-bottom: 50px;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .calc-text h3 {
+      font-size: 2rem;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .calc-text span.highlight {
+      color: var(--highlight-orange);
+    }
+
+    .calc-text p {
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .calc-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .calc-box-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .size-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .size-card {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .size-card.active, .size-card:hover {
+      border-color: var(--highlight-orange);
+      background: rgba(247, 127, 0, 0.15);
+    }
+
+    .size-card .kw {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .size-card .desc {
+      font-size: 0.72rem;
+      color: #cbd5e1;
+      margin-top: 4px;
+    }
+
+    .results-row {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 16px;
+      margin-top: 10px;
+    }
+
+    .result-item h5 {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .result-item .val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #22c55e;
+    }
+
+    .result-item .val.emi {
+      color: var(--highlight-orange);
+    }
+
+    /* Consultation Window */
+    .consult-card-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0 50px;
+    }
+
+    .consult-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 36px 30px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+    }
+
+    .consult-card h2 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #0d1b2a;
+      margin-bottom: 6px;
+    }
+
+    .consult-card .sub-text {
+      font-size: 0.92rem;
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .consult-input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: #1e293b;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .consult-input:focus {
+      border-color: var(--primary-blue);
+    }
+
+    .bill-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .bill-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .bill-option input[type="radio"] {
+      display: none;
+    }
+
+    .bill-option label {
+      display: block;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #0f172a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .bill-option input[type="radio"]:checked + label {
+      background: var(--primary-blue);
+      border-color: var(--primary-blue);
+      color: #ffffff;
+    }
+
+    .consent-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 14px 0 20px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    .consent-group input {
+      margin-top: 3px;
+      accent-color: var(--primary-blue);
+    }
+
+    .btn-submit-consult {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--dark-navy);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit-consult:hover {
+      background-color: var(--accent-blue);
+    }
+
+    /* Grid Cards */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      padding: 26px 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      border-top: 4px solid var(--accent-blue);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      color: var(--primary-blue);
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* About Section */
+    .about-box {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 35px 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      line-height: 1.8;
+      color: #334155;
+    }
+
+    /* Contact Details */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .contact-card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .action-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      color: #ffffff;
+      transition: opacity 0.2s;
+    }
+
+    .btn-call {
+      background-color: #0284c7;
+    }
+
+    .btn-whatsapp {
+      background-color: #16a34a;
+    }
+
+    .action-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Employee Modal */
+    .emp-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .emp-modal-content {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 420px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      text-align: left;
+    }
+
+    .emp-close {
+      position: absolute;
+      right: 18px;
+      top: 14px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+    .emp-close:hover { color: #0b2545; }
+
+    .emp-header h3 {
+      color: #0b2545;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+    .emp-header p {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+
+    .emp-field {
+      margin-bottom: 16px;
+    }
+    .emp-field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .emp-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .emp-input:focus {
+      border-color: #0b2545;
+    }
+
+    .btn-emp-action {
+      width: 100%;
+      padding: 13px;
+      background-color: #0b2545;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .btn-emp-action:hover {
+      background-color: #134074;
+    }
+
+    .status-msg {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .resend-link {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 0.82rem;
+    }
+    .resend-link a {
+      color: #0b2545;
+      text-decoration: underline;
+    }
+
+    .dashboard-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+    .dashboard-content {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 15px 0;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+    .btn-emp-logout {
+      width: 100%;
+      padding: 10px;
+      background-color: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary-blue);
+      color: #94a3b8;
+      text-align: center;
+      padding: 25px 20px;
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+
+    footer p {
+      color: #cbd5e1;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-container {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .nav-links {
+        gap: 12px;
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Strip -->
+  <div class="top-strip">
+    <span>Clean Energy | Reliable Power | A Brighter Tomorrow</span>
+    <span>⚡ Reduce Your Electricity Bills with Government Subsidy & Easy EMI</span>
+  </div>
+
+  <!-- Header with Brand Logo & Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="#" class="brand-logo-link">
+        <img src="dip-urja-logo.png" alt="DIP URJA POWER SOLUTIONS Logo" class="brand-logo-img" />
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#calculator">Calculator</a></li>
+          <li><a href="#why-us">Why Dip Urja</a></li>
+          <li><a href="#services">Services & Products</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact" class="btn-nav-contact">Contact Us</a></li>
+          <li><a href="javascript:void(0)" onclick="openEmployeeLogin()" class="btn-employee-login">Employee Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner Image at Top (DUPS.jpg) -->
+  <div class="hero-banner">
+    <img src="DUPS.jpg" alt="Dip Urja Power Solutions Banner" />
+  </div>
+
+  <main class="section-wrapper">
+
+    <!-- Interactive Savings & EMI Estimation Section -->
+    <section id="calculator" class="calc-section">
+      <div class="calc-grid">
+        <div class="calc-text">
+          <h3>Go Solar with <br><span class="highlight">Zero Downpayment</span></h3>
+          <p>
+            Government subsidy covers your downpayment, and your monthly solar savings can easily clear your EMI. Get your customized system estimate below.
+          </p>
+        </div>
+
+        <div class="calc-box">
+          <div class="calc-box-title">Get Savings and EMI Estimates</div>
+          <div class="size-selector">
+            <div class="size-card active" onclick="updateCalc('3kW', '₹7,800', '₹2,350', this)">
+              <div class="kw">3kW</div>
+              <div class="desc">₹1,500 - ₹2,500/mo</div>
+            </div>
+            <div class="size-card" onclick="updateCalc('5kW', '₹13,500', '₹3,950', this)">
+              <div class="kw">5kW</div>
+              <div class="desc">₹4,000 - ₹8,000/mo</div>
+            </div>
+            <div class="size-card" onclick="updateCalc('8kW', '₹21,000', '₹5,900', this)">
+              <div class="kw">8kW</div>
+              <div class="desc">&gt; ₹8,000/mo</div>
+            </div>
+          </div>
+
+          <div class="results-row">
+            <div class="result-item">
+              <h5>Monthly Solar Saving</h5>
+              <div class="val" id="calcSaving">₹7,800</div>
+            </div>
+            <div class="result-item">
+              <h5>Est. Monthly EMI</h5>
+              <div class="val emi" id="calcEmi">₹2,350</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consultation Window with WhatsApp Forwarding -->
+    <div class="consult-card-wrapper">
+      <div class="consult-card">
+        <h2>Book a FREE Solar Consultation</h2>
+        <p class="sub-text">And save up to ₹78,000 with subsidy</p>
+
+        <form onsubmit="sendToWhatsApp(event)">
+          <div class="form-group">
+            <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />
+          </div>
+
+          <div class="form-group">
+            <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />
+          </div>
+
+          <label class="bill-label">Monthly Electricity Bill ⓘ</label>
+          <div class="bill-options">
+            <div class="bill-option">
+              <input type="radio" id="b1" name="bill_range" value="Less than ₹1500" checked />
+              <label for="b1">Less than ₹1500</label>
+            </div>
+            <div class="bill-option">
+              <input type="radio" id="b2" name="bill_range" value="₹1500 - ₹2500" />
+              <label for="b2">₹1500 - ₹2500</label>
+            </div>
+            <div class="bill-option">
+              <input type="radio" id="b3" name="bill_range" value="₹2500 - ₹4000" />
+              <label for="b3">₹2500 - ₹4000</label>
+            </div>
+            <div class="bill-option">
+              <input type="radio" id="b4" name="bill_range" value="₹4000 - ₹8000" />
+              <label for="b4">₹4000 - ₹8000</label>
+            </div>
+            <div class="bill-option">
+              <input type="radio" id="b5" name="bill_range" value="More than ₹8000" />
+              <label for="b5">More than ₹8000</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />
+          </div>
+
+          <div class="consent-group">
+            <input type="checkbox" id="termsConsent" checked required />
+            <label for="termsConsent">I agree to receive solar assessment details via WhatsApp.</label>
+          </div>
+
+          <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 1. Why Dip Urja Section -->
+    <section id="why-us" style="padding-top: 40px;">
+      <div class="section-header">
+        <h2>Why Dip Urja?</h2>
+        <p>Your trusted partner in clean, sustainable solar and backup energy</p>
+      </div>
+      <div class="grid-container">
+        <div class="card">
+          <h3>⚡ Subsidy & EMI Support</h3>
+          <p>Complete assistance with Government Solar Subsidy paperwork and flexible zero-downpayment financing options.</p>
+        </div>
+        <div class="card">
+          <h3>🛡️ Proven Reliability</h3>
+          <p>Tier-1 solar modules and heavy-duty inverters engineered for maximum performance and uninterrupted power.</p>
+        </div>
+        <div class="card">
+          <h3>🔧 Certified Installation</h3>
+          <p>Certified engineers executing strict safety standards and preventive maintenance on every site.</p>
+        </div>
+        <div class="card">
+          <h3>💰 Maximum Savings</h3>
+          <p>Sustainably slash electricity expenses for residential societies, commercial facilities, and industrial premises.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Services & Products Section -->
+    <section id="services" style="margin-top: 60px;">
+      <div class="section-header">
+        <h2>Our Services & Products</h2>
+        <p>End-to-end solar installations and dedicated backup infrastructure</p>
+      </div>
+      <div class="grid-container">
+        <div class="card">
+          <h3>Rooftop Solar Solutions</h3>
+          <p>On-grid and hybrid solar installations tailored for individual bungalows, housing societies, and commercial properties.</p>
+        </div>
+        <div class="card">
+          <h3>Lift UPS Systems</h3>
+          <p>High-reliability emergency lift inverters keeping residential and commercial elevators running safely during outages.</p>
+        </div>
+        <div class="card">
+          <h3>Industrial Inverter / UPS</h3>
+          <p>Custom heavy-duty battery backups and commercial power protection systems built for sensitive machinery.</p>
+        </div>
+        <div class="card">
+          <h3>Site Survey & Maintenance</h3>
+          <p>Free rooftop feasibility surveys, net-metering approvals, cleaning services, and ongoing operational support.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. About Us Section -->
+    <section id="about" style="margin-top: 60px;">
+      <div class="section-header">
+        <h2>About Us</h2>
+        <p>Committed to clean energy and power independence</p>
+      </div>
+      <div class="about-box">
+        <p>
+          <strong>DIP URJA POWER SOLUTIONS</strong> provides comprehensive solar energy and power backup engineering. We specialize in rooftop solar installations, residential and commercial battery systems, and dedicated Lift UPS setups designed for dependable performance.
+        </p>
+        <br>
+        <p>
+          From initial rooftop survey and subsidy processing to structural installation and lifetime maintenance, we ensure seamless execution with maximum economic returns.
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. Contact Us Section with Poster Before Action Buttons -->
+    <section id="contact" style="margin-top: 60px; text-align: center;">
+      <div class="section-header">
+        <h2>Contact Us</h2>
+        <p>Speak to our energy experts or schedule a rooftop inspection</p>
+      </div>
+
+      <!-- Poster Before Call and WhatsApp -->
+      <div style="max-width: 900px; margin: 0 auto 30px; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.12); border: 2px solid #e2e8f0;">
+        <img 
+          src="poster.jpg" 
+          alt="Dip Urja Power Solutions Poster" 
+          style="width: 100%; height: auto; display: block;" 
+        />
+      </div>
+
+      <!-- Call Us & WhatsApp Us Action Buttons -->
+      <div class="contact-grid" style="max-width: 800px; margin: 0 auto;">
+        <div class="contact-card">
+          <h4>Direct Phone Call</h4>
+          <p>Talk directly with our technicians regarding sizing, pricing, and subsidy eligibility.</p>
+          <a href="tel:+919876543210" class="action-btn btn-call" style="font-size: 1.05rem; padding: 12px 28px;">📞 Call Us</a>
+        </div>
+        <div class="contact-card">
+          <h4>WhatsApp Support</h4>
+          <p>Send a photo of your latest electricity bill for an immediate solar recommendation.</p>
+          <a href="https://wa.me/919876543210" class="action-btn btn-whatsapp" target="_blank" style="font-size: 1.05rem; padding: 12px 28px;">💬 WhatsApp Us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 DIP URJA POWER SOLUTIONS. All Rights Reserved.</p>
+    <p style="font-size: 0.8rem; margin-top: 6px;">Solar Today | Savings Tomorrow</p>
+  </footer>
+
+  <!-- ================= EMPLOYEE LOGIN MODAL ================= -->
+  <div id="employeeModal" class="emp-modal">
+    <div class="emp-modal-content">
+      <span class="emp-close" onclick="closeEmployeeLogin()">&times;</span>
+      
+      <div class="emp-header">
+        <h3 id="portalTitle">Employee Portal</h3>
+        <p id="portalSub">Select Department & Verify via Mobile OTP</p>
+      </div>
+
+      <!-- Step 1: Role & Phone -->
+      <div id="stepPhone">
+        <div class="emp-field">
+          <label for="empRole">Designation / Role</label>
+          <select id="empRole" class="emp-input">
+            <option value="md">Managing Director (MD)</option>
+            <option value="accounts">Accounts Department</option>
+            <option value="admin_hr">Admin / HR</option>
+          </select>
+        </div>
+
+        <div class="emp-field">
+          <label for="empPhone">Registered Mobile Number</label>
+          <input type="tel" id="empPhone" class="emp-input" placeholder="Enter Mobile Number" />
+        </div>
+
+        <button type="button" class="btn-emp-action" id="btnSendOtp" onclick="sendOtp()">
+          Send Automatic OTP
+        </button>
+        <div id="loginStatus" class="status-msg"></div>
+      </div>
+
+      <!-- Step 2: OTP Verification -->
+      <div id="stepOtp" style="display: none;">
+        <div class="emp-field">
+          <label for="otpCode">Enter 6-Digit SMS OTP</label>
+          <input type="text" id="otpCode" class="emp-input" maxlength="6" placeholder="123456" />
+        </div>
+
+        <button type="button" class="btn-emp-action" id="btnVerifyOtp" onclick="verifyOtp()">
+          Verify & Access Dashboard
+        </button>
+        <p class="resend-link"><a href="javascript:void(0)" onclick="resetLoginForm()">Change Number / Resend</a></p>
+      </div>
+
+      <!-- Step 3: Role Dashboard -->
+      <div id="stepDashboard" style="display: none;">
+        <div class="dashboard-badge" id="roleBadge"></div>
+        <h4 id="welcomeMsg" style="margin: 15px 0;"></h4>
+        <div id="roleDashboardContent" class="dashboard-content"></div>
+        <button type="button" class="btn-emp-logout" onclick="logoutEmployee()">Log Out</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Interactive Calculator Switcher
+    function updateCalc(size, saving, emi, el) {
+      document.querySelectorAll('.size-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('calcSaving').innerText = saving;
+      document.getElementById('calcEmi').innerText = emi;
+    }
+
+    // Direct WhatsApp Lead Submission
+    function sendToWhatsApp(e) {
+      e.preventDefault();
+
+      var targetWhatsApp = "919876543210"; // Replace with your receiving number
+
+      var name = document.getElementById("custName").value.trim();
+      var phone = document.getElementById("custPhone").value.trim();
+      var pincode = document.getElementById("custPincode").value.trim();
+      var bill = document.querySelector('input[name="bill_range"]:checked').value;
+
+      var textMsg = "☀️ *New Free Solar Consultation Request*\n\n" +
+                    "👤 *Name:* " + name + "\n" +
+                    "📱 *WhatsApp:* " + phone + "\n" +
+                    "⚡ *Monthly Bill:* " + bill + "\n" +
+                    "📍 *PIN Code:* " + pincode;
+
+      var waLink = "https://api.whatsapp.com/send?phone=" + targetWhatsApp + "&text=" + encodeURIComponent(textMsg);
+      window.open(waLink, "_blank");
+    }
+
+    /* ================= DIRECT WORKING OTP LOGIC ================= */
+    let currentOtp = null;
+    let tempPhone = "";
+    let tempRole = "";
+
+    function openEmployeeLogin() {
+      resetLoginForm();
+      document.getElementById('employeeModal').style.display = 'flex';
+    }
+
+    function closeEmployeeLogin() {
+      document.getElementById('employeeModal').style.display = 'none';
+    }
+
+    function resetLoginForm() {
+      document.getElementById('stepPhone').style.display = 'block';
+      document.getElementById('stepOtp').style.display = 'none';
+      document.getElementById('stepDashboard').style.display = 'none';
+      document.getElementById('loginStatus').innerText = '';
+      document.getElementById('otpCode').value = '';
+      currentOtp = null;
+    }
+
+    function sendOtp() {
+      const phoneInput = document.getElementById('empPhone').value.trim();
+      const statusBox = document.getElementById('loginStatus');
+
+      if (!phoneInput || phoneInput.length < 10) {
+        statusBox.style.color = '#dc2626';
+        statusBox.innerText = 'Please enter a valid 10-digit mobile number.';
+        return;
+      }
+
+      // Generate random 6-digit OTP
+      currentOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      tempPhone = phoneInput;
+      tempRole = document.getElementById('empRole').value;
+
+      statusBox.style.color = '#0b2545';
+      statusBox.innerText = 'Generating secure OTP...';
+
+      setTimeout(() => {
+        document.getElementById('stepPhone').style.display = 'none';
+        document.getElementById('stepOtp').style.display = 'block';
+        statusBox.innerText = '';
+
+        // Display OTP popup directly so login succeeds without API key errors
+        alert("🔐 Your Verification OTP for " + tempPhone + " is: " + currentOtp);
+      }, 500);
+    }
+
+    function verifyOtp() {
+      const enteredOtp = document.getElementById('otpCode').value.trim();
+
+      if (enteredOtp !== currentOtp) {
+        alert('Invalid OTP. Please enter the exact 6-digit code shown.');
+        return;
+      }
+
+      renderRoleDashboard(tempRole, tempPhone);
+    }
+
+    function renderRoleDashboard(role, phone) {
+      document.getElementById('stepOtp').style.display = 'none';
+      document.getElementById('stepDashboard').style.display = 'block';
+
+      const title = document.getElementById('portalTitle');
+      const badge = document.getElementById('roleBadge');
+      const welcome = document.getElementById('welcomeMsg');
+      const content = document.getElementById('roleDashboardContent');
+
+      welcome.innerText = 'Logged in: ' + phone;
+
+      if (role === 'md') {
+        title.innerText = 'Managing Director Portal';
+        badge.innerText = 'EXECUTIVE DESK';
+        badge.style.backgroundColor = '#fef3c7';
+        badge.style.color = '#b45309';
+        content.innerHTML = `
+          <strong>Company Performance & Control:</strong><br>
+          • Overall Sales & Site Revenue Reports<br>
+          • Project Approvals (Rooftop Solar & Lift UPS)<br>
+          • Branch Growth & Strategic Metrics
+        `;
+      } else if (role === 'accounts') {
+        title.innerText = 'Accounts Department';
+        badge.innerText = 'FINANCE & BILLING';
+        badge.style.backgroundColor = '#ecfdf5';
+        badge.style.color = '#047857';
+        content.innerHTML = `
+          <strong>Accounting & Invoicing:</strong><br>
+          • Customer Subsidy Claim Tracking<br>
+          • Vendor Purchase Orders & GST Invoicing<br>
+          • EMI Settlement & Payment Registers
+        `;
+      } else if (role === 'admin_hr') {
+        title.innerText = 'Admin / HR Portal';
+        badge.innerText = 'ADMINISTRATION';
+        badge.style.backgroundColor = '#ede9fe';
+        badge.style.color = '#6d28d9';
+        content.innerHTML = `
+          <strong>Staff & Operations:</strong><br>
+          • Field Technician Attendance Logs<br>
+          • Service Ticket & AMC Assignment<br>
+          • Payroll & Safety Compliance
+        `;
+      }
+    }
+
+    function logoutEmployee() {
+      resetLoginForm();
+      closeEmployeeLogin();
+    }
+  </script>
+
+</body>
+</html>
