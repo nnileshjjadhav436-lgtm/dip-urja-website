@@ -373,7 +373,7 @@
     }
 
     /* ========================================================== */
-    /* INTEGRATED IN-PAGE EMPLOYEE PORTAL VIEW (NO LOGOUT GLITCH) */
+    /* FULL INTEGRATED EMPLOYEE PORTAL VIEW                       */
     /* ========================================================== */
     #employeePortalSection {
       display: none;
@@ -395,7 +395,7 @@
     }
 
     .portal-container {
-      max-width: 1250px;
+      max-width: 1280px;
       margin: 30px auto;
       padding: 0 20px;
     }
@@ -405,7 +405,7 @@
       border-radius: 10px;
       padding: 25px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       border-left: 5px solid var(--brand-red);
     }
 
@@ -621,7 +621,7 @@
       background: #f1f5f9;
       border: 1.5px solid #cbd5e1;
       border-radius: 20px;
-      padding: 4px 10px;
+      padding: 5px 12px;
       font-size: 0.82rem;
       cursor: pointer;
       display: inline-flex;
@@ -644,7 +644,7 @@
     .time-slot-badge {
       background: #0b2545;
       color: #ffffff;
-      padding: 4px 10px;
+      padding: 5px 10px;
       border-radius: 6px;
       font-size: 0.8rem;
       font-weight: 700;
@@ -674,13 +674,11 @@
 
   <!-- ================= PUBLIC WEBSITE VIEW ================= -->
   <div id="publicWebsiteView">
-    <!-- Top Strip -->
     <div class="top-strip">
       <span>Clean Energy | Reliable Power | A Brighter Tomorrow</span>
       <span>⚡ Reduce Your Electricity Bills with Government Subsidy & Easy EMI</span>
     </div>
 
-    <!-- Header with Original Logo Only -->
     <header class="site-header">
       <div class="nav-container">
         <div class="logo-area">
@@ -698,7 +696,6 @@
       </div>
     </header>
 
-    <!-- Banner Image -->
     <div class="hero-banner">
       <img src="DUPS.jpg" alt="Dip Urja Banner" />
     </div>
@@ -901,15 +898,15 @@
   </div>
 
   <!-- ========================================================== -->
-  <!-- SECURE IN-PAGE EMPLOYEE PORTAL (NO POPUP / NO LOGOUT LOOP) -->
+  <!-- FULL INTEGRATED EMPLOYEE PORTAL VIEW                       -->
   <!-- ========================================================== -->
   <section id="employeePortalSection">
     
-    <!-- Portal Top Bar -->
+    <!-- Top Nav Bar -->
     <div class="portal-nav">
       <div>
         <h2 style="font-size: 1.3rem;">⚡ DIP URJA POWER SOLUTIONS</h2>
-        <small style="color: #cbd5e1;">Enterprise ERP - Work Reporting, Requisition & Dispatch</small>
+        <small style="color: #cbd5e1;">Enterprise ERP - Work Reporting, Requisition & Dispatch Operations</small>
       </div>
       <div style="display: flex; align-items: center; gap: 15px;">
         <span id="portalUserBadge" class="badge">Role</span>
@@ -921,13 +918,13 @@
     <div class="portal-container">
 
       <!-- ======================================================== -->
-      <!-- NEW: HOURWISE WORK REPORT SECTION WITH MD & HR THUMBS UP -->
+      <!-- 1. HOURWISE WORK REPORT (WITH MD & HR THUMBS UP 👍)      -->
       <!-- ======================================================== -->
       <div class="portal-card" style="border-left-color: #8b5cf6;">
         <div class="portal-card-header">
           <div>
-            <div class="portal-card-title">⏱️ Hourwise Employee Work Report & Activity Log</div>
-            <small style="color: #64748b;">Employees update tasks in front of each slot. MD & HR review with 👍 Thumbs Up.</small>
+            <div class="portal-card-title">⏱️ Hourwise Work Report & Activity Log</div>
+            <small style="color: #64748b;">Employees log hourly tasks. MD and HR review and confirm with thumbs up (👍).</small>
           </div>
           <div>
             <button onclick="downloadWorkReportExcel()" class="btn-portal-excel" style="background: #6d28d9;">
@@ -936,11 +933,11 @@
           </div>
         </div>
 
-        <!-- Filter bar for Work Report -->
+        <!-- Filter bar -->
         <div style="display: flex; gap: 15px; flex-wrap: wrap; background: #f8fafc; padding: 14px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0; align-items: center;">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Select Employee:</label>
-            <select id="workReportStaffSelect" class="form-control" style="width: auto; min-width: 200px;" onchange="loadHourwiseReport()"></select>
+            <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Employee Name:</label>
+            <select id="workReportStaffSelect" class="form-control" style="width: auto; min-width: 220px;" onchange="loadHourwiseReport()"></select>
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Report Date:</label>
@@ -953,28 +950,30 @@
           <table>
             <thead>
               <tr>
-                <th style="width: 140px;">Time Slot</th>
+                <th style="width: 170px;">Time Slot</th>
                 <th>Work Accomplished / Activity Details</th>
-                <th style="width: 120px;">Submit</th>
-                <th style="width: 140px;">MD Review 👍</th>
-                <th style="width: 140px;">HR Review 👍</th>
+                <th style="width: 110px;">Submit</th>
+                <th style="width: 150px;">MD Review 👍</th>
+                <th style="width: 150px;">HR Review 👍</th>
               </tr>
             </thead>
             <tbody id="hourwiseTableBody">
-              <!-- Rendered Dynamically via JS for slots 09:00 AM to 07:00 PM -->
+              <!-- Dynamically populated from JS (09:00 AM to 07:00 PM) -->
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- MATERIAL REQUISITION FORM CARD -->
+      <!-- ======================================================== -->
+      <!-- 2. MATERIAL REQUISITION FORM                             -->
+      <!-- ======================================================== -->
       <div class="portal-card" style="border-left-color: #0284c7;">
         <div class="portal-card-header">
           <div class="portal-card-title">
             <span id="formActionTitle">📝 Create Material Requisition</span>
           </div>
           <div>
-            <span style="font-size: 0.8rem; color: #64748b;">(Fields with * are mandatory)</span>
+            <span style="font-size: 0.8rem; color: #64748b;">(Fields with * are required)</span>
           </div>
         </div>
 
@@ -1047,7 +1046,9 @@
         </form>
       </div>
 
-      <!-- ACTIVE REQUISITIONS TABLE -->
+      <!-- ======================================================== -->
+      <!-- 3. ACTIVE MATERIAL REQUISITIONS TABLE                   -->
+      <!-- ======================================================== -->
       <div class="portal-card">
         <div class="portal-card-header">
           <div class="portal-card-title">📦 Active Material Requisitions Table</div>
@@ -1076,7 +1077,9 @@
         </div>
       </div>
 
-      <!-- MATERIAL DISPATCH LOG (DOWNLOADABLE TO EXCEL) -->
+      <!-- ======================================================== -->
+      <!-- 4. MATERIAL DISPATCH LOG (DOWNLOADABLE TO EXCEL)         -->
+      <!-- ======================================================== -->
       <div class="portal-card" style="border-left-color: var(--green);">
         <div class="portal-card-header">
           <div>
@@ -1239,7 +1242,6 @@
       renderRequisitionsTable();
       renderDispatchTable();
 
-      // Initialize Work Report Date to today
       var today = new Date().toISOString().split('T')[0];
       document.getElementById("workReportDate").value = today;
       loadHourwiseReport();
@@ -1392,7 +1394,7 @@
       if (items.includes(currentVal)) {
         sel.value = currentVal;
       } else if (items.length > 0 && selectId === "workReportStaffSelect") {
-        sel.value = items[0]; // Select first employee by default for reports
+        sel.value = items[0];
       }
     }
 
@@ -1460,15 +1462,14 @@
     }
 
     function toggleThumbsUp(slot, reviewerRole) {
-      // Permission check recommendation: MD or HR can approve
       var currentLoggedIn = selectedRole || "";
       if (reviewerRole === "md" && !currentLoggedIn.includes("MD") && currentLoggedIn !== "") {
-        if (!confirm("Note: Only Managing Director usually gives MD approvals. Do you still wish to proceed as authorized?")) {
+        if (!confirm("Note: MD approvals are officially given by MD. Do you still wish to toggle as authorized?")) {
           return;
         }
       }
       if (reviewerRole === "hr" && !currentLoggedIn.includes("HR") && !currentLoggedIn.includes("MD") && currentLoggedIn !== "") {
-        if (!confirm("Note: Only HR Department gives HR approvals. Do you still wish to proceed as authorized?")) {
+        if (!confirm("Note: HR approvals are officially given by HR. Do you still wish to toggle as authorized?")) {
           return;
         }
       }
