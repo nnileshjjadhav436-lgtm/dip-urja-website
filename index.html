@@ -561,14 +561,16 @@
     .status-hold { background: #fee2e2; color: #b91c1c; }
 
     .tbl-action-btn {
-      padding: 4px 8px;
-      font-size: 0.75rem;
+      padding: 5px 10px;
+      font-size: 0.78rem;
       border-radius: 4px;
       border: none;
       cursor: pointer;
       font-weight: 600;
       margin-right: 4px;
+      transition: transform 0.1s;
     }
+    .tbl-action-btn:active { transform: scale(0.96); }
     .btn-tbl-edit { background: #e0f2fe; color: #0369a1; }
     .btn-tbl-delete { background: #fee2e2; color: #b91c1c; }
     .btn-tbl-dispatch { background: #dcfce7; color: #15803d; }
@@ -612,6 +614,53 @@
       padding: 6px 10px;
       border-bottom: 1px solid #f1f5f9;
       font-size: 0.85rem;
+    }
+
+    /* HOURWISE WORK REPORT STYLES */
+    .thumbs-btn {
+      background: #f1f5f9;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .thumbs-btn:hover { background: #e2e8f0; }
+    .thumbs-btn.approved-md {
+      background: #dcfce7;
+      border-color: #86efac;
+      color: #166534;
+    }
+    .thumbs-btn.approved-hr {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+      color: #075985;
+    }
+    .time-slot-badge {
+      background: #0b2545;
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .work-input-inline {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .work-input-inline:focus {
+      border-color: var(--accent-blue);
+      background: #fafcff;
     }
 
     @media (max-width: 800px) {
@@ -819,6 +868,7 @@
           <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Select Department:</label>
           <select id="empRole" class="consult-input" style="margin-bottom: 0;">
             <option value="Managing Director (MD)">Managing Director (MD)</option>
+            <option value="HR Department">HR Department</option>
             <option value="Accounts Department">Accounts Department</option>
             <option value="Site Engineer / Technical Staff">Site Engineer / Technical Staff</option>
             <option value="Admin / Store Manager">Admin / Store Manager</option>
@@ -859,7 +909,7 @@
     <div class="portal-nav">
       <div>
         <h2 style="font-size: 1.3rem;">⚡ DIP URJA POWER SOLUTIONS</h2>
-        <small style="color: #cbd5e1;">Enterprise ERP - Material Requisition & Dispatch Control</small>
+        <small style="color: #cbd5e1;">Enterprise ERP - Work Reporting, Requisition & Dispatch</small>
       </div>
       <div style="display: flex; align-items: center; gap: 15px;">
         <span id="portalUserBadge" class="badge">Role</span>
@@ -869,6 +919,53 @@
     </div>
 
     <div class="portal-container">
+
+      <!-- ======================================================== -->
+      <!-- NEW: HOURWISE WORK REPORT SECTION WITH MD & HR THUMBS UP -->
+      <!-- ======================================================== -->
+      <div class="portal-card" style="border-left-color: #8b5cf6;">
+        <div class="portal-card-header">
+          <div>
+            <div class="portal-card-title">⏱️ Hourwise Employee Work Report & Activity Log</div>
+            <small style="color: #64748b;">Employees update tasks in front of each slot. MD & HR review with 👍 Thumbs Up.</small>
+          </div>
+          <div>
+            <button onclick="downloadWorkReportExcel()" class="btn-portal-excel" style="background: #6d28d9;">
+              📥 Export Work Report (.CSV)
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter bar for Work Report -->
+        <div style="display: flex; gap: 15px; flex-wrap: wrap; background: #f8fafc; padding: 14px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Select Employee:</label>
+            <select id="workReportStaffSelect" class="form-control" style="width: auto; min-width: 200px;" onchange="loadHourwiseReport()"></select>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Report Date:</label>
+            <input type="date" id="workReportDate" class="form-control" style="width: auto;" onchange="loadHourwiseReport()" />
+          </div>
+          <button type="button" class="btn-portal-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="loadHourwiseReport()">🔄 Refresh Slots</button>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 140px;">Time Slot</th>
+                <th>Work Accomplished / Activity Details</th>
+                <th style="width: 120px;">Submit</th>
+                <th style="width: 140px;">MD Review 👍</th>
+                <th style="width: 140px;">HR Review 👍</th>
+              </tr>
+            </thead>
+            <tbody id="hourwiseTableBody">
+              <!-- Rendered Dynamically via JS for slots 09:00 AM to 07:00 PM -->
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <!-- MATERIAL REQUISITION FORM CARD -->
       <div class="portal-card" style="border-left-color: #0284c7;">
@@ -1141,6 +1238,12 @@
       renderAllDropdowns();
       renderRequisitionsTable();
       renderDispatchTable();
+
+      // Initialize Work Report Date to today
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementById("workReportDate").value = today;
+      loadHourwiseReport();
+
       window.scrollTo(0, 0);
     }
 
@@ -1223,6 +1326,19 @@
       }
     ];
 
+    var timeSlots = [
+      "09:00 AM - 10:00 AM",
+      "10:00 AM - 11:00 AM",
+      "11:00 AM - 12:00 PM",
+      "12:00 PM - 01:00 PM",
+      "01:00 PM - 02:00 PM (Lunch / Planning)",
+      "02:00 PM - 03:00 PM",
+      "03:00 PM - 04:00 PM",
+      "04:00 PM - 05:00 PM",
+      "05:00 PM - 06:00 PM",
+      "06:00 PM - 07:00 PM"
+    ];
+
     function initData() {
       if (!localStorage.getItem("dups_sites")) {
         localStorage.setItem("dups_sites", JSON.stringify(defaultSites));
@@ -1238,6 +1354,9 @@
       }
       if (!localStorage.getItem("dups_dispatches")) {
         localStorage.setItem("dups_dispatches", JSON.stringify(defaultDispatches));
+      }
+      if (!localStorage.getItem("dups_work_reports")) {
+        localStorage.setItem("dups_work_reports", JSON.stringify({}));
       }
     }
 
@@ -1256,10 +1375,12 @@
       populateDropdown("reqSiteSelect", getData("dups_sites"));
       populateDropdown("reqStaffSelect", getData("dups_staff"));
       populateDropdown("reqMaterialSelect", getData("dups_materials"));
+      populateDropdown("workReportStaffSelect", getData("dups_staff"));
     }
 
     function populateDropdown(selectId, items) {
       var sel = document.getElementById(selectId);
+      if (!sel) return;
       var currentVal = sel.value;
       sel.innerHTML = '<option value="">-- Choose from List --</option>';
       items.forEach(function(item) {
@@ -1270,7 +1391,139 @@
       });
       if (items.includes(currentVal)) {
         sel.value = currentVal;
+      } else if (items.length > 0 && selectId === "workReportStaffSelect") {
+        sel.value = items[0]; // Select first employee by default for reports
       }
+    }
+
+    /* -------------------------------------------------------------
+       HOURWISE WORK REPORT WITH MD & HR THUMBS UP LOGIC
+    -------------------------------------------------------------- */
+    function getWorkReportStoreKey() {
+      var staff = document.getElementById("workReportStaffSelect").value || "Unknown";
+      var date = document.getElementById("workReportDate").value || "Today";
+      return staff + "___" + date;
+    }
+
+    function loadHourwiseReport() {
+      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
+      var currentKey = getWorkReportStoreKey();
+      var dayData = allReports[currentKey] || {};
+
+      var tbody = document.getElementById("hourwiseTableBody");
+      tbody.innerHTML = "";
+
+      timeSlots.forEach(function(slot, index) {
+        var slotData = dayData[slot] || { task: "", mdApproved: false, hrApproved: false };
+        var tr = document.createElement("tr");
+
+        var mdClass = slotData.mdApproved ? "approved-md" : "";
+        var mdText = slotData.mdApproved ? "MD Approved 👍" : "MD Pending 👍";
+
+        var hrClass = slotData.hrApproved ? "approved-hr" : "";
+        var hrText = slotData.hrApproved ? "HR Approved 👍" : "HR Pending 👍";
+
+        tr.innerHTML = `
+          <td><span class="time-slot-badge">${slot}</span></td>
+          <td>
+            <input type="text" id="slot_task_${index}" class="work-input-inline" placeholder="Enter work completed during this hour..." value="${slotData.task.replace(/"/g, '&quot;')}" />
+          </td>
+          <td>
+            <button type="button" class="tbl-action-btn btn-tbl-dispatch" onclick="saveSlotTask(${index}, '${slot}')">Submit Slot</button>
+          </td>
+          <td>
+            <button type="button" class="thumbs-btn ${mdClass}" onclick="toggleThumbsUp('${slot}', 'md')">${mdText}</button>
+          </td>
+          <td>
+            <button type="button" class="thumbs-btn ${hrClass}" onclick="toggleThumbsUp('${slot}', 'hr')">${hrText}</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function saveSlotTask(index, slot) {
+      var inputEl = document.getElementById("slot_task_" + index);
+      var taskText = inputEl.value.trim();
+
+      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
+      var currentKey = getWorkReportStoreKey();
+      if (!allReports[currentKey]) allReports[currentKey] = {};
+      if (!allReports[currentKey][slot]) {
+        allReports[currentKey][slot] = { task: "", mdApproved: false, hrApproved: false };
+      }
+
+      allReports[currentKey][slot].task = taskText;
+      localStorage.setItem("dups_work_reports", JSON.stringify(allReports));
+      alert("✅ Slot [" + slot + "] work details saved successfully!");
+      loadHourwiseReport();
+    }
+
+    function toggleThumbsUp(slot, reviewerRole) {
+      // Permission check recommendation: MD or HR can approve
+      var currentLoggedIn = selectedRole || "";
+      if (reviewerRole === "md" && !currentLoggedIn.includes("MD") && currentLoggedIn !== "") {
+        if (!confirm("Note: Only Managing Director usually gives MD approvals. Do you still wish to proceed as authorized?")) {
+          return;
+        }
+      }
+      if (reviewerRole === "hr" && !currentLoggedIn.includes("HR") && !currentLoggedIn.includes("MD") && currentLoggedIn !== "") {
+        if (!confirm("Note: Only HR Department gives HR approvals. Do you still wish to proceed as authorized?")) {
+          return;
+        }
+      }
+
+      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
+      var currentKey = getWorkReportStoreKey();
+      if (!allReports[currentKey]) allReports[currentKey] = {};
+      if (!allReports[currentKey][slot]) {
+        allReports[currentKey][slot] = { task: "", mdApproved: false, hrApproved: false };
+      }
+
+      if (reviewerRole === "md") {
+        allReports[currentKey][slot].mdApproved = !allReports[currentKey][slot].mdApproved;
+      } else {
+        allReports[currentKey][slot].hrApproved = !allReports[currentKey][slot].hrApproved;
+      }
+
+      localStorage.setItem("dups_work_reports", JSON.stringify(allReports));
+      loadHourwiseReport();
+    }
+
+    function downloadWorkReportExcel() {
+      var staff = document.getElementById("workReportStaffSelect").value || "Staff";
+      var date = document.getElementById("workReportDate").value || "Date";
+      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
+      var currentKey = getWorkReportStoreKey();
+      var dayData = allReports[currentKey] || {};
+
+      var csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += "Staff Name,Date,Time Slot,Work Description / Activity,MD Approval,HR Approval\r\n";
+
+      timeSlots.forEach(function(slot) {
+        var data = dayData[slot] || { task: "", mdApproved: false, hrApproved: false };
+        var cleanTask = '"' + (data.task || "No entry").replace(/"/g, '""') + '"';
+        var mdStatus = data.mdApproved ? "Approved 👍" : "Pending";
+        var hrStatus = data.hrApproved ? "Approved 👍" : "Pending";
+
+        var row = [
+          '"' + staff + '"',
+          '"' + date + '"',
+          '"' + slot + '"',
+          cleanTask,
+          '"' + mdStatus + '"',
+          '"' + hrStatus + '"'
+        ].join(",");
+        csvContent += row + "\r\n";
+      });
+
+      var encodedUri = encodeURI(csvContent);
+      var link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "Dip_Urja_Work_Report_" + staff.split(" ")[0] + "_" + date + ".csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     /* -------------------------------------------------------------
@@ -1329,7 +1582,6 @@
       var reqs = getData("dups_requisitions");
 
       if (editId) {
-        // UPDATE EXISTING
         var idx = reqs.findIndex(r => r.id === editId);
         if (idx !== -1) {
           reqs[idx].site = site;
@@ -1341,7 +1593,6 @@
           alert("Requisition #" + editId + " updated successfully!");
         }
       } else {
-        // CREATE NEW
         var newId = "REQ-" + Math.floor(100 + Math.random() * 900);
         var today = new Date().toISOString().split('T')[0];
         reqs.unshift({
@@ -1421,7 +1672,6 @@
         mdStatus: item.md
       });
 
-      // Remove from active pending table
       reqs = reqs.filter(r => r.id !== id);
 
       setData("dups_dispatches", dispatches);
