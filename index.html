@@ -625,7 +625,7 @@
       font-size: 0.85rem;
     }
 
-    /* HOURWISE WORK REPORT STYLES */
+    /* HOURWISE WORK REPORT STYLES & FREEZE SYSTEM */
     .thumbs-btn {
       background: #f1f5f9;
       border: 1.5px solid #cbd5e1;
@@ -670,6 +670,24 @@
     .work-input-inline:focus {
       border-color: var(--accent-blue);
       background: #fafcff;
+    }
+    .work-input-inline:disabled {
+      background-color: #f1f5f9;
+      color: #64748b;
+      cursor: not-allowed;
+      border-color: #e2e8f0;
+    }
+    .freeze-tag {
+      font-size: 0.72rem;
+      color: #dc2626;
+      font-weight: 700;
+      margin-left: 5px;
+    }
+    .hr-override-tag {
+      font-size: 0.72rem;
+      color: #15803d;
+      font-weight: 700;
+      margin-left: 5px;
     }
 
     @media (max-width: 800px) {
@@ -981,13 +999,15 @@
       </div>
 
       <!-- ======================================================== -->
-      <!-- 2. HOURWISE WORK REPORT (MD & HR THUMBS UP 👍)           -->
+      <!-- 2. HOURWISE WORK REPORT (MD & HR CONSOLIDATED DASHBOARD) -->
       <!-- ======================================================== -->
       <div class="portal-card" style="border-left-color: #8b5cf6;">
         <div class="portal-card-header">
           <div>
             <div class="portal-card-title">⏱️ Hourwise Work Report & Activity Log</div>
-            <small style="color: #64748b;">Employees log hourly tasks. MD and HR review and confirm with thumbs up (👍).</small>
+            <small style="color: #64748b;">
+              ⚠️ <strong>Time Slot Freeze Rule:</strong> Each time slot locks automatically 1 hour after it ends. Once locked, only HR/MD can edit.
+            </small>
           </div>
           <div>
             <button onclick="downloadWorkReportExcel()" class="btn-portal-excel" style="background: #6d28d9;">
@@ -998,25 +1018,21 @@
 
         <div style="display: flex; gap: 15px; flex-wrap: wrap; background: #f8fafc; padding: 14px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0; align-items: center;">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Employee Name:</label>
-            <select id="workReportStaffSelect" class="form-control" style="width: auto; min-width: 220px;" onchange="loadHourwiseReport()"></select>
+            <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">View Mode / Employee:</label>
+            <select id="workReportStaffSelect" class="form-control" style="width: auto; min-width: 250px;" onchange="loadHourwiseReport()"></select>
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Report Date:</label>
             <input type="date" id="workReportDate" class="form-control" style="width: auto;" onchange="loadHourwiseReport()" />
           </div>
-          <button type="button" class="btn-portal-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="loadHourwiseReport()">🔄 Refresh Slots</button>
+          <button type="button" class="btn-portal-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="loadHourwiseReport()">🔄 Refresh Dashboard</button>
         </div>
 
         <div class="table-container">
           <table>
             <thead>
-              <tr>
-                <th style="width: 170px;">Time Slot</th>
-                <th>Work Accomplished / Activity Details</th>
-                <th style="width: 110px;">Submit</th>
-                <th style="width: 150px;">MD Review 👍</th>
-                <th style="width: 150px;">HR Review 👍</th>
+              <tr id="hourwiseTableHeader">
+                <!-- Dynamically adjusted between Single Staff view vs Consolidated Master view -->
               </tr>
             </thead>
             <tbody id="hourwiseTableBody">
@@ -1200,11 +1216,11 @@
 
   <script>
     /* -------------------------------------------------------------
-       DEFAULT REGISTERED EMPLOYEES & DIRECTORY DATABASE
+       REGISTERED EMPLOYEES DIRECTORY DATABASE
     -------------------------------------------------------------- */
     var defaultEmployees = [
       { name: "Nilesh Balasaheb Jadhav", phone: "9226194332", role: "Managing Director (MD)" },
-      { name: "Pooja Jadhav (HR)", phone: "9226194804", role: "HR Department" },
+      { name: "HR Manager", phone: "9226194804", role: "HR Department" },
       { name: "Ganesh Shinde (Store)", phone: "9822012345", role: "Store Keeper" },
       { name: "Kavita R. (Accounts)", phone: "9422098765", role: "Accounts Department" },
       { name: "Rahul Patil (Site Engineer)", phone: "9765432100", role: "Site Engineer / Technical Staff" },
@@ -1270,17 +1286,18 @@
       }
     ];
 
+    // Slots definition with start and end hours (24-hour format)
     var timeSlots = [
-      "09:00 AM - 10:00 AM",
-      "10:00 AM - 11:00 AM",
-      "11:00 AM - 12:00 PM",
-      "12:00 PM - 01:00 PM",
-      "01:00 PM - 02:00 PM (Lunch / Planning)",
-      "02:00 PM - 03:00 PM",
-      "03:00 PM - 04:00 PM",
-      "04:00 PM - 05:00 PM",
-      "05:00 PM - 06:00 PM",
-      "06:00 PM - 07:00 PM"
+      { label: "09:00 AM - 10:00 AM", endHour: 10 },
+      { label: "10:00 AM - 11:00 AM", endHour: 11 },
+      { label: "11:00 AM - 12:00 PM", endHour: 12 },
+      { label: "12:00 PM - 01:00 PM", endHour: 13 },
+      { label: "01:00 PM - 02:00 PM (Lunch / Planning)", endHour: 14 },
+      { label: "02:00 PM - 03:00 PM", endHour: 15 },
+      { label: "03:00 PM - 04:00 PM", endHour: 16 },
+      { label: "04:00 PM - 05:00 PM", endHour: 17 },
+      { label: "05:00 PM - 06:00 PM", endHour: 18 },
+      { label: "06:00 PM - 07:00 PM", endHour: 19 }
     ];
 
     function initData() {
@@ -1374,7 +1391,6 @@
       }
 
       var employees = getData("dups_employees");
-      // Find employee strictly matching the registered 10-digit phone
       var matchedEmp = employees.find(function(e) {
         var empClean = e.phone.replace(/[^0-9]/g, '');
         if (empClean.startsWith("91") && empClean.length === 12) empClean = empClean.substring(2);
@@ -1422,7 +1438,6 @@
       document.getElementById('portalUserBadge').innerText = user.role;
       document.getElementById('portalUserPhone').innerText = "+91 " + user.phone;
 
-      // Apply role-based visibility restrictions
       applyRolePermissions(user.role);
 
       renderAllDropdowns();
@@ -1448,7 +1463,6 @@
 
     /* -------------------------------------------------------------
        ROLE-BASED PERMISSION ENFORCEMENT
-       (Store Keeper, MD, and HR Only have management & approval rights)
     -------------------------------------------------------------- */
     function isMdOrHr(role) {
       return role.includes("MD") || role.includes("HR");
@@ -1462,7 +1476,6 @@
       var hasFullAdmin = isMdOrHr(role);
       var hasStoreRight = isStoreKeeper(role);
 
-      // 1. Employee Directory Card: Visible only to MD & HR
       var empCard = document.getElementById("empDirectoryCard");
       if (hasFullAdmin) {
         empCard.style.display = "block";
@@ -1470,7 +1483,6 @@
         empCard.style.display = "none";
       }
 
-      // 2. Sensitive Master Dropdown Edit Links: Visible only to MD, HR & Store Keeper
       var sensitiveLinks = document.querySelectorAll(".perm-sensitive");
       sensitiveLinks.forEach(function(el) {
         el.style.display = (hasFullAdmin || hasStoreRight) ? "inline" : "none";
@@ -1493,7 +1505,7 @@
 
         var permDesc = "Standard Technical Access";
         if (emp.role.includes("MD")) permDesc = "Full Administrative & Clearance Rights";
-        else if (emp.role.includes("HR")) permDesc = "Staff Management & HR Thumbs Up";
+        else if (emp.role.includes("HR")) permDesc = "Staff Management & Master Work Report";
         else if (emp.role.includes("Store")) permDesc = "Material Master & Dispatch Controls";
         else if (emp.role.includes("Accounts")) permDesc = "Financial Requisition Verification";
 
@@ -1537,7 +1549,6 @@
 
       var employees = getData("dups_employees");
 
-      // Check duplicate mobile numbers across other employees
       var duplicate = employees.find(function(emp, i) {
         return emp.phone === phoneDigits && i !== editIdx;
       });
@@ -1612,7 +1623,33 @@
       var staffList = employees.map(function(e) { return e.name + " (" + e.role + ")"; });
 
       populateDropdown("reqStaffSelect", staffList);
-      populateDropdown("workReportStaffSelect", staffList);
+
+      // Setup Work Report Dropdown
+      var wrSelect = document.getElementById("workReportStaffSelect");
+      var currentWrVal = wrSelect.value;
+      wrSelect.innerHTML = "";
+
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+      if (isMdOrHr(currentRole)) {
+        // HR/MD gets the consolidated option as default
+        var allOpt = document.createElement("option");
+        allOpt.value = "ALL_STAFF";
+        allOpt.textContent = "👥 ALL Employees — Consolidated Master Overview";
+        wrSelect.appendChild(allOpt);
+      }
+
+      staffList.forEach(function(item) {
+        var opt = document.createElement("option");
+        opt.value = item;
+        opt.textContent = item;
+        wrSelect.appendChild(opt);
+      });
+
+      if (currentWrVal && (currentWrVal === "ALL_STAFF" || staffList.includes(currentWrVal))) {
+        wrSelect.value = currentWrVal;
+      } else {
+        wrSelect.value = isMdOrHr(currentRole) ? "ALL_STAFF" : (staffList[0] || "");
+      }
     }
 
     function populateDropdown(selectId, items) {
@@ -1628,78 +1665,195 @@
       });
       if (items.includes(currentVal)) {
         sel.value = currentVal;
-      } else if (items.length > 0 && selectId === "workReportStaffSelect") {
-        sel.value = items[0];
       }
     }
 
     /* -------------------------------------------------------------
-       HOURWISE WORK REPORT WITH MD & HR APPROVAL (👍)
+       1-HOUR AUTOMATIC TIME SLOT FREEZE CHECK
+       Rule: Slot editing freezes 1 hour after the slot ends.
+       Example: Slot ends at 10:00 AM -> Freezes at 11:00 AM.
+       Only HR and MD are exempt from freeze lock.
     -------------------------------------------------------------- */
-    function getWorkReportStoreKey() {
-      var staff = document.getElementById("workReportStaffSelect").value || "Unknown";
-      var date = document.getElementById("workReportDate").value || "Today";
-      return staff + "___" + date;
+    function isSlotFrozen(selectedDateStr, endHour) {
+      var now = new Date();
+      var selectedDate = new Date(selectedDateStr + "T00:00:00");
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+      // If selected date is prior to today, the entire day is already frozen
+      if (selectedDate < today) {
+        return true;
+      }
+
+      // If date is in the future, it is not frozen
+      if (selectedDate > today) {
+        return false;
+      }
+
+      // If date is today, check if current time is past (endHour + 1)
+      var freezeHour = endHour + 1;
+      var currentHour = now.getHours();
+      var currentMinutes = now.getMinutes();
+
+      if (currentHour > freezeHour || (currentHour === freezeHour && currentMinutes > 0)) {
+        return true;
+      }
+
+      return false;
     }
 
+    /* -------------------------------------------------------------
+       HOURWISE WORK REPORT: CONSOLIDATED ALL-STAFF OR SINGLE STAFF
+    -------------------------------------------------------------- */
     function loadHourwiseReport() {
-      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
-      var currentKey = getWorkReportStoreKey();
-      var dayData = allReports[currentKey] || {};
+      var wrSelect = document.getElementById("workReportStaffSelect");
+      var selectedTarget = wrSelect.value;
+      var date = document.getElementById("workReportDate").value || new Date().toISOString().split('T')[0];
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+      var isHrMd = isMdOrHr(currentRole);
 
+      var theadTr = document.getElementById("hourwiseTableHeader");
       var tbody = document.getElementById("hourwiseTableBody");
       tbody.innerHTML = "";
 
-      timeSlots.forEach(function(slot, index) {
-        var slotData = dayData[slot] || { task: "", mdApproved: false, hrApproved: false };
-        var tr = document.createElement("tr");
+      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
 
-        var mdClass = slotData.mdApproved ? "approved-md" : "";
-        var mdText = slotData.mdApproved ? "MD Approved 👍" : "MD Pending 👍";
-
-        var hrClass = slotData.hrApproved ? "approved-hr" : "";
-        var hrText = slotData.hrApproved ? "HR Approved 👍" : "HR Pending 👍";
-
-        tr.innerHTML = `
-          <td><span class="time-slot-badge">${slot}</span></td>
-          <td>
-            <input type="text" id="slot_task_${index}" class="work-input-inline" placeholder="Enter work completed during this hour..." value="${slotData.task.replace(/"/g, '&quot;')}" />
-          </td>
-          <td>
-            <button type="button" class="tbl-action-btn btn-tbl-dispatch" onclick="saveSlotTask(${index}, '${slot}')">Submit Slot</button>
-          </td>
-          <td>
-            <button type="button" class="thumbs-btn ${mdClass}" onclick="toggleThumbsUp('${slot}', 'md')">${mdText}</button>
-          </td>
-          <td>
-            <button type="button" class="thumbs-btn ${hrClass}" onclick="toggleThumbsUp('${slot}', 'hr')">${hrText}</button>
-          </td>
+      if (selectedTarget === "ALL_STAFF") {
+        // ================= CONSOLIDATED MASTER OVERVIEW =================
+        theadTr.innerHTML = `
+          <th style="width: 180px;">Employee</th>
+          <th style="width: 150px;">Time Slot</th>
+          <th>Work Description / Activity</th>
+          <th style="width: 100px;">Save</th>
+          <th style="width: 140px;">MD Review 👍</th>
+          <th style="width: 140px;">HR Review 👍</th>
         `;
-        tbody.appendChild(tr);
-      });
+
+        var employees = getData("dups_employees");
+        employees.forEach(function(emp, empIdx) {
+          var empStaffKey = emp.name + " (" + emp.role + ")";
+          var storeKey = empStaffKey + "___" + date;
+          var empData = allReports[storeKey] || {};
+
+          timeSlots.forEach(function(slotObj, slotIdx) {
+            var slot = slotObj.label;
+            var slotData = empData[slot] || { task: "", mdApproved: false, hrApproved: false };
+            var frozen = isSlotFrozen(date, slotObj.endHour);
+
+            var canEdit = isHrMd || !frozen;
+            var inputDisabledAttr = canEdit ? "" : "disabled";
+            var freezeLabel = frozen ? (isHrMd ? '<span class="hr-override-tag">🔓 HR Override</span>' : '<span class="freeze-tag">🔒 Frozen</span>') : '';
+
+            var mdClass = slotData.mdApproved ? "approved-md" : "";
+            var mdText = slotData.mdApproved ? "MD Approved 👍" : "MD Pending 👍";
+
+            var hrClass = slotData.hrApproved ? "approved-hr" : "";
+            var hrText = slotData.hrApproved ? "HR Approved 👍" : "HR Pending 👍";
+
+            var inputId = "slot_task_all_" + empIdx + "_" + slotIdx;
+
+            var tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td><strong>${emp.name}</strong><br><small style="color:#64748b;">${emp.role}</small></td>
+              <td><span class="time-slot-badge">${slot}</span>${freezeLabel}</td>
+              <td>
+                <input type="text" id="${inputId}" class="work-input-inline" placeholder="Enter work completed..." value="${slotData.task.replace(/"/g, '&quot;')}" ${inputDisabledAttr} />
+              </td>
+              <td>
+                ${canEdit ? `<button type="button" class="tbl-action-btn btn-tbl-dispatch" onclick="saveMasterSlot('${empStaffKey}', '${slot}', '${inputId}',${slotObj.endHour})">Save</button>` : `<span style="color:#94a3b8; font-size:0.75rem;">Locked</span>`}
+              </td>
+              <td>
+                <button type="button" class="thumbs-btn ${mdClass}" onclick="toggleThumbsUpSlot('${empStaffKey}', '${slot}', 'md')">${mdText}</button>
+              </td>
+              <td>
+                <button type="button" class="thumbs-btn ${hrClass}" onclick="toggleThumbsUpSlot('${empStaffKey}', '${slot}', 'hr')">${hrText}</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        });
+
+      } else {
+        // ================= INDIVIDUAL EMPLOYEE VIEW =================
+        theadTr.innerHTML = `
+          <th style="width: 170px;">Time Slot</th>
+          <th>Work Accomplished / Activity Details</th>
+          <th style="width: 110px;">Submit</th>
+          <th style="width: 150px;">MD Review 👍</th>
+          <th style="width: 150px;">HR Review 👍</th>
+        `;
+
+        var storeKey = selectedTarget + "___" + date;
+        var dayData = allReports[storeKey] || {};
+
+        timeSlots.forEach(function(slotObj, index) {
+          var slot = slotObj.label;
+          var slotData = dayData[slot] || { task: "", mdApproved: false, hrApproved: false };
+          var frozen = isSlotFrozen(date, slotObj.endHour);
+
+          var canEdit = isHrMd || !frozen;
+          var inputDisabledAttr = canEdit ? "" : "disabled";
+          var freezeLabel = frozen ? (isHrMd ? '<span class="hr-override-tag">🔓 HR Override</span>' : '<span class="freeze-tag">🔒 Frozen (1h Expired)</span>') : '';
+
+          var mdClass = slotData.mdApproved ? "approved-md" : "";
+          var mdText = slotData.mdApproved ? "MD Approved 👍" : "MD Pending 👍";
+
+          var hrClass = slotData.hrApproved ? "approved-hr" : "";
+          var hrText = slotData.hrApproved ? "HR Approved 👍" : "HR Pending 👍";
+
+          var inputId = "slot_task_single_" + index;
+
+          var tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><span class="time-slot-badge">${slot}</span>${freezeLabel}</td>
+            <td>
+              <input type="text" id="${inputId}" class="work-input-inline" placeholder="Enter work completed during this hour..." value="${slotData.task.replace(/"/g, '&quot;')}" ${inputDisabledAttr} />
+            </td>
+            <td>
+              ${canEdit ? `<button type="button" class="tbl-action-btn btn-tbl-dispatch" onclick="saveMasterSlot('${selectedTarget}', '${slot}', '${inputId}',${slotObj.endHour})">Submit</button>` : `<span style="color:#94a3b8; font-size:0.75rem;">Locked</span>`}
+            </td>
+            <td>
+              <button type="button" class="thumbs-btn ${mdClass}" onclick="toggleThumbsUpSlot('${selectedTarget}', '${slot}', 'md')">${mdText}</button>
+            </td>
+            <td>
+              <button type="button" class="thumbs-btn ${hrClass}" onclick="toggleThumbsUpSlot('${selectedTarget}', '${slot}', 'hr')">${hrText}</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
     }
 
-    function saveSlotTask(index, slot) {
-      var inputEl = document.getElementById("slot_task_" + index);
+    function saveMasterSlot(staffKey, slot, inputId, endHour) {
+      var date = document.getElementById("workReportDate").value || new Date().toISOString().split('T')[0];
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+      var isHrMd = isMdOrHr(currentRole);
+
+      // Check slot freeze enforcement
+      if (!isHrMd && isSlotFrozen(date, endHour)) {
+        alert("🔒 Time Slot Frozen: The 1-hour window to edit this work slot has expired. Only HR or MD can edit this record now.");
+        loadHourwiseReport();
+        return;
+      }
+
+      var inputEl = document.getElementById(inputId);
       var taskText = inputEl.value.trim();
 
       var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
-      var currentKey = getWorkReportStoreKey();
-      if (!allReports[currentKey]) allReports[currentKey] = {};
-      if (!allReports[currentKey][slot]) {
-        allReports[currentKey][slot] = { task: "", mdApproved: false, hrApproved: false };
+      var storeKey = staffKey + "___" + date;
+      if (!allReports[storeKey]) allReports[storeKey] = {};
+      if (!allReports[storeKey][slot]) {
+        allReports[storeKey][slot] = { task: "", mdApproved: false, hrApproved: false };
       }
 
-      allReports[currentKey][slot].task = taskText;
+      allReports[storeKey][slot].task = taskText;
       localStorage.setItem("dups_work_reports", JSON.stringify(allReports));
-      alert("✅ Slot [" + slot + "] work details saved successfully!");
+      alert("✅ Saved slot [" + slot + "] for " + staffKey.split("(")[0].trim());
       loadHourwiseReport();
     }
 
-    function toggleThumbsUp(slot, reviewerRole) {
+    function toggleThumbsUpSlot(staffKey, slot, reviewerRole) {
       var currentRole = loggedInUser ? loggedInUser.role : "";
 
-      // Strict approval restriction: MD and HR only
       if (reviewerRole === "md" && !currentRole.includes("MD")) {
         alert("Permission Denied: Only Managing Director can grant MD Thumbs Up 👍 approvals.");
         return;
@@ -1710,17 +1864,19 @@
         return;
       }
 
+      var date = document.getElementById("workReportDate").value || new Date().toISOString().split('T')[0];
       var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
-      var currentKey = getWorkReportStoreKey();
-      if (!allReports[currentKey]) allReports[currentKey] = {};
-      if (!allReports[currentKey][slot]) {
-        allReports[currentKey][slot] = { task: "", mdApproved: false, hrApproved: false };
+      var storeKey = staffKey + "___" + date;
+
+      if (!allReports[storeKey]) allReports[storeKey] = {};
+      if (!allReports[storeKey][slot]) {
+        allReports[storeKey][slot] = { task: "", mdApproved: false, hrApproved: false };
       }
 
       if (reviewerRole === "md") {
-        allReports[currentKey][slot].mdApproved = !allReports[currentKey][slot].mdApproved;
+        allReports[storeKey][slot].mdApproved = !allReports[storeKey][slot].mdApproved;
       } else {
-        allReports[currentKey][slot].hrApproved = !allReports[currentKey][slot].hrApproved;
+        allReports[storeKey][slot].hrApproved = !allReports[storeKey][slot].hrApproved;
       }
 
       localStorage.setItem("dups_work_reports", JSON.stringify(allReports));
@@ -1728,36 +1884,49 @@
     }
 
     function downloadWorkReportExcel() {
-      var staff = document.getElementById("workReportStaffSelect").value || "Staff";
-      var date = document.getElementById("workReportDate").value || "Date";
+      var wrSelect = document.getElementById("workReportStaffSelect");
+      var selectedTarget = wrSelect.value;
+      var date = document.getElementById("workReportDate").value || new Date().toISOString().split('T')[0];
       var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
-      var currentKey = getWorkReportStoreKey();
-      var dayData = allReports[currentKey] || {};
 
       var csvContent = "data:text/csv;charset=utf-8,";
       csvContent += "Staff Name,Date,Time Slot,Work Description / Activity,MD Approval,HR Approval\r\n";
 
-      timeSlots.forEach(function(slot) {
-        var data = dayData[slot] || { task: "", mdApproved: false, hrApproved: false };
-        var cleanTask = '"' + (data.task || "No entry").replace(/"/g, '""') + '"';
-        var mdStatus = data.mdApproved ? "Approved 👍" : "Pending";
-        var hrStatus = data.hrApproved ? "Approved 👍" : "Pending";
+      var targetStaffList = [];
+      if (selectedTarget === "ALL_STAFF") {
+        var employees = getData("dups_employees");
+        targetStaffList = employees.map(function(e) { return e.name + " (" + e.role + ")"; });
+      } else {
+        targetStaffList = [selectedTarget];
+      }
 
-        var row = [
-          '"' + staff + '"',
-          '"' + date + '"',
-          '"' + slot + '"',
-          cleanTask,
-          '"' + mdStatus + '"',
-          '"' + hrStatus + '"'
-        ].join(",");
-        csvContent += row + "\r\n";
+      targetStaffList.forEach(function(staffKey) {
+        var storeKey = staffKey + "___" + date;
+        var dayData = allReports[storeKey] || {};
+
+        timeSlots.forEach(function(slotObj) {
+          var slot = slotObj.label;
+          var data = dayData[slot] || { task: "", mdApproved: false, hrApproved: false };
+          var cleanTask = '"' + (data.task || "No entry").replace(/"/g, '""') + '"';
+          var mdStatus = data.mdApproved ? "Approved 👍" : "Pending";
+          var hrStatus = data.hrApproved ? "Approved 👍" : "Pending";
+
+          var row = [
+            '"' + staffKey + '"',
+            '"' + date + '"',
+            '"' + slot + '"',
+            cleanTask,
+            '"' + mdStatus + '"',
+            '"' + hrStatus + '"'
+          ].join(",");
+          csvContent += row + "\r\n";
+        });
       });
 
       var encodedUri = encodeURI(csvContent);
       var link = document.createElement("a");
       link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "Dip_Urja_Work_Report_" + staff.split(" ")[0] + "_" + date + ".csv");
+      link.setAttribute("download", "Dip_Urja_Work_Report_" + (selectedTarget === "ALL_STAFF" ? "Master_All_Staff" : selectedTarget.split(" ")[0]) + "_" + date + ".csv");
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -1818,9 +1987,8 @@
 
       var currentRole = loggedInUser ? loggedInUser.role : "";
 
-      // Restrict unauthorized MD clearance updates
       if (md.includes("Approved") && !currentRole.includes("MD")) {
-        alert("Notice: MD Clearance status can only be officially verified by the Managing Director. Status will be marked as 'Pending MD Clearance'.");
+        alert("Notice: MD Clearance status can only be officially verified by the Managing Director. Marked as 'Pending MD Clearance'.");
         md = "⏳ Pending MD Clearance";
       }
 
