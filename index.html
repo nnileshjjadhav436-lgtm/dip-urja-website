@@ -227,6 +227,7 @@
       border-radius: 8px;
       font-size: 0.95rem;
       margin-bottom: 12px;
+      background: #ffffff;
     }
 
     .bill-options {
@@ -381,15 +382,15 @@
 
   <!-- Top Strip -->
   <div class="top-strip">
-    <span>Clean Energy | Reliable Power | A Brighter Tomorrow</span>[cite: 1]
-    <span>⚡ Reduce Your Electricity Bills with Government Subsidy & Easy EMI</span>[cite: 1]
+    <span>Clean Energy | Reliable Power | A Brighter Tomorrow</span>
+    <span>⚡ Reduce Your Electricity Bills with Government Subsidy & Easy EMI</span>
   </div>
 
   <!-- Header with Original Logo Only -->
   <header class="site-header">
     <div class="nav-container">
       <div class="logo-area">
-        <a href="#"><img src="dip-urja-logo.png" alt="Dip Urja Logo" /></a>[cite: 5]
+        <a href="#"><img src="dip-urja-logo.png" alt="Dip Urja Logo" /></a>
       </div>
       <nav>
         <ul class="nav-links">
@@ -414,33 +415,33 @@
     <section id="calculator" class="calc-section">
       <div class="calc-grid">
         <div>
-          <h3 style="font-size: 1.8rem; margin-bottom: 10px;">Go Solar with <span style="color: var(--highlight-orange);">Zero Downpayment</span></h3>[cite: 3, 4]
-          <p style="color: #cbd5e1;">Government subsidy covers your downpayment, and monthly solar savings cover your EMI.</p>[cite: 3, 4]
+          <h3 style="font-size: 1.8rem; margin-bottom: 10px;">Go Solar with <span style="color: var(--highlight-orange);">Zero Downpayment</span></h3>
+          <p style="color: #cbd5e1;">Government subsidy covers your downpayment, and monthly solar savings cover your EMI.</p>
         </div>
 
         <div class="calc-box">
           <div style="font-weight: 700; margin-bottom: 10px;">Select Solar System Capacity:</div>
           <div class="size-selector">
             <div class="size-card active" onclick="updateCalc('3kW', '₹7,800', '₹2,350', this)">
-              <strong>3kW</strong>[cite: 3, 4]
-              <div style="font-size: 0.7rem; color: #cbd5e1;">₹1,500 - ₹2,500/mo</div>[cite: 3, 4]
+              <strong>3kW</strong>
+              <div style="font-size: 0.7rem; color: #cbd5e1;">₹1,500 - ₹2,500/mo</div>
             </div>
             <div class="size-card" onclick="updateCalc('5kW', '₹13,500', '₹3,950', this)">
-              <strong>5kW</strong>[cite: 3, 4]
-              <div style="font-size: 0.7rem; color: #cbd5e1;">₹4,000 - ₹8,000/mo</div>[cite: 3, 4]
+              <strong>5kW</strong>
+              <div style="font-size: 0.7rem; color: #cbd5e1;">₹4,000 - ₹8,000/mo</div>
             </div>
             <div class="size-card" onclick="updateCalc('8kW', '₹21,000', '₹5,900', this)">
-              <strong>8kW</strong>[cite: 4]
-              <div style="font-size: 0.7rem; color: #cbd5e1;">&gt; ₹8,000/mo</div>[cite: 3, 4]
+              <strong>8kW</strong>
+              <div style="font-size: 0.7rem; color: #cbd5e1;">&gt; ₹8,000/mo</div>
             </div>
           </div>
           <div class="results-row">
             <div>
-              <div style="font-size: 0.75rem; color: #94a3b8;">MONTHLY SAVING</div>[cite: 3, 4]
-              <div class="val" id="calcSaving">₹7,800</div>[cite: 3]
+              <div style="font-size: 0.75rem; color: #94a3b8;">MONTHLY SAVING</div>
+              <div class="val" id="calcSaving">₹7,800</div>
             </div>
             <div>
-              <div style="font-size: 0.75rem; color: #94a3b8;">EST. EMI</div>[cite: 3, 4]
+              <div style="font-size: 0.75rem; color: #94a3b8;">EST. EMI</div>
               <div class="val" id="calcEmi" style="color: var(--highlight-orange);">₹2,350</div>
             </div>
           </div>
@@ -450,59 +451,59 @@
 
     <!-- Free Consultation Form -->
     <div class="consult-card">
-      <h2 style="font-size: 1.4rem; color: var(--primary-blue); margin-bottom: 4px;">Book a FREE Solar Consultation</h2>[cite: 2]
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Save up to ₹78,000 with subsidy</p>[cite: 2]
+      <h2 style="font-size: 1.4rem; color: var(--primary-blue); margin-bottom: 4px;">Book a FREE Solar Consultation</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Save up to ₹78,000 with subsidy</p>
 
       <form onsubmit="sendToWhatsApp(event)">
-        <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />[cite: 2]
-        <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />[cite: 2]
+        <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />
+        <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />
 
-        <div style="font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">Monthly Electricity Bill:</div>[cite: 2]
+        <div style="font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">Monthly Electricity Bill:</div>
         <div class="bill-options">
           <div class="bill-option">
-            <input type="radio" id="b1" name="bill_range" value="< ₹1500" checked />[cite: 2]
-            <label for="b1">&lt; ₹1500</label>[cite: 2]
+            <input type="radio" id="b1" name="bill_range" value="< ₹1500" checked />
+            <label for="b1">&lt; ₹1500</label>
           </div>
           <div class="bill-option">
-            <input type="radio" id="b2" name="bill_range" value="₹1500-₹2500" />[cite: 2]
-            <label for="b2">₹1500-₹2500</label>[cite: 2]
+            <input type="radio" id="b2" name="bill_range" value="₹1500-₹2500" />
+            <label for="b2">₹1500-₹2500</label>
           </div>
           <div class="bill-option">
-            <input type="radio" id="b3" name="bill_range" value="₹2500-₹4000" />[cite: 2]
-            <label for="b3">₹2500-₹4000</label>[cite: 2]
+            <input type="radio" id="b3" name="bill_range" value="₹2500-₹4000" />
+            <label for="b3">₹2500-₹4000</label>
           </div>
           <div class="bill-option">
-            <input type="radio" id="b4" name="bill_range" value="₹4000-₹8000" />[cite: 2]
-            <label for="b4">₹4000-₹8000</label>[cite: 2]
+            <input type="radio" id="b4" name="bill_range" value="₹4000-₹8000" />
+            <label for="b4">₹4000-₹8000</label>
           </div>
           <div class="bill-option">
-            <input type="radio" id="b5" name="bill_range" value="> ₹8000" />[cite: 2]
-            <label for="b5">&gt; ₹8000</label>[cite: 2]
+            <input type="radio" id="b5" name="bill_range" value="> ₹8000" />
+            <label for="b5">&gt; ₹8000</label>
           </div>
         </div>
 
-        <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />[cite: 2]
-        <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>[cite: 2]
+        <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />
+        <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>
       </form>
     </div>
 
     <!-- Why Us -->
     <section id="why-us">
       <div class="section-header">
-        <h2>Why Dip Urja?</h2>[cite: 1]
+        <h2>Why Dip Urja?</h2>
       </div>
       <div class="grid-container">
         <div class="card">
           <h3>⚡ Subsidy & EMI Support</h3>
-          <p>Complete paperwork processing for Government Solar Subsidies and financing.</p>[cite: 1, 3]
+          <p>Complete paperwork processing for Government Solar Subsidies and financing.</p>
         </div>
         <div class="card">
           <h3>🛡️ Proven Reliability</h3>
-          <p>Tier-1 equipment designed for uninterrupted power and long lifespan.</p>[cite: 1]
+          <p>Tier-1 equipment designed for uninterrupted power and long lifespan.</p>
         </div>
         <div class="card">
           <h3>🔧 Certified Service</h3>
-          <p>Expert local installation engineers and fast technical support in Nashik.</p>[cite: 1, 4]
+          <p>Expert local installation engineers and fast technical support in Nashik.</p>
         </div>
       </div>
     </section>
@@ -510,20 +511,20 @@
     <!-- Services -->
     <section id="services" style="margin-top: 50px;">
       <div class="section-header">
-        <h2>Our Services & Products</h2>[cite: 1]
+        <h2>Our Services & Products</h2>
       </div>
       <div class="grid-container">
         <div class="card">
-          <h3>Rooftop Solar</h3>[cite: 1]
-          <p>On-grid and hybrid solar installations for homes, commercial complexes, and factories.</p>[cite: 1]
+          <h3>Rooftop Solar</h3>
+          <p>On-grid and hybrid solar installations for homes, commercial complexes, and factories.</p>
         </div>
         <div class="card">
-          <h3>Lift UPS Systems</h3>[cite: 1]
-          <p>Dedicated emergency battery backup systems ensuring passenger elevators never get stuck.</p>[cite: 1]
+          <h3>Lift UPS Systems</h3>
+          <p>Dedicated emergency battery backup systems ensuring passenger elevators never get stuck.</p>
         </div>
         <div class="card">
-          <h3>Industrial Inverters</h3>[cite: 1]
-          <p>Heavy duty commercial power backup infrastructure and maintenance support.</p>[cite: 1]
+          <h3>Industrial Inverters</h3>
+          <p>Heavy duty commercial power backup infrastructure and maintenance support.</p>
         </div>
       </div>
     </section>
@@ -531,7 +532,7 @@
     <!-- Contact & Poster -->
     <section id="contact" style="margin-top: 50px; text-align: center;">
       <div class="section-header">
-        <h2>Contact Us</h2>[cite: 3, 4]
+        <h2>Contact Us</h2>
       </div>
 
       <div style="max-width: 900px; margin: 0 auto 25px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
@@ -540,13 +541,13 @@
 
       <div class="contact-grid">
         <div class="contact-card">
-          <h4>Direct Phone Call</h4>[cite: 3, 4]
-          <p>Speak to our engineer directly</p>[cite: 3, 4]
+          <h4>Direct Phone Call</h4>
+          <p>Speak to our engineer directly</p>
           <a href="tel:+919226194332" class="action-btn btn-call">📞 Call Us</a>
         </div>
         <div class="contact-card">
           <h4>WhatsApp Chat</h4>
-          <p>Send electricity bill photo</p>[cite: 2]
+          <p>Send electricity bill photo</p>
           <a href="https://wa.me/919226194332" class="action-btn btn-whatsapp" target="_blank">💬 WhatsApp Us</a>
         </div>
       </div>
@@ -555,7 +556,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2026 DIP URJA POWER SOLUTIONS. All Rights Reserved.</p>[cite: 1]
+    <p>&copy; 2026 DIP URJA POWER SOLUTIONS. All Rights Reserved.</p>
   </footer>
 
   <!-- ================= EMPLOYEE LOGIN MODAL ================= -->
@@ -570,20 +571,21 @@
       <div id="stepPhone">
         <div style="margin-bottom: 12px;">
           <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Select Department:</label>
-          <select id="empRole" class="consult-input" style="margin-bottom: 0;">[cite: 6]
+          <select id="empRole" class="consult-input" style="margin-bottom: 0;">
             <option value="Managing Director (MD)">Managing Director (MD)</option>
             <option value="Accounts Department">Accounts Department</option>
-            <option value="Admin / HR">Admin / HR</option>[cite: 6]
+            <option value="Site Engineer / Technical Staff">Site Engineer / Technical Staff</option>
+            <option value="Admin / HR">Admin / HR</option>
           </select>
         </div>
 
         <div style="margin-bottom: 12px;">
           <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Mobile Number:</label>
-          <input type="tel" id="empPhone" class="consult-input" placeholder="e.g. 9226194332" style="margin-bottom: 0;" />[cite: 6]
+          <input type="tel" id="empPhone" class="consult-input" placeholder="e.g. 9226194332" style="margin-bottom: 0;" />
         </div>
 
         <button type="button" class="btn-emp-action" onclick="sendWhatsAppOtp()">Send OTP via WhatsApp</button>
-        <div id="loginStatus" style="font-size: 0.82rem; margin-top: 10px; text-align: center;"></div>[cite: 6]
+        <div id="loginStatus" style="font-size: 0.82rem; margin-top: 10px; text-align: center;"></div>
       </div>
 
       <!-- STEP 2: Verify Code -->
@@ -695,46 +697,267 @@
     function openEmployeePortalWindow(role, phone) {
       var newWin = window.open("", "_blank");
       
-      var portalHtml = '<!DOCTYPE html>' +
-        '<html>' +
-        '<head>' +
-        '<meta charset="UTF-8">' +
-        '<title>WELCOME TO DIP URJA EMPLOYEE PORTAL</title>' +
-        '<style>' +
-          'body { font-family: Segoe UI, Arial, sans-serif; background: #f1f5f9; margin: 0; color: #1e293b; }' +
-          '.top-nav { background: #0b2545; color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }' +
-          '.container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }' +
-          '.card { background: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid #d90429; }' +
-          '.badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 5px 12px; border-radius: 15px; font-weight: bold; font-size: 0.85rem; margin-bottom: 10px; }' +
-          'table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }' +
-          'th, td { padding: 12px; text-align: left; border-bottom: 1px solid #cbd5e1; }' +
-          'th { background: #f8fafc; color: #0b2545; }' +
-          '.btn-close { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }' +
-        '</style>' +
-        '</head>' +
-        '<body>' +
-          '<div class="top-nav">' +
-            '<h2>WELCOME TO DIP URJA EMPLOYEE PORTAL</h2>' +
-            '<div>Logged in: +' + phone + '</div>' +
-          '</div>' +
-          '<div class="container">' +
-            '<div class="card">' +
-              '<span class="badge">' + role + '</span>' +
-              '<h3>Dip Urja Central Operational Desk</h3>' +
-              '<p style="color: #64748b; margin-top: 6px;">Your session is authenticated. Department tools and requisition workflow are active.</p>' +
-            '</div>' +
-            '<div class="card">' +
-              '<h3>Active Site Material Requisitions</h3>' +
-              '<table>' +
-                '<tr><th>Req ID</th><th>Customer / Site</th><th>Material</th><th>Qty</th><th>Status</th></tr>' +
-                '<tr><td>REQ-101</td><td>Samarth Heights</td><td>Lift Inverter UPS 10kVA</td><td>1 Set</td><td><strong style="color: #16a34a;">Approved</strong></td></tr>' +
-                '<tr><td>REQ-102</td><td>Kundan Agro Industries</td><td>540W Solar Modules</td><td>24 Nos</td><td><strong style="color: #f59e0b;">Pending MD Clearance</strong></td></tr>' +
-              '</table>' +
-            '</div>' +
-            '<button class="btn-close" onclick="window.close()">Log Out / Close Portal Window</button>' +
-          '</div>' +
-        '</body>' +
-        '</html>';
+      var portalHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>DIP URJA - Material Requisition & Ops Desk</title>
+  <style>
+    :root {
+      --primary: #0b2545;
+      --accent: #134074;
+      --red: #d90429;
+      --green: #16a34a;
+      --orange: #f59e0b;
+      --bg: #f1f5f9;
+    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; color: #1e293b; padding-bottom: 50px; }
+    .top-nav { background: var(--primary); color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+    .card { background: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border-left: 5px solid var(--red); }
+    .card-title { font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
+    .badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 5px 12px; border-radius: 15px; font-weight: bold; font-size: 0.85rem; margin-bottom: 10px; }
+    
+    /* Form Styles */
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: #334155; }
+    .form-control { padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; outline: none; background: #fff; }
+    .form-control:focus { border-color: var(--accent); }
+    
+    .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+    .btn-submit { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+    .btn-submit:hover { background: #07192f; }
+    .btn-wa-notify { background: #25D366; color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    .btn-close { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+
+    /* Table Styles */
+    .table-container { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; min-width: 700px; }
+    th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #cbd5e1; }
+    th { background: #f8fafc; color: var(--primary); font-weight: 700; }
+    
+    /* Status Badges */
+    .status-pill { padding: 4px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; display: inline-block; }
+    .status-approved { background: #dcfce7; color: #15803d; }
+    .status-pending { background: #fef3c7; color: #b45309; }
+    .status-hold { background: #fee2e2; color: #b91c1c; }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <div>
+      <h2 style="margin: 0; font-size: 1.3rem;">DIP URJA POWER SOLUTIONS</h2>
+      <small style="color: #94a3b8;">Employee Operational Portal & Material Requisition</small>
+    </div>
+    <div>Logged in: <strong>+${phone}</strong></div>
+  </div>
+
+  <div class="container">
+    
+    <!-- User Info Card -->
+    <div class="card">
+      <span class="badge">${role}</span>
+      <h3 style="margin-top: 5px;">Internal Requisition & Approval Workspace</h3>
+      <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">Submit fresh material indent requirements with site names, approval routings, and inventory verification.</p>
+    </div>
+
+    <!-- MATERIAL REQUISITION FORM -->
+    <div class="card" style="border-left-color: #0284c7;">
+      <div class="card-title">📝 New Material Requisition Form</div>
+      
+      <form id="reqForm" onsubmit="addRequisition(event)">
+        <div class="form-grid">
+          
+          <div class="form-group">
+            <label>Customer / Project Site Name *</label>
+            <input type="text" id="custSite" class="form-control" placeholder="e.g. Samarth Residency, Nashik" required>
+          </div>
+
+          <div class="form-group">
+            <label>Material Requested By (Staff/Engineer) *</label>
+            <input type="text" id="reqBy" class="form-control" placeholder="e.g. Rahul Patil (Site Tech)" required>
+          </div>
+
+          <div class="form-group">
+            <label>Select Material / Equipment *</label>
+            <select id="matItem" class="form-control" required>
+              <option value="">-- Choose Material Item --</option>
+              <optgroup label="Solar Components">
+                <option value="Solar Modules Mono Perc (540W/550W)">Solar Modules Mono Perc (540W/550W)</option>
+                <option value="On-Grid Solar Inverter (3kW / 5kW / 10kW)">On-Grid Solar Inverter (3kW / 5kW / 10kW)</option>
+                <option value="Hybrid Solar Inverter (5kW / 8kW / 10kW)">Hybrid Solar Inverter (5kW / 8kW / 10kW)</option>
+                <option value="Solar Structure & GI Fasteners">Solar Structure & GI Fasteners</option>
+                <option value="ACDB / DCDB Protection Boxes">ACDB / DCDB Protection Boxes</option>
+                <option value="Solar DC Cable (4 sq mm / 6 sq mm)">Solar DC Cable (4 sq mm / 6 sq mm)</option>
+                <option value="Earthing Rods & Chemical Compound">Earthing Rods & Chemical Compound</option>
+                <option value="Lightning Arrester (LA Set)">Lightning Arrester (LA Set)</option>
+              </optgroup>
+              <optgroup label="Lift UPS & Commercial Backup">
+                <option value="Lift Inverter UPS 10kVA 3-Phase">Lift Inverter UPS 10kVA 3-Phase</option>
+                <option value="Lift Inverter UPS 15kVA 3-Phase">Lift Inverter UPS 15kVA 3-Phase</option>
+                <option value="Lift Inverter UPS 20kVA 3-Phase">Lift Inverter UPS 20kVA 3-Phase</option>
+                <option value="Solar Tubular Batteries (150Ah / 200Ah)">Solar Tubular Batteries (150Ah / 200Ah)</option>
+                <option value="Battery Rack (Heavy Duty Steel)">Battery Rack (Heavy Duty Steel)</option>
+                <option value="Automatic Changeover Switch (ATS)">Automatic Changeover Switch (ATS)</option>
+              </optgroup>
+              <optgroup label="Wiring & Accessories">
+                <option value="Copper Armoured Cable (4 Core)">Copper Armoured Cable (4 Core)</option>
+                <option value="MC4 Connectors & Y-Branch">MC4 Connectors & Y-Branch</option>
+                <option value="PVC Conduit Pipes & Fittings">PVC Conduit Pipes & Fittings</option>
+                <option value="Net Metering Kit / Bi-directional Meter">Net Metering Kit / Bi-directional Meter</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Quantity & Unit *</label>
+            <input type="text" id="matQty" class="form-control" placeholder="e.g. 10 Nos / 50 Mtrs / 1 Set" required>
+          </div>
+
+          <div class="form-group">
+            <label>Approval by Accounts Dept *</label>
+            <select id="appAccounts" class="form-control" required>
+              <option value="Pending Verification">⏳ Pending Verification</option>
+              <option value="Payment / PO Cleared">✅ Payment / PO Cleared</option>
+              <option value="Advance Received">✅ Advance Received</option>
+              <option value="Under Credit Hold">❌ Credit Hold</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Approval by MD *</label>
+            <select id="appMD" class="form-control" required>
+              <option value="Pending MD Clearance">⏳ Pending MD Clearance</option>
+              <option value="Approved & Cleared">✅ Approved by MD</option>
+              <option value="Hold for Site Inspection">⚠️ Hold for Inspection</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn-submit">➕ Submit Requisition</button>
+          <button type="button" class="btn-wa-notify" onclick="sendReqViaWhatsApp()">📲 Send Slip via WhatsApp</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- REQUISITION DATA TABLE -->
+    <div class="card">
+      <div class="card-title">📦 Active Site Material Requisitions</div>
+      <div class="table-container">
+        <table id="requisitionTable">
+          <thead>
+            <tr>
+              <th>Req ID</th>
+              <th>Customer / Site</th>
+              <th>Requested By</th>
+              <th>Material</th>
+              <th>Qty</th>
+              <th>Accounts Dept</th>
+              <th>MD Approval</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>#REQ-101</strong></td>
+              <td>Samarth Heights, Gangapur Rd</td>
+              <td>S. Sharma (Engineer)</td>
+              <td>Lift Inverter UPS 10kVA</td>
+              <td>1 Set</td>
+              <td><span class="status-pill status-approved">Cleared</span></td>
+              <td><span class="status-pill status-approved">Approved</span></td>
+            </tr>
+            <tr>
+              <td><strong>#REQ-102</strong></td>
+              <td>Kundan Agro Industries</td>
+              <td>P. Jagtap (Operations)</td>
+              <td>Solar Modules Mono Perc (540W)</td>
+              <td>24 Nos</td>
+              <td><span class="status-pill status-approved">Advance Received</span></td>
+              <td><span class="status-pill status-pending">Pending MD</span></td>
+            </tr>
+            <tr>
+              <td><strong>#REQ-103</strong></td>
+              <td>Suyojit Garden Complex</td>
+              <td>A. Deshmukh (Tech)</td>
+              <td>Solar Tubular Batteries (150Ah)</td>
+              <td>8 Nos</td>
+              <td><span class="status-pill status-pending">Verification</span></td>
+              <td><span class="status-pending status-pill">Pending MD</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <button class="btn-close" onclick="window.close()">Log Out / Close Portal Window</button>
+    </div>
+
+  </div>
+
+  <script>
+    var reqCounter = 104;
+
+    function addRequisition(e) {
+      e.preventDefault();
+      
+      var site = document.getElementById("custSite").value.trim();
+      var by = document.getElementById("reqBy").value.trim();
+      var mat = document.getElementById("matItem").value;
+      var qty = document.getElementById("matQty").value.trim();
+      var acc = document.getElementById("appAccounts").value;
+      var md = document.getElementById("appMD").value;
+
+      var table = document.getElementById("requisitionTable").getElementsByTagName('tbody')[0];
+      var newRow = table.insertRow(0);
+
+      var accBadge = acc.includes("Cleared") || acc.includes("Advance") ? "status-approved" : (acc.includes("Hold") ? "status-hold" : "status-pending");
+      var mdBadge = md.includes("Approved") ? "status-approved" : (md.includes("Hold") ? "status-hold" : "status-pending");
+
+      newRow.innerHTML = '<td><strong>#REQ-' + reqCounter + '</strong></td>' +
+                        '<td>' + site + '</td>' +
+                        '<td>' + by + '</td>' +
+                        '<td>' + mat + '</td>' +
+                        '<td>' + qty + '</td>' +
+                        '<td><span class="status-pill ' + accBadge + '">' + acc + '</span></td>' +
+                        '<td><span class="status-pill ' + mdBadge + '">' + md + '</span></td>';
+
+      reqCounter++;
+      alert("Material Requisition generated successfully!");
+      document.getElementById("reqForm").reset();
+    }
+
+    function sendReqViaWhatsApp() {
+      var site = document.getElementById("custSite").value.trim();
+      var by = document.getElementById("reqBy").value.trim();
+      var mat = document.getElementById("matItem").value;
+      var qty = document.getElementById("matQty").value.trim();
+      var acc = document.getElementById("appAccounts").value;
+      var md = document.getElementById("appMD").value;
+
+      if (!site || !mat || !qty) {
+        alert("Please fill in Site Name, Material, and Quantity before sending.");
+        return;
+      }
+
+      var msg = "⚡ *DIP URJA - MATERIAL REQUISITION SLIP* ⚡\\n\\n" +
+                "📍 *Site / Customer:* " + site + "\\n" +
+                "👷 *Requested By:* " + by + "\\n" +
+                "📦 *Material:* " + mat + "\\n" +
+                "🔢 *Quantity:* " + qty + "\\n" +
+                "💰 *Accounts Status:* " + acc + "\\n" +
+                "👑 *MD Approval Status:* " + md;
+
+      window.open("https://api.whatsapp.com/send?phone=919226194332&text=" + encodeURIComponent(msg), "_blank");
+    }
+  <\\/script>
+
+</body>
+</html>`;
 
       newWin.document.write(portalHtml);
       newWin.document.close();
