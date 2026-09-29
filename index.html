@@ -498,8 +498,8 @@
       background: #ffffff;
       border-radius: 16px;
       width: 90%;
-      max-width: 420px;
-      padding: 30px;
+      max-width: 430px;
+      padding: 32px 28px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
       position: relative;
       text-align: left;
@@ -524,7 +524,7 @@
     .emp-header p {
       color: #64748b;
       font-size: 0.85rem;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .emp-field {
@@ -569,6 +569,7 @@
       margin-top: 12px;
       font-size: 0.85rem;
       text-align: center;
+      line-height: 1.4;
     }
 
     .resend-link {
@@ -579,36 +580,6 @@
     .resend-link a {
       color: #0b2545;
       text-decoration: underline;
-    }
-
-    .dashboard-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      background-color: #e0f2fe;
-      color: #0369a1;
-    }
-    .dashboard-content {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 16px;
-      margin: 15px 0;
-      font-size: 0.9rem;
-      color: #334155;
-    }
-    .btn-emp-logout {
-      width: 100%;
-      padding: 10px;
-      background-color: #fee2e2;
-      color: #dc2626;
-      border: 1px solid #fca5a5;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
     }
 
     /* Footer */
@@ -647,15 +618,15 @@
 
   <!-- Top Announcement Strip -->
   <div class="top-strip">
-    <span>Clean Energy | Reliable Power | A Brighter Tomorrow</span>
-    <span>⚡ Reduce Your Electricity Bills with Government Subsidy & Easy EMI</span>
+    <span>Clean Energy | Reliable Power | A Brighter Tomorrow</span>[cite: 1]
+    <span>⚡ Reduce Your Electricity Bills with Government Subsidy & Easy EMI</span>[cite: 1]
   </div>
 
   <!-- Header with Brand Logo & Navigation -->
   <header class="site-header">
     <div class="nav-container">
       <a href="#" class="brand-logo-link">
-        <img src="dip-urja-logo.png" alt="DIP URJA POWER SOLUTIONS Logo" class="brand-logo-img" />
+        <img src="dip-urja-logo.png" alt="DIP URJA POWER SOLUTIONS Logo" class="brand-logo-img" />[cite: 5]
       </a>
       <nav>
         <ul class="nav-links">
@@ -681,36 +652,36 @@
     <section id="calculator" class="calc-section">
       <div class="calc-grid">
         <div class="calc-text">
-          <h3>Go Solar with <br><span class="highlight">Zero Downpayment</span></h3>
+          <h3>Go Solar with <br><span class="highlight">Zero Downpayment</span></h3>[cite: 3, 4]
           <p>
-            Government subsidy covers your downpayment, and your monthly solar savings can easily clear your EMI. Get your customized system estimate below.
+            Government subsidy covers your downpayment, and your monthly solar savings can easily clear your EMI. Get your customized system estimate below.[cite: 3, 4]
           </p>
         </div>
 
         <div class="calc-box">
-          <div class="calc-box-title">Get Savings and EMI Estimates</div>
+          <div class="calc-box-title">Get Savings and EMI Estimates</div>[cite: 3, 4]
           <div class="size-selector">
             <div class="size-card active" onclick="updateCalc('3kW', '₹7,800', '₹2,350', this)">
-              <div class="kw">3kW</div>
-              <div class="desc">₹1,500 - ₹2,500/mo</div>
+              <div class="kw">3kW</div>[cite: 3, 4]
+              <div class="desc">₹1,500 - ₹2,500/mo</div>[cite: 3, 4]
             </div>
             <div class="size-card" onclick="updateCalc('5kW', '₹13,500', '₹3,950', this)">
-              <div class="kw">5kW</div>
-              <div class="desc">₹4,000 - ₹8,000/mo</div>
+              <div class="kw">5kW</div>[cite: 3, 4]
+              <div class="desc">₹4,000 - ₹8,000/mo</div>[cite: 3, 4]
             </div>
             <div class="size-card" onclick="updateCalc('8kW', '₹21,000', '₹5,900', this)">
-              <div class="kw">8kW</div>
-              <div class="desc">&gt; ₹8,000/mo</div>
+              <div class="kw">8kW</div>[cite: 4]
+              <div class="desc">&gt; ₹8,000/mo</div>[cite: 3, 4]
             </div>
           </div>
 
           <div class="results-row">
             <div class="result-item">
-              <h5>Monthly Solar Saving</h5>
-              <div class="val" id="calcSaving">₹7,800</div>
+              <h5>Monthly Solar Saving</h5>[cite: 3, 4]
+              <div class="val" id="calcSaving">₹7,800</div>[cite: 3]
             </div>
             <div class="result-item">
-              <h5>Est. Monthly EMI</h5>
+              <h5>Est. Monthly EMI</h5>[cite: 3, 4]
               <div class="val emi" id="calcEmi">₹2,350</div>
             </div>
           </div>
@@ -721,52 +692,52 @@
     <!-- Consultation Window with WhatsApp Forwarding -->
     <div class="consult-card-wrapper">
       <div class="consult-card">
-        <h2>Book a FREE Solar Consultation</h2>
-        <p class="sub-text">And save up to ₹78,000 with subsidy</p>
+        <h2>Book a FREE Solar Consultation</h2>[cite: 2]
+        <p class="sub-text">And save up to ₹78,000 with subsidy</p>[cite: 2]
 
         <form onsubmit="sendToWhatsApp(event)">
           <div class="form-group">
-            <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />
+            <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />[cite: 2]
           </div>
 
           <div class="form-group">
-            <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />
+            <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />[cite: 2]
           </div>
 
-          <label class="bill-label">Monthly Electricity Bill ⓘ</label>
+          <label class="bill-label">Monthly Electricity Bill ⓘ</label>[cite: 2]
           <div class="bill-options">
             <div class="bill-option">
-              <input type="radio" id="b1" name="bill_range" value="Less than ₹1500" checked />
-              <label for="b1">Less than ₹1500</label>
+              <input type="radio" id="b1" name="bill_range" value="Less than ₹1500" checked />[cite: 2]
+              <label for="b1">Less than ₹1500</label>[cite: 2]
             </div>
             <div class="bill-option">
-              <input type="radio" id="b2" name="bill_range" value="₹1500 - ₹2500" />
-              <label for="b2">₹1500 - ₹2500</label>
+              <input type="radio" id="b2" name="bill_range" value="₹1500 - ₹2500" />[cite: 2]
+              <label for="b2">₹1500 - ₹2500</label>[cite: 2]
             </div>
             <div class="bill-option">
-              <input type="radio" id="b3" name="bill_range" value="₹2500 - ₹4000" />
-              <label for="b3">₹2500 - ₹4000</label>
+              <input type="radio" id="b3" name="bill_range" value="₹2500 - ₹4000" />[cite: 2]
+              <label for="b3">₹2500 - ₹4000</label>[cite: 2]
             </div>
             <div class="bill-option">
-              <input type="radio" id="b4" name="bill_range" value="₹4000 - ₹8000" />
-              <label for="b4">₹4000 - ₹8000</label>
+              <input type="radio" id="b4" name="bill_range" value="₹4000 - ₹8000" />[cite: 2]
+              <label for="b4">₹4000 - ₹8000</label>[cite: 2]
             </div>
             <div class="bill-option">
-              <input type="radio" id="b5" name="bill_range" value="More than ₹8000" />
-              <label for="b5">More than ₹8000</label>
+              <input type="radio" id="b5" name="bill_range" value="More than ₹8000" />[cite: 2]
+              <label for="b5">More than ₹8000</label>[cite: 2]
             </div>
           </div>
 
           <div class="form-group">
-            <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />
+            <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />[cite: 2]
           </div>
 
           <div class="consent-group">
-            <input type="checkbox" id="termsConsent" checked required />
+            <input type="checkbox" id="termsConsent" checked required />[cite: 2]
             <label for="termsConsent">I agree to receive solar assessment details via WhatsApp.</label>
           </div>
 
-          <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>
+          <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>[cite: 2]
         </form>
       </div>
     </div>
@@ -775,24 +746,24 @@
     <section id="why-us" style="padding-top: 40px;">
       <div class="section-header">
         <h2>Why Dip Urja?</h2>
-        <p>Your trusted partner in clean, sustainable solar and backup energy</p>
+        <p>Your trusted partner in clean, sustainable solar and backup energy</p>[cite: 1]
       </div>
       <div class="grid-container">
         <div class="card">
           <h3>⚡ Subsidy & EMI Support</h3>
-          <p>Complete assistance with Government Solar Subsidy paperwork and flexible zero-downpayment financing options.</p>
+          <p>Complete assistance with Government Solar Subsidy paperwork and flexible zero-downpayment financing options.[cite: 1, 3]</p>
         </div>
         <div class="card">
           <h3>🛡️ Proven Reliability</h3>
-          <p>Tier-1 solar modules and heavy-duty inverters engineered for maximum performance and uninterrupted power.</p>
+          <p>Tier-1 solar modules and heavy-duty inverters engineered for maximum performance and uninterrupted power.[cite: 1]</p>
         </div>
         <div class="card">
           <h3>🔧 Certified Installation</h3>
-          <p>Certified engineers executing strict safety standards and preventive maintenance on every site.</p>
+          <p>Certified engineers executing strict safety standards and preventive maintenance on every site.[cite: 1]</p>
         </div>
         <div class="card">
           <h3>💰 Maximum Savings</h3>
-          <p>Sustainably slash electricity expenses for residential societies, commercial facilities, and industrial premises.</p>
+          <p>Sustainably slash electricity expenses for residential societies, commercial facilities, and industrial premises.[cite: 1]</p>
         </div>
       </div>
     </section>
@@ -801,24 +772,24 @@
     <section id="services" style="margin-top: 60px;">
       <div class="section-header">
         <h2>Our Services & Products</h2>
-        <p>End-to-end solar installations and dedicated backup infrastructure</p>
+        <p>End-to-end solar installations and dedicated backup infrastructure</p>[cite: 1]
       </div>
       <div class="grid-container">
         <div class="card">
           <h3>Rooftop Solar Solutions</h3>
-          <p>On-grid and hybrid solar installations tailored for individual bungalows, housing societies, and commercial properties.</p>
+          <p>On-grid and hybrid solar installations tailored for individual bungalows, housing societies, and commercial properties.[cite: 1]</p>
         </div>
         <div class="card">
           <h3>Lift UPS Systems</h3>
-          <p>High-reliability emergency lift inverters keeping residential and commercial elevators running safely during outages.</p>
+          <p>High-reliability emergency lift inverters keeping residential and commercial elevators running safely during outages.[cite: 1]</p>
         </div>
         <div class="card">
           <h3>Industrial Inverter / UPS</h3>
-          <p>Custom heavy-duty battery backups and commercial power protection systems built for sensitive machinery.</p>
+          <p>Custom heavy-duty battery backups and commercial power protection systems built for sensitive machinery.[cite: 1]</p>
         </div>
         <div class="card">
           <h3>Site Survey & Maintenance</h3>
-          <p>Free rooftop feasibility surveys, net-metering approvals, cleaning services, and ongoing operational support.</p>
+          <p>Free rooftop feasibility surveys, net-metering approvals, cleaning services, and ongoing operational support.[cite: 1]</p>
         </div>
       </div>
     </section>
@@ -827,15 +798,15 @@
     <section id="about" style="margin-top: 60px;">
       <div class="section-header">
         <h2>About Us</h2>
-        <p>Committed to clean energy and power independence</p>
+        <p>Committed to clean energy and power independence</p>[cite: 1, 4]
       </div>
       <div class="about-box">
         <p>
-          <strong>DIP URJA POWER SOLUTIONS</strong> provides comprehensive solar energy and power backup engineering. We specialize in rooftop solar installations, residential and commercial battery systems, and dedicated Lift UPS setups designed for dependable performance.
+          <strong>DIP URJA POWER SOLUTIONS</strong> provides comprehensive solar energy and power backup engineering[cite: 1]. We specialize in rooftop solar installations, residential and commercial battery systems, and dedicated Lift UPS setups designed for dependable performance[cite: 1].
         </p>
         <br>
         <p>
-          From initial rooftop survey and subsidy processing to structural installation and lifetime maintenance, we ensure seamless execution with maximum economic returns.
+          From initial rooftop survey and subsidy processing to structural installation and lifetime maintenance, we ensure seamless execution with maximum economic returns[cite: 1].
         </p>
       </div>
     </section>
@@ -844,7 +815,7 @@
     <section id="contact" style="margin-top: 60px; text-align: center;">
       <div class="section-header">
         <h2>Contact Us</h2>
-        <p>Speak to our energy experts or schedule a rooftop inspection</p>
+        <p>Speak to our energy experts or schedule a rooftop inspection</p>[cite: 3, 4]
       </div>
 
       <!-- Poster Before Call and WhatsApp -->
@@ -860,13 +831,13 @@
       <div class="contact-grid" style="max-width: 800px; margin: 0 auto;">
         <div class="contact-card">
           <h4>Direct Phone Call</h4>
-          <p>Talk directly with our technicians regarding sizing, pricing, and subsidy eligibility.</p>
-          <a href="tel:+919876543210" class="action-btn btn-call" style="font-size: 1.05rem; padding: 12px 28px;">📞 Call Us</a>
+          <p>Talk directly with our technicians regarding sizing, pricing, and subsidy eligibility.[cite: 3, 4]</p>
+          <a href="tel:+919226194332" class="action-btn btn-call" style="font-size: 1.05rem; padding: 12px 28px;">📞 Call Us</a>
         </div>
         <div class="contact-card">
           <h4>WhatsApp Support</h4>
-          <p>Send a photo of your latest electricity bill for an immediate solar recommendation.</p>
-          <a href="https://wa.me/919876543210" class="action-btn btn-whatsapp" target="_blank" style="font-size: 1.05rem; padding: 12px 28px;">💬 WhatsApp Us</a>
+          <p>Send a photo of your latest electricity bill for an immediate solar recommendation.[cite: 2]</p>
+          <a href="https://wa.me/919226194332" class="action-btn btn-whatsapp" target="_blank" style="font-size: 1.05rem; padding: 12px 28px;">💬 WhatsApp Us</a>
         </div>
       </div>
     </section>
@@ -875,8 +846,8 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 DIP URJA POWER SOLUTIONS. All Rights Reserved.</p>
-    <p style="font-size: 0.8rem; margin-top: 6px;">Solar Today | Savings Tomorrow</p>
+    <p>&copy; 2026 DIP URJA POWER SOLUTIONS. All Rights Reserved.</p>[cite: 1]
+    <p style="font-size: 0.8rem; margin-top: 6px;">Solar Today | Savings Tomorrow</p>[cite: 1]
   </footer>
 
   <!-- ================= EMPLOYEE LOGIN MODAL ================= -->
@@ -893,43 +864,35 @@
       <div id="stepPhone">
         <div class="emp-field">
           <label for="empRole">Designation / Role</label>
-          <select id="empRole" class="emp-input">
-            <option value="md">Managing Director (MD)</option>
-            <option value="accounts">Accounts Department</option>
-            <option value="admin_hr">Admin / HR</option>
+          <select id="empRole" class="emp-input">[cite: 6]
+            <option value="Managing Director (MD)">Managing Director (MD)</option>
+            <option value="Accounts Department">Accounts Department</option>
+            <option value="Admin / HR">Admin / HR</option>[cite: 6]
           </select>
         </div>
 
         <div class="emp-field">
           <label for="empPhone">Registered Mobile Number</label>
-          <input type="tel" id="empPhone" class="emp-input" placeholder="Enter Mobile Number" />
+          <input type="tel" id="empPhone" class="emp-input" placeholder="Enter Registered Number" maxlength="13" />[cite: 6]
         </div>
 
-        <button type="button" class="btn-emp-action" id="btnSendOtp" onclick="sendOtp()">
-          Send Automatic OTP
+        <button type="button" class="btn-emp-action" id="btnSendOtp" onclick="sendWhatsAppOtp()">[cite: 6]
+          Send Automatic OTP 💬
         </button>
-        <div id="loginStatus" class="status-msg"></div>
+        <div id="loginStatus" class="status-msg"></div>[cite: 6]
       </div>
 
       <!-- Step 2: OTP Verification -->
       <div id="stepOtp" style="display: none;">
         <div class="emp-field">
-          <label for="otpCode">Enter 6-Digit SMS OTP</label>
-          <input type="text" id="otpCode" class="emp-input" maxlength="6" placeholder="123456" />
+          <label for="otpCode">Enter 6-Digit WhatsApp OTP</label>
+          <input type="text" id="otpCode" class="emp-input" maxlength="6" placeholder="Enter 6-digit code" />
         </div>
 
-        <button type="button" class="btn-emp-action" id="btnVerifyOtp" onclick="verifyOtp()">
-          Verify & Access Dashboard
+        <button type="button" class="btn-emp-action" id="btnVerifyOtp" onclick="verifyWhatsAppOtp()">
+          Verify & Open Employee Portal 🚀
         </button>
-        <p class="resend-link"><a href="javascript:void(0)" onclick="resetLoginForm()">Change Number / Resend</a></p>
-      </div>
-
-      <!-- Step 3: Role Dashboard -->
-      <div id="stepDashboard" style="display: none;">
-        <div class="dashboard-badge" id="roleBadge"></div>
-        <h4 id="welcomeMsg" style="margin: 15px 0;"></h4>
-        <div id="roleDashboardContent" class="dashboard-content"></div>
-        <button type="button" class="btn-emp-logout" onclick="logoutEmployee()">Log Out</button>
+        <p class="resend-link"><a href="javascript:void(0)" onclick="resetLoginForm()">Change Number / Resend OTP</a></p>
       </div>
 
     </div>
@@ -944,11 +907,11 @@
       document.getElementById('calcEmi').innerText = emi;
     }
 
-    // Direct WhatsApp Lead Submission
+    // Customer WhatsApp Lead Submission
     function sendToWhatsApp(e) {
       e.preventDefault();
 
-      var targetWhatsApp = "919876543210"; // Replace with your receiving number
+      var targetWhatsApp = "919226194332";
 
       var name = document.getElementById("custName").value.trim();
       var phone = document.getElementById("custPhone").value.trim();
@@ -965,10 +928,10 @@
       window.open(waLink, "_blank");
     }
 
-    /* ================= DIRECT WORKING OTP LOGIC ================= */
-    let currentOtp = null;
-    let tempPhone = "";
-    let tempRole = "";
+    /* ================= EMPLOYEE AUTHENTICATION & PORTAL LAUNCH ================= */
+    let generatedOtp = null;
+    let registeredPhone = "";
+    let selectedRole = "";
 
     function openEmployeeLogin() {
       resetLoginForm();
@@ -982,101 +945,155 @@
     function resetLoginForm() {
       document.getElementById('stepPhone').style.display = 'block';
       document.getElementById('stepOtp').style.display = 'none';
-      document.getElementById('stepDashboard').style.display = 'none';
       document.getElementById('loginStatus').innerText = '';
       document.getElementById('otpCode').value = '';
-      currentOtp = null;
+      generatedOtp = null;
     }
 
-    function sendOtp() {
-      const phoneInput = document.getElementById('empPhone').value.trim();
+    // STRICT ALLOWLIST VERIFICATION RULE:
+    // Only numbers ending with '804' OR exactly '9226194332'
+    function isAuthorizedNumber(digits) {
+      return digits === "9226194332" || digits.endsWith("804");
+    }
+
+    function sendWhatsAppOtp() {
+      const rawInput = document.getElementById('empPhone').value.trim();
       const statusBox = document.getElementById('loginStatus');
 
-      if (!phoneInput || phoneInput.length < 10) {
+      // Strip away country code (+91 / 0) and non-numeric characters
+      let digits = rawInput.replace(/[^0-9]/g, '');
+      if (digits.startsWith("91") && digits.length === 12) {
+        digits = digits.substring(2);
+      } else if (digits.startsWith("0") && digits.length === 11) {
+        digits = digits.substring(1);
+      }
+
+      // Check Allowed Status
+      if (!isAuthorizedNumber(digits)) {
         statusBox.style.color = '#dc2626';
-        statusBox.innerText = 'Please enter a valid 10-digit mobile number.';
+        statusBox.innerText = '❌ Access Denied: This mobile number is not authorized for Dip Urja Employee Portal.';
         return;
       }
 
-      // Generate random 6-digit OTP
-      currentOtp = Math.floor(100000 + Math.random() * 900000).toString();
-      tempPhone = phoneInput;
-      tempRole = document.getElementById('empRole').value;
+      registeredPhone = "91" + digits;
+      selectedRole = document.getElementById('empRole').value;
+
+      // Generate 6-digit OTP
+      generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
       statusBox.style.color = '#0b2545';
-      statusBox.innerText = 'Generating secure OTP...';
+      statusBox.innerText = 'Number Authorized! Sending verification code via WhatsApp...';
 
+      const otpMsg = "🔐 *DIP URJA POWER SOLUTIONS*\n\n" +
+                     "Role: " + selectedRole + "\n" +
+                     "Your Employee Portal OTP is: *" + generatedOtp + "*\n\n" +
+                     "Valid for 5 minutes. Do not share this OTP.";
+
+      const waUrl = "https://api.whatsapp.com/send?phone=" + registeredPhone + "&text=" + encodeURIComponent(otpMsg);
+
+      // Open WhatsApp tab to deliver OTP
+      window.open(waUrl, "_blank");
+
+      // Switch to code verification
       setTimeout(() => {
         document.getElementById('stepPhone').style.display = 'none';
         document.getElementById('stepOtp').style.display = 'block';
         statusBox.innerText = '';
-
-        // Display OTP popup directly so login succeeds without API key errors
-        alert("🔐 Your Verification OTP for " + tempPhone + " is: " + currentOtp);
       }, 500);
     }
 
-    function verifyOtp() {
+    function verifyWhatsAppOtp() {
       const enteredOtp = document.getElementById('otpCode').value.trim();
 
-      if (enteredOtp !== currentOtp) {
-        alert('Invalid OTP. Please enter the exact 6-digit code shown.');
+      if (!enteredOtp || enteredOtp !== generatedOtp) {
+        alert('❌ Invalid OTP! Please check the code received on WhatsApp.');
         return;
       }
 
-      renderRoleDashboard(tempRole, tempPhone);
+      // Close the modal
+      closeEmployeeLogin();
+
+      // Launch the Dedicated Employee Portal Window
+      openEmployeePortalWindow(selectedRole, registeredPhone);
     }
 
-    function renderRoleDashboard(role, phone) {
-      document.getElementById('stepOtp').style.display = 'none';
-      document.getElementById('stepDashboard').style.display = 'block';
+    // Opens a new browser window with "WELCOME TO DIP URJA EMPLOYEE PORTAL"
+    function openEmployeePortalWindow(role, phone) {
+      const portalWindow = window.open("", "_blank");
 
-      const title = document.getElementById('portalTitle');
-      const badge = document.getElementById('roleBadge');
-      const welcome = document.getElementById('welcomeMsg');
-      const content = document.getElementById('roleDashboardContent');
-
-      welcome.innerText = 'Logged in: ' + phone;
-
-      if (role === 'md') {
-        title.innerText = 'Managing Director Portal';
-        badge.innerText = 'EXECUTIVE DESK';
-        badge.style.backgroundColor = '#fef3c7';
-        badge.style.color = '#b45309';
-        content.innerHTML = `
-          <strong>Company Performance & Control:</strong><br>
-          • Overall Sales & Site Revenue Reports<br>
-          • Project Approvals (Rooftop Solar & Lift UPS)<br>
-          • Branch Growth & Strategic Metrics
+      let roleSpecificItems = "";
+      if (role === "Managing Director (MD)") {
+        roleSpecificItems = `
+          <div class="dash-card">
+            <h3>📈 Executive Revenue & Projects</h3>
+            <p>• Commercial & Industrial Solar Park Proposals</p>
+            <p>• Lift UPS System Installations & Maintenance Approvals</p>
+            <p>• Real-time Turnover, P&L, and Expansion Metrics</p>
+          </div>
         `;
-      } else if (role === 'accounts') {
-        title.innerText = 'Accounts Department';
-        badge.innerText = 'FINANCE & BILLING';
-        badge.style.backgroundColor = '#ecfdf5';
-        badge.style.color = '#047857';
-        content.innerHTML = `
-          <strong>Accounting & Invoicing:</strong><br>
-          • Customer Subsidy Claim Tracking<br>
-          • Vendor Purchase Orders & GST Invoicing<br>
-          • EMI Settlement & Payment Registers
+      } else if (role === "Accounts Department") {
+        roleSpecificItems = `
+          <div class="dash-card">
+            <h3>💳 Accounts, Billing & Subsidies</h3>
+            <p>• Government Solar Subsidy Disbursal & Paperwork Tracking</p>
+            <p>• Customer Zero-Downpayment EMI Payment Ledger</p>
+            <p>• Vendor Purchase Orders & GST Invoicing</p>
+          </div>
         `;
-      } else if (role === 'admin_hr') {
-        title.innerText = 'Admin / HR Portal';
-        badge.innerText = 'ADMINISTRATION';
-        badge.style.backgroundColor = '#ede9fe';
-        badge.style.color = '#6d28d9';
-        content.innerHTML = `
-          <strong>Staff & Operations:</strong><br>
-          • Field Technician Attendance Logs<br>
-          • Service Ticket & AMC Assignment<br>
-          • Payroll & Safety Compliance
+      } else {
+        roleSpecificItems = `
+          <div class="dash-card">
+            <h3>👥 HR & Operations Desk</h3>
+            <p>• Solar Technician & Engineer Site Attendance</p>
+            <p>• Material Stock Requisitions & Inventory Logs</p>
+            <p>• AMC Service Tickets & Safety Certifications</p>
+          </div>
         `;
       }
-    }
 
-    function logoutEmployee() {
-      resetLoginForm();
-      closeEmployeeLogin();
+      const portalHtml = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>WELCOME TO DIP URJA EMPLOYEE PORTAL</title>
+          <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+            body { background: #f1f5f9; color: #1e293b; line-height: 1.6; }
+            .header-bar { background: #0b2545; color: #ffffff; padding: 24px 30px; display: flex; justify-content: space-between; align-items: center; }
+            .header-bar h1 { font-size: 1.5rem; letter-spacing: 0.5px; }
+            .user-chip { background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; }
+            .portal-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+            .welcome-banner { background: #ffffff; border-radius: 14px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); margin-bottom: 25px; border-left: 6px solid #d90429; }
+            .welcome-banner h2 { font-size: 1.8rem; color: #0b2545; margin-bottom: 8px; }
+            .welcome-banner p { color: #64748b; font-size: 1rem; }
+            .dash-card { background: #ffffff; border-radius: 12px; padding: 26px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); margin-bottom: 20px; }
+            .dash-card h3 { color: #0b2545; margin-bottom: 12px; font-size: 1.25rem; }
+            .dash-card p { margin: 8px 0; color: #334155; font-size: 0.95rem; }
+            .logout-btn { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+            .logout-btn:hover { background: #fecaca; }
+          </style>
+        </head>
+        <body>
+          <div class="header-bar">
+            <h1>WELCOME TO DIP URJA EMPLOYEE PORTAL</h1>
+            <div class="user-chip">Logged in as: +` + phone + ` (` + role + `)</div>
+          </div>
+          <div class="portal-container">
+            <div class="welcome-banner">
+              <h2>Authenticated Session Active</h2>
+              <p>Welcome to Dip Urja Power Solutions central management workstation. Your identity has been verified.</p>
+            </div>
+            ` + roleSpecificItems + `
+            <button class="logout-btn" onclick="window.close()">Exit / Close Portal Window</button>
+          </div>
+        </body>
+        </html>
+      `;
+
+      portalWindow.document.write(portalHtml);
+      portalWindow.document.close();
     }
   </script>
 
