@@ -436,6 +436,15 @@
       font-size: 0.85rem;
     }
 
+    .badge-perm {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
     .form-grid-3 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -575,7 +584,7 @@
     .btn-tbl-delete { background: #fee2e2; color: #b91c1c; }
     .btn-tbl-dispatch { background: #dcfce7; color: #15803d; }
 
-    /* Dropdown Manager Modal */
+    /* Modals */
     .mgr-modal {
       display: none;
       position: fixed;
@@ -592,7 +601,7 @@
     .mgr-modal-content {
       background: #fff;
       border-radius: 10px;
-      max-width: 500px;
+      max-width: 580px;
       width: 90%;
       padding: 24px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
@@ -857,31 +866,21 @@
       <span class="emp-close" onclick="closeEmployeeLogin()">&times;</span>
       
       <h3 style="color: var(--primary-blue); margin-bottom: 4px;">Employee Login</h3>
-      <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 16px;">Only authorized registered numbers can log in.</p>
+      <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 16px;">Access is restricted exclusively to authorized registered employee numbers.</p>
 
-      <!-- STEP 1: Phone & Role -->
+      <!-- STEP 1: Phone Verification -->
       <div id="stepPhone">
         <div style="margin-bottom: 12px;">
-          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Select Department:</label>
-          <select id="empRole" class="consult-input" style="margin-bottom: 0;">
-            <option value="Managing Director (MD)">Managing Director (MD)</option>
-            <option value="HR Department">HR Department</option>
-            <option value="Accounts Department">Accounts Department</option>
-            <option value="Site Engineer / Technical Staff">Site Engineer / Technical Staff</option>
-            <option value="Admin / Store Manager">Admin / Store Manager</option>
-          </select>
-        </div>
-
-        <div style="margin-bottom: 12px;">
-          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Mobile Number:</label>
-          <input type="tel" id="empPhone" class="consult-input" placeholder="e.g. 9226194332" style="margin-bottom: 0;" />
+          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">Registered Mobile Number:</label>
+          <input type="tel" id="empPhone" class="consult-input" placeholder="e.g. 9226194332" style="margin-bottom: 4px;" />
+          <small style="color: #64748b; font-size: 0.75rem;">Your department & authorization will be recognized automatically.</small>
         </div>
 
         <button type="button" class="btn-emp-action" onclick="sendWhatsAppOtp()">Send OTP via WhatsApp</button>
         <div id="loginStatus" style="font-size: 0.82rem; margin-top: 10px; text-align: center;"></div>
       </div>
 
-      <!-- STEP 2: Verify Code -->
+      <!-- STEP 2: Verify OTP -->
       <div id="stepOtp" style="display: none;">
         <div style="margin-bottom: 12px;">
           <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Enter the 6-Digit OTP received on WhatsApp:</label>
@@ -906,9 +905,10 @@
     <div class="portal-nav">
       <div>
         <h2 style="font-size: 1.3rem;">⚡ DIP URJA POWER SOLUTIONS</h2>
-        <small style="color: #cbd5e1;">Enterprise ERP - Work Reporting, Requisition & Dispatch Operations</small>
+        <small style="color: #cbd5e1;">Enterprise ERP - Work Reporting, Store Operations & Requisitions</small>
       </div>
       <div style="display: flex; align-items: center; gap: 15px;">
+        <span id="portalUserName" style="font-weight: 700; color: #fff;">Employee Name</span>
         <span id="portalUserBadge" class="badge">Role</span>
         <span id="portalUserPhone" style="font-size: 0.85rem; color: #cbd5e1;">+91...</span>
         <button onclick="logoutPortal()" class="tbl-action-btn" style="background: #ef4444; color: #fff; padding: 6px 14px;">Logout</button>
@@ -918,7 +918,70 @@
     <div class="portal-container">
 
       <!-- ======================================================== -->
-      <!-- 1. HOURWISE WORK REPORT (WITH MD & HR THUMBS UP 👍)      -->
+      <!-- 1. REGISTERED EMPLOYEES DIRECTORY (MD & HR EXCLUSIVE)    -->
+      <!-- ======================================================== -->
+      <div class="portal-card" id="empDirectoryCard" style="border-left-color: #f59e0b;">
+        <div class="portal-card-header">
+          <div>
+            <div class="portal-card-title">👥 Registered Employees & Mobile Numbers Directory</div>
+            <small style="color: #64748b;">(Restricted: Only MD & HR have permission to Add, Edit, or Delete staff logins)</small>
+          </div>
+          <div>
+            <span class="badge-perm">🔐 HR & MD ACCESS ONLY</span>
+          </div>
+        </div>
+
+        <!-- Add/Edit Employee Form -->
+        <form id="empMasterForm" onsubmit="saveEmployee(event)" style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+          <input type="hidden" id="editingEmpIndex" value="-1" />
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label>Employee Full Name *</label>
+              <input type="text" id="masterEmpName" class="form-control" placeholder="e.g. Nilesh B. Jadhav" required />
+            </div>
+            <div class="form-group">
+              <label>Registered Mobile Number (10 Digits) *</label>
+              <input type="tel" id="masterEmpPhone" class="form-control" placeholder="e.g. 9226194332" required />
+            </div>
+            <div class="form-group">
+              <label>Assigned Role / Department *</label>
+              <select id="masterEmpRole" class="form-control" required>
+                <option value="Managing Director (MD)">Managing Director (MD)</option>
+                <option value="HR Department">HR Department</option>
+                <option value="Store Keeper">Store Keeper</option>
+                <option value="Accounts Department">Accounts Department</option>
+                <option value="Site Engineer / Technical Staff">Site Engineer / Technical Staff</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button type="submit" id="btnSaveEmp" class="btn-portal-primary">➕ Register / Update Employee</button>
+            <button type="button" onclick="cancelEmpEdit()" id="btnCancelEmpEdit" class="btn-portal-cancel" style="display: none;">Cancel</button>
+          </div>
+        </form>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Sr</th>
+                <th>Employee Name</th>
+                <th>Registered Mobile</th>
+                <th>Designation / Role</th>
+                <th>System Permissions</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="employeesTableBody">
+              <!-- Dynamically populated from JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 2. HOURWISE WORK REPORT (MD & HR THUMBS UP 👍)           -->
       <!-- ======================================================== -->
       <div class="portal-card" style="border-left-color: #8b5cf6;">
         <div class="portal-card-header">
@@ -933,7 +996,6 @@
           </div>
         </div>
 
-        <!-- Filter bar -->
         <div style="display: flex; gap: 15px; flex-wrap: wrap; background: #f8fafc; padding: 14px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0; align-items: center;">
           <div style="display: flex; align-items: center; gap: 8px;">
             <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Employee Name:</label>
@@ -958,14 +1020,14 @@
               </tr>
             </thead>
             <tbody id="hourwiseTableBody">
-              <!-- Dynamically populated from JS (09:00 AM to 07:00 PM) -->
+              <!-- Dynamically populated from JS -->
             </tbody>
           </table>
         </div>
       </div>
 
       <!-- ======================================================== -->
-      <!-- 2. MATERIAL REQUISITION FORM                             -->
+      <!-- 3. MATERIAL REQUISITION FORM                             -->
       <!-- ======================================================== -->
       <div class="portal-card" style="border-left-color: #0284c7;">
         <div class="portal-card-header">
@@ -986,7 +1048,7 @@
             <div class="form-group">
               <label>
                 <span>Customer / Site Name *</span>
-                <span class="btn-edit-list-link" onclick="openManager('sites')">⚙️ Edit List</span>
+                <span class="btn-edit-list-link perm-sensitive" onclick="openManager('sites')">⚙️ Edit List</span>
               </label>
               <select id="reqSiteSelect" class="form-control" required></select>
             </div>
@@ -995,7 +1057,6 @@
             <div class="form-group">
               <label>
                 <span>Requested By (Engineer/Staff) *</span>
-                <span class="btn-edit-list-link" onclick="openManager('staff')">⚙️ Edit List</span>
               </label>
               <select id="reqStaffSelect" class="form-control" required></select>
             </div>
@@ -1004,7 +1065,7 @@
             <div class="form-group">
               <label>
                 <span>Material / Equipment *</span>
-                <span class="btn-edit-list-link" onclick="openManager('materials')">⚙️ Edit List</span>
+                <span class="btn-edit-list-link perm-sensitive" onclick="openManager('materials')">⚙️ Edit List</span>
               </label>
               <select id="reqMaterialSelect" class="form-control" required></select>
             </div>
@@ -1047,12 +1108,12 @@
       </div>
 
       <!-- ======================================================== -->
-      <!-- 3. ACTIVE MATERIAL REQUISITIONS TABLE                   -->
+      <!-- 4. ACTIVE MATERIAL REQUISITIONS TABLE                   -->
       <!-- ======================================================== -->
       <div class="portal-card">
         <div class="portal-card-header">
           <div class="portal-card-title">📦 Active Material Requisitions Table</div>
-          <small style="color: #64748b;">Click 'Dispatch' once material leaves warehouse to push to the Dispatch Log</small>
+          <small style="color: #64748b;">(Approval & dispatch permissions reserved for MD, HR & Store Keeper)</small>
         </div>
 
         <div class="table-container">
@@ -1078,13 +1139,13 @@
       </div>
 
       <!-- ======================================================== -->
-      <!-- 4. MATERIAL DISPATCH LOG (DOWNLOADABLE TO EXCEL)         -->
+      <!-- 5. MATERIAL DISPATCH LOG (DOWNLOADABLE TO EXCEL)         -->
       <!-- ======================================================== -->
       <div class="portal-card" style="border-left-color: var(--green);">
         <div class="portal-card-header">
           <div>
             <div class="portal-card-title">🚚 Material Dispatch & Delivery Log</div>
-            <small style="color: #64748b;">Complete historical records of out-of-store material transfers</small>
+            <small style="color: #64748b;">Official warehouse dispatch records</small>
           </div>
           <div>
             <button onclick="downloadDispatchExcel()" class="btn-portal-excel">
@@ -1116,11 +1177,11 @@
     </div>
   </section>
 
-  <!-- ================= DROPDOWN LIST MANAGER MODAL ================= -->
+  <!-- ================= MASTER DROPDOWN LIST MANAGER MODAL ================= -->
   <div id="managerModal" class="mgr-modal">
     <div class="mgr-modal-content">
-      <h3 id="mgrTitle" style="color: var(--primary-blue); margin-bottom: 8px;">Edit Dropdown List</h3>
-      <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 12px;">Add new entries or delete items. Changes will immediately update the forms.</p>
+      <h3 id="mgrTitle" style="color: var(--primary-blue); margin-bottom: 8px;">Edit Master List</h3>
+      <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 12px;">Add or remove entries. Changes will automatically update all selection dropdowns.</p>
 
       <div style="display: flex; gap: 8px; margin-bottom: 10px;">
         <input type="text" id="mgrInput" class="form-control" placeholder="Type new entry name..." style="flex: 1;" />
@@ -1139,128 +1200,17 @@
 
   <script>
     /* -------------------------------------------------------------
-       CALCULATOR & CONSULTATION FORM (PUBLIC WEBSITE)
+       DEFAULT REGISTERED EMPLOYEES & DIRECTORY DATABASE
     -------------------------------------------------------------- */
-    function updateCalc(size, saving, emi, el) {
-      document.querySelectorAll('.size-card').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      document.getElementById('calcSaving').innerText = saving;
-      document.getElementById('calcEmi').innerText = emi;
-    }
+    var defaultEmployees = [
+      { name: "Nilesh Balasaheb Jadhav", phone: "9226194332", role: "Managing Director (MD)" },
+      { name: "Pooja Jadhav (HR)", phone: "9226194804", role: "HR Department" },
+      { name: "Ganesh Shinde (Store)", phone: "9822012345", role: "Store Keeper" },
+      { name: "Kavita R. (Accounts)", phone: "9422098765", role: "Accounts Department" },
+      { name: "Rahul Patil (Site Engineer)", phone: "9765432100", role: "Site Engineer / Technical Staff" },
+      { name: "Sachin Sharma (Senior Tech)", phone: "9890123456", role: "Site Engineer / Technical Staff" }
+    ];
 
-    function sendToWhatsApp(e) {
-      e.preventDefault();
-      var name = document.getElementById("custName").value.trim();
-      var phone = document.getElementById("custPhone").value.trim();
-      var pincode = document.getElementById("custPincode").value.trim();
-      var bill = document.querySelector('input[name="bill_range"]:checked').value;
-
-      var textMsg = "☀️ *New Free Solar Consultation Request*\n\n" +
-                    "👤 *Name:* " + name + "\n" +
-                    "📱 *WhatsApp:* " + phone + "\n" +
-                    "⚡ *Monthly Bill:* " + bill + "\n" +
-                    "📍 *PIN Code:* " + pincode;
-
-      window.open("https://api.whatsapp.com/send?phone=919226194332&text=" + encodeURIComponent(textMsg), "_blank");
-    }
-
-    /* -------------------------------------------------------------
-       EMPLOYEE LOGIN MODAL & OTP LOGIC
-    -------------------------------------------------------------- */
-    var generatedOtp = null;
-    var registeredPhone = "";
-    var selectedRole = "";
-
-    function openEmployeeLogin() {
-      resetLoginForm();
-      document.getElementById('employeeModal').style.display = 'flex';
-    }
-
-    function closeEmployeeLogin() {
-      document.getElementById('employeeModal').style.display = 'none';
-    }
-
-    function resetLoginForm() {
-      document.getElementById('stepPhone').style.display = 'block';
-      document.getElementById('stepOtp').style.display = 'none';
-      document.getElementById('loginStatus').innerText = '';
-      document.getElementById('otpCode').value = '';
-      generatedOtp = null;
-    }
-
-    function sendWhatsAppOtp() {
-      var rawInput = document.getElementById('empPhone').value.trim();
-      var statusBox = document.getElementById('loginStatus');
-
-      var digits = rawInput.replace(/[^0-9]/g, '');
-      if (digits.startsWith("91") && digits.length === 12) {
-        digits = digits.substring(2);
-      }
-
-      if (digits !== "9226194332" && !digits.endsWith("804")) {
-        statusBox.style.color = '#dc2626';
-        statusBox.innerText = '❌ Access Denied: Unauthorized number.';
-        return;
-      }
-
-      registeredPhone = "91" + digits;
-      selectedRole = document.getElementById('empRole').value;
-      generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-
-      statusBox.style.color = '#0b2545';
-      statusBox.innerText = 'Number verified. Opening WhatsApp to send OTP...';
-
-      var msg = "🔐 *DIP URJA POWER SOLUTIONS*\n\nYour Employee Portal OTP is: *" + generatedOtp + "*\nRole: " + selectedRole;
-      window.open("https://api.whatsapp.com/send?phone=" + registeredPhone + "&text=" + encodeURIComponent(msg), "_blank");
-
-      setTimeout(function() {
-        document.getElementById('stepPhone').style.display = 'none';
-        document.getElementById('stepOtp').style.display = 'block';
-      }, 500);
-    }
-
-    function verifyWhatsAppOtp() {
-      var enteredOtp = document.getElementById('otpCode').value.trim();
-
-      if (enteredOtp !== generatedOtp) {
-        alert('Invalid OTP. Please check the 6 digits sent on WhatsApp.');
-        return;
-      }
-
-      closeEmployeeLogin();
-      activateInPagePortal(selectedRole, registeredPhone);
-    }
-
-    function activateInPagePortal(role, phone) {
-      document.getElementById('publicWebsiteView').style.display = 'none';
-      document.getElementById('employeePortalSection').style.display = 'block';
-      document.getElementById('portalUserBadge').innerText = role;
-      document.getElementById('portalUserPhone').innerText = "+" + phone;
-
-      initData();
-      renderAllDropdowns();
-      renderRequisitionsTable();
-      renderDispatchTable();
-
-      var today = new Date().toISOString().split('T')[0];
-      document.getElementById("workReportDate").value = today;
-      loadHourwiseReport();
-
-      window.scrollTo(0, 0);
-    }
-
-    function logoutPortal() {
-      if (confirm("Are you sure you want to log out of Dip Urja Portal?")) {
-        document.getElementById('employeePortalSection').style.display = 'none';
-        document.getElementById('publicWebsiteView').style.display = 'block';
-        resetLoginForm();
-        window.scrollTo(0, 0);
-      }
-    }
-
-    /* -------------------------------------------------------------
-       DATABASE / LOCALSTORAGE STATE MANAGEMENT
-    -------------------------------------------------------------- */
     var defaultSites = [
       "Samarth Heights, Gangapur Rd",
       "Kundan Agro Industries, Satpur MIDC",
@@ -1268,14 +1218,6 @@
       "Kalyani Residency, Indiranagar",
       "Panchavati Cold Storage, Dindori Rd",
       "Jadhav Residential Villa, Pathardi"
-    ];
-
-    var defaultStaff = [
-      "Rahul Patil (Site Engineer)",
-      "Sachin Sharma (Senior Tech)",
-      "Pravin Jagtap (Operations Lead)",
-      "Anand Deshmukh (Solar Installer)",
-      "Nilesh Balasaheb Jadhav (Admin / MD)"
     ];
 
     var defaultMaterials = [
@@ -1308,7 +1250,7 @@
         id: "REQ-102",
         date: "2026-09-29",
         site: "Kundan Agro Industries, Satpur MIDC",
-        staff: "Pravin Jagtap (Operations Lead)",
+        staff: "Rahul Patil (Site Engineer)",
         material: "Solar Modules Mono Perc (540W/550W)",
         qty: "24 Nos",
         accounts: "✅ Advance Received",
@@ -1342,11 +1284,11 @@
     ];
 
     function initData() {
+      if (!localStorage.getItem("dups_employees")) {
+        localStorage.setItem("dups_employees", JSON.stringify(defaultEmployees));
+      }
       if (!localStorage.getItem("dups_sites")) {
         localStorage.setItem("dups_sites", JSON.stringify(defaultSites));
-      }
-      if (!localStorage.getItem("dups_staff")) {
-        localStorage.setItem("dups_staff", JSON.stringify(defaultStaff));
       }
       if (!localStorage.getItem("dups_materials")) {
         localStorage.setItem("dups_materials", JSON.stringify(defaultMaterials));
@@ -1371,13 +1313,306 @@
     }
 
     /* -------------------------------------------------------------
-       DROPDOWN POPULATION & SYNC
+       PUBLIC CALCULATOR & CONSULTATION
+    -------------------------------------------------------------- */
+    function updateCalc(size, saving, emi, el) {
+      document.querySelectorAll('.size-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('calcSaving').innerText = saving;
+      document.getElementById('calcEmi').innerText = emi;
+    }
+
+    function sendToWhatsApp(e) {
+      e.preventDefault();
+      var name = document.getElementById("custName").value.trim();
+      var phone = document.getElementById("custPhone").value.trim();
+      var pincode = document.getElementById("custPincode").value.trim();
+      var bill = document.querySelector('input[name="bill_range"]:checked').value;
+
+      var textMsg = "☀️ *New Free Solar Consultation Request*\n\n" +
+                    "👤 *Name:* " + name + "\n" +
+                    "📱 *WhatsApp:* " + phone + "\n" +
+                    "⚡ *Monthly Bill:* " + bill + "\n" +
+                    "📍 *PIN Code:* " + pincode;
+
+      window.open("https://api.whatsapp.com/send?phone=919226194332&text=" + encodeURIComponent(textMsg), "_blank");
+    }
+
+    /* -------------------------------------------------------------
+       AUTHENTICATION ONLY VIA REGISTERED MOBILE NUMBERS
+    -------------------------------------------------------------- */
+    var generatedOtp = null;
+    var loggedInUser = null;
+
+    function openEmployeeLogin() {
+      initData();
+      resetLoginForm();
+      document.getElementById('employeeModal').style.display = 'flex';
+    }
+
+    function closeEmployeeLogin() {
+      document.getElementById('employeeModal').style.display = 'none';
+    }
+
+    function resetLoginForm() {
+      document.getElementById('stepPhone').style.display = 'block';
+      document.getElementById('stepOtp').style.display = 'none';
+      document.getElementById('loginStatus').innerText = '';
+      document.getElementById('otpCode').value = '';
+      generatedOtp = null;
+      loggedInUser = null;
+    }
+
+    function sendWhatsAppOtp() {
+      initData();
+      var rawInput = document.getElementById('empPhone').value.trim();
+      var statusBox = document.getElementById('loginStatus');
+
+      var digits = rawInput.replace(/[^0-9]/g, '');
+      if (digits.startsWith("91") && digits.length === 12) {
+        digits = digits.substring(2);
+      }
+
+      var employees = getData("dups_employees");
+      // Find employee strictly matching the registered 10-digit phone
+      var matchedEmp = employees.find(function(e) {
+        var empClean = e.phone.replace(/[^0-9]/g, '');
+        if (empClean.startsWith("91") && empClean.length === 12) empClean = empClean.substring(2);
+        return empClean === digits;
+      });
+
+      if (!matchedEmp) {
+        statusBox.style.color = '#dc2626';
+        statusBox.innerText = '❌ Access Denied: This mobile number is not registered.';
+        return;
+      }
+
+      loggedInUser = matchedEmp;
+      generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+      statusBox.style.color = '#0b2545';
+      statusBox.innerText = 'Number verified for ' + matchedEmp.name + ' (' + matchedEmp.role + '). Opening WhatsApp...';
+
+      var msg = "🔐 *DIP URJA POWER SOLUTIONS*\n\nHello *" + matchedEmp.name + "*,\nYour Employee Portal OTP is: *" + generatedOtp + "*\nRole: " + matchedEmp.role;
+      window.open("https://api.whatsapp.com/send?phone=91" + digits + "&text=" + encodeURIComponent(msg), "_blank");
+
+      setTimeout(function() {
+        document.getElementById('stepPhone').style.display = 'none';
+        document.getElementById('stepOtp').style.display = 'block';
+      }, 500);
+    }
+
+    function verifyWhatsAppOtp() {
+      var enteredOtp = document.getElementById('otpCode').value.trim();
+
+      if (enteredOtp !== generatedOtp) {
+        alert('Invalid OTP. Please check the 6 digits sent on WhatsApp.');
+        return;
+      }
+
+      closeEmployeeLogin();
+      activateInPagePortal(loggedInUser);
+    }
+
+    function activateInPagePortal(user) {
+      document.getElementById('publicWebsiteView').style.display = 'none';
+      document.getElementById('employeePortalSection').style.display = 'block';
+      
+      document.getElementById('portalUserName').innerText = user.name;
+      document.getElementById('portalUserBadge').innerText = user.role;
+      document.getElementById('portalUserPhone').innerText = "+91 " + user.phone;
+
+      // Apply role-based visibility restrictions
+      applyRolePermissions(user.role);
+
+      renderAllDropdowns();
+      renderEmployeeTable();
+      renderRequisitionsTable();
+      renderDispatchTable();
+
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementById("workReportDate").value = today;
+      loadHourwiseReport();
+
+      window.scrollTo(0, 0);
+    }
+
+    function logoutPortal() {
+      if (confirm("Are you sure you want to log out of Dip Urja Portal?")) {
+        document.getElementById('employeePortalSection').style.display = 'none';
+        document.getElementById('publicWebsiteView').style.display = 'block';
+        resetLoginForm();
+        window.scrollTo(0, 0);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       ROLE-BASED PERMISSION ENFORCEMENT
+       (Store Keeper, MD, and HR Only have management & approval rights)
+    -------------------------------------------------------------- */
+    function isMdOrHr(role) {
+      return role.includes("MD") || role.includes("HR");
+    }
+
+    function isStoreKeeper(role) {
+      return role.includes("Store");
+    }
+
+    function applyRolePermissions(role) {
+      var hasFullAdmin = isMdOrHr(role);
+      var hasStoreRight = isStoreKeeper(role);
+
+      // 1. Employee Directory Card: Visible only to MD & HR
+      var empCard = document.getElementById("empDirectoryCard");
+      if (hasFullAdmin) {
+        empCard.style.display = "block";
+      } else {
+        empCard.style.display = "none";
+      }
+
+      // 2. Sensitive Master Dropdown Edit Links: Visible only to MD, HR & Store Keeper
+      var sensitiveLinks = document.querySelectorAll(".perm-sensitive");
+      sensitiveLinks.forEach(function(el) {
+        el.style.display = (hasFullAdmin || hasStoreRight) ? "inline" : "none";
+      });
+    }
+
+    /* -------------------------------------------------------------
+       REGISTERED EMPLOYEE DIRECTORY CRUD (MD & HR ONLY)
+    -------------------------------------------------------------- */
+    function renderEmployeeTable() {
+      var employees = getData("dups_employees");
+      var tbody = document.getElementById("employeesTableBody");
+      tbody.innerHTML = "";
+
+      var currentUserRole = loggedInUser ? loggedInUser.role : "";
+      var canEdit = isMdOrHr(currentUserRole);
+
+      employees.forEach(function(emp, index) {
+        var tr = document.createElement("tr");
+
+        var permDesc = "Standard Technical Access";
+        if (emp.role.includes("MD")) permDesc = "Full Administrative & Clearance Rights";
+        else if (emp.role.includes("HR")) permDesc = "Staff Management & HR Thumbs Up";
+        else if (emp.role.includes("Store")) permDesc = "Material Master & Dispatch Controls";
+        else if (emp.role.includes("Accounts")) permDesc = "Financial Requisition Verification";
+
+        var actionHtml = canEdit ? `
+          <button onclick="editEmployee(${index})" class="tbl-action-btn btn-tbl-edit">Edit</button>
+          <button onclick="deleteEmployee(${index})" class="tbl-action-btn btn-tbl-delete">Del</button>
+        ` : `<span style="color:#94a3b8; font-size:0.75rem;">View Only</span>`;
+
+        tr.innerHTML = `
+          <td><strong>${index + 1}</strong></td>
+          <td><strong>${emp.name}</strong></td>
+          <td>+91 ${emp.phone}</td>
+          <td><span class="badge">${emp.role}</span></td>
+          <td style="font-size:0.8rem; color:#475569;">${permDesc}</td>
+          <td>${actionHtml}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function saveEmployee(e) {
+      e.preventDefault();
+      var currentUserRole = loggedInUser ? loggedInUser.role : "";
+      if (!isMdOrHr(currentUserRole)) {
+        alert("Permission Denied: Only Managing Director or HR can add or edit employees.");
+        return;
+      }
+
+      var name = document.getElementById("masterEmpName").value.trim();
+      var rawPhone = document.getElementById("masterEmpPhone").value.trim();
+      var role = document.getElementById("masterEmpRole").value;
+      var editIdx = parseInt(document.getElementById("editingEmpIndex").value, 10);
+
+      var phoneDigits = rawPhone.replace(/[^0-9]/g, '');
+      if (phoneDigits.startsWith("91") && phoneDigits.length === 12) phoneDigits = phoneDigits.substring(2);
+
+      if (phoneDigits.length !== 10) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+      }
+
+      var employees = getData("dups_employees");
+
+      // Check duplicate mobile numbers across other employees
+      var duplicate = employees.find(function(emp, i) {
+        return emp.phone === phoneDigits && i !== editIdx;
+      });
+
+      if (duplicate) {
+        alert("This mobile number is already registered for: " + duplicate.name);
+        return;
+      }
+
+      if (editIdx >= 0) {
+        employees[editIdx] = { name: name, phone: phoneDigits, role: role };
+        alert("Employee details updated successfully!");
+      } else {
+        employees.push({ name: name, phone: phoneDigits, role: role });
+        alert("New employee successfully registered with login permission!");
+      }
+
+      setData("dups_employees", employees);
+      cancelEmpEdit();
+      renderEmployeeTable();
+      renderAllDropdowns();
+    }
+
+    function editEmployee(index) {
+      var employees = getData("dups_employees");
+      var emp = employees[index];
+      if (!emp) return;
+
+      document.getElementById("editingEmpIndex").value = index;
+      document.getElementById("masterEmpName").value = emp.name;
+      document.getElementById("masterEmpPhone").value = emp.phone;
+      document.getElementById("masterEmpRole").value = emp.role;
+
+      document.getElementById("btnSaveEmp").innerText = "💾 Save Employee Changes";
+      document.getElementById("btnCancelEmpEdit").style.display = "inline-block";
+      window.scrollTo({ top: document.getElementById("empMasterForm").offsetTop - 80, behavior: 'smooth' });
+    }
+
+    function cancelEmpEdit() {
+      document.getElementById("editingEmpIndex").value = "-1";
+      document.getElementById("empMasterForm").reset();
+      document.getElementById("btnSaveEmp").innerText = "➕ Register / Update Employee";
+      document.getElementById("btnCancelEmpEdit").style.display = "none";
+    }
+
+    function deleteEmployee(index) {
+      var currentUserRole = loggedInUser ? loggedInUser.role : "";
+      if (!isMdOrHr(currentUserRole)) {
+        alert("Permission Denied: Only MD or HR can delete registered employees.");
+        return;
+      }
+
+      var employees = getData("dups_employees");
+      var emp = employees[index];
+
+      if (confirm("Delete employee '" + emp.name + "' with phone " + emp.phone + "? They will no longer be able to log in.")) {
+        employees.splice(index, 1);
+        setData("dups_employees", employees);
+        renderEmployeeTable();
+        renderAllDropdowns();
+      }
+    }
+
+    /* -------------------------------------------------------------
+       DROPDOWN POPULATION (SYNCED WITH REGISTERED STAFF)
     -------------------------------------------------------------- */
     function renderAllDropdowns() {
       populateDropdown("reqSiteSelect", getData("dups_sites"));
-      populateDropdown("reqStaffSelect", getData("dups_staff"));
       populateDropdown("reqMaterialSelect", getData("dups_materials"));
-      populateDropdown("workReportStaffSelect", getData("dups_staff"));
+
+      var employees = getData("dups_employees");
+      var staffList = employees.map(function(e) { return e.name + " (" + e.role + ")"; });
+
+      populateDropdown("reqStaffSelect", staffList);
+      populateDropdown("workReportStaffSelect", staffList);
     }
 
     function populateDropdown(selectId, items) {
@@ -1399,7 +1634,7 @@
     }
 
     /* -------------------------------------------------------------
-       HOURWISE WORK REPORT WITH MD & HR THUMBS UP LOGIC
+       HOURWISE WORK REPORT WITH MD & HR APPROVAL (👍)
     -------------------------------------------------------------- */
     function getWorkReportStoreKey() {
       var staff = document.getElementById("workReportStaffSelect").value || "Unknown";
@@ -1462,16 +1697,17 @@
     }
 
     function toggleThumbsUp(slot, reviewerRole) {
-      var currentLoggedIn = selectedRole || "";
-      if (reviewerRole === "md" && !currentLoggedIn.includes("MD") && currentLoggedIn !== "") {
-        if (!confirm("Note: MD approvals are officially given by MD. Do you still wish to toggle as authorized?")) {
-          return;
-        }
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+
+      // Strict approval restriction: MD and HR only
+      if (reviewerRole === "md" && !currentRole.includes("MD")) {
+        alert("Permission Denied: Only Managing Director can grant MD Thumbs Up 👍 approvals.");
+        return;
       }
-      if (reviewerRole === "hr" && !currentLoggedIn.includes("HR") && !currentLoggedIn.includes("MD") && currentLoggedIn !== "") {
-        if (!confirm("Note: HR approvals are officially given by HR. Do you still wish to toggle as authorized?")) {
-          return;
-        }
+
+      if (reviewerRole === "hr" && !currentRole.includes("HR") && !currentRole.includes("MD")) {
+        alert("Permission Denied: Only HR Department can grant HR Thumbs Up 👍 approvals.");
+        return;
       }
 
       var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
@@ -1528,21 +1764,30 @@
     }
 
     /* -------------------------------------------------------------
-       REQUISITION CRUD (CREATE, READ, UPDATE, DELETE)
+       REQUISITIONS & DISPATCH LOGIC (STORE KEEPER, MD & HR RIGHTS)
     -------------------------------------------------------------- */
     function renderRequisitionsTable() {
       var reqs = getData("dups_requisitions");
       var tbody = document.getElementById("requisitionsTableBody");
       tbody.innerHTML = "";
 
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+      var canManage = isMdOrHr(currentRole) || isStoreKeeper(currentRole);
+
       if (reqs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#94a3b8; padding:20px;">No active requisitions found. Submit one above.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#94a3b8; padding:20px;">No active requisitions found.</td></tr>';
         return;
       }
 
       reqs.forEach(function(item) {
         var accBadge = item.accounts.includes("Cleared") || item.accounts.includes("Advance") ? "status-approved" : (item.accounts.includes("Hold") ? "status-hold" : "status-pending");
         var mdBadge = item.md.includes("Approved") ? "status-approved" : (item.md.includes("Hold") ? "status-hold" : "status-pending");
+
+        var actions = canManage ? `
+          <button onclick="editRequisition('${item.id}')" class="tbl-action-btn btn-tbl-edit">Edit</button>
+          <button onclick="dispatchRequisition('${item.id}')" class="tbl-action-btn btn-tbl-dispatch">Dispatch</button>
+          <button onclick="deleteRequisition('${item.id}')" class="tbl-action-btn btn-tbl-delete">Del</button>
+        ` : `<span style="color:#94a3b8; font-size:0.75rem;">Submitted</span>`;
 
         var tr = document.createElement("tr");
         tr.innerHTML = `
@@ -1554,11 +1799,7 @@
           <td><strong>${item.qty}</strong></td>
           <td><span class="status-pill ${accBadge}">${item.accounts}</span></td>
           <td><span class="status-pill ${mdBadge}">${item.md}</span></td>
-          <td>
-            <button onclick="editRequisition('${item.id}')" class="tbl-action-btn btn-tbl-edit">Edit</button>
-            <button onclick="dispatchRequisition('${item.id}')" class="tbl-action-btn btn-tbl-dispatch">Dispatch</button>
-            <button onclick="deleteRequisition('${item.id}')" class="tbl-action-btn btn-tbl-delete">Del</button>
-          </td>
+          <td>${actions}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -1574,6 +1815,14 @@
       var qty = document.getElementById("reqQty").value.trim();
       var acc = document.getElementById("reqAccountsApp").value;
       var md = document.getElementById("reqMdApp").value;
+
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+
+      // Restrict unauthorized MD clearance updates
+      if (md.includes("Approved") && !currentRole.includes("MD")) {
+        alert("Notice: MD Clearance status can only be officially verified by the Managing Director. Status will be marked as 'Pending MD Clearance'.");
+        md = "⏳ Pending MD Clearance";
+      }
 
       if (!site || !staff || !material || !qty) {
         alert("Please select Site, Staff, Material, and enter Quantity.");
@@ -1615,6 +1864,12 @@
     }
 
     function editRequisition(id) {
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+      if (!isMdOrHr(currentRole) && !isStoreKeeper(currentRole)) {
+        alert("Permission Denied: Only Store Keeper, MD, or HR can edit requisitions.");
+        return;
+      }
+
       var reqs = getData("dups_requisitions");
       var item = reqs.find(r => r.id === id);
       if (!item) return;
@@ -1643,6 +1898,12 @@
     }
 
     function deleteRequisition(id) {
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+      if (!isMdOrHr(currentRole) && !isStoreKeeper(currentRole)) {
+        alert("Permission Denied: Only Store Keeper, MD, or HR can delete requisitions.");
+        return;
+      }
+
       if (confirm("Are you sure you want to delete Requisition #" + id + "?")) {
         var reqs = getData("dups_requisitions").filter(r => r.id !== id);
         setData("dups_requisitions", reqs);
@@ -1651,11 +1912,17 @@
     }
 
     function dispatchRequisition(id) {
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+      if (!isStoreKeeper(currentRole) && !isMdOrHr(currentRole)) {
+        alert("Permission Denied: Material Dispatch is strictly authorized by Store Keeper or MD.");
+        return;
+      }
+
       var reqs = getData("dups_requisitions");
       var item = reqs.find(r => r.id === id);
       if (!item) return;
 
-      if (!confirm("Dispatch material for " + item.site + "? This will move the item into the Material Dispatch Log.")) {
+      if (!confirm("Confirm dispatch of material for " + item.site + "? This records delivery in the Dispatch Log.")) {
         return;
       }
 
@@ -1680,7 +1947,7 @@
 
       renderRequisitionsTable();
       renderDispatchTable();
-      alert("Material successfully recorded into the Dispatch Log!");
+      alert("Material successfully transferred to Warehouse Dispatch Log!");
     }
 
     /* -------------------------------------------------------------
@@ -1773,15 +2040,20 @@
     }
 
     /* -------------------------------------------------------------
-       DROPDOWN LIST MANAGER MODAL (ADD / DELETE ITEMS)
+       MASTER DROPDOWN LIST MANAGER (MD, HR & STORE KEEPER ONLY)
     -------------------------------------------------------------- */
     var activeManagerType = "";
 
     function openManager(type) {
+      var currentRole = loggedInUser ? loggedInUser.role : "";
+      if (!isMdOrHr(currentRole) && !isStoreKeeper(currentRole)) {
+        alert("Permission Denied: Editing master dropdown lists is reserved for MD, HR, or Store Keeper.");
+        return;
+      }
+
       activeManagerType = type;
       var titles = {
-        sites: "Customer / Project Site Manager",
-        staff: "Staff & Engineer Manager",
+        sites: "Customer / Project Site Master List",
         materials: "Material & Equipment Master List"
       };
 
@@ -1797,9 +2069,7 @@
     }
 
     function getStorageKeyForActive() {
-      if (activeManagerType === "sites") return "dups_sites";
-      if (activeManagerType === "staff") return "dups_staff";
-      return "dups_materials";
+      return activeManagerType === "sites" ? "dups_sites" : "dups_materials";
     }
 
     function renderManagerList() {
@@ -1831,7 +2101,7 @@
       var list = getData(key);
 
       if (list.includes(text)) {
-        alert("This item already exists in the list.");
+        alert("This item already exists in the master list.");
         return;
       }
 
@@ -1844,7 +2114,7 @@
     function deleteManagerItem(index) {
       var key = getStorageKeyForActive();
       var list = getData(key);
-      if (confirm("Delete '" + list[index] + "' from dropdown list?")) {
+      if (confirm("Delete '" + list[index] + "' from list?")) {
         list.splice(index, 1);
         setData(key, list);
         renderManagerList();
