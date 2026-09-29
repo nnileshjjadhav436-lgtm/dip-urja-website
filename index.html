@@ -108,7 +108,7 @@
       color: #ffffff !important;
     }
 
-    /* Hero Banner Image */
+    /* Banner Image */
     .hero-banner {
       width: 100%;
       background: #000;
@@ -627,9 +627,9 @@
     }
 
     /* EMPLOYEE LOGIN & NEW WINDOW WORKFLOW */
-    let generatedOtp = null;
-    let registeredPhone = "";
-    let selectedRole = "";
+    var generatedOtp = null;
+    var registeredPhone = "";
+    var selectedRole = "";
 
     function openEmployeeLogin() {
       resetLoginForm();
@@ -649,10 +649,10 @@
     }
 
     function sendWhatsAppOtp() {
-      const rawInput = document.getElementById('empPhone').value.trim();
-      const statusBox = document.getElementById('loginStatus');
+      var rawInput = document.getElementById('empPhone').value.trim();
+      var statusBox = document.getElementById('loginStatus');
 
-      let digits = rawInput.replace(/[^0-9]/g, '');
+      var digits = rawInput.replace(/[^0-9]/g, '');
       if (digits.startsWith("91") && digits.length === 12) {
         digits = digits.substring(2);
       }
@@ -671,17 +671,17 @@
       statusBox.style.color = '#0b2545';
       statusBox.innerText = 'Number verified. Opening WhatsApp to send OTP...';
 
-      const msg = "🔐 *DIP URJA POWER SOLUTIONS*\n\nYour Employee Portal OTP is: *" + generatedOtp + "*\nRole: " + selectedRole;
+      var msg = "🔐 *DIP URJA POWER SOLUTIONS*\n\nYour Employee Portal OTP is: *" + generatedOtp + "*\nRole: " + selectedRole;
       window.open("https://api.whatsapp.com/send?phone=" + registeredPhone + "&text=" + encodeURIComponent(msg), "_blank");
 
-      setTimeout(() => {
+      setTimeout(function() {
         document.getElementById('stepPhone').style.display = 'none';
         document.getElementById('stepOtp').style.display = 'block';
       }, 500);
     }
 
     function verifyWhatsAppOtp() {
-      const enteredOtp = document.getElementById('otpCode').value.trim();
+      var enteredOtp = document.getElementById('otpCode').value.trim();
 
       if (enteredOtp !== generatedOtp) {
         alert('Invalid OTP. Please check the 6 digits sent on WhatsApp.');
@@ -692,381 +692,51 @@
       openEmployeePortalWindow(selectedRole, registeredPhone);
     }
 
-    // Opens Full Dedicated Employee Portal Window with Requisitions & Approvals
     function openEmployeePortalWindow(role, phone) {
-      const newWin = window.open("", "_blank");
-      newWin.document.write(`
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>DIP URJA - Internal Workstation & Requisition Portal</title>
-  <style>
-    :root {
-      --primary: #0b2545;
-      --accent: #134074;
-      --danger: #d90429;
-      --success: #16a34a;
-      --warning: #f59e0b;
-      --bg: #f1f5f9;
-      --card: #ffffff;
-      --border: #cbd5e1;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-    body { background: var(--bg); color: #1e293b; line-height: 1.5; }
-    
-    .top-header { background: var(--primary); color: #fff; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-    .top-header h2 { font-size: 1.25rem; font-weight: 700; }
-    .user-pill { background: rgba(255,255,255,0.15); padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; }
+      var newWin = window.open("", "_blank");
+      
+      var portalHtml = '<!DOCTYPE html>' +
+        '<html>' +
+        '<head>' +
+        '<meta charset="UTF-8">' +
+        '<title>WELCOME TO DIP URJA EMPLOYEE PORTAL</title>' +
+        '<style>' +
+          'body { font-family: Segoe UI, Arial, sans-serif; background: #f1f5f9; margin: 0; color: #1e293b; }' +
+          '.top-nav { background: #0b2545; color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }' +
+          '.container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }' +
+          '.card { background: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid #d90429; }' +
+          '.badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 5px 12px; border-radius: 15px; font-weight: bold; font-size: 0.85rem; margin-bottom: 10px; }' +
+          'table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }' +
+          'th, td { padding: 12px; text-align: left; border-bottom: 1px solid #cbd5e1; }' +
+          'th { background: #f8fafc; color: #0b2545; }' +
+          '.btn-close { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }' +
+        '</style>' +
+        '</head>' +
+        '<body>' +
+          '<div class="top-nav">' +
+            '<h2>WELCOME TO DIP URJA EMPLOYEE PORTAL</h2>' +
+            '<div>Logged in: +' + phone + '</div>' +
+          '</div>' +
+          '<div class="container">' +
+            '<div class="card">' +
+              '<span class="badge">' + role + '</span>' +
+              '<h3>Dip Urja Central Operational Desk</h3>' +
+              '<p style="color: #64748b; margin-top: 6px;">Your session is authenticated. Department tools and requisition workflow are active.</p>' +
+            '</div>' +
+            '<div class="card">' +
+              '<h3>Active Site Material Requisitions</h3>' +
+              '<table>' +
+                '<tr><th>Req ID</th><th>Customer / Site</th><th>Material</th><th>Qty</th><th>Status</th></tr>' +
+                '<tr><td>REQ-101</td><td>Samarth Heights</td><td>Lift Inverter UPS 10kVA</td><td>1 Set</td><td><strong style="color: #16a34a;">Approved</strong></td></tr>' +
+                '<tr><td>REQ-102</td><td>Kundan Agro Industries</td><td>540W Solar Modules</td><td>24 Nos</td><td><strong style="color: #f59e0b;">Pending MD Clearance</strong></td></tr>' +
+              '</table>' +
+            '</div>' +
+            '<button class="btn-close" onclick="window.close()">Log Out / Close Portal Window</button>' +
+          '</div>' +
+        '</body>' +
+        '</html>';
 
-    .nav-tabs { background: #fff; border-bottom: 2px solid var(--border); display: flex; gap: 8px; padding: 0 24px; }
-    .tab-btn { background: none; border: none; padding: 14px 18px; font-size: 0.95rem; font-weight: 600; color: #64748b; cursor: pointer; border-bottom: 3px solid transparent; }
-    .tab-btn.active { color: var(--primary); border-bottom-color: var(--danger); }
-
-    .content-area { max-width: 1200px; margin: 24px auto; padding: 0 20px; }
-    .panel { display: none; }
-    .panel.active { display: block; }
-
-    .card { background: var(--card); border-radius: 10px; padding: 24px; box-shadow: 0 3px 10px rgba(0,0,0,0.04); margin-bottom: 20px; border: 1px solid var(--border); }
-    .card h3 { color: var(--primary); font-size: 1.15rem; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 16px; }
-    .input-field { display: flex; flex-direction: column; gap: 5px; }
-    .input-field label { font-size: 0.82rem; font-weight: 600; color: #475569; }
-    .input-field input, .input-field select { padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 6px; font-size: 0.9rem; outline: none; }
-    .input-field input:focus, .input-field select:focus { border-color: var(--primary); }
-
-    .btn { padding: 9px 18px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--accent); }
-    .btn-success { background: var(--success); color: #fff; padding: 6px 12px; font-size: 0.8rem; }
-    .btn-danger { background: var(--danger); color: #fff; padding: 6px 12px; font-size: 0.8rem; }
-    
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.88rem; }
-    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
-    th { background: #f8fafc; color: var(--primary); font-weight: 600; }
-    .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-    .badge-pending { background: #fef3c7; color: #b45309; }
-    .badge-approved { background: #dcfce7; color: #15803d; }
-  </style>
-</head>
-<body>
-
-  <div class="top-header">
-    <h2>WELCOME TO DIP URJA EMPLOYEE PORTAL</h2>
-    <div class="user-pill">Logged in: <strong>` + phone + `</strong> | ` + role + `</div>
-  </div>
-
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="switchTab('tabRequisitions', this)">📋 Material Requisitions & Approvals</button>
-    <button class="tab-btn" onclick="switchTab('tabMaterials', this)">📦 Edit Material Master</button>
-    <button class="tab-btn" onclick="switchTab('tabCustomers', this)">👥 Edit Customer Directory</button>
-  </div>
-
-  <div class="content-area">
-
-    <!-- 1. MATERIAL REQUISITION TAB -->
-    <div id="tabRequisitions" class="panel active">
-      <div class="card">
-        <h3>Create New Site Material Requisition (HR / Field Staff)</h3>
-        <form id="reqForm" onsubmit="addRequisition(event)">
-          <div class="form-grid">
-            <div class="input-field">
-              <label>Select Customer / Site</label>
-              <select id="reqCustomer" required></select>
-            </div>
-            <div class="input-field">
-              <label>Select Material</label>
-              <select id="reqMaterial" required></select>
-            </div>
-            <div class="input-field">
-              <label>Required Quantity</label>
-              <input type="number" id="reqQty" min="1" placeholder="e.g. 10" required />
-            </div>
-            <div class="input-field">
-              <label>Priority / Remarks</label>
-              <input type="text" id="reqRemarks" placeholder="Urgent rooftop / Lift UPS installation" />
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">+ Submit Material Requisition</button>
-        </form>
-      </div>
-
-      <div class="card">
-        <h3>Approval Status Matrix</h3>
-        <table id="requisitionTable">
-          <thead>
-            <tr>
-              <th>Req ID</th>
-              <th>Customer / Site</th>
-              <th>Material Requested</th>
-              <th>Qty</th>
-              <th>Accounts Dept.</th>
-              <th>Managing Director</th>
-              <th>Store Keeper</th>
-            </tr>
-          </thead>
-          <tbody id="reqTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- 2. EDIT MATERIAL LIST TAB -->
-    <div id="tabMaterials" class="panel">
-      <div class="card">
-        <h3>Add / Edit Material Inventory Master</h3>
-        <form onsubmit="addMaterial(event)">
-          <div class="form-grid">
-            <div class="input-field">
-              <label>Material Name</label>
-              <input type="text" id="matName" placeholder="e.g. 550W Mono PERC Solar Panel" required />
-            </div>
-            <div class="input-field">
-              <label>Category</label>
-              <select id="matCategory">
-                <option value="Solar Panel">Solar Panel</option>
-                <option value="Inverter / UPS">Inverter / UPS</option>
-                <option value="Battery">Battery</option>
-                <option value="Mounting Structure">Mounting Structure</option>
-                <option value="Electrical & Cables">Electrical & Cables</option>
-              </select>
-            </div>
-            <div class="input-field">
-              <label>Stock Unit</label>
-              <input type="text" id="matUnit" placeholder="Nos / Meters / Sets" required />
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">+ Add New Material</button>
-        </form>
-      </div>
-      <div class="card">
-        <h3>Current Material Master</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Material Name</th>
-              <th>Category</th>
-              <th>Unit</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="materialTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- 3. EDIT CUSTOMER LIST TAB -->
-    <div id="tabCustomers" class="panel">
-      <div class="card">
-        <h3>Add / Edit Customer Project Directory</h3>
-        <form onsubmit="addCustomer(event)">
-          <div class="form-grid">
-            <div class="input-field">
-              <label>Customer Name</label>
-              <input type="text" id="custName" placeholder="e.g. Shreedhar Residency" required />
-            </div>
-            <div class="input-field">
-              <label>Site Address / Location</label>
-              <input type="text" id="custLocation" placeholder="e.g. Gangapur Road, Nashik" required />
-            </div>
-            <div class="input-field">
-              <label>Contact Phone</label>
-              <input type="tel" id="custPhone" placeholder="e.g. 9822XXXXXX" required />
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">+ Add New Customer</button>
-        </form>
-      </div>
-      <div class="card">
-        <h3>Active Customer Projects</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Customer Name</th>
-              <th>Site Location</th>
-              <th>Contact Phone</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="customerTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    const currentRole = "` + role + `";
-
-    let materials = JSON.parse(localStorage.getItem('dip_materials')) || [
-      { id: 1, name: "540W Mono PERC Solar Panel", category: "Solar Panel", unit: "Nos" },
-      { id: 2, name: "Lift Inverter UPS 10kVA", category: "Inverter / UPS", unit: "Set" },
-      { id: 3, name: "150Ah Tubular Battery", category: "Battery", unit: "Nos" },
-      { id: 4, name: "4 sq.mm DC Solar Cable", category: "Electrical & Cables", unit: "Meters" },
-      { id: 5, name: "GI Elevated Rooftop Structure", category: "Mounting Structure", unit: "Set" }
-    ];
-
-    let customers = JSON.parse(localStorage.getItem('dip_customers')) || [
-      { id: 1, name: "Samarth Heights (Society)", location: "Gangapur Road, Nashik", phone: "9822100000" },
-      { id: 2, name: "Kundan Agro Industries", location: "Ambad MIDC, Nashik", phone: "9423100000" },
-      { id: 3, name: "Dr. Kulkarni Bungalow", location: "Indira Nagar, Nashik", phone: "9850100000" }
-    ];
-
-    let requisitions = JSON.parse(localStorage.getItem('dip_requisitions')) || [
-      {
-        id: "REQ-101",
-        customer: "Samarth Heights (Society)",
-        material: "Lift Inverter UPS 10kVA",
-        qty: 1,
-        accApproval: true,
-        mdApproval: true,
-        storeApproval: false
-      }
-    ];
-
-    function switchTab(tabId, el) {
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      el.classList.add('active');
-    }
-
-    function renderDropdowns() {
-      const matSelect = document.getElementById('reqMaterial');
-      const custSelect = document.getElementById('reqCustomer');
-
-      matSelect.innerHTML = materials.map(m => '<option value="' + m.name + '">' + m.name + ' (' + m.unit + ')</option>').join('');
-      custSelect.innerHTML = customers.map(c => '<option value="' + c.name + '">' + c.name + ' - ' + c.location + '</option>').join('');
-    }
-
-    function renderMaterials() {
-      const tbody = document.getElementById('materialTableBody');
-      tbody.innerHTML = materials.map((m, index) => 
-        '<tr>' +
-          '<td><strong>' + m.name + '</strong></td>' +
-          '<td>' + m.category + '</td>' +
-          '<td>' + m.unit + '</td>' +
-          '<td><button class="btn btn-danger" onclick="deleteMaterial(' + index + ')">Remove</button></td>' +
-        '</tr>'
-      ).join('');
-      localStorage.setItem('dip_materials', JSON.stringify(materials));
-      renderDropdowns();
-    }
-
-    function addMaterial(e) {
-      e.preventDefault();
-      const name = document.getElementById('matName').value.trim();
-      const category = document.getElementById('matCategory').value;
-      const unit = document.getElementById('matUnit').value.trim();
-
-      materials.push({ id: Date.now(), name, category, unit });
-      renderMaterials();
-      e.target.reset();
-    }
-
-    function deleteMaterial(index) {
-      if (confirm('Delete this material from master?')) {
-        materials.splice(index, 1);
-        renderMaterials();
-      }
-    }
-
-    function renderCustomers() {
-      const tbody = document.getElementById('customerTableBody');
-      tbody.innerHTML = customers.map((c, index) => 
-        '<tr>' +
-          '<td><strong>' + c.name + '</strong></td>' +
-          '<td>' + c.location + '</td>' +
-          '<td>' + c.phone + '</td>' +
-          '<td><button class="btn btn-danger" onclick="deleteCustomer(' + index + ')">Remove</button></td>' +
-        '</tr>'
-      ).join('');
-      localStorage.setItem('dip_customers', JSON.stringify(customers));
-      renderDropdowns();
-    }
-
-    function addCustomer(e) {
-      e.preventDefault();
-      const name = document.getElementById('custName').value.trim();
-      const location = document.getElementById('custLocation').value.trim();
-      const phone = document.getElementById('custPhone').value.trim();
-
-      customers.push({ id: Date.now(), name, location, phone });
-      renderCustomers();
-      e.target.reset();
-    }
-
-    function deleteCustomer(index) {
-      if (confirm('Delete this customer from directory?')) {
-        customers.splice(index, 1);
-        renderCustomers();
-      }
-    }
-
-    function renderRequisitions() {
-      const tbody = document.getElementById('reqTableBody');
-      tbody.innerHTML = requisitions.map((r, idx) => {
-        let accHtml = r.accApproval ? '<span class="badge badge-approved">Approved</span>' : '<span class="badge badge-pending">Pending</span>';
-        if (!r.accApproval && (currentRole === "Accounts Department" || currentRole === "Managing Director (MD)")) {
-          accHtml = '<button class="btn btn-success" onclick="approveReq(' + idx + ', \\'acc\\')">Approve (Accounts)</button>';
-        }
-
-        let mdHtml = r.mdApproval ? '<span class="badge badge-approved">Approved</span>' : '<span class="badge badge-pending">Pending</span>';
-        if (r.accApproval && !r.mdApproval && currentRole === "Managing Director (MD)") {
-          mdHtml = '<button class="btn btn-success" onclick="approveReq(' + idx + ', \\'md\\')">Approve (MD)</button>';
-        }
-
-        let storeHtml = r.storeApproval ? '<span class="badge badge-approved">Dispatched</span>' : '<span class="badge badge-pending">Hold in Store</span>';
-        if (r.accApproval && r.mdApproval && !r.storeApproval && (currentRole === "Admin / HR" || currentRole === "Managing Director (MD)")) {
-          storeHtml = '<button class="btn btn-success" onclick="approveReq(' + idx + ', \\'store\\')">Issue / Clear Stock</button>';
-        }
-
-        return '<tr>' +
-          '<td><strong>' + r.id + '</strong></td>' +
-          '<td>' + r.customer + '</td>' +
-          '<td>' + r.material + '</td>' +
-          '<td><strong>' + r.qty + '</strong></td>' +
-          '<td>' + accHtml + '</td>' +
-          '<td>' + mdHtml + '</td>' +
-          '<td>' + storeHtml + '</td>' +
-        '</tr>';
-      }).join('');
-
-      localStorage.setItem('dip_requisitions', JSON.stringify(requisitions));
-    }
-
-    function addRequisition(e) {
-      e.preventDefault();
-      const newReq = {
-        id: "REQ-" + Math.floor(100 + Math.random() * 900),
-        customer: document.getElementById('reqCustomer').value,
-        material: document.getElementById('reqMaterial').value,
-        qty: document.getElementById('reqQty').value,
-        accApproval: false,
-        mdApproval: false,
-        storeApproval: false
-      };
-      requisitions.unshift(newReq);
-      renderRequisitions();
-      e.target.reset();
-      alert("Material Requisition submitted successfully! Sent to Accounts for verification.");
-    }
-
-    function approveReq(index, stage) {
-      if (stage === 'acc') requisitions[index].accApproval = true;
-      if (stage === 'md') requisitions[index].mdApproval = true;
-      if (stage === 'store') requisitions[index].storeApproval = true;
-      renderRequisitions();
-    }
-
-    renderDropdowns();
-    renderMaterials();
-    renderCustomers();
-    renderRequisitions();
-  </script>
-</body>
-</html>
-      `);
+      newWin.document.write(portalHtml);
       newWin.document.close();
     }
   </script>
