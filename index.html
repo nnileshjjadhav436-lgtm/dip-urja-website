@@ -1,2294 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DIP URJA POWER SOLUTIONS</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Attendance System</title>
   <style>
-    :root {
-      --primary-blue: #0b2545;
-      --accent-blue: #134074;
-      --brand-red: #d90429;
-      --highlight-orange: #f77f00;
-      --card-bg: #ffffff;
-      --light-bg: #f4f7fb;
-      --dark-navy: #091a3e;
-      --text-dark: #1e293b;
-      --text-muted: #64748b;
-      --green: #16a34a;
-    }
-
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-      scroll-behavior: smooth;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-
     body {
-      background-color: var(--light-bg);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
-
-    /* Top Strip */
-    .top-strip {
-      background-color: var(--primary-blue);
-      color: #cbd5e1;
-      font-size: 0.85rem;
-      padding: 8px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    /* Header & Logo */
-    .site-header {
-      background-color: #ffffff;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 8px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo-area img {
-      max-height: 60px;
-      width: auto;
-      display: block;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 18px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--brand-red);
-    }
-
-    .btn-nav-contact {
-      background-color: var(--brand-red);
-      color: #ffffff !important;
-      padding: 8px 18px;
-      border-radius: 6px;
-    }
-
-    .btn-employee-login {
-      border: 1.5px solid var(--primary-blue);
-      color: var(--primary-blue) !important;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-employee-login:hover {
-      background-color: var(--primary-blue) !important;
-      color: #ffffff !important;
-    }
-
-    /* Banner Image */
-    .hero-banner {
-      width: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-    }
-
-    .hero-banner img {
-      width: 100%;
-      max-width: 1300px;
-      height: auto;
-      display: block;
-    }
-
-    .section-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 50px 20px;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .section-header h2 {
-      font-size: 2rem;
-      color: var(--primary-blue);
-      position: relative;
-      display: inline-block;
-      padding-bottom: 8px;
-    }
-
-    .section-header h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 3px;
-      background-color: var(--brand-red);
-    }
-
-    /* Calculator Section */
-    .calc-section {
-      background: linear-gradient(135deg, #091a3e 0%, #0b2545 100%);
-      color: #ffffff;
-      border-radius: 16px;
-      padding: 35px 25px;
-      margin-bottom: 40px;
-    }
-
-    .calc-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      align-items: center;
-    }
-
-    .calc-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 20px;
-    }
-
-    .size-selector {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 15px 0;
-    }
-
-    .size-card {
-      border: 1.5px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .size-card.active {
-      border-color: var(--highlight-orange);
-      background: rgba(247, 127, 0, 0.15);
-    }
-
-    .results-row {
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      padding-top: 12px;
-    }
-
-    .results-row .val {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #22c55e;
-    }
-
-    /* Consultation Form Window */
-    .consult-card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 440px;
-      margin: 0 auto 40px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e2e8f0;
-    }
-
-    .consult-input {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-      background: #ffffff;
-    }
-
-    .bill-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .bill-option input[type="radio"] { display: none; }
-    .bill-option label {
-      padding: 7px 12px;
-      background: #f8fafc;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: block;
-    }
-
-    .bill-option input[type="radio"]:checked + label {
-      background: var(--primary-blue);
-      color: #fff;
-    }
-
-    .btn-submit-consult {
-      width: 100%;
-      padding: 14px;
-      background-color: var(--dark-navy);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* Grids & Cards */
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 22px;
-      border-top: 4px solid var(--accent-blue);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .card h3 {
-      font-size: 1.2rem;
-      color: var(--primary-blue);
-      margin-bottom: 8px;
-    }
-
-    /* Contact Details */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .contact-card {
-      background: #ffffff;
-      padding: 22px;
-      border-radius: 8px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .action-btn {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 10px 22px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .btn-call { background-color: #0284c7; }
-    .btn-whatsapp { background-color: #16a34a; }
-
-    /* Modal Styles */
-    .emp-modal {
-      display: none;
-      position: fixed;
-      z-index: 99999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .emp-modal-content {
-      background: #ffffff;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 440px;
-      padding: 28px 24px;
-      position: relative;
-    }
-
-    .emp-close {
-      position: absolute;
-      right: 15px;
-      top: 12px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #64748b;
-    }
-
-    .btn-emp-action {
-      width: 100%;
-      padding: 12px;
-      background-color: var(--primary-blue);
-      color: #ffffff;
-      font-size: 0.95rem;
-      font-weight: 700;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    footer {
-      background-color: var(--primary-blue);
-      color: #cbd5e1;
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      margin-top: 50px;
-    }
-
-    /* ========================================================== */
-    /* FULL INTEGRATED EMPLOYEE PORTAL VIEW                       */
-    /* ========================================================== */
-    #employeePortalSection {
-      display: none;
-      background-color: #f1f5f9;
-      min-height: 100vh;
-      padding-bottom: 60px;
-    }
-
-    .portal-nav {
-      background: var(--primary-blue);
-      color: #ffffff;
-      padding: 15px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .portal-container {
-      max-width: 1280px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .portal-card {
-      background: #ffffff;
-      border-radius: 10px;
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      margin-bottom: 30px;
-      border-left: 5px solid var(--brand-red);
-    }
-
-    .portal-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      border-bottom: 2px solid #f1f5f9;
-      padding-bottom: 10px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .portal-card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary-blue);
-    }
-
-    .badge {
-      display: inline-block;
-      background: #e0f2fe;
-      color: #0369a1;
-      padding: 5px 12px;
-      border-radius: 15px;
-      font-weight: 700;
-      font-size: 0.85rem;
-    }
-
-    .badge-perm {
-      background: #fef3c7;
-      color: #92400e;
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-weight: 700;
-    }
-
-    .form-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .form-group {
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 16px;
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
-
-    .form-group label {
+    .container {
+      max-width: 950px;
+      width: 100%;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      margin: 0 0 16px 0;
+      font-size: 1.5rem;
+      text-align: center;
+      color: #111827;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 10px;
+    }
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      background: #fafafa;
+    }
+    video {
+      width: 100%;
+      border-radius: 6px;
+      background: #000;
+      transform: scaleX(-1);
+    }
+    canvas {
+      display: none;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
       font-size: 0.85rem;
       font-weight: 600;
-      margin-bottom: 6px;
-      color: #334155;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      color: #374151;
+      margin-bottom: 4px;
     }
-
-    .form-control {
-      padding: 10px 12px;
-      border: 1.5px solid #cbd5e1;
+    input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
       border-radius: 6px;
-      font-size: 0.9rem;
-      outline: none;
-      background: #ffffff;
+      font-size: 0.95rem;
     }
-
-    .form-control:focus {
-      border-color: var(--accent-blue);
-    }
-
-    .btn-portal-primary {
-      background: var(--primary-blue);
-      color: #fff;
+    button {
+      width: 100%;
+      padding: 10px;
       border: none;
-      padding: 11px 22px;
       border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .btn-portal-primary:hover { background: #07192f; }
-
-    .btn-portal-green {
-      background: var(--green);
-      color: #fff;
-      border: none;
-      padding: 11px 22px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .btn-portal-excel {
-      background: #047857;
-      color: #fff;
-      border: none;
-      padding: 9px 18px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-portal-cancel {
-      background: #e2e8f0;
-      color: #334155;
-      border: none;
-      padding: 11px 20px;
-      border-radius: 6px;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
+      margin-top: 6px;
     }
-
-    .btn-edit-list-link {
-      font-size: 0.75rem;
-      color: #0284c7;
-      text-decoration: underline;
-      cursor: pointer;
-      font-weight: 600;
+    .btn-primary { background-color: #2563eb; color: #fff; }
+    .btn-primary:hover { background-color: #1d4ed8; }
+    .btn-success { background-color: #16a34a; color: #fff; }
+    .btn-success:hover { background-color: #15803d; }
+    .btn-neutral { background-color: #4b5563; color: #fff; }
+    .btn-neutral:hover { background-color: #374151; }
+    
+    .status-box {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      background: #e5e7eb;
+      color: #1f2937;
+      min-height: 40px;
+      white-space: pre-wrap;
     }
-
-    /* Table & Status Badges */
+    
     .table-container {
-      overflow-x: auto;
+      margin-top: 24px;
+      border-top: 2px solid #f3f4f6;
+      padding-top: 16px;
     }
-
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-bar input {
+      width: auto;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 0.88rem;
-      min-width: 850px;
+      margin-top: 8px;
+      font-size: 0.875rem;
     }
-
     th, td {
-      padding: 11px 12px;
+      border: 1px solid #e5e7eb;
+      padding: 8px 12px;
       text-align: left;
-      border-bottom: 1px solid #cbd5e1;
     }
-
     th {
-      background: #f8fafc;
-      color: var(--primary-blue);
-      font-weight: 700;
-    }
-
-    .status-pill {
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      display: inline-block;
-    }
-    .status-approved { background: #dcfce7; color: #15803d; }
-    .status-pending { background: #fef3c7; color: #b45309; }
-    .status-hold { background: #fee2e2; color: #b91c1c; }
-
-    .tbl-action-btn {
-      padding: 5px 10px;
-      font-size: 0.78rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
+      background-color: #f9fafb;
       font-weight: 600;
-      margin-right: 4px;
-      transition: transform 0.1s;
     }
-    .tbl-action-btn:active { transform: scale(0.96); }
-    .btn-tbl-edit { background: #e0f2fe; color: #0369a1; }
-    .btn-tbl-delete { background: #fee2e2; color: #b91c1c; }
-    .btn-tbl-dispatch { background: #dcfce7; color: #15803d; }
-
-    /* Modals */
-    .mgr-modal {
-      display: none;
-      position: fixed;
-      z-index: 100000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .mgr-modal-content {
-      background: #fff;
-      border-radius: 10px;
-      max-width: 580px;
-      width: 90%;
-      padding: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    .mgr-list {
-      max-height: 250px;
-      overflow-y: auto;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 8px;
-      margin: 12px 0;
-    }
-
-    .mgr-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 10px;
-      border-bottom: 1px solid #f1f5f9;
-      font-size: 0.85rem;
-    }
-
-    /* HOURWISE WORK REPORT STYLES & FREEZE SYSTEM */
-    .thumbs-btn {
-      background: #f1f5f9;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 0.82rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .thumbs-btn:hover { background: #e2e8f0; }
-    .thumbs-btn.approved-md {
-      background: #dcfce7;
-      border-color: #86efac;
-      color: #166534;
-    }
-    .thumbs-btn.approved-hr {
-      background: #e0f2fe;
-      border-color: #7dd3fc;
-      color: #075985;
-    }
-    .time-slot-badge {
-      background: #0b2545;
-      color: #ffffff;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .work-input-inline {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      outline: none;
-    }
-    .work-input-inline:focus {
-      border-color: var(--accent-blue);
-      background: #fafcff;
-    }
-    .work-input-inline:disabled {
-      background-color: #f1f5f9;
-      color: #64748b;
-      cursor: not-allowed;
-      border-color: #e2e8f0;
-    }
-    .freeze-tag {
-      font-size: 0.72rem;
-      color: #dc2626;
-      font-weight: 700;
-      margin-left: 5px;
-    }
-    .hr-override-tag {
-      font-size: 0.72rem;
-      color: #15803d;
-      font-weight: 700;
-      margin-left: 5px;
-    }
-
-    @media (max-width: 800px) {
-      .calc-grid { grid-template-columns: 1fr; }
-      .nav-container { flex-direction: column; gap: 10px; }
-      .nav-links { flex-wrap: wrap; justify-content: center; }
+    tr:nth-child(even) {
+      background-color: #fcfcfc;
     }
   </style>
 </head>
 <body>
 
-  <!-- ================= PUBLIC WEBSITE VIEW ================= -->
-  <div id="publicWebsiteView">
-    <div class="top-strip">
-      <span>Clean Energy | Reliable Power | A Brighter Tomorrow</span>
-      <span>⚡ Reduce Your Electricity Bills with Government Subsidy & Easy EMI</span>
+<div class="container">
+  <h1>Face ID Attendance Portal</h1>
+
+  <div class="grid">
+    <div class="card">
+      <video id="webcam" autoplay playsinline></video>
+      <canvas id="snapshot"></canvas>
+      <button class="btn-primary" onclick="startCamera()">Start Camera</button>
     </div>
 
-    <header class="site-header">
-      <div class="nav-container">
-        <div class="logo-area">
-          <a href="#"><img src="dip-urja-logo.png" alt="Dip Urja Logo" /></a>
-        </div>
-        <nav>
-          <ul class="nav-links">
-            <li><a href="#calculator">Calculator</a></li>
-            <li><a href="#why-us">Why Dip Urja</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact" class="btn-nav-contact">Contact Us</a></li>
-            <li><a href="javascript:void(0)" onclick="openEmployeeLogin()" class="btn-employee-login">Employee Login</a></li>
-          </ul>
-        </nav>
+    <div class="card">
+      <h3>Register Student</h3>
+      <div class="form-group">
+        <label for="studentId">Student ID</label>
+        <input type="text" id="studentId" placeholder="e.g. 101">
       </div>
-    </header>
-
-    <div class="hero-banner">
-      <img src="DUPS.jpg" alt="Dip Urja Banner" />
-    </div>
-
-    <main class="section-wrapper">
-
-      <!-- Calculator Section -->
-      <section id="calculator" class="calc-section">
-        <div class="calc-grid">
-          <div>
-            <h3 style="font-size: 1.8rem; margin-bottom: 10px;">Go Solar with <span style="color: var(--highlight-orange);">Zero Downpayment</span></h3>
-            <p style="color: #cbd5e1;">Government subsidy covers your downpayment, and monthly solar savings cover your EMI.</p>
-          </div>
-
-          <div class="calc-box">
-            <div style="font-weight: 700; margin-bottom: 10px;">Select Solar System Capacity:</div>
-            <div class="size-selector">
-              <div class="size-card active" onclick="updateCalc('3kW', '₹7,800', '₹2,350', this)">
-                <strong>3kW</strong>
-                <div style="font-size: 0.7rem; color: #cbd5e1;">₹1,500 - ₹2,500/mo</div>
-              </div>
-              <div class="size-card" onclick="updateCalc('5kW', '₹13,500', '₹3,950', this)">
-                <strong>5kW</strong>
-                <div style="font-size: 0.7rem; color: #cbd5e1;">₹4,000 - ₹8,000/mo</div>
-              </div>
-              <div class="size-card" onclick="updateCalc('8kW', '₹21,000', '₹5,900', this)">
-                <strong>8kW</strong>
-                <div style="font-size: 0.7rem; color: #cbd5e1;">&gt; ₹8,000/mo</div>
-              </div>
-            </div>
-            <div class="results-row">
-              <div>
-                <div style="font-size: 0.75rem; color: #94a3b8;">MONTHLY SAVING</div>
-                <div class="val" id="calcSaving">₹7,800</div>
-              </div>
-              <div>
-                <div style="font-size: 0.75rem; color: #94a3b8;">EST. EMI</div>
-                <div class="val" id="calcEmi" style="color: var(--highlight-orange);">₹2,350</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Free Consultation Form -->
-      <div class="consult-card">
-        <h2 style="font-size: 1.4rem; color: var(--primary-blue); margin-bottom: 4px;">Book a FREE Solar Consultation</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Save up to ₹78,000 with subsidy</p>
-
-        <form onsubmit="sendToWhatsApp(event)">
-          <input type="text" id="custName" class="consult-input" placeholder="Full Name" required />
-          <input type="tel" id="custPhone" class="consult-input" placeholder="WhatsApp Number" required />
-
-          <div style="font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">Monthly Electricity Bill:</div>
-          <div class="bill-options">
-            <div class="bill-option">
-              <input type="radio" id="b1" name="bill_range" value="< ₹1500" checked />
-              <label for="b1">&lt; ₹1500</label>
-            </div>
-            <div class="bill-option">
-              <input type="radio" id="b2" name="bill_range" value="₹1500-₹2500" />
-              <label for="b2">₹1500-₹2500</label>
-            </div>
-            <div class="bill-option">
-              <input type="radio" id="b3" name="bill_range" value="₹2500-₹4000" />
-              <label for="b3">₹2500-₹4000</label>
-            </div>
-            <div class="bill-option">
-              <input type="radio" id="b4" name="bill_range" value="₹4000-₹8000" />
-              <label for="b4">₹4000-₹8000</label>
-            </div>
-            <div class="bill-option">
-              <input type="radio" id="b5" name="bill_range" value="> ₹8000" />
-              <label for="b5">&gt; ₹8000</label>
-            </div>
-          </div>
-
-          <input type="text" id="custPincode" class="consult-input" placeholder="PIN Code" required />
-          <button type="submit" class="btn-submit-consult">Book a FREE Consultation</button>
-        </form>
+      <div class="form-group">
+        <label for="studentName">Student Name</label>
+        <input type="text" id="studentName" placeholder="e.g. Nilesh Jadhav">
       </div>
+      <button class="btn-primary" onclick="registerStudent()">Register Face</button>
 
-      <!-- Why Us -->
-      <section id="why-us">
-        <div class="section-header">
-          <h2>Why Dip Urja?</h2>
-        </div>
-        <div class="grid-container">
-          <div class="card">
-            <h3>⚡ Subsidy & EMI Support</h3>
-            <p>Complete paperwork processing for Government Solar Subsidies and financing.</p>
-          </div>
-          <div class="card">
-            <h3>🛡️ Proven Reliability</h3>
-            <p>Tier-1 equipment designed for uninterrupted power and long lifespan.</p>
-          </div>
-          <div class="card">
-            <h3>🔧 Certified Service</h3>
-            <p>Expert local installation engineers and fast technical support in Nashik.</p>
-          </div>
-        </div>
-      </section>
+      <hr style="margin: 16px 0; border: none; border-top: 1px solid #e5e7eb;">
 
-      <!-- Services -->
-      <section id="services" style="margin-top: 50px;">
-        <div class="section-header">
-          <h2>Our Services & Products</h2>
-        </div>
-        <div class="grid-container">
-          <div class="card">
-            <h3>Rooftop Solar</h3>
-            <p>On-grid and hybrid solar installations for homes, commercial complexes, and factories.</p>
-          </div>
-          <div class="card">
-            <h3>Lift UPS Systems</h3>
-            <p>Dedicated emergency battery backup systems ensuring passenger elevators never get stuck.</p>
-          </div>
-          <div class="card">
-            <h3>Industrial Inverters</h3>
-            <p>Heavy duty commercial power backup infrastructure and maintenance support.</p>
-          </div>
-        </div>
-      </section>
+      <h3>Mark Attendance</h3>
+      <button class="btn-success" onclick="markAttendance()">Verify & Log Attendance</button>
 
-      <!-- Contact & Poster -->
-      <section id="contact" style="margin-top: 50px; text-align: center;">
-        <div class="section-header">
-          <h2>Contact Us</h2>
-        </div>
-
-        <div style="max-width: 900px; margin: 0 auto 25px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
-          <img src="poster.jpg" alt="Poster" style="width: 100%; height: auto; display: block;" />
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-card">
-            <h4>Direct Phone Call</h4>
-            <p>Speak to our engineer directly</p>
-            <a href="tel:+919226194332" class="action-btn btn-call">📞 Call Us</a>
-          </div>
-          <div class="contact-card">
-            <h4>WhatsApp Chat</h4>
-            <p>Send electricity bill photo</p>
-            <a href="https://wa.me/919226194332" class="action-btn btn-whatsapp" target="_blank">💬 WhatsApp Us</a>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <footer>
-      <p>&copy; 2026 DIP URJA POWER SOLUTIONS. All Rights Reserved.</p>
-    </footer>
-  </div>
-
-  <!-- ================= EMPLOYEE LOGIN MODAL ================= -->
-  <div id="employeeModal" class="emp-modal">
-    <div class="emp-modal-content">
-      <span class="emp-close" onclick="closeEmployeeLogin()">&times;</span>
-      
-      <h3 style="color: var(--primary-blue); margin-bottom: 4px;">Employee Login</h3>
-      <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 16px;">Access is restricted exclusively to authorized registered employee numbers.</p>
-
-      <!-- STEP 1: Phone Verification -->
-      <div id="stepPhone">
-        <div style="margin-bottom: 12px;">
-          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">Registered Mobile Number:</label>
-          <input type="tel" id="empPhone" class="consult-input" placeholder="e.g. 9226194332" style="margin-bottom: 4px;" />
-          <small style="color: #64748b; font-size: 0.75rem;">Your department & authorization will be recognized automatically.</small>
-        </div>
-
-        <button type="button" class="btn-emp-action" onclick="sendWhatsAppOtp()">Send OTP via WhatsApp</button>
-        <div id="loginStatus" style="font-size: 0.82rem; margin-top: 10px; text-align: center;"></div>
-      </div>
-
-      <!-- STEP 2: Verify OTP -->
-      <div id="stepOtp" style="display: none;">
-        <div style="margin-bottom: 12px;">
-          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Enter the 6-Digit OTP received on WhatsApp:</label>
-          <input type="text" id="otpCode" class="consult-input" placeholder="123456" maxlength="6" style="margin-bottom: 0; font-size: 1.2rem; text-align: center; letter-spacing: 4px;" />
-        </div>
-
-        <button type="button" class="btn-emp-action" onclick="verifyWhatsAppOtp()">Verify & Open Portal</button>
-        <p style="text-align: center; margin-top: 12px; font-size: 0.8rem;">
-          <a href="javascript:void(0)" onclick="resetLoginForm()" style="color: var(--primary-blue);">Change Number / Retry</a>
-        </p>
-      </div>
-
+      <div class="status-box" id="statusMessage">System ready. Click 'Start Camera' to begin.</div>
     </div>
   </div>
 
-  <!-- ========================================================== -->
-  <!-- FULL INTEGRATED EMPLOYEE PORTAL VIEW                       -->
-  <!-- ========================================================== -->
-  <section id="employeePortalSection">
-    
-    <!-- Top Nav Bar -->
-    <div class="portal-nav">
-      <div>
-        <h2 style="font-size: 1.3rem;">⚡ DIP URJA POWER SOLUTIONS</h2>
-        <small style="color: #cbd5e1;">Enterprise ERP - Work Reporting, Store Operations & Requisitions</small>
-      </div>
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span id="portalUserName" style="font-weight: 700; color: #fff;">Employee Name</span>
-        <span id="portalUserBadge" class="badge">Role</span>
-        <span id="portalUserPhone" style="font-size: 0.85rem; color: #cbd5e1;">+91...</span>
-        <button onclick="logoutPortal()" class="tbl-action-btn" style="background: #ef4444; color: #fff; padding: 6px 14px;">Logout</button>
-      </div>
+  <!-- Registered Students Section -->
+  <div class="table-container">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h3>Registered Students</h3>
+      <button class="btn-neutral" style="width:auto; padding:6px 14px;" onclick="loadStudents()">Refresh</button>
     </div>
-
-    <div class="portal-container">
-
-      <!-- ======================================================== -->
-      <!-- 1. REGISTERED EMPLOYEES DIRECTORY (MD & HR EXCLUSIVE)    -->
-      <!-- ======================================================== -->
-      <div class="portal-card" id="empDirectoryCard" style="border-left-color: #f59e0b;">
-        <div class="portal-card-header">
-          <div>
-            <div class="portal-card-title">👥 Registered Employees & Mobile Numbers Directory</div>
-            <small style="color: #64748b;">(Restricted: Only MD & HR have permission to Add, Edit, or Delete staff logins)</small>
-          </div>
-          <div>
-            <span class="badge-perm">🔐 HR & MD ACCESS ONLY</span>
-          </div>
-        </div>
-
-        <!-- Add/Edit Employee Form -->
-        <form id="empMasterForm" onsubmit="saveEmployee(event)" style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
-          <input type="hidden" id="editingEmpIndex" value="-1" />
-          <div class="form-grid-3">
-            <div class="form-group">
-              <label>Employee Full Name *</label>
-              <input type="text" id="masterEmpName" class="form-control" placeholder="e.g. Nilesh B. Jadhav" required />
-            </div>
-            <div class="form-group">
-              <label>Registered Mobile Number (10 Digits) *</label>
-              <input type="tel" id="masterEmpPhone" class="form-control" placeholder="e.g. 9226194332" required />
-            </div>
-            <div class="form-group">
-              <label>Assigned Role / Department *</label>
-              <select id="masterEmpRole" class="form-control" required>
-                <option value="Managing Director (MD)">Managing Director (MD)</option>
-                <option value="HR Department">HR Department</option>
-                <option value="Store Keeper">Store Keeper</option>
-                <option value="Accounts Department">Accounts Department</option>
-                <option value="Site Engineer / Technical Staff">Site Engineer / Technical Staff</option>
-              </select>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 10px; margin-top: 10px;">
-            <button type="submit" id="btnSaveEmp" class="btn-portal-primary">➕ Register / Update Employee</button>
-            <button type="button" onclick="cancelEmpEdit()" id="btnCancelEmpEdit" class="btn-portal-cancel" style="display: none;">Cancel</button>
-          </div>
-        </form>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Sr</th>
-                <th>Employee Name</th>
-                <th>Registered Mobile</th>
-                <th>Designation / Role</th>
-                <th>System Permissions</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="employeesTableBody">
-              <!-- Dynamically populated from JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- 2. HOURWISE WORK REPORT (MD & HR CONSOLIDATED DASHBOARD) -->
-      <!-- ======================================================== -->
-      <div class="portal-card" style="border-left-color: #8b5cf6;">
-        <div class="portal-card-header">
-          <div>
-            <div class="portal-card-title">⏱️ Hourwise Work Report & Activity Log</div>
-            <small style="color: #64748b;">
-              ⚠️ <strong>Time Slot Freeze Rule:</strong> Each time slot locks automatically 1 hour after it ends. Once locked, only HR/MD can edit.
-            </small>
-          </div>
-          <div>
-            <button onclick="downloadWorkReportExcel()" class="btn-portal-excel" style="background: #6d28d9;">
-              📥 Export Work Report (.CSV)
-            </button>
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 15px; flex-wrap: wrap; background: #f8fafc; padding: 14px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0; align-items: center;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">View Mode / Employee:</label>
-            <select id="workReportStaffSelect" class="form-control" style="width: auto; min-width: 250px;" onchange="loadHourwiseReport()"></select>
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <label style="font-size: 0.85rem; font-weight: 700; color: #334155;">Report Date:</label>
-            <input type="date" id="workReportDate" class="form-control" style="width: auto;" onchange="loadHourwiseReport()" />
-          </div>
-          <button type="button" class="btn-portal-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="loadHourwiseReport()">🔄 Refresh Dashboard</button>
-        </div>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr id="hourwiseTableHeader">
-                <!-- Dynamically adjusted between Single Staff view vs Consolidated Master view -->
-              </tr>
-            </thead>
-            <tbody id="hourwiseTableBody">
-              <!-- Dynamically populated from JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- 3. MATERIAL REQUISITION FORM                             -->
-      <!-- ======================================================== -->
-      <div class="portal-card" style="border-left-color: #0284c7;">
-        <div class="portal-card-header">
-          <div class="portal-card-title">
-            <span id="formActionTitle">📝 Create Material Requisition</span>
-          </div>
-          <div>
-            <span style="font-size: 0.8rem; color: #64748b;">(Fields with * are required)</span>
-          </div>
-        </div>
-
-        <form id="reqForm" onsubmit="handleRequisitionSubmit(event)">
-          <input type="hidden" id="editingReqId" value="" />
-          
-          <div class="form-grid-3">
-
-            <!-- Customer / Site Dropdown -->
-            <div class="form-group">
-              <label>
-                <span>Customer / Site Name *</span>
-                <span class="btn-edit-list-link perm-sensitive" onclick="openManager('sites')">⚙️ Edit List</span>
-              </label>
-              <select id="reqSiteSelect" class="form-control" required></select>
-            </div>
-
-            <!-- Requested By Dropdown -->
-            <div class="form-group">
-              <label>
-                <span>Requested By (Engineer/Staff) *</span>
-              </label>
-              <select id="reqStaffSelect" class="form-control" required></select>
-            </div>
-
-            <!-- Material Dropdown -->
-            <div class="form-group">
-              <label>
-                <span>Material / Equipment *</span>
-                <span class="btn-edit-list-link perm-sensitive" onclick="openManager('materials')">⚙️ Edit List</span>
-              </label>
-              <select id="reqMaterialSelect" class="form-control" required></select>
-            </div>
-
-            <!-- Quantity -->
-            <div class="form-group">
-              <label>Quantity with Unit *</label>
-              <input type="text" id="reqQty" class="form-control" placeholder="e.g. 12 Nos / 100 Mtrs / 1 Set" required />
-            </div>
-
-            <!-- Approval by Accounts -->
-            <div class="form-group">
-              <label>Accounts Department Approval *</label>
-              <select id="reqAccountsApp" class="form-control" required>
-                <option value="⏳ Pending Verification">⏳ Pending Verification</option>
-                <option value="✅ Payment Cleared">✅ Payment Cleared</option>
-                <option value="✅ Advance Received">✅ Advance Received</option>
-                <option value="❌ Credit Hold">❌ Credit Hold</option>
-              </select>
-            </div>
-
-            <!-- Approval by MD -->
-            <div class="form-group">
-              <label>MD Approval *</label>
-              <select id="reqMdApp" class="form-control" required>
-                <option value="⏳ Pending MD Clearance">⏳ Pending MD Clearance</option>
-                <option value="✅ Approved by MD">✅ Approved by MD</option>
-                <option value="⚠️ Hold for Site Check">⚠️ Hold for Site Check</option>
-              </select>
-            </div>
-
-          </div>
-
-          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px;">
-            <button type="submit" id="btnSubmitReq" class="btn-portal-primary">➕ Submit Requisition</button>
-            <button type="button" onclick="cancelReqEdit()" id="btnCancelEdit" class="btn-portal-cancel" style="display: none;">Cancel Edit</button>
-            <button type="button" onclick="shareRequisitionWhatsApp()" class="btn-portal-green">💬 Send via WhatsApp</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- 4. ACTIVE MATERIAL REQUISITIONS TABLE                   -->
-      <!-- ======================================================== -->
-      <div class="portal-card">
-        <div class="portal-card-header">
-          <div class="portal-card-title">📦 Active Material Requisitions Table</div>
-          <small style="color: #64748b;">(Approval & dispatch permissions reserved for MD, HR & Store Keeper)</small>
-        </div>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Req ID</th>
-                <th>Date</th>
-                <th>Customer / Site</th>
-                <th>Requested By</th>
-                <th>Material</th>
-                <th>Qty</th>
-                <th>Accounts</th>
-                <th>MD Approval</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="requisitionsTableBody">
-              <!-- Rendered Dynamically -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- 5. MATERIAL DISPATCH LOG (DOWNLOADABLE TO EXCEL)         -->
-      <!-- ======================================================== -->
-      <div class="portal-card" style="border-left-color: var(--green);">
-        <div class="portal-card-header">
-          <div>
-            <div class="portal-card-title">🚚 Material Dispatch & Delivery Log</div>
-            <small style="color: #64748b;">Official warehouse dispatch records</small>
-          </div>
-          <div>
-            <button onclick="downloadDispatchExcel()" class="btn-portal-excel">
-              📥 Download Dispatch Log in Excel (.CSV)
-            </button>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Dispatch ID</th>
-                <th>Dispatched Date & Time</th>
-                <th>Customer / Site</th>
-                <th>Material Dispatched</th>
-                <th>Quantity</th>
-                <th>Requested By</th>
-                <th>MD Clearance</th>
-              </tr>
-            </thead>
-            <tbody id="dispatchTableBody">
-              <!-- Rendered Dynamically -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ================= MASTER DROPDOWN LIST MANAGER MODAL ================= -->
-  <div id="managerModal" class="mgr-modal">
-    <div class="mgr-modal-content">
-      <h3 id="mgrTitle" style="color: var(--primary-blue); margin-bottom: 8px;">Edit Master List</h3>
-      <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 12px;">Add or remove entries. Changes will automatically update all selection dropdowns.</p>
-
-      <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-        <input type="text" id="mgrInput" class="form-control" placeholder="Type new entry name..." style="flex: 1;" />
-        <button type="button" onclick="addManagerItem()" class="btn-portal-primary" style="padding: 8px 14px;">Add</button>
-      </div>
-
-      <div class="mgr-list" id="mgrItemList">
-        <!-- Rendered items with delete buttons -->
-      </div>
-
-      <div style="text-align: right; margin-top: 15px;">
-        <button onclick="closeManager()" class="btn-portal-cancel">Close</button>
-      </div>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody id="studentsTableBody">
+        <tr><td colspan="2" style="text-align:center;">Click Refresh to load list</td></tr>
+      </tbody>
+    </table>
   </div>
 
-  <script>
-    /* -------------------------------------------------------------
-       REGISTERED EMPLOYEES DIRECTORY DATABASE
-    -------------------------------------------------------------- */
-    var defaultEmployees = [
-      { name: "Nilesh Balasaheb Jadhav", phone: "9226194332", role: "Managing Director (MD)" },
-      { name: "HR Manager", phone: "9226194804", role: "HR Department" },
-      { name: "Ganesh Shinde (Store)", phone: "9822012345", role: "Store Keeper" },
-      { name: "Kavita R. (Accounts)", phone: "9422098765", role: "Accounts Department" },
-      { name: "Rahul Patil (Site Engineer)", phone: "9765432100", role: "Site Engineer / Technical Staff" },
-      { name: "Sachin Sharma (Senior Tech)", phone: "9890123456", role: "Site Engineer / Technical Staff" }
-    ];
+  <!-- Daywise Attendance Section -->
+  <div class="table-container">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h3>Daywise Attendance Log</h3>
+      <button class="btn-neutral" style="width:auto; padding:6px 14px;" onclick="loadAttendance()">Refresh Logs</button>
+    </div>
+    <div class="filter-bar">
+      <label for="filterDate">Filter by Date:</label>
+      <input type="date" id="filterDate" onchange="renderFilteredAttendance()">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Student ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody id="attendanceTableBody">
+        <tr><td colspan="4" style="text-align:center;">Click Refresh Logs to load</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-    var defaultSites = [
-      "Samarth Heights, Gangapur Rd",
-      "Kundan Agro Industries, Satpur MIDC",
-      "Suyojit Garden Complex, Sharanpur Rd",
-      "Kalyani Residency, Indiranagar",
-      "Panchavati Cold Storage, Dindori Rd",
-      "Jadhav Residential Villa, Pathardi"
-    ];
+</div>
 
-    var defaultMaterials = [
-      "Solar Modules Mono Perc (540W/550W)",
-      "On-Grid Solar Inverter (3kW / 5kW / 10kW)",
-      "Hybrid Solar Inverter (5kW / 8kW / 10kW)",
-      "Lift Inverter UPS 10kVA 3-Phase",
-      "Lift Inverter UPS 15kVA 3-Phase",
-      "Lift Inverter UPS 20kVA 3-Phase",
-      "Solar Tubular Batteries (150Ah / 200Ah)",
-      "Solar Structure & GI Fasteners Set",
-      "ACDB / DCDB Protection Box Set",
-      "Solar DC Cable (4 sq mm / 6 sq mm)",
-      "Copper Armoured Cable (4 Core)",
-      "Net Metering Bi-directional Kit"
-    ];
+<script>
+  const BACKEND_URL = "https://customized-treasury-magazines-debug.trycloudflare.com";
+  const video = document.getElementById("webcam");
+  const canvas = document.getElementById("snapshot");
+  const statusMessage = document.getElementById("statusMessage");
 
-    var defaultRequisitions = [
-      {
-        id: "REQ-101",
-        date: "2026-09-28",
-        site: "Samarth Heights, Gangapur Rd",
-        staff: "Sachin Sharma (Senior Tech)",
-        material: "Lift Inverter UPS 10kVA 3-Phase",
-        qty: "1 Set",
-        accounts: "✅ Payment Cleared",
-        md: "✅ Approved by MD"
-      },
-      {
-        id: "REQ-102",
-        date: "2026-09-29",
-        site: "Kundan Agro Industries, Satpur MIDC",
-        staff: "Rahul Patil (Site Engineer)",
-        material: "Solar Modules Mono Perc (540W/550W)",
-        qty: "24 Nos",
-        accounts: "✅ Advance Received",
-        md: "⏳ Pending MD Clearance"
-      }
-    ];
+  let fullAttendanceLogs = [];
 
-    var defaultDispatches = [
-      {
-        id: "DISP-501",
-        dateTime: "2026-09-27 11:30 AM",
-        site: "Kalyani Residency, Indiranagar",
-        material: "Solar Tubular Batteries (150Ah / 200Ah)",
-        qty: "8 Nos",
-        staff: "Rahul Patil (Site Engineer)",
-        mdStatus: "Approved by MD"
-      }
-    ];
+  // Set today's date as default in date filter
+  document.getElementById("filterDate").value = new Date().toISOString().split("T")[0];
 
-    // Slots definition with start and end hours (24-hour format)
-    var timeSlots = [
-      { label: "09:00 AM - 10:00 AM", endHour: 10 },
-      { label: "10:00 AM - 11:00 AM", endHour: 11 },
-      { label: "11:00 AM - 12:00 PM", endHour: 12 },
-      { label: "12:00 PM - 01:00 PM", endHour: 13 },
-      { label: "01:00 PM - 02:00 PM (Lunch / Planning)", endHour: 14 },
-      { label: "02:00 PM - 03:00 PM", endHour: 15 },
-      { label: "03:00 PM - 04:00 PM", endHour: 16 },
-      { label: "04:00 PM - 05:00 PM", endHour: 17 },
-      { label: "05:00 PM - 06:00 PM", endHour: 18 },
-      { label: "06:00 PM - 07:00 PM", endHour: 19 }
-    ];
-
-    function initData() {
-      if (!localStorage.getItem("dups_employees")) {
-        localStorage.setItem("dups_employees", JSON.stringify(defaultEmployees));
-      }
-      if (!localStorage.getItem("dups_sites")) {
-        localStorage.setItem("dups_sites", JSON.stringify(defaultSites));
-      }
-      if (!localStorage.getItem("dups_materials")) {
-        localStorage.setItem("dups_materials", JSON.stringify(defaultMaterials));
-      }
-      if (!localStorage.getItem("dups_requisitions")) {
-        localStorage.setItem("dups_requisitions", JSON.stringify(defaultRequisitions));
-      }
-      if (!localStorage.getItem("dups_dispatches")) {
-        localStorage.setItem("dups_dispatches", JSON.stringify(defaultDispatches));
-      }
-      if (!localStorage.getItem("dups_work_reports")) {
-        localStorage.setItem("dups_work_reports", JSON.stringify({}));
-      }
+  async function startCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+      video.srcObject = stream;
+      statusMessage.textContent = "Camera connected successfully.";
+    } catch (err) {
+      statusMessage.textContent = "Camera access denied: " + err.message;
     }
+  }
 
-    function getData(key) {
-      return JSON.parse(localStorage.getItem(key) || "[]");
+  function captureFrame() {
+    if (!video.srcObject) {
+      statusMessage.textContent = "Error: Please start the camera first.";
+      return null;
     }
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL("image/jpeg");
+  }
 
-    function setData(key, val) {
-      localStorage.setItem(key, JSON.stringify(val));
+  async function registerStudent() {
+    const studentId = document.getElementById("studentId").value.trim();
+    const studentName = document.getElementById("studentName").value.trim();
+    const imageData = captureFrame();
+
+    if (!studentId || !studentName) {
+      statusMessage.textContent = "Error: Student ID and Name are required.";
+      return;
     }
+    if (!imageData) return;
 
-    /* -------------------------------------------------------------
-       PUBLIC CALCULATOR & CONSULTATION
-    -------------------------------------------------------------- */
-    function updateCalc(size, saving, emi, el) {
-      document.querySelectorAll('.size-card').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      document.getElementById('calcSaving').innerText = saving;
-      document.getElementById('calcEmi').innerText = emi;
-    }
+    statusMessage.textContent = "Registering student...";
 
-    function sendToWhatsApp(e) {
-      e.preventDefault();
-      var name = document.getElementById("custName").value.trim();
-      var phone = document.getElementById("custPhone").value.trim();
-      var pincode = document.getElementById("custPincode").value.trim();
-      var bill = document.querySelector('input[name="bill_range"]:checked').value;
-
-      var textMsg = "☀️ *New Free Solar Consultation Request*\n\n" +
-                    "👤 *Name:* " + name + "\n" +
-                    "📱 *WhatsApp:* " + phone + "\n" +
-                    "⚡ *Monthly Bill:* " + bill + "\n" +
-                    "📍 *PIN Code:* " + pincode;
-
-      window.open("https://api.whatsapp.com/send?phone=919226194332&text=" + encodeURIComponent(textMsg), "_blank");
-    }
-
-    /* -------------------------------------------------------------
-       AUTHENTICATION ONLY VIA REGISTERED MOBILE NUMBERS
-    -------------------------------------------------------------- */
-    var generatedOtp = null;
-    var loggedInUser = null;
-
-    function openEmployeeLogin() {
-      initData();
-      resetLoginForm();
-      document.getElementById('employeeModal').style.display = 'flex';
-    }
-
-    function closeEmployeeLogin() {
-      document.getElementById('employeeModal').style.display = 'none';
-    }
-
-    function resetLoginForm() {
-      document.getElementById('stepPhone').style.display = 'block';
-      document.getElementById('stepOtp').style.display = 'none';
-      document.getElementById('loginStatus').innerText = '';
-      document.getElementById('otpCode').value = '';
-      generatedOtp = null;
-      loggedInUser = null;
-    }
-
-    function sendWhatsAppOtp() {
-      initData();
-      var rawInput = document.getElementById('empPhone').value.trim();
-      var statusBox = document.getElementById('loginStatus');
-
-      var digits = rawInput.replace(/[^0-9]/g, '');
-      if (digits.startsWith("91") && digits.length === 12) {
-        digits = digits.substring(2);
-      }
-
-      var employees = getData("dups_employees");
-      var matchedEmp = employees.find(function(e) {
-        var empClean = e.phone.replace(/[^0-9]/g, '');
-        if (empClean.startsWith("91") && empClean.length === 12) empClean = empClean.substring(2);
-        return empClean === digits;
+    try {
+      const res = await fetch(`${BACKEND_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ student_id: studentId, name: studentName, image: imageData })
       });
-
-      if (!matchedEmp) {
-        statusBox.style.color = '#dc2626';
-        statusBox.innerText = '❌ Access Denied: This mobile number is not registered.';
-        return;
-      }
-
-      loggedInUser = matchedEmp;
-      generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-
-      statusBox.style.color = '#0b2545';
-      statusBox.innerText = 'Number verified for ' + matchedEmp.name + ' (' + matchedEmp.role + '). Opening WhatsApp...';
-
-      var msg = "🔐 *DIP URJA POWER SOLUTIONS*\n\nHello *" + matchedEmp.name + "*,\nYour Employee Portal OTP is: *" + generatedOtp + "*\nRole: " + matchedEmp.role;
-      window.open("https://api.whatsapp.com/send?phone=91" + digits + "&text=" + encodeURIComponent(msg), "_blank");
-
-      setTimeout(function() {
-        document.getElementById('stepPhone').style.display = 'none';
-        document.getElementById('stepOtp').style.display = 'block';
-      }, 500);
+      const data = await res.json();
+      statusMessage.textContent = JSON.stringify(data, null, 2);
+      loadStudents();
+    } catch (err) {
+      statusMessage.textContent = "Connection error: " + err.message;
     }
+  }
 
-    function verifyWhatsAppOtp() {
-      var enteredOtp = document.getElementById('otpCode').value.trim();
+  async function markAttendance() {
+    const imageData = captureFrame();
+    if (!imageData) return;
 
-      if (enteredOtp !== generatedOtp) {
-        alert('Invalid OTP. Please check the 6 digits sent on WhatsApp.');
-        return;
-      }
+    statusMessage.textContent = "Verifying face...";
 
-      closeEmployeeLogin();
-      activateInPagePortal(loggedInUser);
-    }
-
-    function activateInPagePortal(user) {
-      document.getElementById('publicWebsiteView').style.display = 'none';
-      document.getElementById('employeePortalSection').style.display = 'block';
-      
-      document.getElementById('portalUserName').innerText = user.name;
-      document.getElementById('portalUserBadge').innerText = user.role;
-      document.getElementById('portalUserPhone').innerText = "+91 " + user.phone;
-
-      applyRolePermissions(user.role);
-
-      renderAllDropdowns();
-      renderEmployeeTable();
-      renderRequisitionsTable();
-      renderDispatchTable();
-
-      var today = new Date().toISOString().split('T')[0];
-      document.getElementById("workReportDate").value = today;
-      loadHourwiseReport();
-
-      window.scrollTo(0, 0);
-    }
-
-    function logoutPortal() {
-      if (confirm("Are you sure you want to log out of Dip Urja Portal?")) {
-        document.getElementById('employeePortalSection').style.display = 'none';
-        document.getElementById('publicWebsiteView').style.display = 'block';
-        resetLoginForm();
-        window.scrollTo(0, 0);
-      }
-    }
-
-    /* -------------------------------------------------------------
-       ROLE-BASED PERMISSION ENFORCEMENT
-    -------------------------------------------------------------- */
-    function isMdOrHr(role) {
-      return role.includes("MD") || role.includes("HR");
-    }
-
-    function isStoreKeeper(role) {
-      return role.includes("Store");
-    }
-
-    function applyRolePermissions(role) {
-      var hasFullAdmin = isMdOrHr(role);
-      var hasStoreRight = isStoreKeeper(role);
-
-      var empCard = document.getElementById("empDirectoryCard");
-      if (hasFullAdmin) {
-        empCard.style.display = "block";
-      } else {
-        empCard.style.display = "none";
-      }
-
-      var sensitiveLinks = document.querySelectorAll(".perm-sensitive");
-      sensitiveLinks.forEach(function(el) {
-        el.style.display = (hasFullAdmin || hasStoreRight) ? "inline" : "none";
+    try {
+      const res = await fetch(`${BACKEND_URL}/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: imageData })
       });
+      const data = await res.json();
+      statusMessage.textContent = JSON.stringify(data, null, 2);
+      loadAttendance();
+    } catch (err) {
+      statusMessage.textContent = "Connection error: " + err.message;
     }
+  }
 
-    /* -------------------------------------------------------------
-       REGISTERED EMPLOYEE DIRECTORY CRUD (MD & HR ONLY)
-    -------------------------------------------------------------- */
-    function renderEmployeeTable() {
-      var employees = getData("dups_employees");
-      var tbody = document.getElementById("employeesTableBody");
+  async function loadStudents() {
+    try {
+      const res = await fetch(`${BACKEND_URL}/students`);
+      const data = await res.json();
+      const tbody = document.getElementById("studentsTableBody");
       tbody.innerHTML = "";
 
-      var currentUserRole = loggedInUser ? loggedInUser.role : "";
-      var canEdit = isMdOrHr(currentUserRole);
+      if (data.students.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='2' style='text-align:center;'>No students registered yet.</td></tr>";
+        return;
+      }
 
-      employees.forEach(function(emp, index) {
-        var tr = document.createElement("tr");
-
-        var permDesc = "Standard Technical Access";
-        if (emp.role.includes("MD")) permDesc = "Full Administrative & Clearance Rights";
-        else if (emp.role.includes("HR")) permDesc = "Staff Management & Master Work Report";
-        else if (emp.role.includes("Store")) permDesc = "Material Master & Dispatch Controls";
-        else if (emp.role.includes("Accounts")) permDesc = "Financial Requisition Verification";
-
-        var actionHtml = canEdit ? `
-          <button onclick="editEmployee(${index})" class="tbl-action-btn btn-tbl-edit">Edit</button>
-          <button onclick="deleteEmployee(${index})" class="tbl-action-btn btn-tbl-delete">Del</button>
-        ` : `<span style="color:#94a3b8; font-size:0.75rem;">View Only</span>`;
-
-        tr.innerHTML = `
-          <td><strong>${index + 1}</strong></td>
-          <td><strong>${emp.name}</strong></td>
-          <td>+91 ${emp.phone}</td>
-          <td><span class="badge">${emp.role}</span></td>
-          <td style="font-size:0.8rem; color:#475569;">${permDesc}</td>
-          <td>${actionHtml}</td>
-        `;
-        tbody.appendChild(tr);
+      data.students.forEach(s => {
+        const row = `<tr><td>${s.student_id}</td><td>${s.name}</td></tr>`;
+        tbody.innerHTML += row;
       });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function loadAttendance() {
+    try {
+      const res = await fetch(`${BACKEND_URL}/attendance`);
+      const data = await res.json();
+      fullAttendanceLogs = data.attendance || [];
+      renderFilteredAttendance();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function renderFilteredAttendance() {
+    const selectedDate = document.getElementById("filterDate").value;
+    const tbody = document.getElementById("attendanceTableBody");
+    tbody.innerHTML = "";
+
+    const filtered = selectedDate 
+      ? fullAttendanceLogs.filter(log => log.Date === selectedDate)
+      : fullAttendanceLogs;
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan='4' style='text-align:center;'>No attendance logged for ${selectedDate || "all dates"}.</td></tr>`;
+      return;
     }
 
-    function saveEmployee(e) {
-      e.preventDefault();
-      var currentUserRole = loggedInUser ? loggedInUser.role : "";
-      if (!isMdOrHr(currentUserRole)) {
-        alert("Permission Denied: Only Managing Director or HR can add or edit employees.");
-        return;
-      }
-
-      var name = document.getElementById("masterEmpName").value.trim();
-      var rawPhone = document.getElementById("masterEmpPhone").value.trim();
-      var role = document.getElementById("masterEmpRole").value;
-      var editIdx = parseInt(document.getElementById("editingEmpIndex").value, 10);
-
-      var phoneDigits = rawPhone.replace(/[^0-9]/g, '');
-      if (phoneDigits.startsWith("91") && phoneDigits.length === 12) phoneDigits = phoneDigits.substring(2);
-
-      if (phoneDigits.length !== 10) {
-        alert("Please enter a valid 10-digit mobile number.");
-        return;
-      }
-
-      var employees = getData("dups_employees");
-
-      var duplicate = employees.find(function(emp, i) {
-        return emp.phone === phoneDigits && i !== editIdx;
-      });
-
-      if (duplicate) {
-        alert("This mobile number is already registered for: " + duplicate.name);
-        return;
-      }
-
-      if (editIdx >= 0) {
-        employees[editIdx] = { name: name, phone: phoneDigits, role: role };
-        alert("Employee details updated successfully!");
-      } else {
-        employees.push({ name: name, phone: phoneDigits, role: role });
-        alert("New employee successfully registered with login permission!");
-      }
-
-      setData("dups_employees", employees);
-      cancelEmpEdit();
-      renderEmployeeTable();
-      renderAllDropdowns();
-    }
-
-    function editEmployee(index) {
-      var employees = getData("dups_employees");
-      var emp = employees[index];
-      if (!emp) return;
-
-      document.getElementById("editingEmpIndex").value = index;
-      document.getElementById("masterEmpName").value = emp.name;
-      document.getElementById("masterEmpPhone").value = emp.phone;
-      document.getElementById("masterEmpRole").value = emp.role;
-
-      document.getElementById("btnSaveEmp").innerText = "💾 Save Employee Changes";
-      document.getElementById("btnCancelEmpEdit").style.display = "inline-block";
-      window.scrollTo({ top: document.getElementById("empMasterForm").offsetTop - 80, behavior: 'smooth' });
-    }
-
-    function cancelEmpEdit() {
-      document.getElementById("editingEmpIndex").value = "-1";
-      document.getElementById("empMasterForm").reset();
-      document.getElementById("btnSaveEmp").innerText = "➕ Register / Update Employee";
-      document.getElementById("btnCancelEmpEdit").style.display = "none";
-    }
-
-    function deleteEmployee(index) {
-      var currentUserRole = loggedInUser ? loggedInUser.role : "";
-      if (!isMdOrHr(currentUserRole)) {
-        alert("Permission Denied: Only MD or HR can delete registered employees.");
-        return;
-      }
-
-      var employees = getData("dups_employees");
-      var emp = employees[index];
-
-      if (confirm("Delete employee '" + emp.name + "' with phone " + emp.phone + "? They will no longer be able to log in.")) {
-        employees.splice(index, 1);
-        setData("dups_employees", employees);
-        renderEmployeeTable();
-        renderAllDropdowns();
-      }
-    }
-
-    /* -------------------------------------------------------------
-       DROPDOWN POPULATION (SYNCED WITH REGISTERED STAFF)
-    -------------------------------------------------------------- */
-    function renderAllDropdowns() {
-      populateDropdown("reqSiteSelect", getData("dups_sites"));
-      populateDropdown("reqMaterialSelect", getData("dups_materials"));
-
-      var employees = getData("dups_employees");
-      var staffList = employees.map(function(e) { return e.name + " (" + e.role + ")"; });
-
-      populateDropdown("reqStaffSelect", staffList);
-
-      // Setup Work Report Dropdown
-      var wrSelect = document.getElementById("workReportStaffSelect");
-      var currentWrVal = wrSelect.value;
-      wrSelect.innerHTML = "";
-
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-      if (isMdOrHr(currentRole)) {
-        // HR/MD gets the consolidated option as default
-        var allOpt = document.createElement("option");
-        allOpt.value = "ALL_STAFF";
-        allOpt.textContent = "👥 ALL Employees — Consolidated Master Overview";
-        wrSelect.appendChild(allOpt);
-      }
-
-      staffList.forEach(function(item) {
-        var opt = document.createElement("option");
-        opt.value = item;
-        opt.textContent = item;
-        wrSelect.appendChild(opt);
-      });
-
-      if (currentWrVal && (currentWrVal === "ALL_STAFF" || staffList.includes(currentWrVal))) {
-        wrSelect.value = currentWrVal;
-      } else {
-        wrSelect.value = isMdOrHr(currentRole) ? "ALL_STAFF" : (staffList[0] || "");
-      }
-    }
-
-    function populateDropdown(selectId, items) {
-      var sel = document.getElementById(selectId);
-      if (!sel) return;
-      var currentVal = sel.value;
-      sel.innerHTML = '<option value="">-- Choose from List --</option>';
-      items.forEach(function(item) {
-        var opt = document.createElement("option");
-        opt.value = item;
-        opt.textContent = item;
-        sel.appendChild(opt);
-      });
-      if (items.includes(currentVal)) {
-        sel.value = currentVal;
-      }
-    }
-
-    /* -------------------------------------------------------------
-       1-HOUR AUTOMATIC TIME SLOT FREEZE CHECK
-       Rule: Slot editing freezes 1 hour after the slot ends.
-       Example: Slot ends at 10:00 AM -> Freezes at 11:00 AM.
-       Only HR and MD are exempt from freeze lock.
-    -------------------------------------------------------------- */
-    function isSlotFrozen(selectedDateStr, endHour) {
-      var now = new Date();
-      var selectedDate = new Date(selectedDateStr + "T00:00:00");
-      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-      // If selected date is prior to today, the entire day is already frozen
-      if (selectedDate < today) {
-        return true;
-      }
-
-      // If date is in the future, it is not frozen
-      if (selectedDate > today) {
-        return false;
-      }
-
-      // If date is today, check if current time is past (endHour + 1)
-      var freezeHour = endHour + 1;
-      var currentHour = now.getHours();
-      var currentMinutes = now.getMinutes();
-
-      if (currentHour > freezeHour || (currentHour === freezeHour && currentMinutes > 0)) {
-        return true;
-      }
-
-      return false;
-    }
-
-    /* -------------------------------------------------------------
-       HOURWISE WORK REPORT: CONSOLIDATED ALL-STAFF OR SINGLE STAFF
-    -------------------------------------------------------------- */
-    function loadHourwiseReport() {
-      var wrSelect = document.getElementById("workReportStaffSelect");
-      var selectedTarget = wrSelect.value;
-      var date = document.getElementById("workReportDate").value || new Date().toISOString().split('T')[0];
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-      var isHrMd = isMdOrHr(currentRole);
-
-      var theadTr = document.getElementById("hourwiseTableHeader");
-      var tbody = document.getElementById("hourwiseTableBody");
-      tbody.innerHTML = "";
-
-      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
-
-      if (selectedTarget === "ALL_STAFF") {
-        // ================= CONSOLIDATED MASTER OVERVIEW =================
-        theadTr.innerHTML = `
-          <th style="width: 180px;">Employee</th>
-          <th style="width: 150px;">Time Slot</th>
-          <th>Work Description / Activity</th>
-          <th style="width: 100px;">Save</th>
-          <th style="width: 140px;">MD Review 👍</th>
-          <th style="width: 140px;">HR Review 👍</th>
-        `;
-
-        var employees = getData("dups_employees");
-        employees.forEach(function(emp, empIdx) {
-          var empStaffKey = emp.name + " (" + emp.role + ")";
-          var storeKey = empStaffKey + "___" + date;
-          var empData = allReports[storeKey] || {};
-
-          timeSlots.forEach(function(slotObj, slotIdx) {
-            var slot = slotObj.label;
-            var slotData = empData[slot] || { task: "", mdApproved: false, hrApproved: false };
-            var frozen = isSlotFrozen(date, slotObj.endHour);
-
-            var canEdit = isHrMd || !frozen;
-            var inputDisabledAttr = canEdit ? "" : "disabled";
-            var freezeLabel = frozen ? (isHrMd ? '<span class="hr-override-tag">🔓 HR Override</span>' : '<span class="freeze-tag">🔒 Frozen</span>') : '';
-
-            var mdClass = slotData.mdApproved ? "approved-md" : "";
-            var mdText = slotData.mdApproved ? "MD Approved 👍" : "MD Pending 👍";
-
-            var hrClass = slotData.hrApproved ? "approved-hr" : "";
-            var hrText = slotData.hrApproved ? "HR Approved 👍" : "HR Pending 👍";
-
-            var inputId = "slot_task_all_" + empIdx + "_" + slotIdx;
-
-            var tr = document.createElement("tr");
-            tr.innerHTML = `
-              <td><strong>${emp.name}</strong><br><small style="color:#64748b;">${emp.role}</small></td>
-              <td><span class="time-slot-badge">${slot}</span>${freezeLabel}</td>
-              <td>
-                <input type="text" id="${inputId}" class="work-input-inline" placeholder="Enter work completed..." value="${slotData.task.replace(/"/g, '&quot;')}" ${inputDisabledAttr} />
-              </td>
-              <td>
-                ${canEdit ? `<button type="button" class="tbl-action-btn btn-tbl-dispatch" onclick="saveMasterSlot('${empStaffKey}', '${slot}', '${inputId}',${slotObj.endHour})">Save</button>` : `<span style="color:#94a3b8; font-size:0.75rem;">Locked</span>`}
-              </td>
-              <td>
-                <button type="button" class="thumbs-btn ${mdClass}" onclick="toggleThumbsUpSlot('${empStaffKey}', '${slot}', 'md')">${mdText}</button>
-              </td>
-              <td>
-                <button type="button" class="thumbs-btn ${hrClass}" onclick="toggleThumbsUpSlot('${empStaffKey}', '${slot}', 'hr')">${hrText}</button>
-              </td>
-            `;
-            tbody.appendChild(tr);
-          });
-        });
-
-      } else {
-        // ================= INDIVIDUAL EMPLOYEE VIEW =================
-        theadTr.innerHTML = `
-          <th style="width: 170px;">Time Slot</th>
-          <th>Work Accomplished / Activity Details</th>
-          <th style="width: 110px;">Submit</th>
-          <th style="width: 150px;">MD Review 👍</th>
-          <th style="width: 150px;">HR Review 👍</th>
-        `;
-
-        var storeKey = selectedTarget + "___" + date;
-        var dayData = allReports[storeKey] || {};
-
-        timeSlots.forEach(function(slotObj, index) {
-          var slot = slotObj.label;
-          var slotData = dayData[slot] || { task: "", mdApproved: false, hrApproved: false };
-          var frozen = isSlotFrozen(date, slotObj.endHour);
-
-          var canEdit = isHrMd || !frozen;
-          var inputDisabledAttr = canEdit ? "" : "disabled";
-          var freezeLabel = frozen ? (isHrMd ? '<span class="hr-override-tag">🔓 HR Override</span>' : '<span class="freeze-tag">🔒 Frozen (1h Expired)</span>') : '';
-
-          var mdClass = slotData.mdApproved ? "approved-md" : "";
-          var mdText = slotData.mdApproved ? "MD Approved 👍" : "MD Pending 👍";
-
-          var hrClass = slotData.hrApproved ? "approved-hr" : "";
-          var hrText = slotData.hrApproved ? "HR Approved 👍" : "HR Pending 👍";
-
-          var inputId = "slot_task_single_" + index;
-
-          var tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td><span class="time-slot-badge">${slot}</span>${freezeLabel}</td>
-            <td>
-              <input type="text" id="${inputId}" class="work-input-inline" placeholder="Enter work completed during this hour..." value="${slotData.task.replace(/"/g, '&quot;')}" ${inputDisabledAttr} />
-            </td>
-            <td>
-              ${canEdit ? `<button type="button" class="tbl-action-btn btn-tbl-dispatch" onclick="saveMasterSlot('${selectedTarget}', '${slot}', '${inputId}',${slotObj.endHour})">Submit</button>` : `<span style="color:#94a3b8; font-size:0.75rem;">Locked</span>`}
-            </td>
-            <td>
-              <button type="button" class="thumbs-btn ${mdClass}" onclick="toggleThumbsUpSlot('${selectedTarget}', '${slot}', 'md')">${mdText}</button>
-            </td>
-            <td>
-              <button type="button" class="thumbs-btn ${hrClass}" onclick="toggleThumbsUpSlot('${selectedTarget}', '${slot}', 'hr')">${hrText}</button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-      }
-    }
-
-    function saveMasterSlot(staffKey, slot, inputId, endHour) {
-      var date = document.getElementById("workReportDate").value || new Date().toISOString().split('T')[0];
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-      var isHrMd = isMdOrHr(currentRole);
-
-      // Check slot freeze enforcement
-      if (!isHrMd && isSlotFrozen(date, endHour)) {
-        alert("🔒 Time Slot Frozen: The 1-hour window to edit this work slot has expired. Only HR or MD can edit this record now.");
-        loadHourwiseReport();
-        return;
-      }
-
-      var inputEl = document.getElementById(inputId);
-      var taskText = inputEl.value.trim();
-
-      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
-      var storeKey = staffKey + "___" + date;
-      if (!allReports[storeKey]) allReports[storeKey] = {};
-      if (!allReports[storeKey][slot]) {
-        allReports[storeKey][slot] = { task: "", mdApproved: false, hrApproved: false };
-      }
-
-      allReports[storeKey][slot].task = taskText;
-      localStorage.setItem("dups_work_reports", JSON.stringify(allReports));
-      alert("✅ Saved slot [" + slot + "] for " + staffKey.split("(")[0].trim());
-      loadHourwiseReport();
-    }
-
-    function toggleThumbsUpSlot(staffKey, slot, reviewerRole) {
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-
-      if (reviewerRole === "md" && !currentRole.includes("MD")) {
-        alert("Permission Denied: Only Managing Director can grant MD Thumbs Up 👍 approvals.");
-        return;
-      }
-
-      if (reviewerRole === "hr" && !currentRole.includes("HR") && !currentRole.includes("MD")) {
-        alert("Permission Denied: Only HR Department can grant HR Thumbs Up 👍 approvals.");
-        return;
-      }
-
-      var date = document.getElementById("workReportDate").value || new Date().toISOString().split('T')[0];
-      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
-      var storeKey = staffKey + "___" + date;
-
-      if (!allReports[storeKey]) allReports[storeKey] = {};
-      if (!allReports[storeKey][slot]) {
-        allReports[storeKey][slot] = { task: "", mdApproved: false, hrApproved: false };
-      }
-
-      if (reviewerRole === "md") {
-        allReports[storeKey][slot].mdApproved = !allReports[storeKey][slot].mdApproved;
-      } else {
-        allReports[storeKey][slot].hrApproved = !allReports[storeKey][slot].hrApproved;
-      }
-
-      localStorage.setItem("dups_work_reports", JSON.stringify(allReports));
-      loadHourwiseReport();
-    }
-
-    function downloadWorkReportExcel() {
-      var wrSelect = document.getElementById("workReportStaffSelect");
-      var selectedTarget = wrSelect.value;
-      var date = document.getElementById("workReportDate").value || new Date().toISOString().split('T')[0];
-      var allReports = JSON.parse(localStorage.getItem("dups_work_reports") || "{}");
-
-      var csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += "Staff Name,Date,Time Slot,Work Description / Activity,MD Approval,HR Approval\r\n";
-
-      var targetStaffList = [];
-      if (selectedTarget === "ALL_STAFF") {
-        var employees = getData("dups_employees");
-        targetStaffList = employees.map(function(e) { return e.name + " (" + e.role + ")"; });
-      } else {
-        targetStaffList = [selectedTarget];
-      }
-
-      targetStaffList.forEach(function(staffKey) {
-        var storeKey = staffKey + "___" + date;
-        var dayData = allReports[storeKey] || {};
-
-        timeSlots.forEach(function(slotObj) {
-          var slot = slotObj.label;
-          var data = dayData[slot] || { task: "", mdApproved: false, hrApproved: false };
-          var cleanTask = '"' + (data.task || "No entry").replace(/"/g, '""') + '"';
-          var mdStatus = data.mdApproved ? "Approved 👍" : "Pending";
-          var hrStatus = data.hrApproved ? "Approved 👍" : "Pending";
-
-          var row = [
-            '"' + staffKey + '"',
-            '"' + date + '"',
-            '"' + slot + '"',
-            cleanTask,
-            '"' + mdStatus + '"',
-            '"' + hrStatus + '"'
-          ].join(",");
-          csvContent += row + "\r\n";
-        });
-      });
-
-      var encodedUri = encodeURI(csvContent);
-      var link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "Dip_Urja_Work_Report_" + (selectedTarget === "ALL_STAFF" ? "Master_All_Staff" : selectedTarget.split(" ")[0]) + "_" + date + ".csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    /* -------------------------------------------------------------
-       REQUISITIONS & DISPATCH LOGIC (STORE KEEPER, MD & HR RIGHTS)
-    -------------------------------------------------------------- */
-    function renderRequisitionsTable() {
-      var reqs = getData("dups_requisitions");
-      var tbody = document.getElementById("requisitionsTableBody");
-      tbody.innerHTML = "";
-
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-      var canManage = isMdOrHr(currentRole) || isStoreKeeper(currentRole);
-
-      if (reqs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#94a3b8; padding:20px;">No active requisitions found.</td></tr>';
-        return;
-      }
-
-      reqs.forEach(function(item) {
-        var accBadge = item.accounts.includes("Cleared") || item.accounts.includes("Advance") ? "status-approved" : (item.accounts.includes("Hold") ? "status-hold" : "status-pending");
-        var mdBadge = item.md.includes("Approved") ? "status-approved" : (item.md.includes("Hold") ? "status-hold" : "status-pending");
-
-        var actions = canManage ? `
-          <button onclick="editRequisition('${item.id}')" class="tbl-action-btn btn-tbl-edit">Edit</button>
-          <button onclick="dispatchRequisition('${item.id}')" class="tbl-action-btn btn-tbl-dispatch">Dispatch</button>
-          <button onclick="deleteRequisition('${item.id}')" class="tbl-action-btn btn-tbl-delete">Del</button>
-        ` : `<span style="color:#94a3b8; font-size:0.75rem;">Submitted</span>`;
-
-        var tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><strong>${item.id}</strong></td>
-          <td>${item.date}</td>
-          <td>${item.site}</td>
-          <td>${item.staff}</td>
-          <td>${item.material}</td>
-          <td><strong>${item.qty}</strong></td>
-          <td><span class="status-pill ${accBadge}">${item.accounts}</span></td>
-          <td><span class="status-pill ${mdBadge}">${item.md}</span></td>
-          <td>${actions}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function handleRequisitionSubmit(e) {
-      e.preventDefault();
-
-      var editId = document.getElementById("editingReqId").value;
-      var site = document.getElementById("reqSiteSelect").value;
-      var staff = document.getElementById("reqStaffSelect").value;
-      var material = document.getElementById("reqMaterialSelect").value;
-      var qty = document.getElementById("reqQty").value.trim();
-      var acc = document.getElementById("reqAccountsApp").value;
-      var md = document.getElementById("reqMdApp").value;
-
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-
-      if (md.includes("Approved") && !currentRole.includes("MD")) {
-        alert("Notice: MD Clearance status can only be officially verified by the Managing Director. Marked as 'Pending MD Clearance'.");
-        md = "⏳ Pending MD Clearance";
-      }
-
-      if (!site || !staff || !material || !qty) {
-        alert("Please select Site, Staff, Material, and enter Quantity.");
-        return;
-      }
-
-      var reqs = getData("dups_requisitions");
-
-      if (editId) {
-        var idx = reqs.findIndex(r => r.id === editId);
-        if (idx !== -1) {
-          reqs[idx].site = site;
-          reqs[idx].staff = staff;
-          reqs[idx].material = material;
-          reqs[idx].qty = qty;
-          reqs[idx].accounts = acc;
-          reqs[idx].md = md;
-          alert("Requisition #" + editId + " updated successfully!");
-        }
-      } else {
-        var newId = "REQ-" + Math.floor(100 + Math.random() * 900);
-        var today = new Date().toISOString().split('T')[0];
-        reqs.unshift({
-          id: newId,
-          date: today,
-          site: site,
-          staff: staff,
-          material: material,
-          qty: qty,
-          accounts: acc,
-          md: md
-        });
-        alert("Requisition " + newId + " generated successfully!");
-      }
-
-      setData("dups_requisitions", reqs);
-      cancelReqEdit();
-      renderRequisitionsTable();
-    }
-
-    function editRequisition(id) {
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-      if (!isMdOrHr(currentRole) && !isStoreKeeper(currentRole)) {
-        alert("Permission Denied: Only Store Keeper, MD, or HR can edit requisitions.");
-        return;
-      }
-
-      var reqs = getData("dups_requisitions");
-      var item = reqs.find(r => r.id === id);
-      if (!item) return;
-
-      document.getElementById("editingReqId").value = item.id;
-      document.getElementById("reqSiteSelect").value = item.site;
-      document.getElementById("reqStaffSelect").value = item.staff;
-      document.getElementById("reqMaterialSelect").value = item.material;
-      document.getElementById("reqQty").value = item.qty;
-      document.getElementById("reqAccountsApp").value = item.accounts;
-      document.getElementById("reqMdApp").value = item.md;
-
-      document.getElementById("formActionTitle").innerText = "✏️ Edit Requisition #" + item.id;
-      document.getElementById("btnSubmitReq").innerText = "💾 Save Changes";
-      document.getElementById("btnCancelEdit").style.display = "inline-block";
-
-      window.scrollTo({ top: document.getElementById("reqForm").offsetTop - 80, behavior: 'smooth' });
-    }
-
-    function cancelReqEdit() {
-      document.getElementById("editingReqId").value = "";
-      document.getElementById("reqForm").reset();
-      document.getElementById("formActionTitle").innerText = "📝 Create Material Requisition";
-      document.getElementById("btnSubmitReq").innerText = "➕ Submit Requisition";
-      document.getElementById("btnCancelEdit").style.display = "none";
-    }
-
-    function deleteRequisition(id) {
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-      if (!isMdOrHr(currentRole) && !isStoreKeeper(currentRole)) {
-        alert("Permission Denied: Only Store Keeper, MD, or HR can delete requisitions.");
-        return;
-      }
-
-      if (confirm("Are you sure you want to delete Requisition #" + id + "?")) {
-        var reqs = getData("dups_requisitions").filter(r => r.id !== id);
-        setData("dups_requisitions", reqs);
-        renderRequisitionsTable();
-      }
-    }
-
-    function dispatchRequisition(id) {
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-      if (!isStoreKeeper(currentRole) && !isMdOrHr(currentRole)) {
-        alert("Permission Denied: Material Dispatch is strictly authorized by Store Keeper or MD.");
-        return;
-      }
-
-      var reqs = getData("dups_requisitions");
-      var item = reqs.find(r => r.id === id);
-      if (!item) return;
-
-      if (!confirm("Confirm dispatch of material for " + item.site + "? This records delivery in the Dispatch Log.")) {
-        return;
-      }
-
-      var dispatches = getData("dups_dispatches");
-      var now = new Date();
-      var dateStr = now.toLocaleDateString() + " " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-      dispatches.unshift({
-        id: "DISP-" + Math.floor(100 + Math.random() * 900),
-        dateTime: dateStr,
-        site: item.site,
-        material: item.material,
-        qty: item.qty,
-        staff: item.staff,
-        mdStatus: item.md
-      });
-
-      reqs = reqs.filter(r => r.id !== id);
-
-      setData("dups_dispatches", dispatches);
-      setData("dups_requisitions", reqs);
-
-      renderRequisitionsTable();
-      renderDispatchTable();
-      alert("Material successfully transferred to Warehouse Dispatch Log!");
-    }
-
-    /* -------------------------------------------------------------
-       DISPATCH LOG & EXCEL (CSV) EXPORTER
-    -------------------------------------------------------------- */
-    function renderDispatchTable() {
-      var dispatches = getData("dups_dispatches");
-      var tbody = document.getElementById("dispatchTableBody");
-      tbody.innerHTML = "";
-
-      if (dispatches.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#94a3b8; padding:20px;">No dispatches logged yet.</td></tr>';
-        return;
-      }
-
-      dispatches.forEach(function(d) {
-        var tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><strong>${d.id}</strong></td>
-          <td>${d.dateTime}</td>
-          <td>${d.site}</td>
-          <td>${d.material}</td>
-          <td><strong>${d.qty}</strong></td>
-          <td>${d.staff}</td>
-          <td><span class="status-pill status-approved">${d.mdStatus}</span></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function downloadDispatchExcel() {
-      var dispatches = getData("dups_dispatches");
-      if (dispatches.length === 0) {
-        alert("No dispatch records available to export.");
-        return;
-      }
-
-      var csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += "Dispatch ID,Date & Time,Customer / Site,Material Dispatched,Quantity,Requested By Staff,MD Approval\r\n";
-
-      dispatches.forEach(function(row) {
-        var cleanSite = '"' + (row.site || "").replace(/"/g, '""') + '"';
-        var cleanMat = '"' + (row.material || "").replace(/"/g, '""') + '"';
-        var cleanStaff = '"' + (row.staff || "").replace(/"/g, '""') + '"';
-        var cleanStatus = '"' + (row.mdStatus || "").replace(/"/g, '""') + '"';
-
-        var line = [
-          row.id,
-          '"' + row.dateTime + '"',
-          cleanSite,
-          cleanMat,
-          '"' + row.qty + '"',
-          cleanStaff,
-          cleanStatus
-        ].join(",");
-        csvContent += line + "\r\n";
-      });
-
-      var encodedUri = encodeURI(csvContent);
-      var link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "Dip_Urja_Material_Dispatch_Log_" + new Date().toISOString().split('T')[0] + ".csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    function shareRequisitionWhatsApp() {
-      var site = document.getElementById("reqSiteSelect").value;
-      var staff = document.getElementById("reqStaffSelect").value;
-      var material = document.getElementById("reqMaterialSelect").value;
-      var qty = document.getElementById("reqQty").value.trim();
-      var acc = document.getElementById("reqAccountsApp").value;
-      var md = document.getElementById("reqMdApp").value;
-
-      if (!site || !material || !qty) {
-        alert("Please select Site, Material, and Quantity before sharing.");
-        return;
-      }
-
-      var msg = "⚡ *DIP URJA - MATERIAL REQUISITION SLIP* ⚡\n\n" +
-                "📍 *Customer / Site:* " + site + "\n" +
-                "👷 *Requested By:* " + staff + "\n" +
-                "📦 *Material Required:* " + material + "\n" +
-                "🔢 *Quantity:* " + qty + "\n" +
-                "💰 *Accounts Status:* " + acc + "\n" +
-                "👑 *MD Clearance:* " + md;
-
-      window.open("https://api.whatsapp.com/send?phone=919226194332&text=" + encodeURIComponent(msg), "_blank");
-    }
-
-    /* -------------------------------------------------------------
-       MASTER DROPDOWN LIST MANAGER (MD, HR & STORE KEEPER ONLY)
-    -------------------------------------------------------------- */
-    var activeManagerType = "";
-
-    function openManager(type) {
-      var currentRole = loggedInUser ? loggedInUser.role : "";
-      if (!isMdOrHr(currentRole) && !isStoreKeeper(currentRole)) {
-        alert("Permission Denied: Editing master dropdown lists is reserved for MD, HR, or Store Keeper.");
-        return;
-      }
-
-      activeManagerType = type;
-      var titles = {
-        sites: "Customer / Project Site Master List",
-        materials: "Material & Equipment Master List"
-      };
-
-      document.getElementById("mgrTitle").innerText = titles[type];
-      document.getElementById("mgrInput").value = "";
-      renderManagerList();
-      document.getElementById("managerModal").style.display = "flex";
-    }
-
-    function closeManager() {
-      document.getElementById("managerModal").style.display = "none";
-      renderAllDropdowns();
-    }
-
-    function getStorageKeyForActive() {
-      return activeManagerType === "sites" ? "dups_sites" : "dups_materials";
-    }
-
-    function renderManagerList() {
-      var list = getData(getStorageKeyForActive());
-      var container = document.getElementById("mgrItemList");
-      container.innerHTML = "";
-
-      if (list.length === 0) {
-        container.innerHTML = '<div style="color:#94a3b8; font-size:0.8rem; text-align:center;">No items found. Add one above.</div>';
-        return;
-      }
-
-      list.forEach(function(item, idx) {
-        var div = document.createElement("div");
-        div.className = "mgr-item";
-        div.innerHTML = `
-          <span>${item}</span>
-          <button onclick="deleteManagerItem(${idx})" class="tbl-action-btn btn-tbl-delete">Delete</button>
-        `;
-        container.appendChild(div);
-      });
-    }
-
-    function addManagerItem() {
-      var text = document.getElementById("mgrInput").value.trim();
-      if (!text) return;
-
-      var key = getStorageKeyForActive();
-      var list = getData(key);
-
-      if (list.includes(text)) {
-        alert("This item already exists in the master list.");
-        return;
-      }
-
-      list.push(text);
-      setData(key, list);
-      document.getElementById("mgrInput").value = "";
-      renderManagerList();
-    }
-
-    function deleteManagerItem(index) {
-      var key = getStorageKeyForActive();
-      var list = getData(key);
-      if (confirm("Delete '" + list[index] + "' from list?")) {
-        list.splice(index, 1);
-        setData(key, list);
-        renderManagerList();
-      }
-    }
-  </script>
+    filtered.forEach(log => {
+      const row = `<tr>
+        <td>${log.Date}</td>
+        <td>${log.Time}</td>
+        <td>${log.Student_ID}</td>
+        <td>${log.Name}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+  }
+
+  // Load records initially
+  loadStudents();
+  loadAttendance();
+</script>
 
 </body>
 </html>
