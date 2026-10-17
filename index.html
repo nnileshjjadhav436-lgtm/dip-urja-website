@@ -9,20 +9,20 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: #f4f7f6;
-      color: #333;
-      overflow-x: hidden;
+      background-color: #f8fafc;
+      color: #1e293b;
+      line-height: 1.5;
     }
 
-    /* Top Strip */
+    /* --- Announcement Top Bar --- */
     .top-bar {
-      background-color: #0b1f3a;
+      background-color: #0b192c;
       color: #ffffff;
-      padding: 7px 30px;
+      padding: 8px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -31,16 +31,14 @@
     }
 
     .top-bar .highlight {
-      color: #ffcc00;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      color: #facc15;
+      font-weight: 600;
     }
 
-    /* Navigation Bar */
+    /* --- Navigation Bar --- */
     header {
       background: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -50,88 +48,95 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 30px;
+      padding: 12px 30px;
       max-width: 1350px;
       margin: 0 auto;
     }
 
-    .brand-logo {
+    .brand-logo-text {
       font-size: 20px;
       font-weight: 800;
-      color: #7f8c8d;
+      color: #475569;
       letter-spacing: 0.5px;
     }
 
-    .nav-menu {
+    .nav-links {
       display: flex;
       align-items: center;
       gap: 18px;
       list-style: none;
     }
 
-    .nav-menu a {
+    .nav-links a {
       text-decoration: none;
-      color: #2c3e50;
+      color: #334155;
       font-size: 14px;
       font-weight: 600;
       transition: color 0.2s;
     }
 
-    .nav-menu a:hover {
-      color: #0077b6;
+    .nav-links a:hover {
+      color: #0284c7;
     }
 
+    /* Buttons */
     .btn-complaint {
-      background-color: #f37021;
+      background-color: #ea580c;
       color: #ffffff !important;
       border: none;
       padding: 8px 16px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       border-radius: 4px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: background-color 0.2s;
     }
 
     .btn-complaint:hover {
-      background-color: #d95a10;
+      background-color: #c2410c;
     }
 
     .btn-contact {
-      background-color: #e63946;
+      background-color: #dc2626;
       color: #ffffff !important;
       padding: 8px 16px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       border-radius: 4px;
       text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .btn-contact:hover {
+      background-color: #b91c1c;
     }
 
     .btn-employee {
-      border: 1px solid #bdc3c7;
+      border: 1px solid #cbd5e1;
       padding: 7px 14px;
       border-radius: 4px;
-      color: #2c3e50 !important;
-      font-size: 13px;
+      color: #334155 !important;
+      font-size: 14px;
       font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
       background: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s;
     }
 
     .btn-employee:hover {
-      background-color: #edf2f7;
+      background-color: #f1f5f9;
     }
 
-    /* Hero Section */
+    /* --- Hero Section --- */
     .hero {
       position: relative;
-      background: radial-gradient(circle at 75% 50%, #0077b6 0%, #005082 50%, #002b49 100%);
+      background: radial-gradient(circle at 75% 50%, #0284c7 0%, #0369a1 45%, #082f49 100%);
       color: #ffffff;
       padding: 60px 30px;
-      min-height: 520px;
+      min-height: 540px;
       display: flex;
       align-items: center;
     }
@@ -141,7 +146,7 @@
       margin: 0 auto;
       width: 100%;
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: 1.15fr 1fr;
       gap: 40px;
       align-items: center;
     }
@@ -153,8 +158,8 @@
       background: #ffffff;
       padding: 8px 16px;
       border-radius: 8px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .hero-badge-logo .logo-icon {
@@ -163,25 +168,27 @@
     }
 
     .hero-badge-logo .logo-text h3 {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 900;
-      color: #111;
+      color: #0f172a;
       margin: 0;
+      line-height: 1;
     }
 
     .hero-badge-logo .logo-text span {
       font-size: 9px;
       font-weight: 800;
-      color: #e63946;
+      color: #dc2626;
       letter-spacing: 1px;
       display: block;
+      margin-top: 3px;
     }
 
     .hero-tagline {
       font-size: 14px;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       color: #e0f2fe;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       font-weight: 600;
     }
 
@@ -190,20 +197,20 @@
       font-weight: 900;
       line-height: 1.15;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .hero-subtitle {
       font-size: 24px;
       font-weight: 700;
-      color: #ffb703;
-      margin-bottom: 20px;
+      color: #facc15;
+      margin-bottom: 18px;
     }
 
     .hero-desc {
       font-size: 15px;
-      color: #f1faee;
-      margin-bottom: 25px;
+      color: #f8fafc;
+      margin-bottom: 24px;
       line-height: 1.6;
     }
 
@@ -211,5 +218,628 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: #ffb703;
-      color: #002845;
+      background: #facc15;
+      color: #713f12;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 15px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Right Side Wheel Visual */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle-display {
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      border: 6px solid #ffffff;
+      background: url('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=700&q=80') center/cover no-repeat;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .center-logo-hub {
+      background: #ffffff;
+      border-radius: 50%;
+      width: 105px;
+      height: 105px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      border: 3px solid #ea580c;
+      text-align: center;
+    }
+
+    .center-logo-hub span:first-child {
+      font-size: 20px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1;
+    }
+
+    .center-logo-hub span:last-child {
+      font-size: 8px;
+      font-weight: 800;
+      color: #dc2626;
+      margin-top: 2px;
+    }
+
+    .floating-pointer {
+      position: absolute;
+      background: #ffffff;
+      color: #0f172a;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .fp-solar { top: 15px; left: -25px; }
+    .fp-comm { top: 40px; right: -40px; }
+    .fp-res { bottom: 30px; left: -30px; }
+    .fp-factory { bottom: 20px; right: -30px; }
+
+    /* --- Modals --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(4px);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      width: 92%;
+      max-width: 480px;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-box-large {
+      max-width: 1180px;
+      width: 96%;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .modal-head h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #334155;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #0284c7;
+    }
+
+    .btn-submit-modal {
+      width: 100%;
+      background-color: #25d366;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-submit-modal:hover {
+      background-color: #1ebe5d;
+    }
+
+    .btn-login-submit {
+      width: 100%;
+      background-color: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-login-submit:hover {
+      background-color: #0369a1;
+    }
+
+    /* --- Dashboard Table --- */
+    .dashboard-table-wrapper {
+      overflow-x: auto;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 950px;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+    }
+
+    th {
+      background: #0b192c;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 11px;
+      display: inline-block;
+    }
+
+    .status-pending { background: #fed7aa; color: #9a3412; }
+    .status-done { background: #bbf7d0; color: #166534; }
+
+    .btn-action-status {
+      padding: 5px 9px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      background: #0284c7;
+      color: #fff;
+    }
+
+    .btn-table-wa {
+      background: #25d366;
+      color: #fff;
+      text-decoration: none;
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-badge-logo {
+        margin: 0 auto 20px auto;
+      }
+      .hero-visual {
+        margin-top: 40px;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div>Clean Energy | Reliable Power | A Brighter Tomorrow</div>
+    <div class="highlight">⚡ Reduce Your Electricity Bills with Government Subsidy &amp; Easy EMI</div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="navbar">
+      <div class="brand-logo-text">DIP URJA SOLUTIONS</div>
+      
+      <ul class="nav-links">
+        <li><a href="#calculator">Calculator</a></li>
+        <li><a href="#why-us">Why Dip Urja</a></li>
+        <li><a href="#services">Services</a></li>
+        
+        <!-- Register Complaint Button -->
+        <li>
+          <button type="button" class="btn-complaint" onclick="openModal('complaintModal')">
+            🛠️ Register Complaint
+          </button>
+        </li>
+
+        <li><a href="#contact" class="btn-contact">Contact Us</a></li>
+        
+        <!-- Employee Login Button -->
+        <li>
+          <button type="button" class="btn-employee" onclick="handleEmployeeNavClick()">
+            Employee Login
+          </button>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      
+      <!-- Left Hero Content -->
+      <div class="hero-content">
+        <div class="hero-badge-logo">
+          <div class="logo-icon">💡</div>
+          <div class="logo-text">
+            <h3>D-UPS</h3>
+            <span>DIP URJA POWER SOLUTIONS</span>
+          </div>
+        </div>
+
+        <div class="hero-tagline">Clean Energy | Reliable Power | A Brighter Tomorrow</div>
+        <h1 class="hero-title">DIP URJA<br>POWER SOLUTIONS</h1>
+        <h2 class="hero-subtitle">Your Trusted Partner in Solar &amp; Power Solutions</h2>
+        
+        <p class="hero-desc">
+          <strong>Residential | Commercial | Industrial</strong><br>
+          Solar | UPS | Lift UPS | Batteries | Maintenance
+        </p>
+
+        <div class="hero-subsidy-card">
+          ⚡ Reduce Your Electricity Bills with Government Subsidy &amp; Easy EMI
+        </div>
+      </div>
+
+      <!-- Right Circular Display -->
+      <div class="hero-visual">
+        <div class="circle-display">
+          <div class="center-logo-hub">
+            <span>D-UPS</span>
+            <span>DIP URJA</span>
+          </div>
+        </div>
+        <div class="floating-pointer fp-solar">☀️ Solar Park</div>
+        <div class="floating-pointer fp-comm">🏢 Commercial Spaces</div>
+        <div class="floating-pointer fp-res">🏡 Residential Area</div>
+        <div class="floating-pointer fp-factory">🏭 Factory</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 1. Customer Complaint Modal -->
+  <div id="complaintModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Register Service Complaint</h3>
+        <button type="button" class="close-btn" onclick="closeModal('complaintModal')">&times;</button>
+      </div>
+
+      <form id="complaintForm" onsubmit="submitCustomerComplaint(event)">
+        <div class="form-group">
+          <label for="cName">CUSTOMER NAME *</label>
+          <input type="text" id="cName" required placeholder="Enter customer name" />
+        </div>
+
+        <div class="form-group">
+          <label for="cPhone">MOBILE NUMBER *</label>
+          <input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number" />
+        </div>
+
+        <div class="form-group">
+          <label for="cType">SERVICE / SYSTEM TYPE *</label>
+          <select id="cType" required>
+            <option value="">-- Select Type --</option>
+            <option value="Rooftop Solar">Rooftop Solar</option>
+            <option value="LIFT UPS">LIFT UPS</option>
+            <option value="Battery / Inverter">Battery &amp; Inverter</option>
+            <option value="AMC Service">AMC Support</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cMessage">ISSUE DETAILS *</label>
+          <textarea id="cMessage" rows="3" required placeholder="Describe the problem..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit-modal">
+          Submit &amp; Send to WhatsApp (Amol Sonawane)
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Employee Login Modal -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Employee Portal Login</h3>
+        <button type="button" class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+      </div>
+
+      <form onsubmit="handleEmployeeLogin(event)">
+        <div class="form-group">
+          <label for="empUsername">Username / ID</label>
+          <input type="text" id="empUsername" required value="admin" />
+        </div>
+
+        <div class="form-group">
+          <label for="empPassword">Password</label>
+          <input type="password" id="empPassword" required value="dipurja123" />
+        </div>
+
+        <button type="submit" class="btn-login-submit">
+          Secure Login
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. SERVICE COMPLAINTS DASHBOARD MODAL -->
+  <div id="dashboardModal" class="modal-overlay">
+    <div class="modal-box modal-box-large">
+      <div class="modal-head">
+        <div>
+          <h3>SERVICE COMPLAINTS DASHBOARD</h3>
+          <p style="font-size: 12px; color: #64748b; margin-top: 3px;">
+            Dip Urja Power Solutions | Admin: 9226194332 | Technician: Amol Sonawane (9022255373)
+          </p>
+        </div>
+        <div style="display:flex; align-items:center; gap: 12px;">
+          <button type="button" onclick="logoutEmployee()" style="border:none; background:#ef4444; color:#fff; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:bold; cursor:pointer;">Logout</button>
+          <button type="button" class="close-btn" onclick="closeModal('dashboardModal')">&times;</button>
+        </div>
+      </div>
+
+      <div class="dashboard-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>TICKET ID</th>
+              <th>CUSTOMER NAME</th>
+              <th>MOBILE</th>
+              <th>TYPE</th>
+              <th>DETAILS</th>
+              <th>TECHNICIAN</th>
+              <th>STATUS</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="dashboardTableBody">
+            <!-- Dynamic Records Injected Here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript Logic -->
+  <script>
+    let isEmployeeLoggedIn = false;
+
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    window.addEventListener('click', function(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        e.target.style.display = 'none';
+      }
+    });
+
+    // Handle Customer Complaint Submission
+    function submitCustomerComplaint(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('cName').value.trim();
+      const phone = document.getElementById('cPhone').value.trim();
+      const type = document.getElementById('cType').value;
+      const details = document.getElementById('cMessage').value.trim();
+      
+      const now = new Date();
+      const dateFormatted = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      const ticketId = "DIP-" + Math.floor(1000 + Math.random() * 9000);
+
+      const complaintRecord = {
+        date: dateFormatted,
+        ticketId: ticketId,
+        customerName: name,
+        mobile: phone,
+        type: type,
+        details: details,
+        technician: "Amol Sonawane",
+        techPhone: "919022255373",
+        status: "Pending"
+      };
+
+      // Store in browser storage so it shows up in Employee Portal
+      let complaints = JSON.parse(localStorage.getItem('dip_urja_complaints') || '[]');
+      complaints.unshift(complaintRecord);
+      localStorage.setItem('dip_urja_complaints', JSON.stringify(complaints));
+
+      // Send to Technician Amol Sonawane on WhatsApp
+      const techWhatsApp = "919022255373";
+      const message = `*New Service Complaint - Dip Urja*%0A`
+                    + `*TICKET ID:* ${ticketId}%0A`
+                    + `*CUSTOMER NAME:* ${encodeURIComponent(name)}%0A`
+                    + `*MOBILE:* ${encodeURIComponent(phone)}%0A`
+                    + `*TYPE:* ${encodeURIComponent(type)}%0A`
+                    + `*TECHNICIAN:* Amol Sonawane%0A`
+                    + `*DETAILS:* ${encodeURIComponent(details)}`;
+
+      window.open(`https://wa.me/${techWhatsApp}?text=${message}`, '_blank');
+
+      alert("Complaint registered successfully!\nTicket ID: " + ticketId + "\nAssigned to Technician Amol Sonawane (9022255373).");
+      document.getElementById('complaintForm').reset();
+      closeModal('complaintModal');
+    }
+
+    // Trigger Employee Portal on Navbar Click
+    function handleEmployeeNavClick() {
+      if (isEmployeeLoggedIn) {
+        showDashboard();
+      } else {
+        openModal('loginModal');
+      }
+    }
+
+    // Handle Login authentication (Default: admin / dipurja123)
+    function handleEmployeeLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('empUsername').value.trim();
+      const p = document.getElementById('empPassword').value.trim();
+
+      if (u === "admin" && p === "dipurja123") {
+        isEmployeeLoggedIn = true;
+        closeModal('loginModal');
+        showDashboard();
+      } else {
+        alert("Invalid Username or Password!");
+      }
+    }
+
+    function logoutEmployee() {
+      isEmployeeLoggedIn = false;
+      closeModal('dashboardModal');
+      alert("Logged out successfully.");
+    }
+
+    // Show Dashboard
+    function showDashboard() {
+      renderDashboardTable();
+      openModal('dashboardModal');
+    }
+
+    function renderDashboardTable() {
+      const list = JSON.parse(localStorage.getItem('dip_urja_complaints') || '[]');
+      const tbody = document.getElementById('dashboardTableBody');
+      tbody.innerHTML = '';
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:25px; color:#64748b;">No complaints registered yet.</td></tr>`;
+        return;
+      }
+
+      list.forEach((item, index) => {
+        const tr = document.createElement('tr');
+
+        const waText = `*Service Follow-up - Dip Urja*%0A`
+                     + `*Ticket ID:* ${item.ticketId}%0A`
+                     + `*Customer:* ${encodeURIComponent(item.customerName)}%0A`
+                     + `*Mobile:* ${encodeURIComponent(item.mobile)}%0A`
+                     + `*Type:* ${encodeURIComponent(item.type)}%0A`
+                     + `*Details:* ${encodeURIComponent(item.details)}`;
+
+        tr.innerHTML = `
+          <td>${item.date}</td>
+          <td><strong>${item.ticketId}</strong></td>
+          <td>${item.customerName}</td>
+          <td><a href="tel:${item.mobile}" style="color:#0284c7; font-weight:bold; text-decoration:none;">📞 ${item.mobile}</a></td>
+          <td>${item.type}</td>
+          <td>${item.details}</td>
+          <td>
+            <strong>${item.technician}</strong><br>
+            <a href="https://wa.me/919022255373?text=${waText}" target="_blank" class="btn-table-wa">💬 Send Amol</a>
+          </td>
+          <td>
+            <span class="status-badge ${item.status === 'Resolved' ? 'status-done' : 'status-pending'}">
+              ${item.status}
+            </span>
+          </td>
+          <td>
+            <button class="btn-action-status" onclick="toggleComplaintStatus(${index})">
+              ${item.status === 'Resolved' ? 'Mark Pending' : 'Mark Done'}
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function toggleComplaintStatus(index) {
+      let list = JSON.parse(localStorage.getItem('dip_urja_complaints') || '[]');
+      list[index].status = list[index].status === 'Resolved' ? 'Pending' : 'Resolved';
+      localStorage.setItem('dip_urja_complaints', JSON.stringify(list));
+      renderDashboardTable();
+    }
+  </script>
+</body>
+</html>
