@@ -18,7 +18,6 @@
       line-height: 1.5;
     }
 
-    /* Top Strip */
     .top-bar {
       background-color: #0b192c;
       color: #ffffff;
@@ -34,7 +33,6 @@
       font-weight: 600;
     }
 
-    /* Navbar */
     header {
       background: #ffffff;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
@@ -90,7 +88,6 @@
     .btn-hr-login { background-color: #4f46e5; color: #ffffff; }
     .btn-hr-login:hover { background-color: #4338ca; }
 
-    /* Hero Section */
     .hero {
       background: linear-gradient(135deg, #0b192c 0%, #1e293b 100%);
       color: #ffffff;
@@ -110,58 +107,71 @@
       color: #94a3b8;
     }
 
-    /* Container */
     .portal-container {
       max-width: 1400px;
       margin: 20px auto;
       padding: 0 15px;
     }
 
-    /* Quick Inline Form Panel (Zero Popup Lag) */
-    .inline-panel {
+    /* Modal Styling */
+    .modal-overlay {
       display: none;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      border-left: 5px solid #0284c7;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
     }
 
-    .panel-header {
+    .modal-box {
+      background: #ffffff;
+      width: 92%;
+      max-width: 480px;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 10px;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 12px;
       margin-bottom: 15px;
     }
 
-    .panel-header h3 {
+    .modal-head h3 {
       font-size: 18px;
       font-weight: 700;
       color: #0b192c;
     }
 
-    .btn-close-panel {
+    .close-btn {
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 26px;
       cursor: pointer;
       color: #64748b;
     }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
     }
 
     .form-group label {
       display: block;
       font-size: 12px;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
       color: #334155;
     }
 
@@ -170,11 +180,36 @@
       padding: 9px 12px;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 14px;
+      box-sizing: border-box;
       outline: none;
     }
 
-    /* Control Toolbar */
+    .btn-modal-submit {
+      width: 100%;
+      padding: 11px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      color: #ffffff;
+      margin-top: 10px;
+    }
+
+    .btn-otp-request {
+      background-color: #25d366;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+      width: 100%;
+    }
+
+    /* Toolbar */
     .toolbar-card {
       background: #ffffff;
       padding: 14px 20px;
@@ -224,7 +259,6 @@
       border: none;
       cursor: pointer;
     }
-    .btn-export:hover { background-color: #15803d; }
 
     .btn-upload {
       background-color: #0284c7;
@@ -236,7 +270,6 @@
       border: none;
       cursor: pointer;
     }
-    .btn-upload:hover { background-color: #0369a1; }
 
     .btn-logout {
       background-color: #ef4444;
@@ -249,7 +282,7 @@
       cursor: pointer;
     }
 
-    /* Table Container */
+    /* Table */
     .table-card {
       background: #ffffff;
       border-radius: 8px;
@@ -264,12 +297,12 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1150px;
+      min-width: 1250px;
       font-size: 13px;
     }
 
     th, td {
-      padding: 12px 14px;
+      padding: 12px 12px;
       border-bottom: 1px solid #e2e8f0;
       text-align: left;
       vertical-align: middle;
@@ -286,7 +319,7 @@
     tr:hover { background-color: #f8fafc; }
 
     .status-badge {
-      padding: 4px 10px;
+      padding: 4px 8px;
       border-radius: 4px;
       font-weight: 800;
       font-size: 11px;
@@ -299,7 +332,7 @@
     .status-resolved { background: #86efac; color: #14532d; font-weight: 900; }
 
     .btn-table-action {
-      padding: 6px 12px;
+      padding: 5px 10px;
       font-size: 11px;
       font-weight: 700;
       border-radius: 4px;
@@ -309,21 +342,21 @@
     }
 
     .btn-amc-toggle { background: #0284c7; }
-    .btn-amc-toggle:hover { background: #0369a1; }
     .btn-hr-approve { background: #16a34a; }
-    .btn-hr-approve:hover { background: #15803d; }
+    .btn-edit { background: #f59e0b; color: #fff; padding: 4px 8px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .btn-edit:hover { background: #d97706; }
     .btn-disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
 
     .btn-table-wa {
       background: #25d366;
       color: #fff;
       text-decoration: none;
-      padding: 4px 8px;
+      padding: 3px 6px;
       border-radius: 4px;
       font-size: 11px;
       font-weight: bold;
       display: inline-block;
-      margin-top: 4px;
+      margin-top: 3px;
     }
   </style>
 </head>
@@ -341,18 +374,15 @@
       <div class="brand-title">DIP URJA SERVICE DESK</div>
       
       <div class="nav-actions">
-        <!-- New Complaint Button -->
-        <button class="btn-action btn-complaint" onclick="togglePanel('complaintPanel')">
+        <button class="btn-action btn-complaint" onclick="openModal('complaintModal')">
           ➕ Register New Complaint
         </button>
 
-        <!-- Direct AMC Executive Login Button -->
-        <button class="btn-action btn-amc-login" onclick="doDirectLogin('AMC', '9022255373')">
+        <button class="btn-action btn-amc-login" onclick="openOtpLogin('AMC')">
           👤 AMC Executive Login (9022255373)
         </button>
 
-        <!-- Direct HR Login Button -->
-        <button class="btn-action btn-hr-login" onclick="doDirectLogin('HR', '9226194332')">
+        <button class="btn-action btn-hr-login" onclick="openOtpLogin('HR')">
           🛡️ HR Login (9226194332)
         </button>
       </div>
@@ -368,44 +398,7 @@
   <!-- Main Body Content -->
   <div class="portal-container">
 
-    <!-- 1. INLINE COMPLAINT REGISTRATION FORM -->
-    <div id="complaintPanel" class="inline-panel">
-      <div class="panel-header">
-        <h3>नवीन तक्रार नोंदणी फॉर्म (Register New Complaint)</h3>
-        <button class="btn-close-panel" onclick="togglePanel('complaintPanel')">&times;</button>
-      </div>
-      <form onsubmit="submitNewComplaint(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label>ग्राहक नाव (Customer Name) *</label>
-            <input type="text" id="cName" required placeholder="नाव प्रविष्ट करा" />
-          </div>
-          <div class="form-group">
-            <label>मोबाईल नंबर (10-Digit Mobile) *</label>
-            <input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="उदा. 9876543210" />
-          </div>
-          <div class="form-group">
-            <label>प्रणाली प्रकार (System Type) *</label>
-            <select id="cType" required>
-              <option value="Rooftop Solar">Rooftop Solar</option>
-              <option value="LIFT UPS">LIFT UPS</option>
-              <option value="Battery / Inverter">Battery &amp; Inverter</option>
-              <option value="AMC Service">AMC Service</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div class="form-group" style="grid-column: 1 / -1;">
-            <label>तक्रारीचा तपशील (Issue Details) *</label>
-            <textarea id="cMsg" rows="2" required placeholder="समस्येचे थोडक्यात वर्णन करा..."></textarea>
-          </div>
-        </div>
-        <button type="submit" class="btn-action btn-complaint" style="margin-top: 15px; width: 100%; justify-content: center;">
-          नोंदवा आणि Amol Sonawane यांना WhatsApp पाठवा
-        </button>
-      </form>
-    </div>
-
-    <!-- 2. TOOLBAR -->
+    <!-- Toolbar -->
     <div class="toolbar-card">
       <div class="user-session-info">
         <span>Current Active Session:</span>
@@ -413,25 +406,22 @@
       </div>
 
       <div class="toolbar-buttons">
-        <!-- CSV Upload -->
         <input type="file" id="csvFileInput" accept=".csv" style="display:none;" onchange="handleCsvUpload(event)" />
         <button class="btn-upload" onclick="document.getElementById('csvFileInput').click()">
           📂 Bulk Upload (CSV)
         </button>
 
-        <!-- Download Solved Complaints -->
         <button class="btn-export" onclick="exportSolvedComplaintsExcel()">
           📥 Download Solved in Excel
         </button>
 
-        <!-- Logout Button -->
         <button id="logoutBtn" class="btn-logout" style="display:none;" onclick="logoutSession()">
           Logout
         </button>
       </div>
     </div>
 
-    <!-- 3. COMPLAINTS DASHBOARD TABLE -->
+    <!-- Complaints Dashboard Table -->
     <div class="table-card">
       <div class="table-wrapper">
         <table>
@@ -447,23 +437,129 @@
               <th>AMC STATUS</th>
               <th>HR APPROVAL</th>
               <th>FINAL STATUS</th>
-              <th>ACTION</th>
+              <th>EDIT / ACTION</th>
             </tr>
           </thead>
-          <tbody id="complaintsTableBody">
-            <!-- Dynamic data rows will be rendered here -->
-          </tbody>
+          <tbody id="complaintsTableBody"></tbody>
         </table>
       </div>
     </div>
 
   </div>
 
-  <!-- SCRIPT -->
+  <!-- 1. COMPLAINT REGISTRATION MODAL -->
+  <div id="complaintModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>नवीन तक्रार नोंदणी</h3>
+        <button class="close-btn" onclick="closeModal('complaintModal')">&times;</button>
+      </div>
+      <form onsubmit="submitNewComplaint(event)">
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="cName" required placeholder="नाव प्रविष्ट करा" />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर (10-Digit Mobile) *</label>
+          <input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="उदा. 9876543210" />
+        </div>
+        <div class="form-group">
+          <label>प्रणाली प्रकार (System Type) *</label>
+          <select id="cType" required>
+            <option value="Rooftop Solar">Rooftop Solar</option>
+            <option value="LIFT UPS">LIFT UPS</option>
+            <option value="Battery / Inverter">Battery &amp; Inverter</option>
+            <option value="AMC Service">AMC Service</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>तक्रारीचा तपशील (Issue Details) *</label>
+          <textarea id="cMsg" rows="3" required placeholder="समस्येचे थोडक्यात वर्णन करा..."></textarea>
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#ea580c;">
+          नोंदवा आणि Amol Sonawane यांना WhatsApp पाठवा
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. OTP LOGIN MODAL (WITH WHATSAPP DISPATCH) -->
+  <div id="otpModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="otpModalTitle">WhatsApp OTP लॉगिन</h3>
+        <button class="close-btn" onclick="closeModal('otpModal')">&times;</button>
+      </div>
+
+      <input type="hidden" id="loginRole" />
+      <input type="hidden" id="generatedOtp" />
+
+      <div class="form-group">
+        <label>नोंदणीकृत मोबाईल नंबर:</label>
+        <input type="text" id="targetMobile" readonly style="background:#f8fafc; font-weight:bold;" />
+      </div>
+
+      <button type="button" class="btn-otp-request" onclick="sendOtpOnWhatsApp()">
+        📲 Get OTP on WhatsApp
+      </button>
+
+      <div class="form-group">
+        <label>WhatsApp वर आलेला 4-अंकी OTP प्रविष्ट करा:</label>
+        <input type="text" id="enteredOtp" maxlength="4" placeholder="Enter 4-digit OTP" />
+      </div>
+
+      <button type="button" class="btn-modal-submit" style="background:#0284c7;" onclick="verifyOtpAndLogin()">
+        Verify OTP &amp; Login
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. EDIT COMPLAINT MODAL (FOR AMC & HR) -->
+  <div id="editModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>तक्रार संपादन करा (Edit Complaint)</h3>
+        <button class="close-btn" onclick="closeModal('editModal')">&times;</button>
+      </div>
+      <form onsubmit="saveEditedComplaint(event)">
+        <input type="hidden" id="editIndex" />
+        <div class="form-group">
+          <label>Ticket ID</label>
+          <input type="text" id="editTicketId" readonly style="background:#f8fafc; font-weight:bold;" />
+        </div>
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="editName" required />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर *</label>
+          <input type="tel" id="editPhone" required pattern="[0-9]{10}" />
+        </div>
+        <div class="form-group">
+          <label>प्रणाली प्रकार (System Type) *</label>
+          <select id="editType" required>
+            <option value="Rooftop Solar">Rooftop Solar</option>
+            <option value="LIFT UPS">LIFT UPS</option>
+            <option value="Battery / Inverter">Battery &amp; Inverter</option>
+            <option value="AMC Service">AMC Service</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>तपशील (Details) *</label>
+          <textarea id="editDetails" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#f59e0b;">
+          बदल जतन करा (Save Changes)
+        </button>
+      </form>
+    </div>
+  </div>
+
   <script>
     let currentRole = 'GUEST';
 
-    // सुरुवातीला टेबल रिकामे दिसू नये म्हणून डीफॉल्ट नमुना डेटा
     function initDefaultData() {
       if (!localStorage.getItem('dip_urja_complaints')) {
         const sampleData = [
@@ -492,47 +588,84 @@
             amcSolved: true,
             hrApproved: false,
             finalStatus: "Pending (AMC Solved)"
-          },
-          {
-            date: "17/10/2026, 04:05 PM",
-            ticketId: "DIP-1023",
-            customerName: "Kishor Shinde",
-            mobile: "9890123456",
-            type: "AMC Service",
-            details: "Quarterly maintenance and panel cleaning required",
-            technician: "Amol Sonawane",
-            techPhone: "919022255373",
-            amcSolved: false,
-            hrApproved: false,
-            finalStatus: "Pending"
           }
         ];
         localStorage.setItem('dip_urja_complaints', JSON.stringify(sampleData));
       }
     }
 
-    function togglePanel(id) {
-      const panel = document.getElementById(id);
-      if (panel.style.display === 'block') {
-        panel.style.display = 'none';
-      } else {
-        panel.style.display = 'block';
-        panel.scrollIntoView({ behavior: 'smooth' });
-      }
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
     }
 
-    // Direct Login with Instant Feedback
-    function doDirectLogin(role, phone) {
-      if (role === 'AMC' && phone === '9022255373') {
-        currentRole = 'AMC';
-        updateSessionBadge("AMC Executive (Amol Sonawane: 9022255373)", "amc");
-        alert("अभिनंदन! AMC Executive (Amol Sonawane) म्हणून यशस्वी लॉगिन झाले.");
-      } else if (role === 'HR' && phone === '9226194332') {
-        currentRole = 'HR';
-        updateSessionBadge("HR Administrator (9226194332)", "hr");
-        alert("अभिनंदन! HR Administrator म्हणून यशस्वी लॉगिन झाले.");
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    window.addEventListener('click', function(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        e.target.style.display = 'none';
       }
-      renderTable();
+    });
+
+    // 1. WhatsApp OTP Flow
+    function openOtpLogin(role) {
+      document.getElementById('loginRole').value = role;
+      document.getElementById('enteredOtp').value = '';
+      document.getElementById('generatedOtp').value = '';
+
+      if (role === 'AMC') {
+        document.getElementById('otpModalTitle').innerText = "AMC Executive Login (Amol Sonawane)";
+        document.getElementById('targetMobile').value = "9022255373";
+      } else {
+        document.getElementById('otpModalTitle').innerText = "HR & Admin Login";
+        document.getElementById('targetMobile').value = "9226194332";
+      }
+
+      openModal('otpModal');
+    }
+
+    function sendOtpOnWhatsApp() {
+      const role = document.getElementById('loginRole').value;
+      const targetPhone = (role === 'AMC') ? "919022255373" : "919226194332";
+      
+      // 4-अंकी OTP तयार करणे
+      const otp = Math.floor(1000 + Math.random() * 9000).toString();
+      document.getElementById('generatedOtp').value = otp;
+
+      const msg = `*Dip Urja Security Verification*%0A`
+                + `Your Login OTP for *${role === 'AMC' ? 'AMC Executive' : 'HR Administrator'}* is: *${otp}*%0A`
+                + `Do not share this OTP with anyone. Valid for this session.`;
+
+      // WhatsApp वर थेट OTP पाठवणे
+      window.open(`https://wa.me/${targetPhone}?text=${msg}`, '_blank');
+      alert(`OTP WhatsApp वर पाठवला गेला आहे! कृपया WhatsApp तपासा आणि खाली OTP प्रविष्ट करा.`);
+    }
+
+    function verifyOtpAndLogin() {
+      const genOtp = document.getElementById('generatedOtp').value;
+      const enteredOtp = document.getElementById('enteredOtp').value.trim();
+      const role = document.getElementById('loginRole').value;
+
+      if (!genOtp) {
+        alert("कृपया आधी 'Get OTP on WhatsApp' बटणावर क्लिक करा!");
+        return;
+      }
+
+      if (enteredOtp === genOtp) {
+        currentRole = role;
+        if (role === 'AMC') {
+          updateSessionBadge("AMC Executive (Amol Sonawane: 9022255373)", "amc");
+          alert("अभिनंदन! AMC Executive म्हणून यशस्वी लॉगिन झाले.");
+        } else {
+          updateSessionBadge("HR Administrator (9226194332)", "hr");
+          alert("अभिनंदन! HR Administrator म्हणून यशस्वी लॉगिन झाले.");
+        }
+        closeModal('otpModal');
+        renderTable();
+      } else {
+        alert("अवैध किंवा चुकीचा OTP! कृपया पुन्हा तपासा.");
+      }
     }
 
     function logoutSession() {
@@ -557,7 +690,7 @@
       localStorage.setItem('dip_urja_complaints', JSON.stringify(data));
     }
 
-    // New Complaint Registration
+    // 2. Complaint Submission
     function submitNewComplaint(e) {
       e.preventDefault();
 
@@ -588,7 +721,6 @@
       list.unshift(record);
       saveComplaints(list);
 
-      // WhatsApp Trigger to Amol Sonawane
       const waText = `*New Service Complaint - Dip Urja*%0A`
                    + `*TICKET ID:* ${ticketId}%0A`
                    + `*CUSTOMER NAME:* ${encodeURIComponent(name)}%0A`
@@ -600,11 +732,42 @@
       window.open(`https://wa.me/919022255373?text=${waText}`, '_blank');
 
       alert("तक्रार यशस्वीरित्या नोंदवली गेली! Ticket ID: " + ticketId);
-      document.getElementById('complaintPanel').style.display = 'none';
+      closeModal('complaintModal');
       renderTable();
     }
 
-    // Render Table Rows
+    // 3. Edit Dashboard Record Flow
+    function openEditModal(index) {
+      const list = getStoredComplaints();
+      const item = list[index];
+
+      document.getElementById('editIndex').value = index;
+      document.getElementById('editTicketId').value = item.ticketId;
+      document.getElementById('editName').value = item.customerName;
+      document.getElementById('editPhone').value = item.mobile;
+      document.getElementById('editType').value = item.type;
+      document.getElementById('editDetails').value = item.details;
+
+      openModal('editModal');
+    }
+
+    function saveEditedComplaint(e) {
+      e.preventDefault();
+      const index = document.getElementById('editIndex').value;
+      let list = getStoredComplaints();
+
+      list[index].customerName = document.getElementById('editName').value.trim();
+      list[index].mobile = document.getElementById('editPhone').value.trim();
+      list[index].type = document.getElementById('editType').value;
+      list[index].details = document.getElementById('editDetails').value.trim();
+
+      saveComplaints(list);
+      alert("तक्रार माहिती यशस्वीरित्या अद्ययावत (Updated) झाली!");
+      closeModal('editModal');
+      renderTable();
+    }
+
+    // 4. Render Table
     function renderTable() {
       const list = getStoredComplaints();
       const tbody = document.getElementById('complaintsTableBody');
@@ -618,7 +781,7 @@
       list.forEach((item, index) => {
         const tr = document.createElement('tr');
 
-        // 1. AMC Button / Label
+        // AMC Action
         let amcBtn = '';
         if (currentRole === 'AMC' || currentRole === 'HR') {
           amcBtn = `<button class="btn-table-action btn-amc-toggle" onclick="toggleAmcStatus(${index})">
@@ -628,7 +791,7 @@
           amcBtn = `<span style="font-weight:700; color:${item.amcSolved ? '#0284c7' : '#ea580c'};">${item.amcSolved ? 'Solved ✓' : 'Pending'}</span>`;
         }
 
-        // 2. HR Button / Label
+        // HR Action
         let hrBtn = '';
         if (currentRole === 'HR') {
           if (!item.amcSolved) {
@@ -642,7 +805,7 @@
           hrBtn = `<span style="font-weight:700; color:${item.hrApproved ? '#16a34a' : '#64748b'};">${item.hrApproved ? 'Approved ✓' : 'Awaiting HR'}</span>`;
         }
 
-        // 3. Final Status Badge (Green on Resolved)
+        // Status
         let statusBadge = '';
         if (item.finalStatus === 'Resolved' || (item.amcSolved && item.hrApproved)) {
           statusBadge = `<span class="status-badge status-resolved">RESOLVED ✓</span>`;
@@ -658,6 +821,15 @@
                      + `*Mobile:* ${encodeURIComponent(item.mobile)}%0A`
                      + `*Details:* ${encodeURIComponent(item.details)}`;
 
+        // Edit Button (Permitted for AMC & HR)
+        let editActionCell = '-';
+        if (currentRole === 'AMC' || currentRole === 'HR') {
+          editActionCell = `<div style="display:flex; gap:6px; align-items:center;">
+            <button class="btn-edit" onclick="openEditModal(${index})">✏️ Edit</button>
+            ${currentRole === 'HR' ? `<button onclick="deleteComplaint(${index})" style="background:#ef4444; color:#fff; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">Del</button>` : ''}
+          </div>`;
+        }
+
         tr.innerHTML = `
           <td>${item.date}</td>
           <td><strong>${item.ticketId}</strong></td>
@@ -672,15 +844,12 @@
           <td>${amcBtn}</td>
           <td>${hrBtn}</td>
           <td>${statusBadge}</td>
-          <td>
-            ${currentRole === 'HR' ? `<button onclick="deleteComplaint(${index})" style="background:#ef4444; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">Delete</button>` : '-'}
-          </td>
+          <td>${editActionCell}</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    // Toggle AMC Status
     function toggleAmcStatus(index) {
       let list = getStoredComplaints();
       list[index].amcSolved = !list[index].amcSolved;
@@ -698,7 +867,6 @@
       renderTable();
     }
 
-    // Toggle HR Approval
     function toggleHrApproval(index) {
       let list = getStoredComplaints();
       list[index].hrApproved = !list[index].hrApproved;
@@ -722,7 +890,6 @@
       }
     }
 
-    // CSV Bulk Upload
     function handleCsvUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -775,7 +942,6 @@
       reader.readAsText(file);
     }
 
-    // Export Solved Complaints in Excel
     function exportSolvedComplaintsExcel() {
       const list = getStoredComplaints();
       const solvedList = list.filter(item => item.finalStatus === 'Resolved' || (item.amcSolved && item.hrApproved));
@@ -814,7 +980,6 @@
       document.body.removeChild(link);
     }
 
-    // Initial Execution
     initDefaultData();
     renderTable();
   </script>
