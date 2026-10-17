@@ -18,7 +18,7 @@
       overflow-x: hidden;
     }
 
-    /* --- Top Utility Bar --- */
+    /* Top Strip */
     .top-bar {
       background-color: #0b1f3a;
       color: #ffffff;
@@ -37,7 +37,7 @@
       gap: 5px;
     }
 
-    /* --- Main Header / Navbar --- */
+    /* Navigation Bar */
     header {
       background: #ffffff;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
@@ -81,7 +81,6 @@
       color: #0077b6;
     }
 
-    /* Action Buttons in Nav */
     .btn-complaint {
       background-color: #f37021;
       color: #ffffff !important;
@@ -94,7 +93,6 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background-color 0.2s;
     }
 
     .btn-complaint:hover {
@@ -109,11 +107,6 @@
       font-weight: 700;
       border-radius: 4px;
       text-decoration: none;
-      transition: background-color 0.2s;
-    }
-
-    .btn-contact:hover {
-      background-color: #c92330;
     }
 
     .btn-employee {
@@ -124,14 +117,15 @@
       font-size: 13px;
       font-weight: 600;
       text-decoration: none;
-      transition: background-color 0.2s;
+      cursor: pointer;
+      background: transparent;
     }
 
     .btn-employee:hover {
       background-color: #edf2f7;
     }
 
-    /* --- Hero Section --- */
+    /* Hero Section */
     .hero {
       position: relative;
       background: radial-gradient(circle at 75% 50%, #0077b6 0%, #005082 50%, #002b49 100%);
@@ -152,7 +146,6 @@
       align-items: center;
     }
 
-    /* Logo Brand Box */
     .hero-badge-logo {
       display: inline-flex;
       align-items: center;
@@ -169,16 +162,11 @@
       line-height: 1;
     }
 
-    .hero-badge-logo .logo-text {
-      text-align: left;
-    }
-
     .hero-badge-logo .logo-text h3 {
       font-size: 18px;
       font-weight: 900;
       color: #111;
       margin: 0;
-      letter-spacing: 0.5px;
     }
 
     .hero-badge-logo .logo-text span {
@@ -203,7 +191,6 @@
       line-height: 1.15;
       text-transform: uppercase;
       margin-bottom: 10px;
-      letter-spacing: 0.5px;
     }
 
     .hero-subtitle {
@@ -233,7 +220,6 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.2);
     }
 
-    /* Right Graphics / Circular Infographic */
     .hero-visual {
       position: relative;
       display: flex;
@@ -281,7 +267,6 @@
       color: #e63946;
     }
 
-    /* Floating Badges */
     .floating-pointer {
       position: absolute;
       background: #ffffff;
@@ -290,9 +275,6 @@
       border-radius: 20px;
       font-size: 13px;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
@@ -301,8 +283,8 @@
     .fp-res { bottom: 30px; left: -30px; }
     .fp-factory { bottom: 20px; right: -30px; }
 
-    /* --- Popup Modal for Complaint --- */
-    .complaint-modal-overlay {
+    /* Modal Styling */
+    .modal-overlay {
       display: none;
       position: fixed;
       top: 0;
@@ -316,14 +298,19 @@
       align-items: center;
     }
 
-    .complaint-modal-box {
+    .modal-box {
       background: #ffffff;
       width: 92%;
-      max-width: 460px;
+      max-width: 480px;
       border-radius: 10px;
       padding: 24px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-      animation: popIn 0.25s ease-out;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-box-large {
+      max-width: 950px;
     }
 
     .modal-head {
@@ -375,12 +362,6 @@
       outline: none;
     }
 
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: #f37021;
-    }
-
     .btn-submit-modal {
       width: 100%;
       background-color: #25d366;
@@ -391,10 +372,6 @@
       font-weight: 700;
       border-radius: 6px;
       cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
       margin-top: 15px;
     }
 
@@ -402,12 +379,62 @@
       background-color: #1ebe5d;
     }
 
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    /* Table styling in Employee Portal */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
     }
 
-    /* Responsive */
+    th, td {
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: #0b1f3a;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .status-badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    .status-pending { background: #fed7aa; color: #9a3412; }
+    .status-done { background: #bbf7d0; color: #166534; }
+
+    .btn-mini-wa {
+      background: #25d366;
+      color: #fff;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .btn-status-toggle {
+      padding: 5px 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      background: #0284c7;
+      color: #fff;
+    }
+
     @media (max-width: 900px) {
       .hero-container {
         grid-template-columns: 1fr;
@@ -427,13 +454,13 @@
 </head>
 <body>
 
-  <!-- 1. Top Announcement Header -->
+  <!-- Top Strip -->
   <div class="top-bar">
     <div>Clean Energy | Reliable Power | A Brighter Tomorrow</div>
     <div class="highlight">⚡ Reduce Your Electricity Bills with Government Subsidy &amp; Easy EMI</div>
   </div>
 
-  <!-- 2. Navbar -->
+  <!-- Header -->
   <header>
     <div class="navbar">
       <div class="brand-logo">DIP URJA SOLUTIONS</div>
@@ -443,24 +470,29 @@
         <li><a href="#why-us">Why Dip Urja</a></li>
         <li><a href="#services">Services</a></li>
         
-        <!-- Functional Register Complaint Button -->
+        <!-- Register Complaint Button -->
         <li>
-          <button type="button" class="btn-complaint" onclick="openComplaintModal()">
+          <button type="button" class="btn-complaint" onclick="openModal('complaintModal')">
             🛠️ Register Complaint
           </button>
         </li>
 
         <li><a href="#contact" class="btn-contact">Contact Us</a></li>
-        <li><a href="#employee-login" class="btn-employee">Employee Login</a></li>
+        
+        <!-- Employee Portal Button -->
+        <li>
+          <button type="button" class="btn-employee" onclick="openEmployeePortal()">
+            Employee Login
+          </button>
+        </li>
       </ul>
     </div>
   </header>
 
-  <!-- 3. Hero Section -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-container">
       
-      <!-- Left Content -->
       <div class="hero-content">
         <div class="hero-badge-logo">
           <div class="logo-icon">💡</div>
@@ -484,7 +516,6 @@
         </div>
       </div>
 
-      <!-- Right Visual Diagram -->
       <div class="hero-visual">
         <div class="circle-display">
           <div class="center-logo-hub">
@@ -501,91 +532,203 @@
     </div>
   </section>
 
-  <!-- 4. Complaint Popup Modal -->
-  <div id="complaintModal" class="complaint-modal-overlay">
-    <div class="complaint-modal-box">
+  <!-- 1. Register Complaint Modal -->
+  <div id="complaintModal" class="modal-overlay">
+    <div class="modal-box">
       <div class="modal-head">
-        <h3>तक्रार नोंदणी / Service Request</h3>
-        <button type="button" class="close-btn" onclick="closeComplaintModal()">&times;</button>
+        <h3>Takrar Nondani / Register Complaint</h3>
+        <button type="button" class="close-btn" onclick="closeModal('complaintModal')">&times;</button>
       </div>
 
-      <form id="complaintForm" onsubmit="submitComplaint(event)">
+      <form id="complaintForm" onsubmit="handleComplaintSubmit(event)">
         <div class="form-group">
-          <label for="cName">नाव / Firm Name *</label>
-          <input type="text" id="cName" required placeholder="तुमचे नाव प्रविष्ट करा" />
+          <label for="cName">Grahakache Naav (Customer Name) *</label>
+          <input type="text" id="cName" required placeholder="Purna naav taka" />
         </div>
 
         <div class="form-group">
-          <label for="cPhone">मोबाईल नंबर *</label>
-          <input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="10 अंकी मोबाईल नंबर" />
+          <label for="cPhone">Mobile Number *</label>
+          <input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number" />
         </div>
 
         <div class="form-group">
-          <label for="cType">प्रकार / System Type *</label>
+          <label for="cType">System / Issue Category *</label>
           <select id="cType" required>
-            <option value="">-- निवडा --</option>
+            <option value="">-- Nivada --</option>
             <option value="Rooftop Solar">Rooftop Solar</option>
             <option value="LIFT UPS">LIFT UPS</option>
             <option value="Battery / Inverter">Battery &amp; Inverter</option>
             <option value="AMC Service">AMC Support</option>
-            <option value="इतर">इतर</option>
+            <option value="Itar">Itar</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="cMessage">तक्रारीचा तपशील *</label>
-          <textarea id="cMessage" rows="3" required placeholder="समस्येचे थोडक्यात वर्णन करा..."></textarea>
+          <label for="cMessage">Takrar / Samasya (Issue Details) *</label>
+          <textarea id="cMessage" rows="3" required placeholder="Samasya vistarat liha..."></textarea>
         </div>
 
         <button type="submit" class="btn-submit-modal">
-          WhatsApp द्वारे नोंदवा
+          WhatsApp dware pathva (Amol Sonawane)
         </button>
       </form>
     </div>
   </div>
 
-  <!-- 5. Logic Scripts -->
+  <!-- 2. Employee Dashboard Modal -->
+  <div id="employeeModal" class="modal-overlay">
+    <div class="modal-box modal-box-large">
+      <div class="modal-head">
+        <div>
+          <h3>Employee Dashboard - Service Complaints</h3>
+          <p style="font-size: 12px; color: #64748b; margin-top: 3px;">
+            Technician: Amol Sonawane (9022255373) | Admin Check: 9226194332
+          </p>
+        </div>
+        <button type="button" class="close-btn" onclick="closeModal('employeeModal')">&times;</button>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Ticket ID</th>
+              <th>Customer Name</th>
+              <th>Mobile</th>
+              <th>Type</th>
+              <th>Details</th>
+              <th>Technician</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="complaintsTableBody">
+            <!-- Dynamic data will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
   <script>
-    function openComplaintModal() {
-      document.getElementById('complaintModal').style.display = 'flex';
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
     }
 
-    function closeComplaintModal() {
-      document.getElementById('complaintModal').style.display = 'none';
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
     }
 
-    // बाहेर क्लिक केल्यावर पॉपअप बंद करणे
     window.addEventListener('click', function(e) {
-      const modal = document.getElementById('complaintModal');
-      if (e.target === modal) {
-        modal.style.display = 'none';
+      if (e.target.classList.contains('modal-overlay')) {
+        e.target.style.display = 'none';
       }
     });
 
-    // व्हॉट्सॲपवर माहिती पाठवणे
-    function submitComplaint(e) {
+    // Complaint Submit kelyavar
+    function handleComplaintSubmit(e) {
       e.preventDefault();
-      
+
       const name = document.getElementById('cName').value.trim();
       const phone = document.getElementById('cPhone').value.trim();
       const type = document.getElementById('cType').value;
       const msg = document.getElementById('cMessage').value.trim();
+      const date = new Date().toLocaleString();
+      const ticketId = "DIP-" + Math.floor(1000 + Math.random() * 9000);
 
-      // इथे तुमचा अधिकृत WhatsApp नंबर टाका
-      const whatsappNumber = "919876543210";
+      const newRecord = {
+        id: ticketId,
+        name: name,
+        phone: phone,
+        type: type,
+        details: msg,
+        date: date,
+        status: "Pending",
+        assignedTo: "Amol Sonawane",
+        techPhone: "919022255373"
+      };
 
-      const text = `*New Service Request - Dip Urja*%0A`
-                 + `*नाव:* ${encodeURIComponent(name)}%0A`
-                 + `*मोबाईल:* ${encodeURIComponent(phone)}%0A`
-                 + `*प्रकार:* ${encodeURIComponent(type)}%0A`
-                 + `*तपशील:* ${encodeURIComponent(msg)}`;
+      // Browser storage madhe complaint save karne
+      let list = JSON.parse(localStorage.getItem('dip_urja_complaints') || '[]');
+      list.unshift(newRecord);
+      localStorage.setItem('dip_urja_complaints', JSON.stringify(list));
 
-      window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
-      
+      // Technician Amol Sonawane yaanchya WhatsApp var direct message pathavne
+      const techNumber = "919022255373";
+      const waText = `*New Service Complaint - Dip Urja*%0A`
+                   + `*Ticket ID:* ${ticketId}%0A`
+                   + `*Customer Name:* ${encodeURIComponent(name)}%0A`
+                   + `*Customer Mobile:* ${encodeURIComponent(phone)}%0A`
+                   + `*Category:* ${encodeURIComponent(type)}%0A`
+                   + `*Assigned Technician:* Amol Sonawane%0A`
+                   + `*Details:* ${encodeURIComponent(msg)}`;
+
+      window.open(`https://wa.me/${techNumber}?text=${waText}`, '_blank');
+
+      alert("Takrar nondavali geli aahe!\nTicket ID: " + ticketId + "\nTechnician Amol Sonawane yaanna WhatsApp var pathavat aahe.");
       document.getElementById('complaintForm').reset();
-      closeComplaintModal();
+      closeModal('complaintModal');
+    }
+
+    // Employee Portal open karne ani data dakhvane
+    function openEmployeePortal() {
+      renderComplaintsTable();
+      openModal('employeeModal');
+    }
+
+    function renderComplaintsTable() {
+      const list = JSON.parse(localStorage.getItem('dip_urja_complaints') || '[]');
+      const tbody = document.getElementById('complaintsTableBody');
+      tbody.innerHTML = '';
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:20px; color:#64748b;">Ajoon kontech complaint nondavleli nahi.</td></tr>`;
+        return;
+      }
+
+      list.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        
+        const fwdText = `*Dip Urja Service Reminder*%0A`
+                      + `*Ticket:* ${item.id}%0A`
+                      + `*Customer:* ${encodeURIComponent(item.name)}%0A`
+                      + `*Phone:* ${encodeURIComponent(item.phone)}%0A`
+                      + `*Issue:* ${encodeURIComponent(item.details)}`;
+
+        tr.innerHTML = `
+          <td>${item.date}</td>
+          <td><strong>${item.id}</strong></td>
+          <td>${item.name}</td>
+          <td><a href="tel:${item.phone}" style="color:#0284c7; font-weight:bold; text-decoration:none;">📞 ${item.phone}</a></td>
+          <td>${item.type}</td>
+          <td>${item.details}</td>
+          <td>
+            ${item.assignedTo}<br>
+            <a href="https://wa.me/919022255373?text=${fwdText}" target="_blank" class="btn-mini-wa">Send WhatsApp</a>
+          </td>
+          <td>
+            <span class="status-badge ${item.status === 'Resolved' ? 'status-done' : 'status-pending'}">
+              ${item.status}
+            </span>
+          </td>
+          <td>
+            <button class="btn-status-toggle" onclick="toggleStatus(${index})">
+              ${item.status === 'Resolved' ? 'Mark Pending' : 'Mark Done'}
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function toggleStatus(index) {
+      let list = JSON.parse(localStorage.getItem('dip_urja_complaints') || '[]');
+      list[index].status = list[index].status === 'Resolved' ? 'Pending' : 'Resolved';
+      localStorage.setItem('dip_urja_complaints', JSON.stringify(list));
+      renderComplaintsTable();
     }
   </script>
-
 </body>
 </html>
