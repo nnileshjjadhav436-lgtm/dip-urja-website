@@ -580,6 +580,10 @@
       </div>
       <form onsubmit="submitNewLead(event)">
         <div class="form-group">
+          <label>तारीख (Lead Date) *</label>
+          <input type="date" id="leadDateInput" required />
+        </div>
+        <div class="form-group">
           <label>ग्राहक नाव (Customer Name) *</label>
           <input type="text" id="leadName" required placeholder="ग्राहक किंवा फर्मचे नाव" />
         </div>
@@ -618,7 +622,7 @@
     </div>
   </div>
 
-  <!-- 3. EDIT LEAD MODAL -->
+  <!-- 3. EDIT LEAD MODAL (STARTS WITH EDIT DATE) -->
   <div id="editLeadModal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-head">
@@ -627,12 +631,19 @@
       </div>
       <form onsubmit="saveEditedLead(event)">
         <input type="hidden" id="editLeadIndex" />
+        
+        <!-- EDIT DATE FIELD AT THE VERY TOP -->
         <div class="form-group">
-          <label>ग्राहक नाव</label>
+          <label>तारीख (Lead Date) *</label>
+          <input type="date" id="editLeadDate" required />
+        </div>
+
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
           <input type="text" id="editLeadName" required />
         </div>
         <div class="form-group">
-          <label>मोबाईल नंबर</label>
+          <label>मोबाईल नंबर (Mobile Number) *</label>
           <input type="tel" id="editLeadPhone" required pattern="[0-9]{10}" />
         </div>
         <div class="form-group">
@@ -640,7 +651,7 @@
           <input type="text" id="editLeadAddress" required />
         </div>
         <div class="form-group">
-          <label>Requirement</label>
+          <label>गरज (Requirement)</label>
           <select id="editLeadReq" required>
             <option value="3 kW Residential Solar">3 kW Residential Solar</option>
             <option value="5 kW Residential Solar">5 kW Residential Solar</option>
@@ -652,11 +663,11 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Remark</label>
+          <label>शेरा (Remark)</label>
           <textarea id="editLeadRemark" rows="2" required></textarea>
         </div>
         <div class="form-group">
-          <label>Next Follow Up Date</label>
+          <label>पुढील पाठपुरावा तारीख (Next Follow Up Date) *</label>
           <input type="date" id="editLeadFollowUp" required />
         </div>
         <button type="submit" class="btn-modal-submit" style="background:#f59e0b;">
@@ -742,7 +753,35 @@
   <script>
     let currentRole = 'GUEST';
 
-    // SAFE PARSER TO PREVENT WHITE SCREEN ON CORRUPT DATA
+    // HELPER: Convert DD/MM/YYYY or similar string to YYYY-MM-DD for date inputs
+    function formatToDateInput(dateStr) {
+      if (!dateStr) return '';
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+      
+      const parts = dateStr.split(/[\/\-\.]/);
+      if (parts.length === 3) {
+        if (parts[0].length === 4) {
+          // YYYY/MM/DD
+          return `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+        } else if (parts[2].length === 4) {
+          // DD/MM/YYYY
+          return `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+        }
+      }
+      return '';
+    }
+
+    // HELPER: Convert YYYY-MM-DD input back to DD/MM/YYYY for UI and table display
+    function formatToDisplayDate(dateStr) {
+      if (!dateStr) return '';
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+        const [y, m, d] = dateStr.split('-');
+        return `${d}/${m}/${y}`;
+      }
+      return dateStr;
+    }
+
+    // STORAGE ACCESSORS
     function safeGetStorage(key, fallback) {
       try {
         const item = localStorage.getItem(key);
@@ -763,7 +802,7 @@
       }
     }
 
-    // TAB NAVIGATION
+    // TAB SWITCHER
     function switchTab(tab) {
       const isComplaints = tab === 'complaints';
       const cSec = document.getElementById('complaintsSection');
@@ -783,7 +822,7 @@
       }
     }
 
-    // SEED DEFAULT DATA
+    // SEED INITIAL DATA
     function initDefaultData() {
       if (!localStorage.getItem('dip_urja_complaints')) {
         const sampleComplaints = [
@@ -844,7 +883,15 @@
 
     function openModal(id) {
       const el = document.getElementById(id);
-      if (el) el.style.display = 'flex';
+      if (el) {
+        el.style.display = 'flex';
+        if (id === 'leadModal') {
+          const dateInput = document.getElementById('leadDateInput');
+          if (dateInput && !dateInput.value) {
+            dateInput.value = new Date().toISOString().slice(0, 10);
+          }
+        }
+      }
     }
 
     function closeModal(id) {
@@ -1229,6 +1276,8 @@
     function submitNewLead(e) {
       e.preventDefault();
 
+      const rawDate = document.getElementById('leadDateInput').value;
+      const displayDate = formatToDisplayDate(rawDate) || new Date().toLocaleDateString();
       const name = document.getElementById('leadName').value.trim();
       const phone = document.getElementById('leadPhone').value.trim();
       const address = document.getElementById('leadAddress').value.trim();
@@ -1236,11 +1285,8 @@
       const remark = document.getElementById('leadRemark').value.trim();
       const followUp = document.getElementById('leadFollowUpDate').value;
 
-      const now = new Date();
-      const dateFormatted = now.toLocaleDateString();
-
       const record = {
-        date: dateFormatted,
+        date: displayDate,
         customerName: name,
         mobile: phone,
         address: address,
@@ -1254,7 +1300,7 @@
       safeSetStorage('dip_urja_leads', leads);
 
       const waLeadText = `*New Sales Lead - Dip Urja*%0A`
-                       + `*Date:* ${dateFormatted}%0A`
+                       + `*Date:* ${displayDate}%0A`
                        + `*Customer:* ${encodeURIComponent(name)}%0A`
                        + `*Mobile:* ${encodeURIComponent(phone)}%0A`
                        + `*Address:* ${encodeURIComponent(address)}%0A`
@@ -1317,12 +1363,18 @@
       });
     }
 
+    // OPENS EDIT MODAL AND POPULATES DATE AT THE TOP
     function openEditLeadModal(index) {
       const list = safeGetStorage('dip_urja_leads', []);
       const lead = list[index];
       if (!lead) return;
 
       document.getElementById('editLeadIndex').value = index;
+      
+      // Convert lead date to input format YYYY-MM-DD
+      const formattedDate = formatToDateInput(lead.date) || new Date().toISOString().slice(0, 10);
+      document.getElementById('editLeadDate').value = formattedDate;
+
       document.getElementById('editLeadName').value = lead.customerName || '';
       document.getElementById('editLeadPhone').value = lead.mobile || '';
       document.getElementById('editLeadAddress').value = lead.address || '';
@@ -1333,12 +1385,15 @@
       openModal('editLeadModal');
     }
 
+    // SAVES EDITED LEAD INCLUDING UPDATED DATE
     function saveEditedLead(e) {
       e.preventDefault();
       const index = document.getElementById('editLeadIndex').value;
       let list = safeGetStorage('dip_urja_leads', []);
       if (!list[index]) return;
 
+      const updatedDate = document.getElementById('editLeadDate').value;
+      list[index].date = formatToDisplayDate(updatedDate);
       list[index].customerName = document.getElementById('editLeadName').value.trim();
       list[index].mobile = document.getElementById('editLeadPhone').value.trim();
       list[index].address = document.getElementById('editLeadAddress').value.trim();
@@ -1433,7 +1488,7 @@
       document.body.removeChild(link);
     }
 
-    // SAFE BOOTSTRAP
+    // BOOTSTRAP
     window.addEventListener('DOMContentLoaded', () => {
       initDefaultData();
       renderTable();
