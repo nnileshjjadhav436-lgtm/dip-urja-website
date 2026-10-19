@@ -580,8 +580,8 @@
       </div>
       <form onsubmit="submitNewLead(event)">
         <div class="form-group">
-          <label>तारीख (Lead Date) *</label>
-          <input type="date" id="leadDateInput" required />
+          <label>तारीख (Lead Calling Date) *</label>
+          <input type="date" id="leadDateInput" required onchange="autoCalculateLeadFollowUp('leadDateInput', 'leadFollowUpDate')" />
         </div>
         <div class="form-group">
           <label>ग्राहक नाव (Customer Name) *</label>
@@ -612,7 +612,7 @@
           <textarea id="leadRemark" rows="2" required placeholder="उदा. बजेट चर्चा झाली, कोटेशन पाठवणे आहे..."></textarea>
         </div>
         <div class="form-group">
-          <label>पुढील पाठपुरावा तारीख (Next Follow Up Date) *</label>
+          <label>पुढील पाठपुरावा तारीख (Next Follow Up Date - Auto +10 Days) *</label>
           <input type="date" id="leadFollowUpDate" required />
         </div>
         <button type="submit" class="btn-modal-submit" style="background:#16a34a;">
@@ -622,7 +622,7 @@
     </div>
   </div>
 
-  <!-- 3. EDIT LEAD MODAL (STARTS WITH EDIT DATE) -->
+  <!-- 3. EDIT LEAD MODAL (STARTS WITH EDIT DATE + AUTO 10-DAY CALCULATOR) -->
   <div id="editLeadModal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-head">
@@ -634,8 +634,8 @@
         
         <!-- EDIT DATE FIELD AT THE VERY TOP -->
         <div class="form-group">
-          <label>तारीख (Lead Date) *</label>
-          <input type="date" id="editLeadDate" required />
+          <label>तारीख (Lead Calling Date) *</label>
+          <input type="date" id="editLeadDate" required onchange="autoCalculateLeadFollowUp('editLeadDate', 'editLeadFollowUp')" />
         </div>
 
         <div class="form-group">
@@ -659,6 +659,8 @@
             <option value="Industrial Solar Rooftop">Industrial Solar Rooftop</option>
             <option value="Lift Inverter / UPS">Lift Inverter / UPS</option>
             <option value="Solar Cleaning & AMC">Solar Cleaning & AMC</option>
+            <option value="3 KW SOLAR POWER">3 KW SOLAR POWER</option>
+            <option value="SOLAR REQ">SOLAR REQ</option>
             <option value="Other">Other</option>
           </select>
         </div>
@@ -667,7 +669,7 @@
           <textarea id="editLeadRemark" rows="2" required></textarea>
         </div>
         <div class="form-group">
-          <label>पुढील पाठपुरावा तारीख (Next Follow Up Date) *</label>
+          <label>पुढील पाठपुरावा तारीख (Next Follow Up Date - Auto +10 Days) *</label>
           <input type="date" id="editLeadFollowUp" required />
         </div>
         <button type="submit" class="btn-modal-submit" style="background:#f59e0b;">
@@ -753,7 +755,40 @@
   <script>
     let currentRole = 'GUEST';
 
-    // HELPER: Convert DD/MM/YYYY or similar string to YYYY-MM-DD for date inputs
+    // HELPER: Add 10 days to any given valid date
+    function calculatePlusTenDays(dateInputVal) {
+      if (!dateInputVal) return '';
+      let baseDate;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateInputVal)) {
+        baseDate = new Date(dateInputVal + 'T00:00:00');
+      } else {
+        const parts = dateInputVal.split(/[\/\-\.]/);
+        if (parts.length === 3) {
+          if (parts[0].length === 4) {
+            baseDate = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T00:00:00`);
+          } else if (parts[2].length === 4) {
+            baseDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T00:00:00`);
+          }
+        }
+      }
+      if (!baseDate || isNaN(baseDate.getTime())) return '';
+      baseDate.setDate(baseDate.getDate() + 10);
+      const y = baseDate.getFullYear();
+      const m = String(baseDate.getMonth() + 1).padStart(2, '0');
+      const d = String(baseDate.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    // AUTO CALCULATOR EVENT LISTENER
+    function autoCalculateLeadFollowUp(sourceInputId, targetInputId) {
+      const src = document.getElementById(sourceInputId);
+      const tgt = document.getElementById(targetInputId);
+      if (src && tgt && src.value) {
+        tgt.value = calculatePlusTenDays(src.value);
+      }
+    }
+
+    // HELPER: Convert DD/MM/YYYY or similar string to YYYY-MM-DD
     function formatToDateInput(dateStr) {
       if (!dateStr) return '';
       if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
@@ -761,17 +796,15 @@
       const parts = dateStr.split(/[\/\-\.]/);
       if (parts.length === 3) {
         if (parts[0].length === 4) {
-          // YYYY/MM/DD
           return `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
         } else if (parts[2].length === 4) {
-          // DD/MM/YYYY
           return `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
         }
       }
       return '';
     }
 
-    // HELPER: Convert YYYY-MM-DD input back to DD/MM/YYYY for UI and table display
+    // HELPER: Convert YYYY-MM-DD back to DD/MM/YYYY
     function formatToDisplayDate(dateStr) {
       if (!dateStr) return '';
       if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
@@ -865,7 +898,7 @@
             address: "Gangapur Road, Nashik",
             requirement: "5 kW Residential Solar",
             remark: "Site visit completed, quotation shared on WhatsApp",
-            nextFollowUp: "2026-10-21"
+            nextFollowUp: "2026-10-28"
           },
           {
             date: "19/10/2026",
@@ -874,7 +907,7 @@
             address: "Ambad MIDC, Nashik",
             requirement: "Industrial Solar Rooftop",
             remark: "Initial meeting done with MD, wants 50kW proposal",
-            nextFollowUp: "2026-10-22"
+            nextFollowUp: "2026-10-29"
           }
         ];
         safeSetStorage('dip_urja_leads', sampleLeads);
@@ -887,8 +920,13 @@
         el.style.display = 'flex';
         if (id === 'leadModal') {
           const dateInput = document.getElementById('leadDateInput');
+          const followInput = document.getElementById('leadFollowUpDate');
           if (dateInput && !dateInput.value) {
-            dateInput.value = new Date().toISOString().slice(0, 10);
+            const todayStr = new Date().toISOString().slice(0, 10);
+            dateInput.value = todayStr;
+            if (followInput) {
+              followInput.value = calculatePlusTenDays(todayStr);
+            }
           }
         }
       }
@@ -1283,7 +1321,12 @@
       const address = document.getElementById('leadAddress').value.trim();
       const req = document.getElementById('leadRequirement').value;
       const remark = document.getElementById('leadRemark').value.trim();
-      const followUp = document.getElementById('leadFollowUpDate').value;
+      
+      // Use user selected date or auto 10-day calculated value
+      let followUp = document.getElementById('leadFollowUpDate').value;
+      if (!followUp && rawDate) {
+        followUp = calculatePlusTenDays(rawDate);
+      }
 
       const record = {
         date: displayDate,
@@ -1300,7 +1343,7 @@
       safeSetStorage('dip_urja_leads', leads);
 
       const waLeadText = `*New Sales Lead - Dip Urja*%0A`
-                       + `*Date:* ${displayDate}%0A`
+                       + `*Calling Date:* ${displayDate}%0A`
                        + `*Customer:* ${encodeURIComponent(name)}%0A`
                        + `*Mobile:* ${encodeURIComponent(phone)}%0A`
                        + `*Address:* ${encodeURIComponent(address)}%0A`
@@ -1346,6 +1389,15 @@
           `;
         }
 
+        // Automatic fallback: If existing lead had no follow-up date, calculate +10 days from lead date
+        let displayFollowUp = lead.nextFollowUp;
+        if (!displayFollowUp || displayFollowUp === 'Not set' || displayFollowUp === '') {
+          const autoTen = calculatePlusTenDays(lead.date);
+          displayFollowUp = autoTen ? formatToDisplayDate(autoTen) : 'Not set';
+        } else {
+          displayFollowUp = formatToDisplayDate(displayFollowUp);
+        }
+
         tr.innerHTML = `
           <td>${lead.date || '-'}</td>
           <td><strong>${lead.customerName || '-'}</strong></td>
@@ -1356,14 +1408,14 @@
           <td>${lead.address || '-'}</td>
           <td><span style="font-weight:600; color:#0b192c;">${lead.requirement || '-'}</span></td>
           <td>${lead.remark || '-'}</td>
-          <td><span class="badge-followup">📅 ${lead.nextFollowUp || 'Not set'}</span></td>
+          <td><span class="badge-followup">📅 ${displayFollowUp}</span></td>
           <td>${actionCell}</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    // OPENS EDIT MODAL AND POPULATES DATE AT THE TOP
+    // OPENS EDIT MODAL AND CALCULATES 10 DAYS AUTOMATICALLY
     function openEditLeadModal(index) {
       const list = safeGetStorage('dip_urja_leads', []);
       const lead = list[index];
@@ -1371,7 +1423,7 @@
 
       document.getElementById('editLeadIndex').value = index;
       
-      // Convert lead date to input format YYYY-MM-DD
+      // Populate calling date
       const formattedDate = formatToDateInput(lead.date) || new Date().toISOString().slice(0, 10);
       document.getElementById('editLeadDate').value = formattedDate;
 
@@ -1380,26 +1432,37 @@
       document.getElementById('editLeadAddress').value = lead.address || '';
       document.getElementById('editLeadReq').value = lead.requirement || '3 kW Residential Solar';
       document.getElementById('editLeadRemark').value = lead.remark || '';
-      document.getElementById('editLeadFollowUp').value = lead.nextFollowUp || '';
+      
+      // If lead already had a valid date, keep it; otherwise calculate +10 days from editLeadDate
+      let followDateVal = formatToDateInput(lead.nextFollowUp);
+      if (!followDateVal && formattedDate) {
+        followDateVal = calculatePlusTenDays(formattedDate);
+      }
+      document.getElementById('editLeadFollowUp').value = followDateVal || '';
 
       openModal('editLeadModal');
     }
 
-    // SAVES EDITED LEAD INCLUDING UPDATED DATE
+    // SAVES EDITED LEAD INCLUDING UPDATED DATE AND FOLLOW-UP
     function saveEditedLead(e) {
       e.preventDefault();
       const index = document.getElementById('editLeadIndex').value;
       let list = safeGetStorage('dip_urja_leads', []);
       if (!list[index]) return;
 
-      const updatedDate = document.getElementById('editLeadDate').value;
-      list[index].date = formatToDisplayDate(updatedDate);
+      const updatedCallingDate = document.getElementById('editLeadDate').value;
+      let updatedFollowUp = document.getElementById('editLeadFollowUp').value;
+      if (!updatedFollowUp && updatedCallingDate) {
+        updatedFollowUp = calculatePlusTenDays(updatedCallingDate);
+      }
+
+      list[index].date = formatToDisplayDate(updatedCallingDate);
       list[index].customerName = document.getElementById('editLeadName').value.trim();
       list[index].mobile = document.getElementById('editLeadPhone').value.trim();
       list[index].address = document.getElementById('editLeadAddress').value.trim();
       list[index].requirement = document.getElementById('editLeadReq').value;
       list[index].remark = document.getElementById('editLeadRemark').value.trim();
-      list[index].nextFollowUp = document.getElementById('editLeadFollowUp').value;
+      list[index].nextFollowUp = updatedFollowUp;
 
       safeSetStorage('dip_urja_leads', list);
       alert("लीड माहिती यशस्वीरित्या अद्ययावत केली!");
@@ -1434,14 +1497,17 @@
 
           const cols = row.split(',');
           if (cols.length >= 2) {
+            const rawLeadDate = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : new Date().toLocaleDateString();
+            const autoFollow = calculatePlusTenDays(rawLeadDate);
+
             leads.unshift({
-              date: cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : new Date().toLocaleDateString(),
+              date: rawLeadDate,
               customerName: cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : "Bulk Lead",
               mobile: cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : "0000000000",
               address: cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : "-",
-              requirement: cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : "Rooftop Solar",
+              requirement: cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : "3 KW SOLAR POWER",
               remark: cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : "Uploaded lead",
-              nextFollowUp: cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : ""
+              nextFollowUp: (cols[6] && cols[6].trim() !== '') ? cols[6].replace(/^"|"$/g, '').trim() : autoFollow
             });
             count++;
           }
@@ -1466,6 +1532,10 @@
       csvContent += "DATE,CUSTOMER NAME,MOBILE NUMBER,ADDRESS,REQUIREMENT,REMARK,NEXT FOLLOW UP DATE\n";
 
       list.forEach(item => {
+        let followDate = item.nextFollowUp;
+        if (!followDate || followDate === 'Not set') {
+          followDate = calculatePlusTenDays(item.date) || '';
+        }
         const row = [
           `"${item.date || ''}"`,
           `"${item.customerName || ''}"`,
@@ -1473,7 +1543,7 @@
           `"${(item.address || '').replace(/"/g, '""')}"`,
           `"${(item.requirement || '').replace(/"/g, '""')}"`,
           `"${(item.remark || '').replace(/"/g, '""')}"`,
-          `"${item.nextFollowUp || ''}"`
+          `"${followDate}"`
         ];
         csvContent += row.join(",") + "\n";
       });
