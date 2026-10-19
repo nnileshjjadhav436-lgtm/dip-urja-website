@@ -110,7 +110,6 @@
       color: #94a3b8;
     }
 
-    /* Tab switcher */
     .tab-nav {
       display: flex;
       justify-content: center;
@@ -199,4 +198,1247 @@
     }
 
     .form-group {
-      margin-bottom:
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #334155;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .btn-modal-submit {
+      width: 100%;
+      padding: 11px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      color: #ffffff;
+      margin-top: 10px;
+    }
+
+    .btn-otp-request {
+      background-color: #25d366;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+      width: 100%;
+    }
+
+    /* Toolbar */
+    .toolbar-card {
+      background: #ffffff;
+      padding: 14px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .user-session-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .badge-role {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #fff;
+      font-weight: 700;
+    }
+    .badge-role.amc { background: #0284c7; }
+    .badge-role.hr { background: #4f46e5; }
+    .badge-role.guest { background: #64748b; }
+
+    .toolbar-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-export {
+      background-color: #16a34a;
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-upload {
+      background-color: #0284c7;
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-logout {
+      background-color: #ef4444;
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Table */
+    .table-card {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1250px;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #0b192c;
+      color: #ffffff;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    tr:hover { background-color: #f8fafc; }
+
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 11px;
+      display: inline-block;
+      text-transform: uppercase;
+    }
+
+    .status-pending { background: #fed7aa; color: #9a3412; }
+    .status-solved-amc { background: #bae6fd; color: #0369a1; }
+    .status-resolved { background: #86efac; color: #14532d; font-weight: 900; }
+
+    .badge-followup {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 11px;
+      background: #fef08a;
+      color: #854d0e;
+      display: inline-block;
+    }
+
+    .btn-table-action {
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .btn-amc-toggle { background: #0284c7; }
+    .btn-hr-approve { background: #16a34a; }
+    .btn-edit { background: #f59e0b; color: #fff; padding: 4px 8px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .btn-edit:hover { background: #d97706; }
+    .btn-disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
+
+    .btn-table-wa {
+      background: #25d366;
+      color: #fff;
+      text-decoration: none;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Strip -->
+  <div class="top-bar">
+    <div>DIP URJA POWER SOLUTIONS - CUSTOMER CARE &amp; SERVICE PORTAL</div>
+    <div class="highlight">⚡ Helpdesk: 9022255373 (Amol Sonawane) | HR: 9226194332</div>
+  </div>
+
+  <!-- Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="brand-title">DIP URJA CRM DESK</div>
+      
+      <div class="nav-actions">
+        <button class="btn-action btn-complaint" onclick="openModal('complaintModal')">
+          ➕ Register Complaint
+        </button>
+
+        <button class="btn-action btn-lead" onclick="openModal('leadModal')">
+          💼 Add Sales Lead
+        </button>
+
+        <button class="btn-action btn-amc-login" onclick="openOtpLogin('AMC')">
+          👤 AMC Login (9022255373)
+        </button>
+
+        <button class="btn-action btn-hr-login" onclick="openOtpLogin('HR')">
+          🛡️ HR Login (9226194332)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Headline & Tab Navigation -->
+  <section class="hero">
+    <h1>Service Complaints &amp; Sales Leads Management</h1>
+    <p>ग्राहक तक्रार निवारण, AMC तंत्रज्ञ तपासणी आणि सोलर विक्री लीड्स ट्रॅकिंग प्रणाली</p>
+    
+    <div class="tab-nav">
+      <button id="tabComplaintsBtn" class="tab-btn active" onclick="switchTab('complaints')">🔧 Service Complaints</button>
+      <button id="tabLeadsBtn" class="tab-btn" onclick="switchTab('leads')">📈 Sales Leads Tracker</button>
+    </div>
+  </section>
+
+  <!-- Main Body Content -->
+  <div class="portal-container">
+
+    <!-- Active Session Toolbar -->
+    <div class="toolbar-card">
+      <div class="user-session-info">
+        <span>Current Active Session:</span>
+        <span id="sessionBadge" class="badge-role guest">Public / Guest Mode</span>
+      </div>
+
+      <div class="toolbar-buttons" id="complaintsToolbar">
+        <input type="file" id="csvFileInput" accept=".csv" style="display:none;" onchange="handleCsvUpload(event)" />
+        <button class="btn-upload" onclick="document.getElementById('csvFileInput').click()">
+          📂 Bulk Upload Complaints (CSV)
+        </button>
+        <button class="btn-export" onclick="exportSolvedComplaintsExcel()">
+          📥 Download Solved in Excel
+        </button>
+        <button id="logoutBtn" class="btn-logout" style="display:none;" onclick="logoutSession()">
+          Logout
+        </button>
+      </div>
+
+      <div class="toolbar-buttons" id="leadsToolbar" style="display: none;">
+        <input type="file" id="leadCsvInput" accept=".csv" style="display:none;" onchange="handleLeadCsvUpload(event)" />
+        <button class="btn-upload" onclick="document.getElementById('leadCsvInput').click()">
+          📂 Bulk Upload Leads (CSV)
+        </button>
+        <button class="btn-export" onclick="exportLeadsExcel()">
+          📥 Export All Leads (CSV/Excel)
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. COMPLAINTS SECTION -->
+    <div id="complaintsSection" class="section-view active">
+      <div class="table-card">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>DATE</th>
+                <th>TICKET ID</th>
+                <th>CUSTOMER NAME</th>
+                <th>MOBILE</th>
+                <th>SYSTEM TYPE</th>
+                <th>ISSUE DETAILS</th>
+                <th>TECHNICIAN</th>
+                <th>AMC STATUS</th>
+                <th>HR APPROVAL</th>
+                <th>FINAL STATUS</th>
+                <th>EDIT / ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="complaintsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. SALES LEADS SECTION -->
+    <div id="leadsSection" class="section-view">
+      <div class="table-card">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th style="min-width: 130px;">DATE</th>
+                <th style="min-width: 160px;">CUSTOMER NAME</th>
+                <th style="min-width: 140px;">MOBILE NUMBER</th>
+                <th style="min-width: 180px;">ADDRESS</th>
+                <th style="min-width: 160px;">REQUIREMENT</th>
+                <th style="min-width: 200px;">REMARK</th>
+                <th style="min-width: 150px;">NEXT FOLLOW UP DATE</th>
+                <th style="min-width: 120px;">ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 1. COMPLAINT REGISTRATION MODAL -->
+  <div id="complaintModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>नवीन तक्रार नोंदणी</h3>
+        <button class="close-btn" onclick="closeModal('complaintModal')">&times;</button>
+      </div>
+      <form onsubmit="submitNewComplaint(event)">
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="cName" required placeholder="नाव प्रविष्ट करा" />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर (10-Digit Mobile) *</label>
+          <input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="उदा. 9876543210" />
+        </div>
+        <div class="form-group">
+          <label>प्रणाली प्रकार (System Type) *</label>
+          <select id="cType" required>
+            <option value="Rooftop Solar">Rooftop Solar</option>
+            <option value="LIFT UPS">LIFT UPS</option>
+            <option value="Battery / Inverter">Battery &amp; Inverter</option>
+            <option value="AMC Service">AMC Service</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>तक्रारीचा तपशील (Issue Details) *</label>
+          <textarea id="cMsg" rows="3" required placeholder="समस्येचे थोडक्यात वर्णन करा..."></textarea>
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#ea580c;">
+          नोंदवा आणि Amol Sonawane यांना WhatsApp पाठवा
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. SALES LEAD MODAL -->
+  <div id="leadModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>नवीन विक्री लीड नोंदणी (New Sales Lead)</h3>
+        <button class="close-btn" onclick="closeModal('leadModal')">&times;</button>
+      </div>
+      <form onsubmit="submitNewLead(event)">
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="leadName" required placeholder="ग्राहक किंवा फर्मचे नाव" />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर (Mobile Number) *</label>
+          <input type="tel" id="leadPhone" required pattern="[0-9]{10}" placeholder="उदा. 9822XXXXXX" />
+        </div>
+        <div class="form-group">
+          <label>पत्ता (Address / Location) *</label>
+          <input type="text" id="leadAddress" required placeholder="फ्लॅट/प्लॉट, एरिया, गाव/शहर" />
+        </div>
+        <div class="form-group">
+          <label>गरज / प्रकल्प प्रकार (Requirement) *</label>
+          <select id="leadRequirement" required>
+            <option value="3 kW Residential Solar">3 kW Residential Solar</option>
+            <option value="5 kW Residential Solar">5 kW Residential Solar</option>
+            <option value="10 kW+ Commercial Solar">10 kW+ Commercial Solar</option>
+            <option value="Industrial Solar Rooftop">Industrial Solar Rooftop</option>
+            <option value="Lift Inverter / UPS">Lift Inverter / UPS</option>
+            <option value="Solar Cleaning & AMC">Solar Cleaning & AMC</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>तपशील / शेरा (Remark) *</label>
+          <textarea id="leadRemark" rows="2" required placeholder="उदा. बजेट चर्चा झाली, कोटेशन पाठवणे आहे..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>पुढील पाठपुरावा तारीख (Next Follow Up Date) *</label>
+          <input type="date" id="leadFollowUpDate" required />
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#16a34a;">
+          💾 लीड सेव्ह करा (Save Lead)
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. EDIT LEAD MODAL -->
+  <div id="editLeadModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>लीड माहिती संपादन (Edit Lead)</h3>
+        <button class="close-btn" onclick="closeModal('editLeadModal')">&times;</button>
+      </div>
+      <form onsubmit="saveEditedLead(event)">
+        <input type="hidden" id="editLeadIndex" />
+        <div class="form-group">
+          <label>ग्राहक नाव</label>
+          <input type="text" id="editLeadName" required />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर</label>
+          <input type="tel" id="editLeadPhone" required pattern="[0-9]{10}" />
+        </div>
+        <div class="form-group">
+          <label>पत्ता (Address)</label>
+          <input type="text" id="editLeadAddress" required />
+        </div>
+        <div class="form-group">
+          <label>Requirement</label>
+          <select id="editLeadReq" required>
+            <option value="3 kW Residential Solar">3 kW Residential Solar</option>
+            <option value="5 kW Residential Solar">5 kW Residential Solar</option>
+            <option value="10 kW+ Commercial Solar">10 kW+ Commercial Solar</option>
+            <option value="Industrial Solar Rooftop">Industrial Solar Rooftop</option>
+            <option value="Lift Inverter / UPS">Lift Inverter / UPS</option>
+            <option value="Solar Cleaning & AMC">Solar Cleaning & AMC</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Remark</label>
+          <textarea id="editLeadRemark" rows="2" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Next Follow Up Date</label>
+          <input type="date" id="editLeadFollowUp" required />
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#f59e0b;">
+          बदल जतन करा (Save Changes)
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. OTP LOGIN MODAL -->
+  <div id="otpModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="otpModalTitle">WhatsApp OTP लॉगिन</h3>
+        <button class="close-btn" onclick="closeModal('otpModal')">&times;</button>
+      </div>
+
+      <input type="hidden" id="loginRole" />
+      <input type="hidden" id="generatedOtp" />
+
+      <div class="form-group">
+        <label>नोंदणीकृत मोबाईल नंबर:</label>
+        <input type="text" id="targetMobile" readonly style="background:#f8fafc; font-weight:bold;" />
+      </div>
+
+      <button type="button" class="btn-otp-request" onclick="sendOtpOnWhatsApp()">
+        📲 Get OTP on WhatsApp
+      </button>
+
+      <div class="form-group">
+        <label>WhatsApp वर आलेला 4-अंकी OTP प्रविष्ट करा:</label>
+        <input type="text" id="enteredOtp" maxlength="4" placeholder="Enter 4-digit OTP" />
+      </div>
+
+      <button type="button" class="btn-modal-submit" style="background:#0284c7;" onclick="verifyOtpAndLogin()">
+        Verify OTP &amp; Login
+      </button>
+    </div>
+  </div>
+
+  <!-- 5. EDIT COMPLAINT MODAL -->
+  <div id="editModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>तक्रार संपादन करा (Edit Complaint)</h3>
+        <button class="close-btn" onclick="closeModal('editModal')">&times;</button>
+      </div>
+      <form onsubmit="saveEditedComplaint(event)">
+        <input type="hidden" id="editIndex" />
+        <div class="form-group">
+          <label>Ticket ID</label>
+          <input type="text" id="editTicketId" readonly style="background:#f8fafc; font-weight:bold;" />
+        </div>
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="editName" required />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर *</label>
+          <input type="tel" id="editPhone" required pattern="[0-9]{10}" />
+        </div>
+        <div class="form-group">
+          <label>प्रणाली प्रकार (System Type) *</label>
+          <select id="editType" required>
+            <option value="Rooftop Solar">Rooftop Solar</option>
+            <option value="LIFT UPS">LIFT UPS</option>
+            <option value="Battery / Inverter">Battery &amp; Inverter</option>
+            <option value="AMC Service">AMC Service</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>तपशील (Details) *</label>
+          <textarea id="editDetails" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#f59e0b;">
+          बदल जतन करा (Save Changes)
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let currentRole = 'GUEST';
+
+    // SAFE PARSER TO PREVENT WHITE SCREEN ON CORRUPT DATA
+    function safeGetStorage(key, fallback) {
+      try {
+        const item = localStorage.getItem(key);
+        if (!item) return fallback;
+        const parsed = JSON.parse(item);
+        return Array.isArray(parsed) ? parsed : fallback;
+      } catch (err) {
+        console.warn("Storage reading error for " + key + ", resetting fallback.", err);
+        return fallback;
+      }
+    }
+
+    function safeSetStorage(key, data) {
+      try {
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch (err) {
+        console.error("Storage save failed:", err);
+      }
+    }
+
+    // TAB NAVIGATION
+    function switchTab(tab) {
+      const isComplaints = tab === 'complaints';
+      const cSec = document.getElementById('complaintsSection');
+      const lSec = document.getElementById('leadsSection');
+      const cBtn = document.getElementById('tabComplaintsBtn');
+      const lBtn = document.getElementById('tabLeadsBtn');
+      const cTool = document.getElementById('complaintsToolbar');
+      const lTool = document.getElementById('leadsToolbar');
+
+      if (cSec && lSec && cBtn && lBtn && cTool && lTool) {
+        cSec.classList.toggle('active', isComplaints);
+        lSec.classList.toggle('active', !isComplaints);
+        cBtn.classList.toggle('active', isComplaints);
+        lBtn.classList.toggle('active', !isComplaints);
+        cTool.style.display = isComplaints ? 'flex' : 'none';
+        lTool.style.display = isComplaints ? 'none' : 'flex';
+      }
+    }
+
+    // SEED DEFAULT DATA
+    function initDefaultData() {
+      if (!localStorage.getItem('dip_urja_complaints')) {
+        const sampleComplaints = [
+          {
+            date: "17/10/2026, 02:15 PM",
+            ticketId: "DIP-1021",
+            customerName: "Suresh Patil",
+            mobile: "9822011223",
+            type: "Rooftop Solar",
+            details: "Inverter not generating power properly",
+            technician: "Amol Sonawane",
+            techPhone: "919022255373",
+            amcSolved: true,
+            hrApproved: true,
+            finalStatus: "Resolved"
+          },
+          {
+            date: "17/10/2026, 03:30 PM",
+            ticketId: "DIP-1022",
+            customerName: "Ganesh Enterprises",
+            mobile: "9423188776",
+            type: "LIFT UPS",
+            details: "Battery backup dropping within 10 minutes",
+            technician: "Amol Sonawane",
+            techPhone: "919022255373",
+            amcSolved: true,
+            hrApproved: false,
+            finalStatus: "Pending (AMC Solved)"
+          }
+        ];
+        safeSetStorage('dip_urja_complaints', sampleComplaints);
+      }
+
+      if (!localStorage.getItem('dip_urja_leads')) {
+        const sampleLeads = [
+          {
+            date: "18/10/2026",
+            customerName: "Mahesh Deshmukh",
+            mobile: "9823145678",
+            address: "Gangapur Road, Nashik",
+            requirement: "5 kW Residential Solar",
+            remark: "Site visit completed, quotation shared on WhatsApp",
+            nextFollowUp: "2026-10-21"
+          },
+          {
+            date: "19/10/2026",
+            customerName: "Apex Engineering",
+            mobile: "9922456789",
+            address: "Ambad MIDC, Nashik",
+            requirement: "Industrial Solar Rooftop",
+            remark: "Initial meeting done with MD, wants 50kW proposal",
+            nextFollowUp: "2026-10-22"
+          }
+        ];
+        safeSetStorage('dip_urja_leads', sampleLeads);
+      }
+    }
+
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    }
+
+    window.addEventListener('click', function(e) {
+      if (e.target && e.target.classList && e.target.classList.contains('modal-overlay')) {
+        e.target.style.display = 'none';
+      }
+    });
+
+    // --- OTP & AUTH SECTION ---
+    function openOtpLogin(role) {
+      document.getElementById('loginRole').value = role;
+      document.getElementById('enteredOtp').value = '';
+      document.getElementById('generatedOtp').value = '';
+
+      if (role === 'AMC') {
+        document.getElementById('otpModalTitle').innerText = "AMC Executive Login (Amol Sonawane)";
+        document.getElementById('targetMobile').value = "9022255373";
+      } else {
+        document.getElementById('otpModalTitle').innerText = "HR & Admin Login";
+        document.getElementById('targetMobile').value = "9226194332";
+      }
+
+      openModal('otpModal');
+    }
+
+    function sendOtpOnWhatsApp() {
+      const role = document.getElementById('loginRole').value;
+      const targetPhone = (role === 'AMC') ? "919022255373" : "919226194332";
+      
+      const otp = Math.floor(1000 + Math.random() * 9000).toString();
+      document.getElementById('generatedOtp').value = otp;
+
+      const msg = `*Dip Urja Security Verification*%0A`
+                + `Your Login OTP for *${role === 'AMC' ? 'AMC Executive' : 'HR Administrator'}* is: *${otp}*%0A`
+                + `Do not share this OTP with anyone. Valid for this session.`;
+
+      window.open(`https://wa.me/${targetPhone}?text=${msg}`, '_blank');
+      alert("OTP WhatsApp वर पाठवला गेला आहे! कृपया WhatsApp तपासा आणि खाली OTP प्रविष्ट करा.");
+    }
+
+    function verifyOtpAndLogin() {
+      const genOtp = document.getElementById('generatedOtp').value;
+      const enteredOtp = document.getElementById('enteredOtp').value.trim();
+      const role = document.getElementById('loginRole').value;
+
+      if (!genOtp) {
+        alert("कृपया आधी 'Get OTP on WhatsApp' बटणावर क्लिक करा!");
+        return;
+      }
+
+      if (enteredOtp === genOtp) {
+        currentRole = role;
+        if (role === 'AMC') {
+          updateSessionBadge("AMC Executive (Amol Sonawane: 9022255373)", "amc");
+          alert("अभिनंदन! AMC Executive म्हणून यशस्वी लॉगिन झाले.");
+        } else {
+          updateSessionBadge("HR Administrator (9226194332)", "hr");
+          alert("अभिनंदन! HR Administrator म्हणून यशस्वी लॉगिन झाले.");
+        }
+        closeModal('otpModal');
+        renderTable();
+        renderLeadsTable();
+      } else {
+        alert("अवैध किंवा चुकीचा OTP! कृपया पुन्हा तपासा.");
+      }
+    }
+
+    function logoutSession() {
+      currentRole = 'GUEST';
+      updateSessionBadge("Public / Guest Mode", "guest");
+      alert("यशस्वी लॉगआउट झाले.");
+      renderTable();
+      renderLeadsTable();
+    }
+
+    function updateSessionBadge(text, className) {
+      const badge = document.getElementById('sessionBadge');
+      if (badge) {
+        badge.innerText = text;
+        badge.className = "badge-role " + className;
+      }
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.style.display = (currentRole === 'GUEST') ? 'none' : 'inline-block';
+      }
+    }
+
+    // --- COMPLAINTS MANAGEMENT LOGIC ---
+    function submitNewComplaint(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('cName').value.trim();
+      const phone = document.getElementById('cPhone').value.trim();
+      const type = document.getElementById('cType').value;
+      const details = document.getElementById('cMsg').value.trim();
+
+      const now = new Date();
+      const dateFormatted = now.toLocaleDateString() + ', ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      const ticketId = "DIP-" + Math.floor(1000 + Math.random() * 9000);
+
+      const record = {
+        date: dateFormatted,
+        ticketId: ticketId,
+        customerName: name,
+        mobile: phone,
+        type: type,
+        details: details,
+        technician: "Amol Sonawane",
+        techPhone: "919022255373",
+        amcSolved: false,
+        hrApproved: false,
+        finalStatus: "Pending"
+      };
+
+      let list = safeGetStorage('dip_urja_complaints', []);
+      list.unshift(record);
+      safeSetStorage('dip_urja_complaints', list);
+
+      const waText = `*New Service Complaint - Dip Urja*%0A`
+                   + `*TICKET ID:* ${ticketId}%0A`
+                   + `*CUSTOMER NAME:* ${encodeURIComponent(name)}%0A`
+                   + `*MOBILE:* ${encodeURIComponent(phone)}%0A`
+                   + `*TYPE:* ${encodeURIComponent(type)}%0A`
+                   + `*TECHNICIAN:* Amol Sonawane%0A`
+                   + `*DETAILS:* ${encodeURIComponent(details)}`;
+
+      window.open(`https://wa.me/919022255373?text=${waText}`, '_blank');
+      alert("तक्रार यशस्वीरित्या नोंदवली गेली! Ticket ID: " + ticketId);
+      closeModal('complaintModal');
+      renderTable();
+    }
+
+    function openEditModal(index) {
+      const list = safeGetStorage('dip_urja_complaints', []);
+      const item = list[index];
+      if (!item) return;
+
+      document.getElementById('editIndex').value = index;
+      document.getElementById('editTicketId').value = item.ticketId;
+      document.getElementById('editName').value = item.customerName;
+      document.getElementById('editPhone').value = item.mobile;
+      document.getElementById('editType').value = item.type;
+      document.getElementById('editDetails').value = item.details;
+
+      openModal('editModal');
+    }
+
+    function saveEditedComplaint(e) {
+      e.preventDefault();
+      const index = document.getElementById('editIndex').value;
+      let list = safeGetStorage('dip_urja_complaints', []);
+      if (!list[index]) return;
+
+      list[index].customerName = document.getElementById('editName').value.trim();
+      list[index].mobile = document.getElementById('editPhone').value.trim();
+      list[index].type = document.getElementById('editType').value;
+      list[index].details = document.getElementById('editDetails').value.trim();
+
+      safeSetStorage('dip_urja_complaints', list);
+      alert("तक्रार माहिती यशस्वीरित्या अद्ययावत झाली!");
+      closeModal('editModal');
+      renderTable();
+    }
+
+    function renderTable() {
+      const list = safeGetStorage('dip_urja_complaints', []);
+      const tbody = document.getElementById('complaintsTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; padding:25px; color:#64748b;">कोणतीही तक्रार नोंदवलेली नाही.</td></tr>`;
+        return;
+      }
+
+      list.forEach((item, index) => {
+        const tr = document.createElement('tr');
+
+        let amcBtn = '';
+        if (currentRole === 'AMC' || currentRole === 'HR') {
+          amcBtn = `<button class="btn-table-action btn-amc-toggle" onclick="toggleAmcStatus(${index})">
+                      ${item.amcSolved ? '✓ Marked Solved' : 'Mark Solved'}
+                    </button>`;
+        } else {
+          amcBtn = `<span style="font-weight:700; color:${item.amcSolved ? '#0284c7' : '#ea580c'};">${item.amcSolved ? 'Solved ✓' : 'Pending'}</span>`;
+        }
+
+        let hrBtn = '';
+        if (currentRole === 'HR') {
+          if (!item.amcSolved) {
+            hrBtn = `<button class="btn-table-action btn-disabled" title="आधी तंत्रज्ञाने Solved करणे आवश्यक आहे" disabled>Wait AMC</button>`;
+          } else {
+            hrBtn = `<button class="btn-table-action btn-hr-approve" onclick="toggleHrApproval(${index})">
+                       ${item.hrApproved ? '✓ HR Approved' : 'Approve & Close'}
+                     </button>`;
+          }
+        } else {
+          hrBtn = `<span style="font-weight:700; color:${item.hrApproved ? '#16a34a' : '#64748b'};">${item.hrApproved ? 'Approved ✓' : 'Awaiting HR'}</span>`;
+        }
+
+        let statusBadge = '';
+        if (item.finalStatus === 'Resolved' || (item.amcSolved && item.hrApproved)) {
+          statusBadge = `<span class="status-badge status-resolved">RESOLVED ✓</span>`;
+        } else if (item.amcSolved) {
+          statusBadge = `<span class="status-badge status-solved-amc">AMC SOLVED (WAIT HR)</span>`;
+        } else {
+          statusBadge = `<span class="status-badge status-pending">PENDING</span>`;
+        }
+
+        const waText = `*Dip Urja Service Follow-up*%0A`
+                     + `*Ticket ID:* ${item.ticketId}%0A`
+                     + `*Customer:* ${encodeURIComponent(item.customerName)}%0A`
+                     + `*Mobile:* ${encodeURIComponent(item.mobile)}%0A`
+                     + `*Details:* ${encodeURIComponent(item.details)}`;
+
+        let editActionCell = '-';
+        if (currentRole === 'AMC' || currentRole === 'HR') {
+          editActionCell = `<div style="display:flex; gap:6px; align-items:center;">
+            <button class="btn-edit" onclick="openEditModal(${index})">✏️ Edit</button>
+            ${currentRole === 'HR' ? `<button onclick="deleteComplaint(${index})" style="background:#ef4444; color:#fff; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">Del</button>` : ''}
+          </div>`;
+        }
+
+        tr.innerHTML = `
+          <td>${item.date || '-'}</td>
+          <td><strong>${item.ticketId || '-'}</strong></td>
+          <td>${item.customerName || '-'}</td>
+          <td><a href="tel:${item.mobile}" style="color:#0284c7; font-weight:bold; text-decoration:none;">📞 ${item.mobile || '-'}</a></td>
+          <td>${item.type || '-'}</td>
+          <td>${item.details || '-'}</td>
+          <td>
+            <strong>${item.technician || 'Amol Sonawane'}</strong><br>
+            <a href="https://wa.me/919022255373?text=${waText}" target="_blank" class="btn-table-wa">💬 Send Amol</a>
+          </td>
+          <td>${amcBtn}</td>
+          <td>${hrBtn}</td>
+          <td>${statusBadge}</td>
+          <td>${editActionCell}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function toggleAmcStatus(index) {
+      let list = safeGetStorage('dip_urja_complaints', []);
+      if (!list[index]) return;
+      list[index].amcSolved = !list[index].amcSolved;
+      
+      if (!list[index].amcSolved) {
+        list[index].hrApproved = false;
+        list[index].finalStatus = 'Pending';
+      } else {
+        if (!list[index].hrApproved) {
+          list[index].finalStatus = 'Pending (AMC Solved)';
+        }
+      }
+
+      safeSetStorage('dip_urja_complaints', list);
+      renderTable();
+    }
+
+    function toggleHrApproval(index) {
+      let list = safeGetStorage('dip_urja_complaints', []);
+      if (!list[index]) return;
+      list[index].hrApproved = !list[index].hrApproved;
+
+      if (list[index].hrApproved) {
+        list[index].finalStatus = 'Resolved';
+      } else {
+        list[index].finalStatus = list[index].amcSolved ? 'Pending (AMC Solved)' : 'Pending';
+      }
+
+      safeSetStorage('dip_urja_complaints', list);
+      renderTable();
+    }
+
+    function deleteComplaint(index) {
+      if (confirm("तुम्हाला खात्री आहे का ही तक्रार हटवायची आहे?")) {
+        let list = safeGetStorage('dip_urja_complaints', []);
+        list.splice(index, 1);
+        safeSetStorage('dip_urja_complaints', list);
+        renderTable();
+      }
+    }
+
+    function handleCsvUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split('\n');
+        let complaints = safeGetStorage('dip_urja_complaints', []);
+        let count = 0;
+
+        for (let i = 0; i < lines.length; i++) {
+          const row = lines[i].trim();
+          if (!row) continue;
+          if (i === 0 && row.toLowerCase().includes("name")) continue;
+
+          const cols = row.split(',');
+          if (cols.length >= 2) {
+            const name = cols[0] ? cols[0].trim().replace(/^"|"$/g, '') : "Bulk Customer";
+            const phone = cols[1] ? cols[1].trim().replace(/^"|"$/g, '') : "0000000000";
+            const type = cols[2] ? cols[2].trim().replace(/^"|"$/g, '') : "Rooftop Solar";
+            const details = cols[3] ? cols[3].trim().replace(/^"|"$/g, '') : "Bulk uploaded issue";
+
+            const now = new Date();
+            const dateFormatted = now.toLocaleDateString() + ', ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const ticketId = "DIP-" + Math.floor(1000 + Math.random() * 9000);
+
+            complaints.unshift({
+              date: dateFormatted,
+              ticketId: ticketId,
+              customerName: name,
+              mobile: phone,
+              type: type,
+              details: details,
+              technician: "Amol Sonawane",
+              techPhone: "919022255373",
+              amcSolved: false,
+              hrApproved: false,
+              finalStatus: "Pending"
+            });
+            count++;
+          }
+        }
+
+        safeSetStorage('dip_urja_complaints', complaints);
+        alert(`यशस्वी! ${count} नवीन तक्रारी CSV मधून जोडल्या गेल्या.`);
+        event.target.value = '';
+        renderTable();
+      };
+      reader.readAsText(file);
+    }
+
+    function exportSolvedComplaintsExcel() {
+      const list = safeGetStorage('dip_urja_complaints', []);
+      const solvedList = list.filter(item => item.finalStatus === 'Resolved' || (item.amcSolved && item.hrApproved));
+
+      if (solvedList.length === 0) {
+        alert("डाउनलोड करण्यासाठी कोणतीही 'Resolved' झालेली तक्रार उपलब्ध नाही.");
+        return;
+      }
+
+      let csvContent = "\uFEFF";
+      csvContent += "DATE,TICKET ID,CUSTOMER NAME,MOBILE,SYSTEM TYPE,ISSUE DETAILS,TECHNICIAN,AMC STATUS,HR APPROVAL,FINAL STATUS\n";
+
+      solvedList.forEach(item => {
+        const row = [
+          `"${item.date || ''}"`,
+          `"${item.ticketId || ''}"`,
+          `"${item.customerName || ''}"`,
+          `"${item.mobile || ''}"`,
+          `"${item.type || ''}"`,
+          `"${(item.details || '').replace(/"/g, '""')}"`,
+          `"${item.technician || ''}"`,
+          `"Solved"`,
+          `"Approved"`,
+          `"Resolved"`
+        ];
+        csvContent += row.join(",") + "\n";
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Dip_Urja_Resolved_Complaints_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // --- SALES LEADS LOGIC ---
+    function submitNewLead(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('leadName').value.trim();
+      const phone = document.getElementById('leadPhone').value.trim();
+      const address = document.getElementById('leadAddress').value.trim();
+      const req = document.getElementById('leadRequirement').value;
+      const remark = document.getElementById('leadRemark').value.trim();
+      const followUp = document.getElementById('leadFollowUpDate').value;
+
+      const now = new Date();
+      const dateFormatted = now.toLocaleDateString();
+
+      const record = {
+        date: dateFormatted,
+        customerName: name,
+        mobile: phone,
+        address: address,
+        requirement: req,
+        remark: remark,
+        nextFollowUp: followUp
+      };
+
+      let leads = safeGetStorage('dip_urja_leads', []);
+      leads.unshift(record);
+      safeSetStorage('dip_urja_leads', leads);
+
+      const waLeadText = `*New Sales Lead - Dip Urja*%0A`
+                       + `*Date:* ${dateFormatted}%0A`
+                       + `*Customer:* ${encodeURIComponent(name)}%0A`
+                       + `*Mobile:* ${encodeURIComponent(phone)}%0A`
+                       + `*Address:* ${encodeURIComponent(address)}%0A`
+                       + `*Requirement:* ${encodeURIComponent(req)}%0A`
+                       + `*Remark:* ${encodeURIComponent(remark)}%0A`
+                       + `*Next Follow-up:* ${followUp}`;
+
+      window.open(`https://wa.me/919226194332?text=${waLeadText}`, '_blank');
+
+      alert("नवीन विक्री लीड यशस्वीरित्या नोंदवली गेली!");
+      e.target.reset();
+      closeModal('leadModal');
+      renderLeadsTable();
+      switchTab('leads');
+    }
+
+    function renderLeadsTable() {
+      const list = safeGetStorage('dip_urja_leads', []);
+      const tbody = document.getElementById('leadsTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:25px; color:#64748b;">कोणतीही सेल्स लीड उपलब्ध नाही.</td></tr>`;
+        return;
+      }
+
+      list.forEach((lead, index) => {
+        const tr = document.createElement('tr');
+
+        const waText = `*Dip Urja Sales Follow-up*%0A`
+                     + `*Customer:* ${encodeURIComponent(lead.customerName || '')}%0A`
+                     + `*Requirement:* ${encodeURIComponent(lead.requirement || '')}%0A`
+                     + `*Remark:* ${encodeURIComponent(lead.remark || '')}`;
+
+        let actionCell = '-';
+        if (currentRole === 'AMC' || currentRole === 'HR') {
+          actionCell = `
+            <div style="display:flex; gap:6px;">
+              <button class="btn-edit" onclick="openEditLeadModal(${index})">✏️ Edit</button>
+              ${currentRole === 'HR' ? `<button onclick="deleteLead(${index})" style="background:#ef4444; color:#fff; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">Del</button>` : ''}
+            </div>
+          `;
+        }
+
+        tr.innerHTML = `
+          <td>${lead.date || '-'}</td>
+          <td><strong>${lead.customerName || '-'}</strong></td>
+          <td>
+            <a href="tel:${lead.mobile}" style="color:#0284c7; font-weight:bold; text-decoration:none;">📞 ${lead.mobile || '-'}</a><br>
+            <a href="https://wa.me/91${lead.mobile}?text=${waText}" target="_blank" class="btn-table-wa">💬 WhatsApp</a>
+          </td>
+          <td>${lead.address || '-'}</td>
+          <td><span style="font-weight:600; color:#0b192c;">${lead.requirement || '-'}</span></td>
+          <td>${lead.remark || '-'}</td>
+          <td><span class="badge-followup">📅 ${lead.nextFollowUp || 'Not set'}</span></td>
+          <td>${actionCell}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openEditLeadModal(index) {
+      const list = safeGetStorage('dip_urja_leads', []);
+      const lead = list[index];
+      if (!lead) return;
+
+      document.getElementById('editLeadIndex').value = index;
+      document.getElementById('editLeadName').value = lead.customerName || '';
+      document.getElementById('editLeadPhone').value = lead.mobile || '';
+      document.getElementById('editLeadAddress').value = lead.address || '';
+      document.getElementById('editLeadReq').value = lead.requirement || '3 kW Residential Solar';
+      document.getElementById('editLeadRemark').value = lead.remark || '';
+      document.getElementById('editLeadFollowUp').value = lead.nextFollowUp || '';
+
+      openModal('editLeadModal');
+    }
+
+    function saveEditedLead(e) {
+      e.preventDefault();
+      const index = document.getElementById('editLeadIndex').value;
+      let list = safeGetStorage('dip_urja_leads', []);
+      if (!list[index]) return;
+
+      list[index].customerName = document.getElementById('editLeadName').value.trim();
+      list[index].mobile = document.getElementById('editLeadPhone').value.trim();
+      list[index].address = document.getElementById('editLeadAddress').value.trim();
+      list[index].requirement = document.getElementById('editLeadReq').value;
+      list[index].remark = document.getElementById('editLeadRemark').value.trim();
+      list[index].nextFollowUp = document.getElementById('editLeadFollowUp').value;
+
+      safeSetStorage('dip_urja_leads', list);
+      alert("लीड माहिती यशस्वीरित्या अद्ययावत केली!");
+      closeModal('editLeadModal');
+      renderLeadsTable();
+    }
+
+    function deleteLead(index) {
+      if (confirm("तुम्हाला खात्री आहे का ही विक्री लीड हटवायची आहे?")) {
+        let list = safeGetStorage('dip_urja_leads', []);
+        list.splice(index, 1);
+        safeSetStorage('dip_urja_leads', list);
+        renderLeadsTable();
+      }
+    }
+
+    function handleLeadCsvUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split('\n');
+        let leads = safeGetStorage('dip_urja_leads', []);
+        let count = 0;
+
+        for (let i = 0; i < lines.length; i++) {
+          const row = lines[i].trim();
+          if (!row) continue;
+          if (i === 0 && row.toLowerCase().includes("name")) continue;
+
+          const cols = row.split(',');
+          if (cols.length >= 2) {
+            leads.unshift({
+              date: cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : new Date().toLocaleDateString(),
+              customerName: cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : "Bulk Lead",
+              mobile: cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : "0000000000",
+              address: cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : "-",
+              requirement: cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : "Rooftop Solar",
+              remark: cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : "Uploaded lead",
+              nextFollowUp: cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : ""
+            });
+            count++;
+          }
+        }
+
+        safeSetStorage('dip_urja_leads', leads);
+        alert(`यशस्वी! ${count} सेल्स लीड्स CSV मधून जोडल्या गेल्या.`);
+        event.target.value = '';
+        renderLeadsTable();
+      };
+      reader.readAsText(file);
+    }
+
+    function exportLeadsExcel() {
+      const list = safeGetStorage('dip_urja_leads', []);
+      if (list.length === 0) {
+        alert("डाउनलोड करण्यासाठी कोणतीही लीड उपलब्ध नाही.");
+        return;
+      }
+
+      let csvContent = "\uFEFF";
+      csvContent += "DATE,CUSTOMER NAME,MOBILE NUMBER,ADDRESS,REQUIREMENT,REMARK,NEXT FOLLOW UP DATE\n";
+
+      list.forEach(item => {
+        const row = [
+          `"${item.date || ''}"`,
+          `"${item.customerName || ''}"`,
+          `"${item.mobile || ''}"`,
+          `"${(item.address || '').replace(/"/g, '""')}"`,
+          `"${(item.requirement || '').replace(/"/g, '""')}"`,
+          `"${(item.remark || '').replace(/"/g, '""')}"`,
+          `"${item.nextFollowUp || ''}"`
+        ];
+        csvContent += row.join(",") + "\n";
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Dip_Urja_Sales_Leads_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // SAFE BOOTSTRAP
+    window.addEventListener('DOMContentLoaded', () => {
+      initDefaultData();
+      renderTable();
+      renderLeadsTable();
+    });
+  </script>
+</body>
+</html>
