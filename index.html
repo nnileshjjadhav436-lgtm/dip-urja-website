@@ -751,4 +751,874 @@
           </select>
         </div>
         <div class="form-group"><label>तपशील *</label><textarea id="cMsg" rows="3" required></textarea></div>
-        <button type="submit" class="btn-modal-submit"
+        <button type="submit" class="btn-modal-submit" style="background:#ea580c;">तक्रार सेव्ह करा</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. SALES LEAD MODAL -->
+  <div id="leadModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>नवीन विक्री लीड</h3>
+        <button class="close-btn" onclick="closeModal('leadModal')">&times;</button>
+      </div>
+      <form onsubmit="submitNewLead(event)">
+        <div class="form-group"><label>तारीख *</label><input type="date" id="leadDate" required onchange="handleLeadDateChange('leadDate','lFollow')" /></div>
+        <div class="form-group"><label>ग्राहक नाव *</label><input type="text" id="lName" required /></div>
+        <div class="form-group"><label>मोबाईल नंबर *</label><input type="tel" id="lPhone" required pattern="[0-9]{10}" /></div>
+        <div class="form-group"><label>पत्ता *</label><input type="text" id="lAddress" required /></div>
+        <div class="form-group"><label>गरज / Requirement *</label>
+          <select id="lReq">
+            <option value="3 kW Residential">3 kW Residential Solar</option>
+            <option value="5 kW Residential">5 kW Residential Solar</option>
+            <option value="Commercial Solar">Commercial Solar</option>
+            <option value="Lift UPS">Lift UPS</option>
+          </select>
+        </div>
+        <div class="form-group"><label>शेरा / Remark *</label><textarea id="lRemark" rows="2" required></textarea></div>
+        <div class="form-group"><label>पुढील पाठपुरावा (+10 Days Auto) *</label><input type="date" id="lFollow" required /></div>
+        <button type="submit" class="btn-modal-submit" style="background:#16a34a;">लीड सेव्ह करा</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. OTP LOGIN MODAL (HR: 9175805804 OR NUMBER ENDING WITH 804) -->
+  <div id="otpModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="otpModalTitle">सुरक्षित लॉगिन</h3>
+        <button class="close-btn" onclick="closeModal('otpModal')">&times;</button>
+      </div>
+      <input type="hidden" id="loginRole" />
+      <div class="form-group">
+        <label id="loginMobileLabel">नोंदणीकृत 10-अंकी मोबाईल नंबर:</label>
+        <input type="tel" id="loginMobile" maxlength="10" placeholder="उदा. 9175805804" />
+        <small id="loginNote" style="color:#94a3b8; font-size:11px; display:block; margin-top:4px;"></small>
+      </div>
+      <button type="button" class="btn-otp-req" onclick="sendOtp()">📲 Get OTP on WhatsApp</button>
+      <div class="form-group">
+        <label>WhatsApp वर आलेला 4-अंकी OTP टाका:</label>
+        <input type="text" id="enteredOtp" maxlength="4" placeholder="4-अंकी OTP" style="text-align:center; font-size:18px; font-weight:bold; letter-spacing:4px;" />
+      </div>
+      <button type="button" class="btn-modal-submit" style="background:#0284c7;" onclick="verifyOtp()">Verify OTP &amp; Login</button>
+    </div>
+  </div>
+
+  <!-- 4. EDIT COMPLAINT MODAL -->
+  <div id="editCompModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>तक्रार संपादन (Edit Complaint)</h3>
+        <button class="close-btn" onclick="closeModal('editCompModal')">&times;</button>
+      </div>
+      <form onsubmit="saveEditedComplaint(event)">
+        <input type="hidden" id="ecIndex" />
+        <div class="form-group"><label>ग्राहक नाव</label><input type="text" id="ecName" required /></div>
+        <div class="form-group"><label>मोबाईल</label><input type="tel" id="ecPhone" required pattern="[0-9]{10}" /></div>
+        <div class="form-group"><label>तपशील</label><textarea id="ecMsg" rows="3" required></textarea></div>
+        <div class="form-group"><label>Pending Days</label><input type="number" id="ecDays" min="0" /></div>
+        <button type="submit" class="btn-modal-submit" style="background:#d97706;">बदल जतन करा</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. EDIT LEAD MODAL -->
+  <div id="editLeadModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>लीड संपादन (Edit Lead)</h3>
+        <button class="close-btn" onclick="closeModal('editLeadModal')">&times;</button>
+      </div>
+      <form onsubmit="saveEditedLead(event)">
+        <input type="hidden" id="elIndex" />
+        <div class="form-group"><label>ग्राहक नाव</label><input type="text" id="elName" required /></div>
+        <div class="form-group"><label>मोबाईल</label><input type="tel" id="elPhone" required pattern="[0-9]{10}" /></div>
+        <div class="form-group"><label>पत्ता</label><input type="text" id="elAddress" required /></div>
+        <div class="form-group"><label>शेरा</label><textarea id="elRemark" rows="2" required></textarea></div>
+        <div class="form-group"><label>पुढील पाठपुरावा तारीख</label><input type="date" id="elFollow" required /></div>
+        <button type="submit" class="btn-modal-submit" style="background:#d97706;">बदल जतन करा</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. OVERDUE ALERT POPUP MODAL -->
+  <div id="overdueModal" class="modal-overlay">
+    <div class="modal-box" style="border: 2px solid #ef4444;">
+      <div class="modal-head">
+        <h3 style="color:#ef4444;">🚨 Overdue Work Alert (> 10 Days)</h3>
+        <button class="close-btn" onclick="closeModal('overdueModal')">&times;</button>
+      </div>
+      <div style="font-size:13px; margin-bottom:14px; color:#fca5a5;">
+        खालील साइट्स किंवा तक्रारींवर मागील <strong>१० दिवसांपेक्षा जास्त कालावधीपासून</strong> काम प्रलंबित आहे. त्वरित कारवाईसाठी HR ला रिपोर्ट पाठवा:
+      </div>
+      <div id="overdueListSummary" style="background:#030611; padding:10px; border-radius:6px; font-size:12px; max-height:160px; overflow-y:auto; margin-bottom:14px; border:1px solid #7f1d1d;"></div>
+      <button class="btn-modal-submit" style="background:#dc2626;" onclick="sendAutomatedOverdueAlertToHr()">
+        📲 WhatsApp Urgent Alert to HR (9175805804)
+      </button>
+    </div>
+  </div>
+
+  <script>
+    window.currentRole = 'GUEST';
+    window.isEditingSheets = false;
+    window.generatedOtp = '';
+
+    window.openModal = function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.classList.add('active');
+        el.style.display = 'flex';
+      }
+    };
+
+    window.closeModal = function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.classList.remove('active');
+        el.style.display = 'none';
+      }
+    };
+
+    window.onclick = function(e) {
+      if (e.target && e.target.classList && e.target.classList.contains('modal-overlay')) {
+        e.target.classList.remove('active');
+        e.target.style.display = 'none';
+      }
+    };
+
+    function safeGet(key, fallback) {
+      try {
+        var v = localStorage.getItem(key);
+        if (v) {
+          var parsed = JSON.parse(v);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (err) {}
+      return fallback;
+    }
+
+    function safeSet(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (err) {}
+    }
+
+    // DEFAULT DATA WITH REAL OVERDUE SITES (DAYS > 10)
+    function getInitialTech() {
+      var arr = [];
+      for (var i = 1; i <= 10; i++) {
+        arr.push({
+          sn: i,
+          name: i === 1 ? "Suresh Patil (Nashik)" : (i === 2 ? "Ganesh Enterprises" : (i === 3 ? "Kiran Shinde" : "")),
+          days: i === 1 ? 14 : (i === 2 ? 6 : (i === 3 ? 12 : 0)), // 1 & 3 are > 10 days overdue
+          struct: i === 1 ? "Pending" : (i === 2 ? "In Progress" : (i === 3 ? "Hold" : "")),
+          inv: i === 1 ? "Awaiting Delivery" : (i === 2 ? "Installed" : ""),
+          wire: i === 1 ? "Not Started" : (i === 2 ? "Done" : ""),
+          earth: i === 1 ? "Pending" : (i === 2 ? "Done" : ""),
+          panel: i === 1 ? "10 Panels" : "",
+          gmet: i === 1 ? "Pending" : "",
+          nmet: i === 1 ? "Applied" : ""
+        });
+      }
+      return arr;
+    }
+
+    function getInitialDoc() {
+      var arr = [];
+      for (var i = 1; i <= 10; i++) {
+        arr.push({
+          sn: i,
+          name: i === 1 ? "Suresh Patil (Nashik)" : (i === 4 ? "Amit Kulkarni" : ""),
+          days: i === 1 ? 14 : (i === 4 ? 11 : 0), // 1 & 4 are > 10 days overdue
+          doc: i === 1 ? "Name Change: Not OK" : (i === 4 ? "Load Change: Pending" : ""),
+          inv: i === 1 ? "Pending" : "",
+          wire: i === 1 ? "Pending" : "",
+          earth: i === 1 ? "Pending" : "",
+          panel: i === 1 ? "Pending" : "",
+          gmet: i === 1 ? "Applied" : "",
+          nmet: i === 1 ? "Hold" : ""
+        });
+      }
+      return arr;
+    }
+
+    // TAB SWITCHER
+    window.switchTab = function(tabName) {
+      document.getElementById('complaintsSection').classList.toggle('active', tabName === 'complaints');
+      document.getElementById('leadsSection').classList.toggle('active', tabName === 'leads');
+      document.getElementById('sheetsSection').classList.toggle('active', tabName === 'sheets');
+
+      document.getElementById('tabComplaintsBtn').classList.toggle('active', tabName === 'complaints');
+      document.getElementById('tabLeadsBtn').classList.toggle('active', tabName === 'leads');
+      document.getElementById('tabSheetsBtn').classList.toggle('active', tabName === 'sheets');
+    };
+
+    // RENDER ENGINE
+    window.renderAll = function() {
+      renderComplaints();
+      renderLeads();
+      renderTech();
+      renderDoc();
+      updateStatsAndOverdueBanner();
+    };
+
+    function renderComplaints() {
+      var list = safeGet('c_list', [
+        { date: "15/10/2026", id: "DIP-1021", name: "Suresh Patil", phone: "9822011223", type: "Rooftop Solar", msg: "Inverter generation issue", days: 14, amc: false, hr: false, status: "Pending" },
+        { date: "24/10/2026", id: "DIP-1022", name: "Ganesh Enterprises", phone: "9423188776", type: "LIFT UPS", msg: "Backup dropping quickly", days: 5, amc: true, hr: false, status: "Pending (AMC Solved)" }
+      ]);
+      safeSet('c_list', list);
+
+      var tb = document.getElementById('complaintsTableBody');
+      if (!tb) return;
+      tb.innerHTML = '';
+
+      list.forEach(function(c, i) {
+        var isOverdue = (c.days > 10 && c.status !== 'Resolved');
+        var rowClass = isOverdue ? 'class="row-overdue"' : '';
+
+        var amcBtn = (window.currentRole === 'AMC' || window.currentRole === 'HR')
+          ? '<button class="btn-action" style="background:#0284c7; padding:4px 8px; font-size:11px;" onclick="toggleAmc(' + i + ')">' + (c.amc ? '✓ Solved' : 'Mark Solved') + '</button>'
+          : '<span style="color:' + (c.amc ? '#38bdf8' : '#ea580c') + '; font-weight:bold;">' + (c.amc ? 'Solved ✓' : 'Pending') + '</span>';
+
+        var hrBtn = (window.currentRole === 'HR')
+          ? '<button class="btn-action" style="background:#16a34a; padding:4px 8px; font-size:11px;" onclick="toggleHr(' + i + ')">' + (c.hr ? '✓ Approved' : 'Approve') + '</button>'
+          : '<span style="color:' + (c.hr ? '#4ade80' : '#94a3b8') + '; font-weight:bold;">' + (c.hr ? 'Approved ✓' : 'Wait HR') + '</span>';
+
+        var act = (window.currentRole === 'HR')
+          ? '<button onclick="openEditComp(' + i + ')" style="background:#d97706; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Edit</button> <button onclick="delComp(' + i + ')" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Del</button>'
+          : (isOverdue ? '<span style="color:#ef4444; font-size:11px; font-weight:bold;">🔒 HR Edit Only</span>' : '-');
+
+        var badgeClass = (c.status === 'Resolved') ? 'status-resolved' : (c.amc ? 'status-solved-amc' : 'status-pending');
+        var daysBadge = isOverdue ? '<span class="badge-overdue">⚠️ ' + c.days + ' Days</span>' : '<span>' + c.days + ' Days</span>';
+
+        tb.innerHTML += '<tr ' + rowClass + '>' +
+          '<td>' + c.date + '</td>' +
+          '<td><strong style="color:#facc15;">' + c.id + '</strong></td>' +
+          '<td>' + c.name + '</td>' +
+          '<td><a href="tel:' + c.phone + '" style="color:#38bdf8; text-decoration:none;">📞 ' + c.phone + '</a></td>' +
+          '<td>' + c.type + '</td>' +
+          '<td>' + c.msg + '</td>' +
+          '<td>' + daysBadge + '</td>' +
+          '<td>' + amcBtn + '</td>' +
+          '<td>' + hrBtn + '</td>' +
+          '<td><span class="status-badge ' + badgeClass + '">' + c.status + '</span></td>' +
+          '<td>' + act + '</td>' +
+        '</tr>';
+      });
+    }
+
+    function renderLeads() {
+      var list = safeGet('l_list', [
+        { date: "15/10/2026", name: "Mahesh Deshmukh", phone: "9823145678", addr: "Gangapur Road, Nashik", req: "5 kW Residential Solar", remark: "Site visit done, budget pending", follow: "2026-10-25", days: 14 }
+      ]);
+      safeSet('l_list', list);
+
+      var tb = document.getElementById('leadsTableBody');
+      if (!tb) return;
+      tb.innerHTML = '';
+
+      list.forEach(function(l, i) {
+        var isOverdue = (l.days > 10);
+        var rowClass = isOverdue ? 'class="row-overdue"' : '';
+
+        var act = (window.currentRole === 'HR')
+          ? '<button onclick="openEditLead(' + i + ')" style="background:#d97706; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Edit</button> <button onclick="delLead(' + i + ')" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Del</button>'
+          : (isOverdue ? '<span style="color:#ef4444; font-size:11px; font-weight:bold;">🔒 HR Edit Only</span>' : '-');
+
+        var statusBadge = isOverdue ? '<span class="badge-overdue">⚠️ 10+ Days Overdue</span>' : '<span style="color:#4ade80;">Active</span>';
+
+        tb.innerHTML += '<tr ' + rowClass + '>' +
+          '<td>' + l.date + '</td>' +
+          '<td><strong>' + l.name + '</strong></td>' +
+          '<td><a href="tel:' + l.phone + '" style="color:#38bdf8; text-decoration:none;">📞 ' + l.phone + '</a></td>' +
+          '<td>' + l.addr + '</td>' +
+          '<td><span style="color:#facc15; font-weight:bold;">' + l.req + '</span></td>' +
+          '<td>' + l.remark + '</td>' +
+          '<td><span style="background:#422006; color:#fde047; padding:2px 8px; border-radius:4px; font-weight:bold;">' + l.follow + '</span></td>' +
+          '<td>' + statusBadge + '</td>' +
+          '<td>' + act + '</td>' +
+        '</tr>';
+      });
+    }
+
+    function renderTech() {
+      var list = safeGet('t_sheet', getInitialTech());
+      safeSet('t_sheet', list);
+
+      var tb = document.getElementById('techTableBody');
+      if (!tb) return;
+      tb.innerHTML = '';
+
+      list.forEach(function(r, i) {
+        var isOverdue = (r.name && r.days > 10);
+        var rowClass = isOverdue ? 'class="row-overdue"' : '';
+        var daysBadge = isOverdue ? '<span class="badge-overdue">⚠️ ' + r.days + ' Days</span>' : (r.days ? r.days + ' Days' : '-');
+
+        if (window.isEditingSheets && window.currentRole === 'HR') {
+          tb.innerHTML += '<tr ' + rowClass + '>' +
+            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
+            '<td><input class="excel-input" value="' + (r.name||'') + '" onchange="upTech(' + i + ',\'name\',this.value)"/></td>' +
+            '<td><input class="excel-input" type="number" value="' + (r.days||0) + '" onchange="upTech(' + i + ',\'days\',parseInt(this.value)||0)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.struct||'') + '" onchange="upTech(' + i + ',\'struct\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.inv||'') + '" onchange="upTech(' + i + ',\'inv\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.wire||'') + '" onchange="upTech(' + i + ',\'wire\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.earth||'') + '" onchange="upTech(' + i + ',\'earth\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.panel||'') + '" onchange="upTech(' + i + ',\'panel\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.gmet||'') + '" onchange="upTech(' + i + ',\'gmet\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.nmet||'') + '" onchange="upTech(' + i + ',\'nmet\',this.value)"/></td>' +
+          '</tr>';
+        } else {
+          tb.innerHTML += '<tr ' + rowClass + '>' +
+            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
+            '<td><strong>' + (r.name||'') + '</strong></td>' +
+            '<td>' + daysBadge + '</td>' +
+            '<td>' + (r.struct||'') + '</td>' +
+            '<td>' + (r.inv||'') + '</td>' +
+            '<td>' + (r.wire||'') + '</td>' +
+            '<td>' + (r.earth||'') + '</td>' +
+            '<td>' + (r.panel||'') + '</td>' +
+            '<td>' + (r.gmet||'') + '</td>' +
+            '<td>' + (r.nmet||'') + '</td>' +
+          '</tr>';
+        }
+      });
+    }
+
+    function renderDoc() {
+      var list = safeGet('d_sheet', getInitialDoc());
+      safeSet('d_sheet', list);
+
+      var tb = document.getElementById('docTableBody');
+      if (!tb) return;
+      tb.innerHTML = '';
+
+      list.forEach(function(r, i) {
+        var isOverdue = (r.name && r.days > 10);
+        var rowClass = isOverdue ? 'class="row-overdue"' : '';
+        var daysBadge = isOverdue ? '<span class="badge-overdue">⚠️ ' + r.days + ' Days</span>' : (r.days ? r.days + ' Days' : '-');
+
+        if (window.isEditingSheets && window.currentRole === 'HR') {
+          tb.innerHTML += '<tr ' + rowClass + '>' +
+            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
+            '<td><input class="excel-input" value="' + (r.name||'') + '" onchange="upDoc(' + i + ',\'name\',this.value)"/></td>' +
+            '<td><input class="excel-input" type="number" value="' + (r.days||0) + '" onchange="upDoc(' + i + ',\'days\',parseInt(this.value)||0)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.doc||'') + '" onchange="upDoc(' + i + ',\'doc\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.inv||'') + '" onchange="upDoc(' + i + ',\'inv\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.wire||'') + '" onchange="upDoc(' + i + ',\'wire\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.earth||'') + '" onchange="upDoc(' + i + ',\'earth\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.panel||'') + '" onchange="upDoc(' + i + ',\'panel\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.gmet||'') + '" onchange="upDoc(' + i + ',\'gmet\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.nmet||'') + '" onchange="upDoc(' + i + ',\'nmet\',this.value)"/></td>' +
+          '</tr>';
+        } else {
+          tb.innerHTML += '<tr ' + rowClass + '>' +
+            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
+            '<td><strong>' + (r.name||'') + '</strong></td>' +
+            '<td>' + daysBadge + '</td>' +
+            '<td>' + (r.doc||'') + '</td>' +
+            '<td>' + (r.inv||'') + '</td>' +
+            '<td>' + (r.wire||'') + '</td>' +
+            '<td>' + (r.earth||'') + '</td>' +
+            '<td>' + (r.panel||'') + '</td>' +
+            '<td>' + (r.gmet||'') + '</td>' +
+            '<td>' + (r.nmet||'') + '</td>' +
+          '</tr>';
+        }
+      });
+    }
+
+    window.upTech = function(i, k, v) {
+      var l = safeGet('t_sheet', getInitialTech());
+      if (l[i]) { l[i][k] = v; safeSet('t_sheet', l); }
+    };
+
+    window.upDoc = function(i, k, v) {
+      var l = safeGet('d_sheet', getInitialDoc());
+      if (l[i]) { l[i][k] = v; safeSet('d_sheet', l); }
+    };
+
+    window.toggleEditAllSheets = function(force) {
+      if (window.currentRole !== 'HR') {
+        alert("१० दिवसांपेक्षा जास्त प्रलंबित कामे व शीट संपादन केवळ HR लॉगिन (9175805804) द्वारेच शक्य आहे!");
+        openOtpLogin('HR');
+        return;
+      }
+      window.isEditingSheets = (typeof force === 'boolean') ? force : !window.isEditingSheets;
+      document.getElementById('saveAllSheetsBtn').style.display = window.isEditingSheets ? 'inline-block' : 'none';
+      document.getElementById('editAllBtn').innerText = window.isEditingSheets ? 'EXIT EDIT MODE' : 'EDIT ALL SHEETS';
+      renderTech();
+      renderDoc();
+    };
+
+    window.saveAllSheetsData = function() {
+      window.isEditingSheets = false;
+      document.getElementById('saveAllSheetsBtn').style.display = 'none';
+      document.getElementById('editAllBtn').innerText = 'EDIT ALL SHEETS';
+      renderTech();
+      renderDoc();
+      updateStatsAndOverdueBanner();
+      alert("सर्व एक्सेल शीट्सची माहिती सुरक्षितपणे सेव्ह झाली!");
+    };
+
+    window.addTableRow = function(type) {
+      if (window.currentRole !== 'HR') {
+        alert("नवीन रो जोडण्याचा अधिकार फक्त HR लॉगिनमध्ये उपलब्ध आहे.");
+        openOtpLogin('HR');
+        return;
+      }
+      if (type === 'tech') {
+        var lt = safeGet('t_sheet', getInitialTech());
+        lt.push({ sn: lt.length + 1, name: "", days: 0, struct: "", inv: "", wire: "", earth: "", panel: "", gmet: "", nmet: "" });
+        safeSet('t_sheet', lt);
+      } else {
+        var ld = safeGet('d_sheet', getInitialDoc());
+        ld.push({ sn: ld.length + 1, name: "", days: 0, doc: "", inv: "", wire: "", earth: "", panel: "", gmet: "", nmet: "" });
+        safeSet('d_sheet', ld);
+      }
+      window.toggleEditAllSheets(true);
+    };
+
+    // OVERDUE CHECK & AUTOMATIC WHATSAPP ALERT TO 9175805804
+    function getOverdueItems() {
+      var overdueList = [];
+      var tech = safeGet('t_sheet', []);
+      var doc = safeGet('d_sheet', []);
+      var comp = safeGet('c_list', []);
+
+      tech.forEach(function(t) {
+        if (t.name && t.days > 10) {
+          overdueList.push({ type: "Hardware Installation", name: t.name, days: t.days, detail: t.struct });
+        }
+      });
+      doc.forEach(function(d) {
+        if (d.name && d.days > 10) {
+          overdueList.push({ type: "Documentation/Metering", name: d.name, days: d.days, detail: d.doc });
+        }
+      });
+      comp.forEach(function(c) {
+        if (c.days > 10 && c.status !== 'Resolved') {
+          overdueList.push({ type: "Service Complaint", name: c.name, days: c.days, detail: c.msg });
+        }
+      });
+      return overdueList;
+    }
+
+    function updateStatsAndOverdueBanner() {
+      var c = safeGet('c_list', []);
+      var l = safeGet('l_list', []);
+      var t = safeGet('t_sheet', []);
+      var overdues = getOverdueItems();
+
+      document.getElementById('statTotalComplaints').innerText = c.length;
+      document.getElementById('statAwaitingHr').innerText = c.filter(function(x) { return x.amc && !x.hr; }).length;
+      document.getElementById('statOverdueSites').innerText = overdues.length;
+      document.getElementById('statTotalProjects').innerText = t.filter(function(x) { return x.name && x.name.trim() !== ''; }).length;
+
+      var banner = document.getElementById('overdueBanner');
+      if (overdues.length > 0) {
+        banner.style.display = 'flex';
+        document.getElementById('overdueCountText').innerText = "CRITICAL ALERT: " + overdues.length + " Sites / Tasks Pending for Over 10 Days!";
+      } else {
+        banner.style.display = 'none';
+      }
+    }
+
+    window.sendAutomatedOverdueAlertToHr = function() {
+      var overdues = getOverdueItems();
+      var targetNumber = "9175805804";
+
+      var msg = "*🚨 DIP URJA POWER SOLUTIONS - OVERDUE WORK ALERT (>10 DAYS)*%0A";
+      msg += "*Report Date:* " + new Date().toLocaleDateString() + "%0A%0A";
+
+      if (overdues.length === 0) {
+        msg += "Great news! Currently there are NO sites or complaints pending for more than 10 days.%0A";
+      } else {
+        msg += "*Total Overdue Sites/Tasks:* " + overdues.length + "%0A";
+        msg += "-----------------------------------%0A";
+        overdues.forEach(function(item, idx) {
+          msg += (idx + 1) + ". *" + item.name + "* (" + item.type + ")%0A";
+          msg += "   ⏳ *Pending Days:* " + item.days + " Days%0A";
+          msg += "   📌 *Status:* " + item.detail + "%0A%0A";
+        });
+        msg += "⚠️ *Action Required:* Please review in HR Panel and assign priority teams.";
+      }
+
+      window.open("https://wa.me/" + targetNumber + "?text=" + msg, "_blank");
+    };
+
+    // POPUP CHECK ON LOAD
+    function checkOverduePopupOnLoad() {
+      var overdues = getOverdueItems();
+      if (overdues.length > 0) {
+        var summaryBox = document.getElementById('overdueListSummary');
+        if (summaryBox) {
+          var html = '<ul style="margin-left:16px;">';
+          overdues.forEach(function(o) {
+            html += '<li><strong>' + o.name + '</strong>: ' + o.type + ' (<span style="color:#ef4444; font-weight:bold;">' + o.days + ' Days Pending</span>)</li>';
+          });
+          html += '</ul>';
+          summaryBox.innerHTML = html;
+        }
+        openModal('overdueModal');
+      }
+    }
+
+    // AUTHENTICATION (HR: 9175805804 OR NUMBER ENDING WITH 804)
+    window.openOtpLogin = function(r) {
+      document.getElementById('loginRole').value = r;
+      var mob = document.getElementById('loginMobile');
+      var note = document.getElementById('loginNote');
+      document.getElementById('enteredOtp').value = '';
+      window.generatedOtp = '';
+
+      if (r === 'HR') {
+        document.getElementById('otpModalTitle').innerText = "🛡️ HR Login (9175805804)";
+        mob.value = "9175805804";
+        note.innerHTML = "🔐 <strong>नियम:</strong> 9175805804 किंवा 804 ने समाप्त होणारा 10-अंकी मोबाईल नंबर वापरा.";
+      } else {
+        document.getElementById('otpModalTitle').innerText = "👤 AMC Staff Login";
+        mob.value = "9022255373";
+        note.innerHTML = "📱 नोंदणीकृत 10-अंकी मोबाईल नंबर प्रविष्ट करा.";
+      }
+      openModal('otpModal');
+    };
+
+    window.sendOtp = function() {
+      var r = document.getElementById('loginRole').value;
+      var ph = document.getElementById('loginMobile').value.trim();
+
+      if (!/^\d{10}$/.test(ph)) {
+        alert("कृपया वैध 10-अंकी मोबाईल नंबर प्रविष्ट करा!");
+        return;
+      }
+
+      if (r === 'HR') {
+        if (!ph.endsWith("804")) {
+          alert("प्रवेश नाकारला! HR लॉगिनसाठी नंबरचा शेवट 804 असणे आवश्यक आहे (उदा. 9175805804).");
+          return;
+        }
+      }
+
+      window.generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      var msg = "*DIP URJA CRM*%0AYour Login Verification OTP is: *" + window.generatedOtp + "*";
+
+      window.open("https://wa.me/91" + ph + "?text=" + msg, "_blank");
+      alert("OTP आपल्या WhatsApp वर पाठवला गेला आहे!\n\n(सोयीसाठी आपला OTP: " + window.generatedOtp + ")");
+    };
+
+    window.verifyOtp = function() {
+      var ent = document.getElementById('enteredOtp').value.trim();
+      var r = document.getElementById('loginRole').value;
+      var ph = document.getElementById('loginMobile').value.trim();
+
+      if (!window.generatedOtp) {
+        alert("कृपया आधी 'Get OTP on WhatsApp' बटणावर क्लिक करा.");
+        return;
+      }
+
+      if (ent === window.generatedOtp) {
+        window.currentRole = r;
+        if (r === 'HR') {
+          document.getElementById('sessionBadge').innerText = "HR Admin (" + ph + ")";
+          document.getElementById('sessionBadge').className = "badge-role hr";
+          document.getElementById('employerWindowCard').classList.add('active');
+          alert("अभिनंदन! HR Admin (" + ph + ") म्हणून यशस्वी लॉगिन झाले. १० दिवसांवरील प्रलंबित कामे एडिट करण्याचे अधिकार प्राप्त झाले.");
+        } else {
+          document.getElementById('sessionBadge').innerText = "AMC Staff (" + ph + ")";
+          document.getElementById('sessionBadge').className = "badge-role amc";
+          document.getElementById('employerWindowCard').classList.remove('active');
+          alert("AMC Staff म्हणून लॉगिन झाले.");
+        }
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        closeModal('otpModal');
+        renderAll();
+      } else {
+        alert("चुकीचा OTP! कृपया पुन्हा प्रयत्न करा.");
+      }
+    };
+
+    window.setGuestMode = function() {
+      window.currentRole = 'GUEST';
+      window.isEditingSheets = false;
+      document.getElementById('sessionBadge').innerText = "Guest Login (Read Only)";
+      document.getElementById('sessionBadge').className = "badge-role guest";
+      document.getElementById('employerWindowCard').classList.remove('active');
+      document.getElementById('logoutBtn').style.display = 'none';
+      document.getElementById('saveAllSheetsBtn').style.display = 'none';
+      document.getElementById('editAllBtn').innerText = 'EDIT ALL SHEETS';
+      renderAll();
+      alert("आपण Guest Mode मध्ये आहात. केवळ पाहण्याची अनुमती आहे.");
+    };
+
+    // FORM HANDLERS
+    window.toggleAmc = function(i) {
+      var l = safeGet('c_list', []);
+      if (l[i]) {
+        l[i].amc = !l[i].amc;
+        l[i].status = l[i].amc ? (l[i].hr ? 'Resolved' : 'Pending (AMC Solved)') : 'Pending';
+        safeSet('c_list', l);
+        renderComplaints();
+        updateStatsAndOverdueBanner();
+      }
+    };
+
+    window.toggleHr = function(i) {
+      var l = safeGet('c_list', []);
+      if (l[i]) {
+        l[i].hr = !l[i].hr;
+        l[i].status = l[i].hr ? 'Resolved' : (l[i].amc ? 'Pending (AMC Solved)' : 'Pending');
+        safeSet('c_list', l);
+        renderComplaints();
+        updateStatsAndOverdueBanner();
+      }
+    };
+
+    window.delComp = function(i) {
+      if (confirm("ही तक्रार हटवायची आहे का?")) {
+        var l = safeGet('c_list', []);
+        l.splice(i, 1);
+        safeSet('c_list', l);
+        renderComplaints();
+        updateStatsAndOverdueBanner();
+      }
+    };
+
+    window.delLead = function(i) {
+      if (confirm("ही विक्री लीड हटवायची आहे का?")) {
+        var l = safeGet('l_list', []);
+        l.splice(i, 1);
+        safeSet('l_list', l);
+        renderLeads();
+        updateStatsAndOverdueBanner();
+      }
+    };
+
+    window.submitNewComplaint = function(e) {
+      e.preventDefault();
+      var l = safeGet('c_list', []);
+      var now = new Date();
+      l.unshift({
+        date: now.toLocaleDateString(),
+        id: "DIP-" + Math.floor(1000 + Math.random() * 9000),
+        name: document.getElementById('cName').value.trim(),
+        phone: document.getElementById('cPhone').value.trim(),
+        type: document.getElementById('cType').value,
+        msg: document.getElementById('cMsg').value.trim(),
+        days: 1,
+        amc: false, hr: false, status: "Pending"
+      });
+      safeSet('c_list', l);
+      alert("नवीन तक्रार यशस्वीरित्या नोंदवली गेली!");
+      e.target.reset();
+      closeModal('complaintModal');
+      renderComplaints();
+      updateStatsAndOverdueBanner();
+    };
+
+    window.submitNewLead = function(e) {
+      e.preventDefault();
+      var l = safeGet('l_list', []);
+      l.unshift({
+        date: document.getElementById('leadDate').value,
+        name: document.getElementById('lName').value.trim(),
+        phone: document.getElementById('lPhone').value.trim(),
+        addr: document.getElementById('lAddress').value.trim(),
+        req: document.getElementById('lReq').value,
+        remark: document.getElementById('lRemark').value.trim(),
+        follow: document.getElementById('lFollow').value,
+        days: 1
+      });
+      safeSet('l_list', l);
+      alert("नवीन विक्री लीड सेव्ह झाली!");
+      e.target.reset();
+      closeModal('leadModal');
+      renderLeads();
+      updateStatsAndOverdueBanner();
+      switchTab('leads');
+    };
+
+    window.openEditComp = function(i) {
+      var c = safeGet('c_list', [])[i];
+      if (!c) return;
+      document.getElementById('ecIndex').value = i;
+      document.getElementById('ecName').value = c.name;
+      document.getElementById('ecPhone').value = c.phone;
+      document.getElementById('ecMsg').value = c.msg;
+      document.getElementById('ecDays').value = c.days || 0;
+      openModal('editCompModal');
+    };
+
+    window.saveEditedComplaint = function(e) {
+      e.preventDefault();
+      var i = document.getElementById('ecIndex').value;
+      var l = safeGet('c_list', []);
+      if (l[i]) {
+        l[i].name = document.getElementById('ecName').value.trim();
+        l[i].phone = document.getElementById('ecPhone').value.trim();
+        l[i].msg = document.getElementById('ecMsg').value.trim();
+        l[i].days = parseInt(document.getElementById('ecDays').value) || 0;
+        safeSet('c_list', l);
+        closeModal('editCompModal');
+        renderComplaints();
+        updateStatsAndOverdueBanner();
+      }
+    };
+
+    window.openEditLead = function(i) {
+      var l = safeGet('l_list', [])[i];
+      if (!l) return;
+      document.getElementById('elIndex').value = i;
+      document.getElementById('elName').value = l.name;
+      document.getElementById('elPhone').value = l.phone;
+      document.getElementById('elAddress').value = l.addr;
+      document.getElementById('elRemark').value = l.remark;
+      document.getElementById('elFollow').value = l.follow;
+      openModal('editLeadModal');
+    };
+
+    window.saveEditedLead = function(e) {
+      e.preventDefault();
+      var i = document.getElementById('elIndex').value;
+      var l = safeGet('l_list', []);
+      if (l[i]) {
+        l[i].name = document.getElementById('elName').value.trim();
+        l[i].phone = document.getElementById('elPhone').value.trim();
+        l[i].addr = document.getElementById('elAddress').value.trim();
+        l[i].remark = document.getElementById('elRemark').value.trim();
+        l[i].follow = document.getElementById('elFollow').value;
+        safeSet('l_list', l);
+        closeModal('editLeadModal');
+        renderLeads();
+        updateStatsAndOverdueBanner();
+      }
+    };
+
+    window.handleLeadDateChange = function(srcId, targetId) {
+      var src = document.getElementById(srcId);
+      var tgt = document.getElementById(targetId);
+      if (src && tgt && src.value) {
+        var d = new Date(src.value);
+        if (!isNaN(d.getTime())) {
+          d.setDate(d.getDate() + 10);
+          tgt.value = d.toISOString().slice(0, 10);
+        }
+      }
+    };
+
+    // EXPORTS
+    window.exportTechExcel = function() {
+      var l = safeGet('t_sheet', getInitialTech());
+      var csv = "\uFEFFS.N.,CUSTOMER NAME,DAYS PENDING,STRUCTURE,INVERTER AC/DC,WIRING,EARTHING,PANEL,G METER,N METER\n";
+      l.forEach(function(r) {
+        csv += '"' + r.sn + '","' + (r.name||'') + '","' + (r.days||0) + '","' + (r.struct||'') + '","' + (r.inv||'') + '","' + (r.wire||'') + '","' + (r.earth||'') + '","' + (r.panel||'') + '","' + (r.gmet||'') + '","' + (r.nmet||'') + '"\n';
+      });
+      downloadCsvBlob(csv, "Dip_Urja_Installation_Technical_Sheet.csv");
+    };
+
+    window.exportDocExcel = function() {
+      var l = safeGet('d_sheet', getInitialDoc());
+      var csv = "\uFEFFS.N.,CUSTOMER NAME,DAYS PENDING,DOCUMENTS,INVERTER AC/DC,WIRING,EARTHING,PANEL,G METER,N METER\n";
+      l.forEach(function(r) {
+        csv += '"' + r.sn + '","' + (r.name||'') + '","' + (r.days||0) + '","' + (r.doc||'') + '","' + (r.inv||'') + '","' + (r.wire||'') + '","' + (r.earth||'') + '","' + (r.panel||'') + '","' + (r.gmet||'') + '","' + (r.nmet||'') + '"\n';
+      });
+      downloadCsvBlob(csv, "Dip_Urja_Documentation_Metering_Sheet.csv");
+    };
+
+    window.exportCurrentView = function() {
+      exportTechExcel();
+      setTimeout(exportDocExcel, 300);
+    };
+
+    function downloadCsvBlob(content, filename) {
+      var blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    window.uploadTechCsv = function(e) {
+      var f = e.target.files[0];
+      if (!f) return;
+      var r = new FileReader();
+      r.onload = function(evt) {
+        var lines = evt.target.result.split('\n');
+        var list = [];
+        for (var i = 1; i < lines.length; i++) {
+          var c = lines[i].split(',');
+          if (c.length >= 2) {
+            list.push({
+              sn: c[0].replace(/"/g,'').trim(),
+              name: c[1].replace(/"/g,'').trim(),
+              days: c[2] ? parseInt(c[2].replace(/"/g,'').trim())||0 : 0,
+              struct: c[3] ? c[3].replace(/"/g,'').trim() : '',
+              inv: c[4] ? c[4].replace(/"/g,'').trim() : '',
+              wire: c[5] ? c[5].replace(/"/g,'').trim() : '',
+              earth: c[6] ? c[6].replace(/"/g,'').trim() : '',
+              panel: c[7] ? c[7].replace(/"/g,'').trim() : '',
+              gmet: c[8] ? c[8].replace(/"/g,'').trim() : '',
+              nmet: c[9] ? c[9].replace(/"/g,'').trim() : ''
+            });
+          }
+        }
+        if (list.length > 0) {
+          safeSet('t_sheet', list);
+          renderTech();
+          updateStatsAndOverdueBanner();
+          alert("टेक्निकल शीट CSV आयात झाली!");
+        }
+      };
+      r.readAsText(f);
+    };
+
+    window.uploadDocCsv = function(e) {
+      var f = e.target.files[0];
+      if (!f) return;
+      var r = new FileReader();
+      r.onload = function(evt) {
+        var lines = evt.target.result.split('\n');
+        var list = [];
+        for (var i = 1; i < lines.length; i++) {
+          var c = lines[i].split(',');
+          if (c.length >= 2) {
+            list.push({
+              sn: c[0].replace(/"/g,'').trim(),
+              name: c[1].replace(/"/g,'').trim(),
+              days: c[2] ? parseInt(c[2].replace(/"/g,'').trim())||0 : 0,
+              doc: c[3] ? c[3].replace(/"/g,'').trim() : '',
+              inv: c[4] ? c[4].replace(/"/g,'').trim() : '',
+              wire: c[5] ? c[5].replace(/"/g,'').trim() : '',
+              earth: c[6] ? c[6].replace(/"/g,'').trim() : '',
+              panel: c[7] ? c[7].replace(/"/g,'').trim() : '',
+              gmet: c[8] ? c[8].replace(/"/g,'').trim() : '',
+              nmet: c[9] ? c[9].replace(/"/g,'').trim() : ''
+            });
+          }
+        }
+        if (list.length > 0) {
+          safeSet('d_sheet', list);
+          renderDoc();
+          updateStatsAndOverdueBanner();
+          alert("डॉक्युमेंट शीट CSV आयात झाली!");
+        }
+      };
+      r.readAsText(f);
+    };
+
+    // BOOTSTRAP APP
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        renderAll();
+        setTimeout(checkOverduePopupOnLoad, 800);
+      });
+    } else {
+      renderAll();
+      setTimeout(checkOverduePopupOnLoad, 800);
+    }
+  </script>
+</body>
+</html>
