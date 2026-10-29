@@ -16,16 +16,19 @@
       background-color: #f1f5f9;
       color: #0f172a;
       line-height: 1.5;
+      min-height: 100vh;
     }
 
     .top-bar {
       background-color: #0b192c;
       color: #ffffff;
-      padding: 8px 30px;
+      padding: 8px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 13px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .top-bar .highlight {
@@ -45,7 +48,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 30px;
+      padding: 12px 20px;
       max-width: 1400px;
       margin: 0 auto;
       flex-wrap: wrap;
@@ -62,12 +65,12 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .btn-action {
-      padding: 9px 16px;
+      padding: 8px 14px;
       font-size: 13px;
       font-weight: 700;
       border-radius: 6px;
@@ -94,12 +97,12 @@
     .hero {
       background: linear-gradient(135deg, #0b192c 0%, #1e293b 100%);
       color: #ffffff;
-      padding: 30px 20px 20px 20px;
+      padding: 25px 20px 20px 20px;
       text-align: center;
     }
 
     .hero h1 {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       margin-bottom: 6px;
       color: #facc15;
@@ -113,14 +116,14 @@
     .tab-nav {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
+      gap: 12px;
+      margin-top: 15px;
       flex-wrap: wrap;
     }
 
     .tab-btn {
-      padding: 10px 24px;
-      font-size: 14px;
+      padding: 9px 20px;
+      font-size: 13px;
       font-weight: 700;
       border-radius: 30px;
       border: none;
@@ -137,7 +140,7 @@
 
     .portal-container {
       max-width: 1400px;
-      margin: 20px auto;
+      margin: 15px auto;
       padding: 0 15px;
     }
 
@@ -149,15 +152,15 @@
       display: block;
     }
 
-    /* Employer / HR Panel Window Card */
+    /* EMPLOYER / HR CONTROL WINDOW (ACTIVE ONLY UPON LOGIN) */
     .employer-window {
       display: none;
       background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
       color: #ffffff;
       border-radius: 10px;
-      padding: 20px 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.3);
+      padding: 18px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
       border: 1px solid #4338ca;
     }
 
@@ -170,185 +173,75 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 15px;
+      gap: 10px;
+      margin-bottom: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 12px;
+      padding-bottom: 10px;
     }
 
     .employer-header h2 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: #facc15;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .employer-stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
       margin-top: 10px;
     }
 
     .stat-card {
       background: rgba(255, 255, 255, 0.08);
-      padding: 14px;
-      border-radius: 8px;
+      padding: 12px;
+      border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .stat-card .title {
-      font-size: 12px;
+      font-size: 11px;
       color: #cbd5e1;
       text-transform: uppercase;
       font-weight: 600;
     }
 
     .stat-card .number {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       color: #ffffff;
-      margin-top: 4px;
-    }
-
-    /* Modal Styling */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(4px);
-      z-index: 99999;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-box {
-      background: #ffffff;
-      width: 92%;
-      max-width: 520px;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #f1f5f9;
-      padding-bottom: 12px;
-      margin-bottom: 15px;
-    }
-
-    .modal-head h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0b192c;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 26px;
-      cursor: pointer;
-      color: #64748b;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 5px;
-      color: #334155;
-    }
-
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 14px;
-      box-sizing: border-box;
-      outline: none;
-    }
-
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
-    }
-
-    .btn-modal-submit {
-      width: 100%;
-      padding: 11px;
-      font-size: 14px;
-      font-weight: 700;
-      border-radius: 6px;
-      cursor: pointer;
-      border: none;
-      color: #ffffff;
-      margin-top: 10px;
-    }
-
-    .btn-otp-request {
-      background-color: #25d366;
-      color: #fff;
-      border: none;
-      padding: 10px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      margin-bottom: 12px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.2s;
-    }
-    .btn-otp-request:hover {
-      background-color: #1ebc57;
+      margin-top: 3px;
     }
 
     /* Toolbar */
     .toolbar-card {
       background: #ffffff;
-      padding: 14px 20px;
+      padding: 12px 18px;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 12px;
       margin-bottom: 15px;
     }
 
     .user-session-info {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 14px;
+      gap: 8px;
+      font-size: 13px;
       font-weight: 600;
     }
 
     .badge-role {
-      padding: 5px 12px;
+      padding: 4px 10px;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 11px;
       color: #fff;
       font-weight: 700;
     }
@@ -359,15 +252,15 @@
     .toolbar-buttons {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .btn-export {
       background-color: #16a34a;
       color: #fff;
-      padding: 8px 14px;
-      font-size: 13px;
+      padding: 7px 12px;
+      font-size: 12px;
       font-weight: 700;
       border-radius: 6px;
       border: none;
@@ -377,8 +270,8 @@
     .btn-upload {
       background-color: #0284c7;
       color: #fff;
-      padding: 8px 14px;
-      font-size: 13px;
+      padding: 7px 12px;
+      font-size: 12px;
       font-weight: 700;
       border-radius: 6px;
       border: none;
@@ -388,8 +281,8 @@
     .btn-logout {
       background-color: #ef4444;
       color: #fff;
-      padding: 8px 14px;
-      font-size: 13px;
+      padding: 7px 12px;
+      font-size: 12px;
       font-weight: 700;
       border-radius: 6px;
       border: none;
@@ -411,8 +304,733 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1250px;
+      min-width: 1200px;
       font-size: 13px;
     }
 
     th, td {
+      padding: 11px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #0b192c;
+      color: #ffffff;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    tr:hover { background-color: #f8fafc; }
+
+    .status-badge {
+      padding: 4px 7px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 10px;
+      display: inline-block;
+      text-transform: uppercase;
+    }
+
+    .status-pending { background: #fed7aa; color: #9a3412; }
+    .status-solved-amc { background: #bae6fd; color: #0369a1; }
+    .status-resolved { background: #86efac; color: #14532d; font-weight: 900; }
+
+    .badge-followup {
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 11px;
+      background: #fef08a;
+      color: #854d0e;
+      display: inline-block;
+    }
+
+    .btn-table-action {
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .btn-amc-toggle { background: #0284c7; }
+    .btn-hr-approve { background: #16a34a; }
+    .btn-edit { background: #f59e0b; color: #fff; padding: 4px 8px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .btn-edit:hover { background: #d97706; }
+    .btn-del { background: #ef4444; color: #fff; padding: 4px 8px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .btn-disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
+
+    .btn-table-wa {
+      background: #25d366;
+      color: #fff;
+      text-decoration: none;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 3px;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      width: 92%;
+      max-width: 500px;
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+
+    .modal-head h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0b192c;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #334155;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 13px;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .btn-modal-submit {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      color: #ffffff;
+      margin-top: 8px;
+    }
+
+    .btn-otp-request {
+      background-color: #25d366;
+      color: #fff;
+      border: none;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .security-note {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Strip -->
+  <div class="top-bar">
+    <div>DIP URJA POWER SOLUTIONS - CUSTOMER CARE &amp; SERVICE PORTAL</div>
+    <div class="highlight">⚡ Helpdesk: 9022255373 (Amol Sonawane) | Employer / HR: 9175805804</div>
+  </div>
+
+  <!-- Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="brand-title">DIP URJA CRM DESK</div>
+      
+      <div class="nav-actions">
+        <button class="btn-action btn-complaint" onclick="openModal('complaintModal')">
+          ➕ Register Complaint
+        </button>
+
+        <button class="btn-action btn-lead" onclick="openModal('leadModal')">
+          💼 Add Sales Lead
+        </button>
+
+        <button class="btn-action btn-amc-login" onclick="openOtpLogin('AMC')">
+          👤 AMC Login (9022255373)
+        </button>
+
+        <button class="btn-action btn-hr-login" onclick="openOtpLogin('HR')">
+          🛡️ Employer / HR Login (9175805804)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Headline & Tab Navigation -->
+  <section class="hero">
+    <h1>Service Complaints &amp; Sales Leads Management</h1>
+    <p>ग्राहक तक्रार निवारण, AMC तंत्रज्ञ तपासणी आणि सोलर विक्री लीड्स ट्रॅकिंग प्रणाली</p>
+    
+    <div class="tab-nav">
+      <button id="tabComplaintsBtn" class="tab-btn active" onclick="switchTab('complaints')">🔧 Service Complaints</button>
+      <button id="tabLeadsBtn" class="tab-btn" onclick="switchTab('leads')">📈 Sales Leads Tracker</button>
+    </div>
+  </section>
+
+  <!-- Main Body Content -->
+  <div class="portal-container">
+
+    <!-- EMPLOYER / HR CONTROL WINDOW (DISPLAYED ON SUCCESSFUL HR LOGIN) -->
+    <div id="employerWindowCard" class="employer-window">
+      <div class="employer-header">
+        <h2>🛡️ Employer &amp; HR Admin Control Window (Authorized: 9175805804)</h2>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <span style="font-size:11px; background:#4ade80; color:#0f172a; padding:4px 8px; border-radius:20px; font-weight:800;">FULL EDIT &amp; ADD RIGHTS ENABLED</span>
+          <button class="btn-action btn-complaint" onclick="openModal('complaintModal')" style="padding:5px 10px; font-size:11px;">+ New Complaint</button>
+          <button class="btn-action btn-lead" onclick="openModal('leadModal')" style="padding:5px 10px; font-size:11px;">+ New Lead</button>
+        </div>
+      </div>
+      <p style="font-size:12px; color:#e0e7ff;">आपण Employer / HR Admin म्हणून लॉगिन आहात. येथे सर्व तक्रारींचे संपादन, डिलीट, HR Approval आणि सेल्स लीड्स ऍड/एडिट पर्याय उपलब्ध आहेत.</p>
+      
+      <div class="employer-stats">
+        <div class="stat-card">
+          <div class="title">Total Complaints</div>
+          <div class="number" id="statTotalComplaints">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="title">Awaiting HR Approval</div>
+          <div class="number" id="statAwaitingHr" style="color:#fde047;">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="title">Fully Resolved</div>
+          <div class="number" id="statResolvedComplaints" style="color:#86efac;">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="title">Total Sales Leads</div>
+          <div class="number" id="statTotalLeads" style="color:#38bdf8;">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Session Toolbar -->
+    <div class="toolbar-card">
+      <div class="user-session-info">
+        <span>Current Active Session:</span>
+        <span id="sessionBadge" class="badge-role guest">Public / Guest Mode</span>
+      </div>
+
+      <div class="toolbar-buttons" id="complaintsToolbar">
+        <input type="file" id="csvFileInput" accept=".csv" style="display:none;" onchange="handleCsvUpload(event)" />
+        <button class="btn-upload" onclick="document.getElementById('csvFileInput').click()">
+          📂 Bulk Upload Complaints (CSV)
+        </button>
+        <button class="btn-export" onclick="exportSolvedComplaintsExcel()">
+          📥 Download Solved in Excel
+        </button>
+        <button id="logoutBtn" class="btn-logout" style="display:none;" onclick="logoutSession()">
+          Logout
+        </button>
+      </div>
+
+      <div class="toolbar-buttons" id="leadsToolbar" style="display: none;">
+        <input type="file" id="leadCsvInput" accept=".csv" style="display:none;" onchange="handleLeadCsvUpload(event)" />
+        <button class="btn-upload" onclick="document.getElementById('leadCsvInput').click()">
+          📂 Bulk Upload Leads (CSV)
+        </button>
+        <button class="btn-export" onclick="exportLeadsExcel()">
+          📥 Export All Leads (CSV/Excel)
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. COMPLAINTS SECTION -->
+    <div id="complaintsSection" class="section-view active">
+      <div class="table-card">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>DATE</th>
+                <th>TICKET ID</th>
+                <th>CUSTOMER NAME</th>
+                <th>MOBILE</th>
+                <th>SYSTEM TYPE</th>
+                <th>ISSUE DETAILS</th>
+                <th>TECHNICIAN</th>
+                <th>AMC STATUS</th>
+                <th>HR APPROVAL</th>
+                <th>FINAL STATUS</th>
+                <th>EDIT / ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="complaintsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. SALES LEADS SECTION -->
+    <div id="leadsSection" class="section-view">
+      <div class="table-card">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th style="min-width: 120px;">DATE</th>
+                <th style="min-width: 150px;">CUSTOMER NAME</th>
+                <th style="min-width: 140px;">MOBILE NUMBER</th>
+                <th style="min-width: 160px;">ADDRESS</th>
+                <th style="min-width: 150px;">REQUIREMENT</th>
+                <th style="min-width: 180px;">REMARK</th>
+                <th style="min-width: 140px;">NEXT FOLLOW UP DATE</th>
+                <th style="min-width: 120px;">ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 1. COMPLAINT REGISTRATION MODAL -->
+  <div id="complaintModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>नवीन तक्रार नोंदणी</h3>
+        <button class="close-btn" onclick="closeModal('complaintModal')">&times;</button>
+      </div>
+      <form onsubmit="submitNewComplaint(event)">
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="cName" required placeholder="नाव प्रविष्ट करा" />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर (10-Digit Mobile) *</label>
+          <input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="उदा. 9876543210" />
+        </div>
+        <div class="form-group">
+          <label>प्रणाली प्रकार (System Type) *</label>
+          <select id="cType" required>
+            <option value="Rooftop Solar">Rooftop Solar</option>
+            <option value="LIFT UPS">LIFT UPS</option>
+            <option value="Battery / Inverter">Battery &amp; Inverter</option>
+            <option value="AMC Service">AMC Service</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>तक्रारीचा तपशील (Issue Details) *</label>
+          <textarea id="cMsg" rows="3" required placeholder="समस्येचे थोडक्यात वर्णन करा..."></textarea>
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#ea580c;">
+          नोंदवा आणि Amol Sonawane यांना WhatsApp पाठवा
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. SALES LEAD MODAL -->
+  <div id="leadModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>नवीन विक्री लीड नोंदणी (New Sales Lead)</h3>
+        <button class="close-btn" onclick="closeModal('leadModal')">&times;</button>
+      </div>
+      <form onsubmit="submitNewLead(event)">
+        <div class="form-group">
+          <label>तारीख (Lead Calling Date) *</label>
+          <input type="date" id="leadDateInput" required onchange="autoCalculateLeadFollowUp('leadDateInput', 'leadFollowUpDate')" />
+        </div>
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="leadName" required placeholder="ग्राहक किंवा फर्मचे नाव" />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर (Mobile Number) *</label>
+          <input type="tel" id="leadPhone" required pattern="[0-9]{10}" placeholder="उदा. 9822XXXXXX" />
+        </div>
+        <div class="form-group">
+          <label>पत्ता (Address / Location) *</label>
+          <input type="text" id="leadAddress" required placeholder="फ्लॅट/प्लॉट, एरिया, गाव/शहर" />
+        </div>
+        <div class="form-group">
+          <label>गरज / प्रकल्प प्रकार (Requirement) *</label>
+          <select id="leadRequirement" required>
+            <option value="3 kW Residential Solar">3 kW Residential Solar</option>
+            <option value="5 kW Residential Solar">5 kW Residential Solar</option>
+            <option value="10 kW+ Commercial Solar">10 kW+ Commercial Solar</option>
+            <option value="Industrial Solar Rooftop">Industrial Solar Rooftop</option>
+            <option value="Lift Inverter / UPS">Lift Inverter / UPS</option>
+            <option value="Solar Cleaning & AMC">Solar Cleaning & AMC</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>तपशील / शेरा (Remark) *</label>
+          <textarea id="leadRemark" rows="2" required placeholder="उदा. बजेट चर्चा झाली, कोटेशन पाठवणे आहे..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>पुढील पाठपुरावा तारीख (Next Follow Up Date - Auto +10 Days) *</label>
+          <input type="date" id="leadFollowUpDate" required />
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#16a34a;">
+          💾 लीड सेव्ह करा (Save Lead)
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. EDIT LEAD MODAL -->
+  <div id="editLeadModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>लीड माहिती संपादन (Edit Lead)</h3>
+        <button class="close-btn" onclick="closeModal('editLeadModal')">&times;</button>
+      </div>
+      <form onsubmit="saveEditedLead(event)">
+        <input type="hidden" id="editLeadIndex" />
+        <div class="form-group">
+          <label>तारीख (Lead Calling Date) *</label>
+          <input type="date" id="editLeadDate" required onchange="autoCalculateLeadFollowUp('editLeadDate', 'editLeadFollowUp')" />
+        </div>
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="editLeadName" required />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर (Mobile Number) *</label>
+          <input type="tel" id="editLeadPhone" required pattern="[0-9]{10}" />
+        </div>
+        <div class="form-group">
+          <label>पत्ता (Address)</label>
+          <input type="text" id="editLeadAddress" required />
+        </div>
+        <div class="form-group">
+          <label>गरज (Requirement)</label>
+          <select id="editLeadReq" required>
+            <option value="3 kW Residential Solar">3 kW Residential Solar</option>
+            <option value="5 kW Residential Solar">5 kW Residential Solar</option>
+            <option value="10 kW+ Commercial Solar">10 kW+ Commercial Solar</option>
+            <option value="Industrial Solar Rooftop">Industrial Solar Rooftop</option>
+            <option value="Lift Inverter / UPS">Lift Inverter / UPS</option>
+            <option value="Solar Cleaning & AMC">Solar Cleaning & AMC</option>
+            <option value="3 KW SOLAR POWER">3 KW SOLAR POWER</option>
+            <option value="SOLAR REQ">SOLAR REQ</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>शेरा (Remark)</label>
+          <textarea id="editLeadRemark" rows="2" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>पुढील पाठपुरावा तारीख (Next Follow Up Date - Auto +10 Days) *</label>
+          <input type="date" id="editLeadFollowUp" required />
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#f59e0b;">
+          बदल जतन करा (Save Changes)
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. OTP LOGIN MODAL (RESTRICTED TO 10-DIGIT NUMBERS ENDING IN 804 FOR HR) -->
+  <div id="otpModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="otpModalTitle">WhatsApp OTP लॉगिन</h3>
+        <button class="close-btn" onclick="closeModal('otpModal')">&times;</button>
+      </div>
+
+      <input type="hidden" id="loginRole" />
+      <input type="hidden" id="generatedOtp" />
+
+      <div class="form-group">
+        <label id="mobileLabel">नोंदणीकृत मोबाईल नंबर (10-Digit Mobile):</label>
+        <input type="tel" id="targetMobile" maxlength="10" placeholder="10-अंकी मोबाईल नंबर टाका" />
+        <div id="securityHelp" class="security-note"></div>
+      </div>
+
+      <button type="button" class="btn-otp-request" onclick="sendOtpOnWhatsApp()">
+        📲 Get OTP on WhatsApp
+      </button>
+
+      <div class="form-group">
+        <label>WhatsApp वर आलेला 4-अंकी OTP प्रविष्ट करा:</label>
+        <input type="text" id="enteredOtp" maxlength="4" placeholder="4-अंकी OTP टाका" style="letter-spacing: 4px; font-weight: bold; text-align: center; font-size: 18px;" />
+      </div>
+
+      <button type="button" class="btn-modal-submit" style="background:#0284c7;" onclick="verifyOtpAndLogin()">
+        Verify OTP &amp; Login
+      </button>
+    </div>
+  </div>
+
+  <!-- 5. EDIT COMPLAINT MODAL -->
+  <div id="editModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>तक्रार संपादन करा (Edit Complaint)</h3>
+        <button class="close-btn" onclick="closeModal('editModal')">&times;</button>
+      </div>
+      <form onsubmit="saveEditedComplaint(event)">
+        <input type="hidden" id="editIndex" />
+        <div class="form-group">
+          <label>Ticket ID</label>
+          <input type="text" id="editTicketId" readonly style="background:#f8fafc; font-weight:bold;" />
+        </div>
+        <div class="form-group">
+          <label>ग्राहक नाव (Customer Name) *</label>
+          <input type="text" id="editName" required />
+        </div>
+        <div class="form-group">
+          <label>मोबाईल नंबर *</label>
+          <input type="tel" id="editPhone" required pattern="[0-9]{10}" />
+        </div>
+        <div class="form-group">
+          <label>प्रणाली प्रकार (System Type) *</label>
+          <select id="editType" required>
+            <option value="Rooftop Solar">Rooftop Solar</option>
+            <option value="LIFT UPS">LIFT UPS</option>
+            <option value="Battery / Inverter">Battery &amp; Inverter</option>
+            <option value="AMC Service">AMC Service</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>तपशील (Details) *</label>
+          <textarea id="editDetails" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn-modal-submit" style="background:#f59e0b;">
+          बदल जतन करा (Save Changes)
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // FAIL-SAFE IN-MEMORY STORAGE (Prevents white screen even if localStorage is blocked)
+    const memoryStore = {};
+
+    function safeGetStorage(key, fallback) {
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          const item = window.localStorage.getItem(key);
+          if (item) {
+            const parsed = JSON.parse(item);
+            return Array.isArray(parsed) ? parsed : fallback;
+          }
+        }
+      } catch (err) {
+        console.warn("Storage read failed, falling back to memory:", err);
+      }
+      return memoryStore[key] || fallback;
+    }
+
+    function safeSetStorage(key, data) {
+      memoryStore[key] = data;
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          window.localStorage.setItem(key, JSON.stringify(data));
+        }
+      } catch (err) {
+        console.warn("Storage write failed, saved in memory:", err);
+      }
+    }
+
+    let currentRole = 'GUEST';
+    let loggedInUserMobile = '';
+
+    // Calculate +10 Days
+    function calculatePlusTenDays(dateInputVal) {
+      if (!dateInputVal) return '';
+      let baseDate;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateInputVal)) {
+        baseDate = new Date(dateInputVal + 'T00:00:00');
+      } else {
+        const parts = dateInputVal.split(/[\/\-\.]/);
+        if (parts.length === 3) {
+          if (parts[0].length === 4) {
+            baseDate = new Date(parts[0] + '-' + parts[1] + '-' + parts[2] + 'T00:00:00');
+          } else if (parts[2].length === 4) {
+            baseDate = new Date(parts[2] + '-' + parts[1] + '-' + parts[0] + 'T00:00:00');
+          }
+        }
+      }
+      if (!baseDate || isNaN(baseDate.getTime())) return '';
+      baseDate.setDate(baseDate.getDate() + 10);
+      const y = baseDate.getFullYear();
+      const m = String(baseDate.getMonth() + 1).padStart(2, '0');
+      const d = String(baseDate.getDate()).padStart(2, '0');
+      return y + '-' + m + '-' + d;
+    }
+
+    function autoCalculateLeadFollowUp(sourceInputId, targetInputId) {
+      const src = document.getElementById(sourceInputId);
+      const tgt = document.getElementById(targetInputId);
+      if (src && tgt && src.value) {
+        tgt.value = calculatePlusTenDays(src.value);
+      }
+    }
+
+    function formatToDateInput(dateStr) {
+      if (!dateStr) return '';
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+      const parts = dateStr.split(/[\/\-\.]/);
+      if (parts.length === 3) {
+        if (parts[0].length === 4) {
+          return parts[0] + '-' + parts[1].padStart(2, '0') + '-' + parts[2].padStart(2, '0');
+        } else if (parts[2].length === 4) {
+          return parts[2] + '-' + parts[1].padStart(2, '0') + '-' + parts[0].padStart(2, '0');
+        }
+      }
+      return '';
+    }
+
+    function formatToDisplayDate(dateStr) {
+      if (!dateStr) return '';
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+        const p = dateStr.split('-');
+        return p[2] + '/' + p[1] + '/' + p[0];
+      }
+      return dateStr;
+    }
+
+    function switchTab(tab) {
+      const isComplaints = tab === 'complaints';
+      const cSec = document.getElementById('complaintsSection');
+      const lSec = document.getElementById('leadsSection');
+      const cBtn = document.getElementById('tabComplaintsBtn');
+      const lBtn = document.getElementById('tabLeadsBtn');
+      const cTool = document.getElementById('complaintsToolbar');
+      const lTool = document.getElementById('leadsToolbar');
+
+      if (cSec && lSec && cBtn && lBtn && cTool && lTool) {
+        cSec.classList.toggle('active', isComplaints);
+        lSec.classList.toggle('active', !isComplaints);
+        cBtn.classList.toggle('active', isComplaints);
+        lBtn.classList.toggle('active', !isComplaints);
+        cTool.style.display = isComplaints ? 'flex' : 'none';
+        lTool.style.display = isComplaints ? 'none' : 'flex';
+      }
+    }
+
+    function initDefaultData() {
+      let complaints = safeGetStorage('dip_urja_complaints', null);
+      if (!complaints) {
+        complaints = [
+          {
+            date: "17/10/2026, 02:15 PM",
+            ticketId: "DIP-1021",
+            customerName: "Suresh Patil",
+            mobile: "9822011223",
+            type: "Rooftop Solar",
+            details: "Inverter not generating power properly",
+            technician: "Amol Sonawane",
+            techPhone: "919022255373",
+            amcSolved: true,
+            hrApproved: true,
+            finalStatus: "Resolved"
+          },
+          {
+            date: "17/10/2026, 03:30 PM",
+            ticketId: "DIP-1022",
+            customerName: "Ganesh Enterprises",
+            mobile: "9423188776",
+            type: "LIFT UPS",
+            details: "Battery backup dropping within 10 minutes",
+            technician: "Amol Sonawane",
+            techPhone: "919022255373",
+            amcSolved: true,
+            hrApproved: false,
+            finalStatus: "Pending (AMC Solved)"
+          }
+        ];
+        safeSetStorage('dip_urja_complaints', complaints);
+      }
+
+      let leads = safeGetStorage('dip_urja_leads', null);
+      if (!leads) {
+        leads = [
+          {
+            date: "18/10/2026",
+            customerName: "Mahesh Deshmukh",
+            mobile: "9823145678",
+            address: "Gangapur Road, Nashik",
+            requirement: "5 kW Residential Solar",
+            remark: "Site visit completed, quotation shared on WhatsApp",
+            nextFollowUp: "2026-10-28"
+          },
+          {
+            date: "19/10/2026",
+            customerName: "Apex Engineering",
+            mobile: "9922456789",
+            address: "Ambad MIDC, Nashik",
+            requirement: "Industrial Solar Rooftop",
+            remark: "Initial meeting done with MD, wants 50kW proposal",
+            nextFollowUp: "2026-10-29"
+          }
+        ];
+        safeSetStorage('dip_urja_leads', leads);
+      }
+    }
+
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = 'flex';
+        if (id === 'leadModal') {
+          const dateInput = document.getElementById('leadDateInput');
+          const followInput = document.getElementById('leadFollowUpDate');
+          if (dateInput && !dateInput.
