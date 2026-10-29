@@ -5,111 +5,460 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DIP URJA - Service, Sales & Project CRM Portal</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #050811; color: #f1f5f9; line-height: 1.5; min-height: 100vh; }
-    
-    .top-bar { background: #020408; color: #94a3b8; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; border-bottom: 1px solid #1e293b; flex-wrap: wrap; gap: 8px; }
-    .top-bar .highlight { color: #facc15; font-weight: 700; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-    header { background: #0b1120; border-bottom: 1px solid #1e293b; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.6); }
-    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; max-width: 1400px; margin: 0 auto; flex-wrap: wrap; gap: 10px; }
-    .brand-title { font-size: 19px; font-weight: 900; color: #38bdf8; letter-spacing: 0.5px; }
+    body {
+      background-color: #030712;
+      color: #f1f5f9;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
 
-    .nav-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .btn-action { padding: 7px 13px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; }
+    /* TOP BAR */
+    .top-bar {
+      background: #020408;
+      color: #94a3b8;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      border-bottom: 1px solid #1e293b;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .top-bar .highlight {
+      color: #facc15;
+      font-weight: 700;
+    }
+
+    /* HEADER & NAVBAR */
+    header {
+      background: #0b1120;
+      border-bottom: 1px solid #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      max-width: 1440px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #38bdf8;
+      letter-spacing: 0.5px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-action:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
     .btn-complaint { background: #ea580c; color: #fff; }
     .btn-lead { background: #16a34a; color: #fff; }
     .btn-amc-login { background: #0f172a; border: 1px solid #0284c7; color: #38bdf8; }
     .btn-hr-login { background: #1e1b4b; border: 1px solid #6366f1; color: #c7d2fe; }
-    .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-guest-mode { background: #334155; color: #f1f5f9; border: 1px solid #475569; }
 
-    .hero { background: linear-gradient(180deg, #0b1120 0%, #050811 100%); padding: 20px; text-align: center; border-bottom: 1px solid #1e293b; }
-    .hero h1 { font-size: 22px; font-weight: 800; color: #facc15; margin-bottom: 4px; }
-    .hero p { font-size: 13px; color: #94a3b8; }
+    /* HERO STRIP */
+    .hero {
+      background: linear-gradient(180deg, #0b1120 0%, #030712 100%);
+      padding: 22px 20px 18px 20px;
+      text-align: center;
+      border-bottom: 1px solid #1e293b;
+    }
+    .hero h1 {
+      font-size: 24px;
+      font-weight: 900;
+      color: #facc15;
+      margin-bottom: 4px;
+    }
+    .hero p {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .tab-nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 20px;
+      border: 1px solid #334155;
+      cursor: pointer;
+      background: #0f172a;
+      color: #cbd5e1;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: #facc15;
+      color: #030712;
+      border-color: #facc15;
+      font-weight: 800;
+    }
 
-    .tab-nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-    .tab-btn { padding: 8px 18px; font-size: 13px; font-weight: 700; border-radius: 20px; border: 1px solid #334155; cursor: pointer; background: #0f172a; color: #cbd5e1; }
-    .tab-btn.active { background: #facc15; color: #020408; border-color: #facc15; font-weight: 800; }
+    .portal-container {
+      max-width: 1440px;
+      margin: 15px auto;
+      padding: 0 15px;
+    }
+    .section-view {
+      display: none;
+    }
+    .section-view.active {
+      display: block;
+    }
 
-    .portal-container { max-width: 1400px; margin: 15px auto; padding: 0 15px; }
-    .section-view { display: none; }
-    .section-view.active { display: block; }
+    /* HR CONTROL WINDOW */
+    .employer-window {
+      display: none;
+      background: #0f172a;
+      border: 1px solid #6366f1;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
+    }
+    .employer-window.active {
+      display: block;
+    }
+    .employer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .employer-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .stat-card {
+      background: #030712;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #1e293b;
+    }
+    .stat-card .title {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .stat-card .number {
+      font-size: 22px;
+      font-weight: 900;
+      color: #facc15;
+    }
 
-    .employer-window { display: none; background: #111827; border: 1px solid #4f46e5; border-radius: 8px; padding: 16px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(79,70,229,0.2); }
-    .employer-window.active { display: block; }
-    .employer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #374151; padding-bottom: 8px; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
-    .employer-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 10px; }
-    .stat-card { background: #030712; padding: 10px; border-radius: 6px; border: 1px solid #1f2937; }
-    .stat-card .title { font-size: 11px; color: #94a3b8; text-transform: uppercase; }
-    .stat-card .number { font-size: 20px; font-weight: 800; color: #facc15; }
-
-    .toolbar-card { background: #0f172a; padding: 10px 16px; border-radius: 8px; border: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
-    .badge-role { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; color: #fff; }
+    /* TOOLBAR CARD */
+    .toolbar-card {
+      background: #0b1120;
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .badge-role {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
     .badge-role.guest { background: #334155; }
     .badge-role.hr { background: #4f46e5; }
     .badge-role.amc { background: #0284c7; }
 
-    .btn-export { background: #15803d; color: #fff; padding: 6px 12px; font-size: 12px; font-weight: 700; border-radius: 5px; border: none; cursor: pointer; }
-    .btn-upload { background: #0369a1; color: #fff; padding: 6px 12px; font-size: 12px; font-weight: 700; border-radius: 5px; border: none; cursor: pointer; }
-    .btn-logout { background: #b91c1c; color: #fff; padding: 6px 12px; font-size: 12px; font-weight: 700; border-radius: 5px; border: none; cursor: pointer; }
+    .btn-export {
+      background: #15803d;
+      color: #fff;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-logout {
+      background: #b91c1c;
+      color: #fff;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
 
-    .table-card { background: #0b1120; border-radius: 8px; border: 1px solid #1e293b; overflow: hidden; margin-bottom: 20px; }
-    .table-wrapper { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 1100px; font-size: 12px; }
-    th, td { padding: 9px 11px; border: 1px solid #1e293b; text-align: left; vertical-align: middle; }
-    th { background: #030712; color: #38bdf8; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+    /* TABLES */
+    .table-card {
+      background: #0b1120;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1100px;
+      font-size: 12px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid #1e293b;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background: #030712;
+      color: #38bdf8;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
     tr:nth-child(even) { background-color: #070c18; }
     tr:hover { background-color: #111c33; }
 
-    .status-badge { padding: 3px 6px; border-radius: 4px; font-weight: 800; font-size: 10px; }
+    .status-badge {
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 10px;
+    }
     .status-pending { background: #7c2d12; color: #ffedd5; }
     .status-solved-amc { background: #075985; color: #e0f2fe; }
     .status-resolved { background: #14532d; color: #bbf7d0; }
 
-    .excel-container { background: #0b1120; padding: 16px; border-radius: 8px; border: 1px solid #1e293b; }
-    .excel-grid-title { font-size: 13px; font-weight: 800; color: #f8fafc; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; background: #030712; padding: 8px 12px; border-left: 4px solid #10b981; border-radius: 4px; }
-    .excel-table { border: 1px solid #334155; }
-    .excel-table th { background: #030712; color: #facc15; border: 1px solid #334155; text-align: center; }
-    .excel-table td { border: 1px solid #1e293b; height: 32px; }
-    .excel-btn-bar { display: flex; justify-content: flex-end; gap: 8px; margin: 10px 0 20px 0; }
-    .excel-green-btn { background: #15803d; color: #fff; border: 1px solid #22c55e; padding: 6px 14px; font-size: 11px; font-weight: 800; cursor: pointer; border-radius: 4px; text-transform: uppercase; }
+    /* SHEET1 EXCEL LOOK */
+    .excel-container {
+      background: #0b1120;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+    }
+    .excel-grid-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #030712;
+      padding: 8px 12px;
+      border-left: 4px solid #10b981;
+      border-radius: 4px;
+    }
+    .excel-table {
+      border: 1px solid #334155;
+    }
+    .excel-table th {
+      background: #030712;
+      color: #facc15;
+      border: 1px solid #334155;
+      text-align: center;
+    }
+    .excel-table td {
+      border: 1px solid #1e293b;
+      height: 34px;
+    }
+    .excel-btn-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin: 10px 0 22px 0;
+      flex-wrap: wrap;
+    }
+    .excel-green-btn {
+      background: #15803d;
+      color: #fff;
+      border: 1px solid #22c55e;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
     .excel-green-btn:hover { background: #16a34a; }
-    .excel-input { width: 100%; border: 1px solid #38bdf8; padding: 4px 6px; font-size: 11px; border-radius: 3px; background: #030712; color: #fff; outline: none; }
+    .excel-input {
+      width: 100%;
+      border: 1px solid #38bdf8;
+      padding: 5px 6px;
+      font-size: 12px;
+      border-radius: 3px;
+      background: #030712;
+      color: #fff;
+      outline: none;
+    }
 
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; }
-    .modal-box { background: #0f172a; color: #f1f5f9; width: 90%; max-width: 480px; border-radius: 8px; padding: 20px; border: 1px solid #334155; max-height: 90vh; overflow-y: auto; }
-    .modal-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-bottom: 12px; }
-    .modal-head h3 { font-size: 16px; color: #facc15; }
-    .close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #94a3b8; }
+    /* MODAL POPUPS */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 999999;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-overlay.active {
+      display: flex !important;
+    }
+    .modal-box {
+      background: #0f172a;
+      color: #f1f5f9;
+      width: 90%;
+      max-width: 480px;
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid #334155;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .modal-head h3 {
+      font-size: 16px;
+      color: #facc15;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #94a3b8;
+    }
+    .close-btn:hover { color: #fff; }
     .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 11px; font-weight: 700; color: #94a3b8; margin-bottom: 4px; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; background: #030712; border: 1px solid #334155; color: #fff; border-radius: 5px; font-size: 13px; outline: none; }
-    .btn-modal-submit { width: 100%; padding: 9px; font-size: 13px; font-weight: 800; border-radius: 5px; border: none; cursor: pointer; color: #fff; margin-top: 8px; }
-    .btn-otp-req { background: #25d366; color: #020408; font-weight: 800; border: none; padding: 8px; border-radius: 5px; width: 100%; cursor: pointer; margin-bottom: 10px; }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 9px 10px;
+      background: #030712;
+      border: 1px solid #334155;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 13px;
+      outline: none;
+    }
+    .btn-modal-submit {
+      width: 100%;
+      padding: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      margin-top: 8px;
+    }
+    .btn-otp-req {
+      background: #25d366;
+      color: #020408;
+      font-weight: 800;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Top Strip -->
   <div class="top-bar">
     <div>DIP URJA POWER SOLUTIONS - CRM &amp; PROJECT PORTAL</div>
     <div class="highlight">⚡ Customer Care Desk &amp; Technical Portal | Guest Mode</div>
   </div>
 
+  <!-- Navbar -->
   <header>
     <div class="navbar">
       <div class="brand-title">⚡ DIP URJA CRM DESK</div>
       <div class="nav-actions">
         <button class="btn-action btn-complaint" onclick="openModal('complaintModal')">➕ Register Complaint</button>
         <button class="btn-action btn-lead" onclick="openModal('leadModal')">💼 Add Sales Lead</button>
+        <button class="btn-action btn-guest-mode" onclick="setGuestMode()">👁️ Guest Mode</button>
         <button class="btn-action btn-amc-login" onclick="openOtpLogin('AMC')">👤 AMC Login</button>
         <button class="btn-action btn-hr-login" onclick="openOtpLogin('HR')">🛡️ HR Login</button>
       </div>
     </div>
   </header>
 
+  <!-- Hero Strip -->
   <section class="hero">
     <h1>Service Complaints, Sales Leads &amp; Project Trackers</h1>
-    <p>तक्रार निवारण, विक्री लीड्स आणि सोलर प्रोजेक्ट इन्स्टॉलेशन / डॉक्युमेंटेशन ट्रॅकर</p>
+    <p>ग्राहक तक्रार निवारण, विक्री लीड्स आणि सोलर प्रोजेक्ट इन्स्टॉलेशन / डॉक्युमेंटेशन ट्रॅकर</p>
     <div class="tab-nav">
       <button id="tabComplaintsBtn" class="tab-btn" onclick="switchTab('complaints')">🔧 Service Complaints</button>
       <button id="tabLeadsBtn" class="tab-btn" onclick="switchTab('leads')">📈 Sales Leads Tracker</button>
@@ -117,18 +466,20 @@
     </div>
   </section>
 
+  <!-- Main Body Content -->
   <div class="portal-container">
 
+    <!-- HR CONTROL WINDOW (Visible when logged in as HR) -->
     <div id="employerWindowCard" class="employer-window">
       <div class="employer-header">
-        <h2 style="font-size:15px; color:#facc15;">🛡️ Employer &amp; HR Admin Control Window</h2>
-        <div style="display:flex; gap:6px;">
+        <h2 style="font-size:15px; color:#facc15;">🛡️ Employer &amp; HR Admin Control Window (Authorized: 9175805804)</h2>
+        <div style="display:flex; gap:8px;">
           <button class="btn-action btn-complaint" onclick="openModal('complaintModal')">+ Complaint</button>
           <button class="btn-action btn-lead" onclick="openModal('leadModal')">+ Lead</button>
           <button class="btn-action" onclick="toggleEditAllSheets(true)" style="background:#facc15; color:#020408;">✏️ Edit Sheet1</button>
         </div>
       </div>
-      <p style="font-size:12px; color:#cbd5e1;">आपण HR Administrator म्हणून लॉगिन आहात. येथे सर्व तक्रारी, लीड्स आणि एक्सेल शीटमधील डेटा थेट एडिट करू शकता.</p>
+      <p style="font-size:12px; color:#cbd5e1;">आपण HR Administrator म्हणून लॉगिन आहात. येथे सर्व तक्रारींचे संपादन, डिलीट, HR Approval, सेल्स लीड्स व एक्सेल शीटमधील सर्व सेल थेट अपडेट करू शकता.</p>
       <div class="employer-stats">
         <div class="stat-card"><div class="title">Total Complaints</div><div class="number" id="statTotalComplaints">0</div></div>
         <div class="stat-card"><div class="title">Awaiting HR</div><div class="number" id="statAwaitingHr" style="color:#fde047;">0</div></div>
@@ -137,15 +488,16 @@
       </div>
     </div>
 
+    <!-- Active Session Toolbar -->
     <div class="toolbar-card">
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:12px; color:#94a3b8;">Active Session:</span>
         <span id="sessionBadge" class="badge-role guest">Guest Login (Read Only)</span>
       </div>
-      <div style="display:flex; gap:8px;">
-        <button id="exportMainBtn" class="btn-export" onclick="exportCurrentView()">📥 Export Excel</button>
+      <div style="display:flex; gap:8px; align-items:center;">
         <button id="saveAllSheetsBtn" class="excel-green-btn" style="display:none; background:#16a34a;" onclick="saveAllSheetsData()">💾 Save All Sheets</button>
-        <button id="logoutBtn" class="btn-logout" style="display:none;" onclick="logoutSession()">Logout</button>
+        <button class="btn-export" onclick="exportCurrentView()">📥 Export All Excel</button>
+        <button id="logoutBtn" class="btn-logout" style="display:none;" onclick="setGuestMode()">Logout</button>
       </div>
     </div>
 
@@ -184,21 +536,28 @@
       </div>
     </div>
 
-    <!-- 3. SHEET1 VIEW (MATCHING USER SCREENSHOT) -->
+    <!-- 3. SHEET1: INSTALLATION & DOCUMENTATION TRACKER -->
     <div id="sheetsSection" class="section-view active">
       <div class="excel-container">
         
+        <!-- Table 1: Technical -->
         <div class="excel-grid-title">
-          <span>📋 1. TECHNICAL / HARDWARE INSTALLATION (Book1 - Sheet1)[cite: 1]</span>
-          <button class="excel-green-btn" onclick="addTableRow('tech')" style="padding:2px 8px; font-size:10px;">+ Add Row</button>
+          <span>📋 1. TECHNICAL / HARDWARE INSTALLATION (Book1 - Sheet1)</span>
+          <button class="excel-green-btn" onclick="addTableRow('tech')" style="padding:3px 10px; font-size:11px;">+ Add Row</button>
         </div>
         <div class="table-wrapper">
           <table class="excel-table">
             <thead>
               <tr>
-                <th style="width:50px;">S.N.</th><th style="min-width:150px;">CUSTOMER NAME</th><th style="min-width:120px;">STRUCTURE</th>
-                <th style="min-width:120px;">INVERTER AC/DC</th><th style="min-width:90px;">WIRING</th><th style="min-width:90px;">EARTHING</th>
-                <th style="min-width:90px;">PANEL</th><th style="min-width:90px;">G METER</th><th style="min-width:90px;">N METER</th>
+                <th style="width:50px;">S.N.</th>
+                <th style="min-width:160px;">CUSTOMER NAME</th>
+                <th style="min-width:130px;">STRUCTURE</th>
+                <th style="min-width:130px;">INVERTER AC/DC</th>
+                <th style="min-width:100px;">WIRING</th>
+                <th style="min-width:100px;">EARTHING</th>
+                <th style="min-width:100px;">PANEL</th>
+                <th style="min-width:100px;">G METER</th>
+                <th style="min-width:100px;">N METER</th>
               </tr>
             </thead>
             <tbody id="techTableBody"></tbody>
@@ -206,21 +565,28 @@
         </div>
         <div class="excel-btn-bar">
           <input type="file" id="techCsvUpload" accept=".csv" style="display:none;" onchange="uploadTechCsv(event)" />
-          <button class="excel-green-btn" onclick="exportTechExcel()">DOWNLOAD EXCEL[cite: 1]</button>
-          <button class="excel-green-btn" onclick="document.getElementById('techCsvUpload').click()">UPLOAD CSV[cite: 1]</button>
+          <button class="excel-green-btn" onclick="exportTechExcel()">DOWNLOAD EXCEL</button>
+          <button class="excel-green-btn" onclick="document.getElementById('techCsvUpload').click()">UPLOAD CSV</button>
         </div>
 
+        <!-- Table 2: Documentation -->
         <div class="excel-grid-title">
-          <span>📑 2. DOCUMENTS &amp; METERING (Book1 - Sheet1)[cite: 1]</span>
-          <button class="excel-green-btn" onclick="addTableRow('doc')" style="padding:2px 8px; font-size:10px;">+ Add Row</button>
+          <span>📑 2. DOCUMENTS &amp; METERING (Book1 - Sheet1)</span>
+          <button class="excel-green-btn" onclick="addTableRow('doc')" style="padding:3px 10px; font-size:11px;">+ Add Row</button>
         </div>
         <div class="table-wrapper">
           <table class="excel-table">
             <thead>
               <tr>
-                <th style="width:50px;">S.N.</th><th style="min-width:150px;">CUSTOMER NAME</th><th style="min-width:180px;">DOCUMENTS (NAME/LOAD CHANGE)[cite: 1]</th>
-                <th style="min-width:120px;">INVERTER AC/DC</th><th style="min-width:90px;">WIRING</th><th style="min-width:90px;">EARTHING</th>
-                <th style="min-width:90px;">PANEL</th><th style="min-width:90px;">G METER</th><th style="min-width:90px;">N METER</th>
+                <th style="width:50px;">S.N.</th>
+                <th style="min-width:160px;">CUSTOMER NAME</th>
+                <th style="min-width:200px;">DOCUMENTS (NAME CHANGE / LOAD CHANGE)</th>
+                <th style="min-width:130px;">INVERTER AC/DC</th>
+                <th style="min-width:100px;">WIRING</th>
+                <th style="min-width:100px;">EARTHING</th>
+                <th style="min-width:100px;">PANEL</th>
+                <th style="min-width:100px;">G METER</th>
+                <th style="min-width:100px;">N METER</th>
               </tr>
             </thead>
             <tbody id="docTableBody"></tbody>
@@ -228,9 +594,9 @@
         </div>
         <div class="excel-btn-bar">
           <input type="file" id="docCsvUpload" accept=".csv" style="display:none;" onchange="uploadDocCsv(event)" />
-          <button class="excel-green-btn" onclick="exportDocExcel()">DOWNLOAD EXCEL[cite: 1]</button>
-          <button class="excel-green-btn" onclick="document.getElementById('docCsvUpload').click()">UPLOAD CSV[cite: 1]</button>
-          <button class="excel-green-btn" id="editAllBtn" onclick="toggleEditAllSheets()">EDIT ALL SHEETS[cite: 1]</button>
+          <button class="excel-green-btn" onclick="exportDocExcel()">DOWNLOAD EXCEL</button>
+          <button class="excel-green-btn" onclick="document.getElementById('docCsvUpload').click()">UPLOAD CSV</button>
+          <button class="excel-green-btn" id="editAllBtn" onclick="toggleEditAllSheets()">EDIT ALL SHEETS</button>
         </div>
 
       </div>
@@ -238,16 +604,25 @@
 
   </div>
 
-  <!-- MODALS -->
+  <!-- POPUP MODALS -->
+
   <!-- 1. COMPLAINT MODAL -->
   <div id="complaintModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-head"><h3>नवीन तक्रार नोंदणी</h3><button class="close-btn" onclick="closeModal('complaintModal')">&times;</button></div>
+      <div class="modal-head">
+        <h3>नवीन तक्रार नोंदणी</h3>
+        <button class="close-btn" onclick="closeModal('complaintModal')">&times;</button>
+      </div>
       <form onsubmit="submitNewComplaint(event)">
         <div class="form-group"><label>ग्राहक नाव *</label><input type="text" id="cName" required /></div>
-        <div class="form-group"><label>मोबाईल नंबर *</label><input type="tel" id="cPhone" required pattern="[0-9]{10}" /></div>
+        <div class="form-group"><label>मोबाईल नंबर *</label><input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="उदा. 9876543210" /></div>
         <div class="form-group"><label>प्रणाली प्रकार *</label>
-          <select id="cType"><option value="Rooftop Solar">Rooftop Solar</option><option value="LIFT UPS">LIFT UPS</option><option value="Battery/Inverter">Battery &amp; Inverter</option><option value="AMC Service">AMC Service</option></select>
+          <select id="cType">
+            <option value="Rooftop Solar">Rooftop Solar</option>
+            <option value="LIFT UPS">LIFT UPS</option>
+            <option value="Battery/Inverter">Battery &amp; Inverter</option>
+            <option value="AMC Service">AMC Service</option>
+          </select>
         </div>
         <div class="form-group"><label>तपशील *</label><textarea id="cMsg" rows="3" required></textarea></div>
         <button type="submit" class="btn-modal-submit" style="background:#ea580c;">तक्रार सेव्ह करा</button>
@@ -255,17 +630,25 @@
     </div>
   </div>
 
-  <!-- 2. LEAD MODAL -->
+  <!-- 2. SALES LEAD MODAL -->
   <div id="leadModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-head"><h3>नवीन विक्री लीड</h3><button class="close-btn" onclick="closeModal('leadModal')">&times;</button></div>
+      <div class="modal-head">
+        <h3>नवीन विक्री लीड</h3>
+        <button class="close-btn" onclick="closeModal('leadModal')">&times;</button>
+      </div>
       <form onsubmit="submitNewLead(event)">
-        <div class="form-group"><label>तारीख *</label><input type="date" id="leadDate" required /></div>
+        <div class="form-group"><label>तारीख *</label><input type="date" id="leadDate" required onchange="handleLeadDateChange('leadDate','lFollow')" /></div>
         <div class="form-group"><label>ग्राहक नाव *</label><input type="text" id="lName" required /></div>
         <div class="form-group"><label>मोबाईल नंबर *</label><input type="tel" id="lPhone" required pattern="[0-9]{10}" /></div>
         <div class="form-group"><label>पत्ता *</label><input type="text" id="lAddress" required /></div>
         <div class="form-group"><label>गरज / Requirement *</label>
-          <select id="lReq"><option value="3 kW Residential">3 kW Residential</option><option value="5 kW Residential">5 kW Residential</option><option value="Commercial Solar">Commercial Solar</option><option value="Lift UPS">Lift UPS</option></select>
+          <select id="lReq">
+            <option value="3 kW Residential">3 kW Residential Solar</option>
+            <option value="5 kW Residential">5 kW Residential Solar</option>
+            <option value="Commercial Solar">Commercial Solar</option>
+            <option value="Lift UPS">Lift UPS</option>
+          </select>
         </div>
         <div class="form-group"><label>शेरा / Remark *</label><textarea id="lRemark" rows="2" required></textarea></div>
         <div class="form-group"><label>पुढील पाठपुरावा (+10 Days) *</label><input type="date" id="lFollow" required /></div>
@@ -274,20 +657,23 @@
     </div>
   </div>
 
-  <!-- 3. OTP LOGIN MODAL (ANY 10-DIGIT NUMBER ENDING WITH 5804) -->
+  <!-- 3. OTP LOGIN MODAL (ACCEPTS 9175805804 OR ANY NUMBER ENDING WITH 804) -->
   <div id="otpModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-head"><h3 id="otpTitle">सुरक्षित लॉगिन</h3><button class="close-btn" onclick="closeModal('otpModal')">&times;</button></div>
+      <div class="modal-head">
+        <h3 id="otpModalTitle">सुरक्षित लॉगिन</h3>
+        <button class="close-btn" onclick="closeModal('otpModal')">&times;</button>
+      </div>
       <input type="hidden" id="loginRole" />
       <div class="form-group">
-        <label>नोंदणीकृत 10-अंकी मोबाईल नंबर:</label>
-        <input type="tel" id="loginMobile" maxlength="10" placeholder="10-अंकी नंबर प्रविष्ट करा" />
-        <small id="loginNote" style="color:#94a3b8; font-size:11px;"></small>
+        <label id="loginMobileLabel">नोंदणीकृत 10-अंकी मोबाईल नंबर:</label>
+        <input type="tel" id="loginMobile" maxlength="10" placeholder="उदा. 9175805804" />
+        <small id="loginNote" style="color:#94a3b8; font-size:11px; display:block; margin-top:4px;"></small>
       </div>
       <button type="button" class="btn-otp-req" onclick="sendOtp()">📲 Get OTP on WhatsApp</button>
       <div class="form-group">
         <label>WhatsApp वर आलेला 4-अंकी OTP टाका:</label>
-        <input type="text" id="enteredOtp" maxlength="4" style="text-align:center; font-size:18px; font-weight:bold; letter-spacing:4px;" />
+        <input type="text" id="enteredOtp" maxlength="4" placeholder="4-अंकी OTP" style="text-align:center; font-size:18px; font-weight:bold; letter-spacing:4px;" />
       </div>
       <button type="button" class="btn-modal-submit" style="background:#0284c7;" onclick="verifyOtp()">Verify OTP &amp; Login</button>
     </div>
@@ -296,7 +682,10 @@
   <!-- 4. EDIT COMPLAINT MODAL -->
   <div id="editCompModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-head"><h3>तक्रार संपादन</h3><button class="close-btn" onclick="closeModal('editCompModal')">&times;</button></div>
+      <div class="modal-head">
+        <h3>तक्रार संपादन (Edit Complaint)</h3>
+        <button class="close-btn" onclick="closeModal('editCompModal')">&times;</button>
+      </div>
       <form onsubmit="saveEditedComplaint(event)">
         <input type="hidden" id="ecIndex" />
         <div class="form-group"><label>ग्राहक नाव</label><input type="text" id="ecName" required /></div>
@@ -310,7 +699,10 @@
   <!-- 5. EDIT LEAD MODAL -->
   <div id="editLeadModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-head"><h3>लीड संपादन</h3><button class="close-btn" onclick="closeModal('editLeadModal')">&times;</button></div>
+      <div class="modal-head">
+        <h3>लीड संपादन (Edit Lead)</h3>
+        <button class="close-btn" onclick="closeModal('editLeadModal')">&times;</button>
+      </div>
       <form onsubmit="saveEditedLead(event)">
         <input type="hidden" id="elIndex" />
         <div class="form-group"><label>ग्राहक नाव</label><input type="text" id="elName" required /></div>
@@ -324,259 +716,365 @@
   </div>
 
   <script>
-    // FAIL-SAFE DATA LAYER
-    const mem = {};
-    function sGet(k, d) {
+    // WINDOW LEVEL GLOBAL DATA & SAFE STORAGE
+    window.currentRole = 'GUEST';
+    window.isEditingSheets = false;
+    window.generatedOtp = '';
+
+    window.openModal = function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.classList.add('active');
+        el.style.display = 'flex';
+      }
+    };
+
+    window.closeModal = function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.classList.remove('active');
+        el.style.display = 'none';
+      }
+    };
+
+    window.onclick = function(e) {
+      if (e.target && e.target.classList && e.target.classList.contains('modal-overlay')) {
+        e.target.classList.remove('active');
+        e.target.style.display = 'none';
+      }
+    };
+
+    function safeGet(key, fallback) {
       try {
-        const v = localStorage.getItem(k);
-        return v ? JSON.parse(v) : (mem[k] || d);
-      } catch(e) { return mem[k] || d; }
-    }
-    function sSet(k, v) {
-      mem[k] = v;
-      try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {}
-    }
-
-    let role = 'GUEST';
-    let editSheets = false;
-    let generatedOtp = '';
-
-    function initData() {
-      if (!sGet('c_list', null)) {
-        sSet('c_list', [
-          { date:"29/10/2026", id:"DIP-101", name:"Suresh Patil", phone:"9822011223", type:"Rooftop Solar", msg:"Inverter generation issue", amc:true, hr:true, status:"Resolved" },
-          { date:"29/10/2026", id:"DIP-102", name:"Ganesh Enterprises", phone:"9423188776", type:"LIFT UPS", msg:"Backup dropping quickly", amc:true, hr:false, status:"Pending (AMC Solved)" }
-        ]);
-      }
-      if (!sGet('l_list', null)) {
-        sSet('l_list', [
-          { date:"29/10/2026", name:"Mahesh Deshmukh", phone:"9823145678", addr:"Gangapur Road, Nashik", req:"5 kW Residential", remark:"Quotation sent on WhatsApp", follow:"2026-11-08" }
-        ]);
-      }
-      if (!sGet('t_sheet', null)) {
-        const t = [];
-        for (let i = 1; i <= 10; i++) {
-          t.push({ sn: i, name: i === 1 ? "Suresh Patil" : (i === 2 ? "Ganesh Enterprises" : ""), struct: i === 1 ? "Completed" : "", inv: i === 1 ? "Installed" : "", wire: i === 1 ? "Done" : "", earth: i === 1 ? "Done" : "", panel: i === 1 ? "10 Panels" : "", gmet: i === 1 ? "Pending" : "", nmet: i === 1 ? "Applied" : "" });
+        var v = localStorage.getItem(key);
+        if (v) {
+          var parsed = JSON.parse(v);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         }
-        sSet('t_sheet', t);
-      }
-      if (!sGet('d_sheet', null)) {
-        const d = [];
-        for (let i = 1; i <= 10; i++) {
-          d.push({ sn: i, name: i === 1 ? "Suresh Patil" : "", doc: i === 1 ? "Name Change: OK | Load: OK" : "", inv: i === 1 ? "OK" : "", wire: i === 1 ? "OK" : "", earth: i === 1 ? "OK" : "", panel: i === 1 ? "OK" : "", gmet: i === 1 ? "Applied" : "", nmet: i === 1 ? "In Process" : "" });
-        }
-        sSet('d_sheet', d);
-      }
+      } catch (err) {}
+      return fallback;
     }
 
-    function switchTab(t) {
-      document.getElementById('complaintsSection').classList.toggle('active', t === 'complaints');
-      document.getElementById('leadsSection').classList.toggle('active', t === 'leads');
-      document.getElementById('sheetsSection').classList.toggle('active', t === 'sheets');
-
-      document.getElementById('tabComplaintsBtn').classList.toggle('active', t === 'complaints');
-      document.getElementById('tabLeadsBtn').classList.toggle('active', t === 'leads');
-      document.getElementById('tabSheetsBtn').classList.toggle('active', t === 'sheets');
+    function safeSet(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (err) {}
     }
 
-    function renderAll() {
+    // DEFAULT DATA INITIALIZATION (10 ROWS INCLUDED)
+    function getInitialTech() {
+      var arr = [];
+      for (var i = 1; i <= 10; i++) {
+        arr.push({
+          sn: i,
+          name: i === 1 ? "Suresh Patil" : (i === 2 ? "Ganesh Enterprises" : ""),
+          struct: i === 1 ? "Completed" : (i === 2 ? "In Progress" : ""),
+          inv: i === 1 ? "Installed" : "",
+          wire: i === 1 ? "Done" : "",
+          earth: i === 1 ? "Done" : "",
+          panel: i === 1 ? "10 Panels" : "",
+          gmet: i === 1 ? "Pending" : "",
+          nmet: i === 1 ? "Applied" : ""
+        });
+      }
+      return arr;
+    }
+
+    function getInitialDoc() {
+      var arr = [];
+      for (var i = 1; i <= 10; i++) {
+        arr.push({
+          sn: i,
+          name: i === 1 ? "Suresh Patil" : "",
+          doc: i === 1 ? "Name Change: OK | Load: OK" : "",
+          inv: i === 1 ? "OK" : "",
+          wire: i === 1 ? "OK" : "",
+          earth: i === 1 ? "OK" : "",
+          panel: i === 1 ? "OK" : "",
+          gmet: i === 1 ? "Applied" : "",
+          nmet: i === 1 ? "In Process" : ""
+        });
+      }
+      return arr;
+    }
+
+    // TAB SWITCHER
+    window.switchTab = function(tabName) {
+      document.getElementById('complaintsSection').classList.toggle('active', tabName === 'complaints');
+      document.getElementById('leadsSection').classList.toggle('active', tabName === 'leads');
+      document.getElementById('sheetsSection').classList.toggle('active', tabName === 'sheets');
+
+      document.getElementById('tabComplaintsBtn').classList.toggle('active', tabName === 'complaints');
+      document.getElementById('tabLeadsBtn').classList.toggle('active', tabName === 'leads');
+      document.getElementById('tabSheetsBtn').classList.toggle('active', tabName === 'sheets');
+    };
+
+    // RENDER FUNCTIONS
+    window.renderAll = function() {
       renderComplaints();
       renderLeads();
       renderTech();
       renderDoc();
       updateStats();
-    }
+    };
 
     function renderComplaints() {
-      const list = sGet('c_list', []);
-      const tb = document.getElementById('complaintsTableBody');
+      var list = safeGet('c_list', [
+        { date: "29/10/2026", id: "DIP-1021", name: "Suresh Patil", phone: "9822011223", type: "Rooftop Solar", msg: "Inverter generation issue", amc: true, hr: true, status: "Resolved" },
+        { date: "29/10/2026", id: "DIP-1022", name: "Ganesh Enterprises", phone: "9423188776", type: "LIFT UPS", msg: "Backup dropping quickly", amc: true, hr: false, status: "Pending (AMC Solved)" }
+      ]);
+      safeSet('c_list', list);
+
+      var tb = document.getElementById('complaintsTableBody');
+      if (!tb) return;
       tb.innerHTML = '';
-      if (!list.length) { tb.innerHTML = `<tr><td colspan="10" style="text-align:center;">कोणतीही तक्रार नोंदवलेली नाही.</td></tr>`; return; }
 
-      list.forEach((c, i) => {
-        const amcBtn = (role === 'AMC' || role === 'HR') 
-          ? `<button class="btn-action" style="background:#0284c7; padding:3px 7px; font-size:10px;" onclick="toggleAmc(${i})">${c.amc ? '✓ Solved' : 'Mark Solved'}</button>`
-          : `<span style="color:${c.amc?'#38bdf8':'#ea580c'}">${c.amc?'Solved ✓':'Pending'}</span>`;
-        
-        const hrBtn = (role === 'HR')
-          ? `<button class="btn-action" style="background:#16a34a; padding:3px 7px; font-size:10px;" onclick="toggleHr(${i})">${c.hr ? '✓ Approved' : 'Approve'}</button>`
-          : `<span style="color:${c.hr?'#4ade80':'#94a3b8'}">${c.hr?'Approved ✓':'Wait HR'}</span>`;
+      list.forEach(function(c, i) {
+        var amcBtn = (window.currentRole === 'AMC' || window.currentRole === 'HR')
+          ? '<button class="btn-action" style="background:#0284c7; padding:4px 8px; font-size:11px;" onclick="toggleAmc(' + i + ')">' + (c.amc ? '✓ Solved' : 'Mark Solved') + '</button>'
+          : '<span style="color:' + (c.amc ? '#38bdf8' : '#ea580c') + '; font-weight:bold;">' + (c.amc ? 'Solved ✓' : 'Pending') + '</span>';
 
-        const act = (role === 'HR')
-          ? `<button onclick="openEditComp(${i})" style="background:#d97706; color:#fff; border:none; padding:3px 6px; border-radius:3px; cursor:pointer;">Edit</button> <button onclick="delComp(${i})" style="background:#dc2626; color:#fff; border:none; padding:3px 6px; border-radius:3px; cursor:pointer;">Del</button>`
+        var hrBtn = (window.currentRole === 'HR')
+          ? '<button class="btn-action" style="background:#16a34a; padding:4px 8px; font-size:11px;" onclick="toggleHr(' + i + ')">' + (c.hr ? '✓ Approved' : 'Approve') + '</button>'
+          : '<span style="color:' + (c.hr ? '#4ade80' : '#94a3b8') + '; font-weight:bold;">' + (c.hr ? 'Approved ✓' : 'Wait HR') + '</span>';
+
+        var act = (window.currentRole === 'HR')
+          ? '<button onclick="openEditComp(' + i + ')" style="background:#d97706; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Edit</button> <button onclick="delComp(' + i + ')" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Del</button>'
           : '-';
 
-        tb.innerHTML += `<tr>
-          <td>${c.date}</td><td><strong style="color:#facc15;">${c.id}</strong></td>
-          <td>${c.name}</td><td><a href="tel:${c.phone}" style="color:#38bdf8; text-decoration:none;">${c.phone}</a></td>
-          <td>${c.type}</td><td>${c.msg}</td><td>${amcBtn}</td><td>${hrBtn}</td>
-          <td><span class="status-badge ${c.status==='Resolved'?'status-resolved':(c.amc?'status-solved-amc':'status-pending')}">${c.status}</span></td>
-          <td>${act}</td>
-        </tr>`;
+        var badgeClass = (c.status === 'Resolved') ? 'status-resolved' : (c.amc ? 'status-solved-amc' : 'status-pending');
+
+        tb.innerHTML += '<tr>' +
+          '<td>' + c.date + '</td>' +
+          '<td><strong style="color:#facc15;">' + c.id + '</strong></td>' +
+          '<td>' + c.name + '</td>' +
+          '<td><a href="tel:' + c.phone + '" style="color:#38bdf8; text-decoration:none;">📞 ' + c.phone + '</a></td>' +
+          '<td>' + c.type + '</td>' +
+          '<td>' + c.msg + '</td>' +
+          '<td>' + amcBtn + '</td>' +
+          '<td>' + hrBtn + '</td>' +
+          '<td><span class="status-badge ' + badgeClass + '">' + c.status + '</span></td>' +
+          '<td>' + act + '</td>' +
+        '</tr>';
       });
     }
 
     function renderLeads() {
-      const list = sGet('l_list', []);
-      const tb = document.getElementById('leadsTableBody');
-      tb.innerHTML = '';
-      if (!list.length) { tb.innerHTML = `<tr><td colspan="8" style="text-align:center;">कोणतीही लीड उपलब्ध नाही.</td></tr>`; return; }
+      var list = safeGet('l_list', [
+        { date: "29/10/2026", name: "Mahesh Deshmukh", phone: "9823145678", addr: "Gangapur Road, Nashik", req: "5 kW Residential Solar", remark: "Quotation sent on WhatsApp", follow: "2026-11-08" }
+      ]);
+      safeSet('l_list', list);
 
-      list.forEach((l, i) => {
-        const act = (role === 'HR')
-          ? `<button onclick="openEditLead(${i})" style="background:#d97706; color:#fff; border:none; padding:3px 6px; border-radius:3px; cursor:pointer;">Edit</button> <button onclick="delLead(${i})" style="background:#dc2626; color:#fff; border:none; padding:3px 6px; border-radius:3px; cursor:pointer;">Del</button>`
+      var tb = document.getElementById('leadsTableBody');
+      if (!tb) return;
+      tb.innerHTML = '';
+
+      list.forEach(function(l, i) {
+        var act = (window.currentRole === 'HR')
+          ? '<button onclick="openEditLead(' + i + ')" style="background:#d97706; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Edit</button> <button onclick="delLead(' + i + ')" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Del</button>'
           : '-';
-        tb.innerHTML += `<tr>
-          <td>${l.date}</td><td><strong style="color:#f8fafc;">${l.name}</strong></td>
-          <td><a href="tel:${l.phone}" style="color:#38bdf8; text-decoration:none;">${l.phone}</a></td>
-          <td>${l.addr}</td><td><span style="color:#facc15;">${l.req}</span></td>
-          <td>${l.remark}</td><td><span style="background:#422006; color:#fde047; padding:2px 6px; border-radius:3px;">${l.follow}</span></td>
-          <td>${act}</td>
-        </tr>`;
+
+        tb.innerHTML += '<tr>' +
+          '<td>' + l.date + '</td>' +
+          '<td><strong>' + l.name + '</strong></td>' +
+          '<td><a href="tel:' + l.phone + '" style="color:#38bdf8; text-decoration:none;">📞 ' + l.phone + '</a></td>' +
+          '<td>' + l.addr + '</td>' +
+          '<td><span style="color:#facc15; font-weight:bold;">' + l.req + '</span></td>' +
+          '<td>' + l.remark + '</td>' +
+          '<td><span style="background:#422006; color:#fde047; padding:2px 8px; border-radius:4px; font-weight:bold;">' + l.follow + '</span></td>' +
+          '<td>' + act + '</td>' +
+        '</tr>';
       });
     }
 
     function renderTech() {
-      const list = sGet('t_sheet', []);
-      const tb = document.getElementById('techTableBody');
+      var list = safeGet('t_sheet', getInitialTech());
+      safeSet('t_sheet', list);
+
+      var tb = document.getElementById('techTableBody');
+      if (!tb) return;
       tb.innerHTML = '';
-      list.forEach((r, i) => {
-        if (editSheets && role === 'HR') {
-          tb.innerHTML += `<tr>
-            <td style="text-align:center;">${r.sn}</td>
-            <td><input class="excel-input" value="${r.name||''}" onchange="upTech(${i},'name',this.value)"/></td>
-            <td><input class="excel-input" value="${r.struct||''}" onchange="upTech(${i},'struct',this.value)"/></td>
-            <td><input class="excel-input" value="${r.inv||''}" onchange="upTech(${i},'inv',this.value)"/></td>
-            <td><input class="excel-input" value="${r.wire||''}" onchange="upTech(${i},'wire',this.value)"/></td>
-            <td><input class="excel-input" value="${r.earth||''}" onchange="upTech(${i},'earth',this.value)"/></td>
-            <td><input class="excel-input" value="${r.panel||''}" onchange="upTech(${i},'panel',this.value)"/></td>
-            <td><input class="excel-input" value="${r.gmet||''}" onchange="upTech(${i},'gmet',this.value)"/></td>
-            <td><input class="excel-input" value="${r.nmet||''}" onchange="upTech(${i},'nmet',this.value)"/></td>
-          </tr>`;
+
+      list.forEach(function(r, i) {
+        if (window.isEditingSheets && window.currentRole === 'HR') {
+          tb.innerHTML += '<tr>' +
+            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
+            '<td><input class="excel-input" value="' + (r.name||'') + '" onchange="upTech(' + i + ',\'name\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.struct||'') + '" onchange="upTech(' + i + ',\'struct\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.inv||'') + '" onchange="upTech(' + i + ',\'inv\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.wire||'') + '" onchange="upTech(' + i + ',\'wire\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.earth||'') + '" onchange="upTech(' + i + ',\'earth\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.panel||'') + '" onchange="upTech(' + i + ',\'panel\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.gmet||'') + '" onchange="upTech(' + i + ',\'gmet\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.nmet||'') + '" onchange="upTech(' + i + ',\'nmet\',this.value)"/></td>' +
+          '</tr>';
         } else {
-          tb.innerHTML += `<tr>
-            <td style="text-align:center;">${r.sn}</td><td>${r.name||''}</td><td>${r.struct||''}</td>
-            <td>${r.inv||''}</td><td>${r.wire||''}</td><td>${r.earth||''}</td><td>${r.panel||''}</td>
-            <td>${r.gmet||''}</td><td>${r.nmet||''}</td>
-          </tr>`;
+          tb.innerHTML += '<tr>' +
+            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
+            '<td>' + (r.name||'') + '</td>' +
+            '<td>' + (r.struct||'') + '</td>' +
+            '<td>' + (r.inv||'') + '</td>' +
+            '<td>' + (r.wire||'') + '</td>' +
+            '<td>' + (r.earth||'') + '</td>' +
+            '<td>' + (r.panel||'') + '</td>' +
+            '<td>' + (r.gmet||'') + '</td>' +
+            '<td>' + (r.nmet||'') + '</td>' +
+          '</tr>';
         }
       });
     }
 
     function renderDoc() {
-      const list = sGet('d_sheet', []);
-      const tb = document.getElementById('docTableBody');
+      var list = safeGet('d_sheet', getInitialDoc());
+      safeSet('d_sheet', list);
+
+      var tb = document.getElementById('docTableBody');
+      if (!tb) return;
       tb.innerHTML = '';
-      list.forEach((r, i) => {
-        if (editSheets && role === 'HR') {
-          tb.innerHTML += `<tr>
-            <td style="text-align:center;">${r.sn}</td>
-            <td><input class="excel-input" value="${r.name||''}" onchange="upDoc(${i},'name',this.value)"/></td>
-            <td><input class="excel-input" value="${r.doc||''}" onchange="upDoc(${i},'doc',this.value)"/></td>
-            <td><input class="excel-input" value="${r.inv||''}" onchange="upDoc(${i},'inv',this.value)"/></td>
-            <td><input class="excel-input" value="${r.wire||''}" onchange="upDoc(${i},'wire',this.value)"/></td>
-            <td><input class="excel-input" value="${r.earth||''}" onchange="upDoc(${i},'earth',this.value)"/></td>
-            <td><input class="excel-input" value="${r.panel||''}" onchange="upDoc(${i},'panel',this.value)"/></td>
-            <td><input class="excel-input" value="${r.gmet||''}" onchange="upDoc(${i},'gmet',this.value)"/></td>
-            <td><input class="excel-input" value="${r.nmet||''}" onchange="upDoc(${i},'nmet',this.value)"/></td>
-          </tr>`;
+
+      list.forEach(function(r, i) {
+        if (window.isEditingSheets && window.currentRole === 'HR') {
+          tb.innerHTML += '<tr>' +
+            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
+            '<td><input class="excel-input" value="' + (r.name||'') + '" onchange="upDoc(' + i + ',\'name\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.doc||'') + '" onchange="upDoc(' + i + ',\'doc\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.inv||'') + '" onchange="upDoc(' + i + ',\'inv\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.wire||'') + '" onchange="upDoc(' + i + ',\'wire\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.earth||'') + '" onchange="upDoc(' + i + ',\'earth\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.panel||'') + '" onchange="upDoc(' + i + ',\'panel\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.gmet||'') + '" onchange="upDoc(' + i + ',\'gmet\',this.value)"/></td>' +
+            '<td><input class="excel-input" value="' + (r.nmet||'') + '" onchange="upDoc(' + i + ',\'nmet\',this.value)"/></td>' +
+          '</tr>';
         } else {
-          tb.innerHTML += `<tr>
-            <td style="text-align:center;">${r.sn}</td><td>${r.name||''}</td><td>${r.doc||''}</td>
-            <td>${r.inv||''}</td><td>${r.wire||''}</td><td>${r.earth||''}</td><td>${r.panel||''}</td>
-            <td>${r.gmet||''}</td><td>${r.nmet||''}</td>
-          </tr>`;
+          tb.innerHTML += '<tr>' +
+            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
+            '<td>' + (r.name||'') + '</td>' +
+            '<td>' + (r.doc||'') + '</td>' +
+            '<td>' + (r.inv||'') + '</td>' +
+            '<td>' + (r.wire||'') + '</td>' +
+            '<td>' + (r.earth||'') + '</td>' +
+            '<td>' + (r.panel||'') + '</td>' +
+            '<td>' + (r.gmet||'') + '</td>' +
+            '<td>' + (r.nmet||'') + '</td>' +
+          '</tr>';
         }
       });
     }
 
-    function upTech(i, k, v) { const l = sGet('t_sheet',[]); l[i][k] = v; sSet('t_sheet', l); }
-    function upDoc(i, k, v) { const l = sGet('d_sheet',[]); l[i][k] = v; sSet('d_sheet', l); }
+    window.upTech = function(i, k, v) {
+      var l = safeGet('t_sheet', getInitialTech());
+      if (l[i]) { l[i][k] = v; safeSet('t_sheet', l); }
+    };
 
-    function toggleEditAllSheets(force) {
-      if (role !== 'HR') {
-        alert("Edit All Sheets फक्त HR लॉगिननेच शक्य आहे!");
+    window.upDoc = function(i, k, v) {
+      var l = safeGet('d_sheet', getInitialDoc());
+      if (l[i]) { l[i][k] = v; safeSet('d_sheet', l); }
+    };
+
+    window.toggleEditAllSheets = function(force) {
+      if (window.currentRole !== 'HR') {
+        alert("माहिती संपादन फक्त HR लॉगिन (9175805804 किंवा 804 ने संपणारे नंबर) करूनच शक्य आहे!");
         openOtpLogin('HR');
         return;
       }
-      editSheets = (typeof force === 'boolean') ? force : !editSheets;
-      document.getElementById('saveAllSheetsBtn').style.display = editSheets ? 'inline-block' : 'none';
-      document.getElementById('editAllBtn').innerText = editSheets ? 'EXIT EDIT MODE' : 'EDIT ALL SHEETS';
+      window.isEditingSheets = (typeof force === 'boolean') ? force : !window.isEditingSheets;
+      document.getElementById('saveAllSheetsBtn').style.display = window.isEditingSheets ? 'inline-block' : 'none';
+      document.getElementById('editAllBtn').innerText = window.isEditingSheets ? 'EXIT EDIT MODE' : 'EDIT ALL SHEETS';
       renderTech();
       renderDoc();
-    }
+    };
 
-    function saveAllSheetsData() {
-      editSheets = false;
+    window.saveAllSheetsData = function() {
+      window.isEditingSheets = false;
       document.getElementById('saveAllSheetsBtn').style.display = 'none';
       document.getElementById('editAllBtn').innerText = 'EDIT ALL SHEETS';
       renderTech();
       renderDoc();
       updateStats();
-      alert("सर्व शीट्स यशस्वीरित्या सेव्ह झाल्या!");
-    }
+      alert("सर्व एक्सेल शीट्सची माहिती सुरक्षितपणे सेव्ह झाली!");
+    };
 
-    function addTableRow(type) {
-      if (role !== 'HR') { alert("केवळ HR लॉगिनमध्येच नवीन रो जोडता येते."); openOtpLogin('HR'); return; }
-      if (type === 'tech') {
-        const l = sGet('t_sheet', []);
-        l.push({ sn: l.length + 1, name:"", struct:"", inv:"", wire:"", earth:"", panel:"", gmet:"", nmet:"" });
-        sSet('t_sheet', l);
-      } else {
-        const l = sGet('d_sheet', []);
-        l.push({ sn: l.length + 1, name:"", doc:"", inv:"", wire:"", earth:"", panel:"", gmet:"", nmet:"" });
-        sSet('d_sheet', l);
+    window.addTableRow = function(type) {
+      if (window.currentRole !== 'HR') {
+        alert("नवीन रो जोडण्याचा अधिकार फक्त HR लॉगिनमध्ये उपलब्ध आहे.");
+        openOtpLogin('HR');
+        return;
       }
-      toggleEditAllSheets(true);
-    }
+      if (type === 'tech') {
+        var lt = safeGet('t_sheet', getInitialTech());
+        lt.push({ sn: lt.length + 1, name: "", struct: "", inv: "", wire: "", earth: "", panel: "", gmet: "", nmet: "" });
+        safeSet('t_sheet', lt);
+      } else {
+        var ld = safeGet('d_sheet', getInitialDoc());
+        ld.push({ sn: ld.length + 1, name: "", doc: "", inv: "", wire: "", earth: "", panel: "", gmet: "", nmet: "" });
+        safeSet('d_sheet', ld);
+      }
+      window.toggleEditAllSheets(true);
+    };
 
-    // AUTHENTICATION
-    function openOtpLogin(r) {
+    // AUTHENTICATION LOGIC (HR: 9175805804 OR ANY 10-DIGIT NUMBER ENDING WITH 804)
+    window.openOtpLogin = function(r) {
       document.getElementById('loginRole').value = r;
-      document.getElementById('loginMobile').value = '';
+      var mob = document.getElementById('loginMobile');
+      var note = document.getElementById('loginNote');
       document.getElementById('enteredOtp').value = '';
-      generatedOtp = '';
+      window.generatedOtp = '';
 
       if (r === 'HR') {
-        document.getElementById('otpTitle').innerText = "HR Login (Authorized Access)";
-        document.getElementById('loginNote').innerText = "🔐 5804 ने समाप्त होणारा कोणताही 10-अंकी मोबाईल नंबर वापरा (उदा. 9175805804).";
+        document.getElementById('otpModalTitle').innerText = "🛡️ HR Login (Authorized)";
+        mob.value = "9175805804";
+        note.innerHTML = "🔐 <strong>नियम:</strong> 9175805804 किंवा 804 ने समाप्त होणारा कोणताही 10-अंकी मोबाईल नंबर वापरा.";
       } else {
-        document.getElementById('otpTitle').innerText = "AMC Login";
-        document.getElementById('loginNote').innerText = "नोंदणीकृत 10-अंकी मोबाईल नंबर प्रविष्ट करा.";
+        document.getElementById('otpModalTitle').innerText = "👤 AMC Staff Login";
+        mob.value = "9022255373";
+        note.innerHTML = "📱 नोंदणीकृत 10-अंकी मोबाईल नंबर प्रविष्ट करा.";
       }
       openModal('otpModal');
-    }
+    };
 
-    function sendOtp() {
-      const r = document.getElementById('loginRole').value;
-      const ph = document.getElementById('loginMobile').value.trim();
+    window.sendOtp = function() {
+      var r = document.getElementById('loginRole').value;
+      var ph = document.getElementById('loginMobile').value.trim();
 
-      if (!/^\d{10}$/.test(ph)) { alert("कृपया वैध 10-अंकी मोबाईल नंबर प्रविष्ट करा!"); return; }
-      if (r === 'HR' && !ph.endsWith("5804")) {
-        alert("प्रवेश नाकारला! HR लॉगिनसाठी नंबरचा शेवट 5804 असणे आवश्यक आहे (उदा. 9175805804).");
+      if (!/^\d{10}$/.test(ph)) {
+        alert("कृपया वैध 10-अंकी मोबाईल नंबर प्रविष्ट करा!");
         return;
       }
 
-      generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-      const msg = `*DIP URJA CRM*%0AYour Login Verification OTP is: *${generatedOtp}*`;
-      window.open(`https://wa.me/91${ph}?text=${msg}`, '_blank');
-      alert(`OTP पाठवला गेला आहे! WhatsApp तपासा आणि OTP प्रविष्ट करा.`);
-    }
+      if (r === 'HR') {
+        // Validation: Must end with 804 (Specifically 9175805804 or any ending with 804)
+        if (!ph.endsWith("804")) {
+          alert("प्रवेश नाकारला! HR लॉगिनसाठी नंबरचा शेवट 804 असणे आवश्यक आहे (उदा. 9175805804).");
+          return;
+        }
+      }
 
-    function verifyOtp() {
-      const e = document.getElementById('enteredOtp').value.trim();
-      const r = document.getElementById('loginRole').value;
+      window.generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      var msg = "*DIP URJA CRM*%0AYour Login OTP is: *" + window.generatedOtp + "*";
 
-      if (!generatedOtp) { alert("कृपया प्रथम Get OTP बटणावर क्लिक करा."); return; }
-      if (e === generatedOtp) {
-        role = r;
-        if (role === 'HR') {
-          document.getElementById('sessionBadge').innerText = "HR Admin (Full Access)";
+      window.open("https://wa.me/91" + ph + "?text=" + msg, "_blank");
+      alert("OTP WhatsApp वर पाठवला गेला आहे!\n\n(सोयीसाठी आपला OTP: " + window.generatedOtp + ")");
+    };
+
+    window.verifyOtp = function() {
+      var ent = document.getElementById('enteredOtp').value.trim();
+      var r = document.getElementById('loginRole').value;
+      var ph = document.getElementById('loginMobile').value.trim();
+
+      if (!window.generatedOtp) {
+        alert("कृपया आधी 'Get OTP on WhatsApp' बटणावर क्लिक करा.");
+        return;
+      }
+
+      if (ent === window.generatedOtp) {
+        window.currentRole = r;
+        if (r === 'HR') {
+          document.getElementById('sessionBadge').innerText = "HR Admin (" + ph + ")";
           document.getElementById('sessionBadge').className = "badge-role hr";
           document.getElementById('employerWindowCard').classList.add('active');
-          alert("HR Admin म्हणून यशस्वी लॉगिन झाले! सर्व Edit अधिकार प्राप्त झाले.");
+          alert("अभिनंदन! HR Admin (" + ph + ") म्हणून यशस्वी लॉगिन झाले. सर्व संपादन (Edit) अधिकार चालू झाले.");
         } else {
-          document.getElementById('sessionBadge').innerText = "AMC Staff";
+          document.getElementById('sessionBadge').innerText = "AMC Staff (" + ph + ")";
           document.getElementById('sessionBadge').className = "badge-role amc";
           document.getElementById('employerWindowCard').classList.remove('active');
           alert("AMC Staff म्हणून लॉगिन झाले.");
@@ -587,51 +1085,68 @@
       } else {
         alert("चुकीचा OTP! कृपया पुन्हा प्रयत्न करा.");
       }
-    }
+    };
 
-    function logoutSession() {
-      role = 'GUEST';
-      editSheets = false;
+    window.setGuestMode = function() {
+      window.currentRole = 'GUEST';
+      window.isEditingSheets = false;
       document.getElementById('sessionBadge').innerText = "Guest Login (Read Only)";
       document.getElementById('sessionBadge').className = "badge-role guest";
       document.getElementById('employerWindowCard').classList.remove('active');
       document.getElementById('logoutBtn').style.display = 'none';
       document.getElementById('saveAllSheetsBtn').style.display = 'none';
+      document.getElementById('editAllBtn').innerText = 'EDIT ALL SHEETS';
       renderAll();
-      alert("लॉगआउट झाले.");
-    }
+      alert("आपण आता Guest Mode मध्ये आहात. सर्व माहिती Read Only स्वरूपात दिसेल.");
+    };
 
-    function toggleAmc(i) {
-      const l = sGet('c_list', []);
-      l[i].amc = !l[i].amc;
-      l[i].status = l[i].amc ? (l[i].hr ? 'Resolved' : 'Pending (AMC Solved)') : 'Pending';
-      sSet('c_list', l); renderComplaints(); updateStats();
-    }
+    // ACTION HANDLERS
+    window.toggleAmc = function(i) {
+      var l = safeGet('c_list', []);
+      if (l[i]) {
+        l[i].amc = !l[i].amc;
+        l[i].status = l[i].amc ? (l[i].hr ? 'Resolved' : 'Pending (AMC Solved)') : 'Pending';
+        safeSet('c_list', l);
+        renderComplaints();
+        updateStats();
+      }
+    };
 
-    function toggleHr(i) {
-      const l = sGet('c_list', []);
-      l[i].hr = !l[i].hr;
-      l[i].status = l[i].hr ? 'Resolved' : (l[i].amc ? 'Pending (AMC Solved)' : 'Pending');
-      sSet('c_list', l); renderComplaints(); updateStats();
-    }
+    window.toggleHr = function(i) {
+      var l = safeGet('c_list', []);
+      if (l[i]) {
+        l[i].hr = !l[i].hr;
+        l[i].status = l[i].hr ? 'Resolved' : (l[i].amc ? 'Pending (AMC Solved)' : 'Pending');
+        safeSet('c_list', l);
+        renderComplaints();
+        updateStats();
+      }
+    };
 
-    function delComp(i) {
+    window.delComp = function(i) {
       if (confirm("ही तक्रार हटवायची आहे का?")) {
-        const l = sGet('c_list', []); l.splice(i, 1); sSet('c_list', l); renderComplaints(); updateStats();
+        var l = safeGet('c_list', []);
+        l.splice(i, 1);
+        safeSet('c_list', l);
+        renderComplaints();
+        updateStats();
       }
-    }
+    };
 
-    function delLead(i) {
-      if (confirm("ही लीड हटवायची आहे का?")) {
-        const l = sGet('l_list', []); l.splice(i, 1); sSet('l_list', l); renderLeads(); updateStats();
+    window.delLead = function(i) {
+      if (confirm("ही विक्री लीड हटवायची आहे का?")) {
+        var l = safeGet('l_list', []);
+        l.splice(i, 1);
+        safeSet('l_list', l);
+        renderLeads();
+        updateStats();
       }
-    }
+    };
 
-    // FORM SUBMISSIONS
-    function submitNewComplaint(e) {
+    window.submitNewComplaint = function(e) {
       e.preventDefault();
-      const l = sGet('c_list', []);
-      const now = new Date();
+      var l = safeGet('c_list', []);
+      var now = new Date();
       l.unshift({
         date: now.toLocaleDateString(),
         id: "DIP-" + Math.floor(1000 + Math.random() * 9000),
@@ -641,14 +1156,17 @@
         msg: document.getElementById('cMsg').value.trim(),
         amc: false, hr: false, status: "Pending"
       });
-      sSet('c_list', l);
-      alert("तक्रार यशस्वीरित्या नोंदवली गेली!");
-      e.target.reset(); closeModal('complaintModal'); renderComplaints(); updateStats();
-    }
+      safeSet('c_list', l);
+      alert("नवीन तक्रार यशस्वीरित्या नोंदवली गेली!");
+      e.target.reset();
+      closeModal('complaintModal');
+      renderComplaints();
+      updateStats();
+    };
 
-    function submitNewLead(e) {
+    window.submitNewLead = function(e) {
       e.preventDefault();
-      const l = sGet('l_list', []);
+      var l = safeGet('l_list', []);
       l.unshift({
         date: document.getElementById('leadDate').value,
         name: document.getElementById('lName').value.trim(),
@@ -658,33 +1176,42 @@
         remark: document.getElementById('lRemark').value.trim(),
         follow: document.getElementById('lFollow').value
       });
-      sSet('l_list', l);
-      alert("नवीन लीड सेव्ह झाली!");
-      e.target.reset(); closeModal('leadModal'); renderLeads(); updateStats(); switchTab('leads');
-    }
+      safeSet('l_list', l);
+      alert("नवीन विक्री लीड सेव्ह झाली!");
+      e.target.reset();
+      closeModal('leadModal');
+      renderLeads();
+      updateStats();
+      switchTab('leads');
+    };
 
-    function openEditComp(i) {
-      const c = sGet('c_list', [])[i];
+    window.openEditComp = function(i) {
+      var c = safeGet('c_list', [])[i];
+      if (!c) return;
       document.getElementById('ecIndex').value = i;
       document.getElementById('ecName').value = c.name;
       document.getElementById('ecPhone').value = c.phone;
       document.getElementById('ecMsg').value = c.msg;
       openModal('editCompModal');
-    }
+    };
 
-    function saveEditedComplaint(e) {
+    window.saveEditedComplaint = function(e) {
       e.preventDefault();
-      const i = document.getElementById('ecIndex').value;
-      const l = sGet('c_list', []);
-      l[i].name = document.getElementById('ecName').value.trim();
-      l[i].phone = document.getElementById('ecPhone').value.trim();
-      l[i].msg = document.getElementById('ecMsg').value.trim();
-      sSet('c_list', l);
-      closeModal('editCompModal'); renderComplaints();
-    }
+      var i = document.getElementById('ecIndex').value;
+      var l = safeGet('c_list', []);
+      if (l[i]) {
+        l[i].name = document.getElementById('ecName').value.trim();
+        l[i].phone = document.getElementById('ecPhone').value.trim();
+        l[i].msg = document.getElementById('ecMsg').value.trim();
+        safeSet('c_list', l);
+        closeModal('editCompModal');
+        renderComplaints();
+      }
+    };
 
-    function openEditLead(i) {
-      const l = sGet('l_list', [])[i];
+    window.openEditLead = function(i) {
+      var l = safeGet('l_list', [])[i];
+      if (!l) return;
       document.getElementById('elIndex').value = i;
       document.getElementById('elName').value = l.name;
       document.getElementById('elPhone').value = l.phone;
@@ -692,36 +1219,152 @@
       document.getElementById('elRemark').value = l.remark;
       document.getElementById('elFollow').value = l.follow;
       openModal('editLeadModal');
-    }
+    };
 
-    function saveEditedLead(e) {
+    window.saveEditedLead = function(e) {
       e.preventDefault();
-      const i = document.getElementById('elIndex').value;
-      const l = sGet('l_list', []);
-      l[i].name = document.getElementById('elName').value.trim();
-      l[i].phone = document.getElementById('elPhone').value.trim();
-      l[i].addr = document.getElementById('elAddress').value.trim();
-      l[i].remark = document.getElementById('elRemark').value.trim();
-      l[i].follow = document.getElementById('elFollow').value;
-      sSet('l_list', l);
-      closeModal('editLeadModal'); renderLeads();
-    }
+      var i = document.getElementById('elIndex').value;
+      var l = safeGet('l_list', []);
+      if (l[i]) {
+        l[i].name = document.getElementById('elName').value.trim();
+        l[i].phone = document.getElementById('elPhone').value.trim();
+        l[i].addr = document.getElementById('elAddress').value.trim();
+        l[i].remark = document.getElementById('elRemark').value.trim();
+        l[i].follow = document.getElementById('elFollow').value;
+        safeSet('l_list', l);
+        closeModal('editLeadModal');
+        renderLeads();
+      }
+    };
 
-    // EXPORTS
-    function exportTechExcel() {
-      const l = sGet('t_sheet', []);
-      let csv = "\uFEFFS.N.,CUSTOMER NAME,STRUCTURE,INVERTER AC/DC,WIRING,EARTHING,PANEL,G METER,N METER\n";
-      l.forEach(r => { csv += `"${r.sn}","${r.name||''}","${r.struct||''}","${r.inv||''}","${r.wire||''}","${r.earth||''}","${r.panel||''}","${r.gmet||''}","${r.nmet||''}"\n`; });
-      downloadCsv(csv, "Installation_Technical_Sheet.csv");
-    }
+    window.handleLeadDateChange = function(srcId, targetId) {
+      var src = document.getElementById(srcId);
+      var tgt = document.getElementById(targetId);
+      if (src && tgt && src.value) {
+        var d = new Date(src.value);
+        if (!isNaN(d.getTime())) {
+          d.setDate(d.getDate() + 10);
+          tgt.value = d.toISOString().slice(0, 10);
+        }
+      }
+    };
 
-    function exportDocExcel() {
-      const l = sGet('d_sheet', []);
-      let csv = "\uFEFFS.N.,CUSTOMER NAME,DOCUMENTS,INVERTER AC/DC,WIRING,EARTHING,PANEL,G METER,N METER\n";
-      l.forEach(r => { csv += `"${r.sn}","${r.name||''}","${r.doc||''}","${r.inv||''}","${r.wire||''}","${r.earth||''}","${r.panel||''}","${r.gmet||''}","${r.nmet||''}"\n`; });
-      downloadCsv(csv, "Documentation_Metering_Sheet.csv");
-    }
+    // EXCEL IMPORT / EXPORT
+    window.exportTechExcel = function() {
+      var l = safeGet('t_sheet', getInitialTech());
+      var csv = "\uFEFFS.N.,CUSTOMER NAME,STRUCTURE,INVERTER AC/DC,WIRING,EARTHING,PANEL,G METER,N METER\n";
+      l.forEach(function(r) {
+        csv += '"' + r.sn + '","' + (r.name||'') + '","' + (r.struct||'') + '","' + (r.inv||'') + '","' + (r.wire||'') + '","' + (r.earth||'') + '","' + (r.panel||'') + '","' + (r.gmet||'') + '","' + (r.nmet||'') + '"\n';
+      });
+      downloadCsvBlob(csv, "Dip_Urja_Installation_Technical_Sheet.csv");
+    };
 
-    function exportCurrentView() {
+    window.exportDocExcel = function() {
+      var l = safeGet('d_sheet', getInitialDoc());
+      var csv = "\uFEFFS.N.,CUSTOMER NAME,DOCUMENTS,INVERTER AC/DC,WIRING,EARTHING,PANEL,G METER,N METER\n";
+      l.forEach(function(r) {
+        csv += '"' + r.sn + '","' + (r.name||'') + '","' + (r.doc||'') + '","' + (r.inv||'') + '","' + (r.wire||'') + '","' + (r.earth||'') + '","' + (r.panel||'') + '","' + (r.gmet||'') + '","' + (r.nmet||'') + '"\n';
+      });
+      downloadCsvBlob(csv, "Dip_Urja_Documentation_Metering_Sheet.csv");
+    };
+
+    window.exportCurrentView = function() {
       exportTechExcel();
       setTimeout(exportDocExcel, 300);
+    };
+
+    function downloadCsvBlob(content, filename) {
+      var blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    window.uploadTechCsv = function(e) {
+      var f = e.target.files[0];
+      if (!f) return;
+      var r = new FileReader();
+      r.onload = function(evt) {
+        var lines = evt.target.result.split('\n');
+        var list = [];
+        for (var i = 1; i < lines.length; i++) {
+          var c = lines[i].split(',');
+          if (c.length >= 2) {
+            list.push({
+              sn: c[0].replace(/"/g,'').trim(),
+              name: c[1].replace(/"/g,'').trim(),
+              struct: c[2] ? c[2].replace(/"/g,'').trim() : '',
+              inv: c[3] ? c[3].replace(/"/g,'').trim() : '',
+              wire: c[4] ? c[4].replace(/"/g,'').trim() : '',
+              earth: c[5] ? c[5].replace(/"/g,'').trim() : '',
+              panel: c[6] ? c[6].replace(/"/g,'').trim() : '',
+              gmet: c[7] ? c[7].replace(/"/g,'').trim() : '',
+              nmet: c[8] ? c[8].replace(/"/g,'').trim() : ''
+            });
+          }
+        }
+        if (list.length > 0) {
+          safeSet('t_sheet', list);
+          renderTech();
+          updateStats();
+          alert("टेक्निकल शीट CSV यशस्वीरित्या आयात झाली!");
+        }
+      };
+      r.readAsText(f);
+    };
+
+    window.uploadDocCsv = function(e) {
+      var f = e.target.files[0];
+      if (!f) return;
+      var r = new FileReader();
+      r.onload = function(evt) {
+        var lines = evt.target.result.split('\n');
+        var list = [];
+        for (var i = 1; i < lines.length; i++) {
+          var c = lines[i].split(',');
+          if (c.length >= 2) {
+            list.push({
+              sn: c[0].replace(/"/g,'').trim(),
+              name: c[1].replace(/"/g,'').trim(),
+              doc: c[2] ? c[2].replace(/"/g,'').trim() : '',
+              inv: c[3] ? c[3].replace(/"/g,'').trim() : '',
+              wire: c[4] ? c[4].replace(/"/g,'').trim() : '',
+              earth: c[5] ? c[5].replace(/"/g,'').trim() : '',
+              panel: c[6] ? c[6].replace(/"/g,'').trim() : '',
+              gmet: c[7] ? c[7].replace(/"/g,'').trim() : '',
+              nmet: c[8] ? c[8].replace(/"/g,'').trim() : ''
+            });
+          }
+        }
+        if (list.length > 0) {
+          safeSet('d_sheet', list);
+          renderDoc();
+          updateStats();
+          alert("डॉक्युमेंट शीट CSV यशस्वीरित्या आयात झाली!");
+        }
+      };
+      r.readAsText(f);
+    };
+
+    function updateStats() {
+      var c = safeGet('c_list', []);
+      var l = safeGet('l_list', []);
+      var t = safeGet('t_sheet', []);
+      document.getElementById('statTotalComplaints').innerText = c.length;
+      document.getElementById('statAwaitingHr').innerText = c.filter(function(x) { return x.amc && !x.hr; }).length;
+      document.getElementById('statTotalLeads').innerText = l.length;
+      document.getElementById('statTotalProjects').innerText = t.filter(function(x) { return x.name && x.name.trim() !== ''; }).length;
+    }
+
+    // BOOTSTRAP WHEN READY
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderAll);
+    } else {
+      renderAll();
+    }
+  </script>
+</body>
+</html>
