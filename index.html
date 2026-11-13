@@ -1,1636 +1,951 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DIP URJA POWER SOLUTIONS - Corporate CRM & Project Portal</title>
+  <title>SolarOne — Smart Solar Management Software</title>
+  <!-- jsPDF for 1-Click PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
+    :root {
+      --bg-dark: #071329;
+      --bg-navy: #0c1f3f;
+      --primary-blue: #1d4ed8;
+      --accent-orange: #f59e0b;
+      --accent-amber: #fbbf24;
+      --success-green: #16a34a;
+      --pending-amber: #d97706;
+      --card-bg: #ffffff;
+      --surface-light: #f1f5f9;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     body {
-      background-color: #030611;
-      color: #f1f5f9;
-      line-height: 1.5;
+      background: radial-gradient(circle at top right, #172b4d, var(--bg-dark) 65%);
+      color: var(--text-dark);
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* TOP CORPORATE STRIP */
-    .corporate-top-bar {
-      background: #01040a;
-      color: #94a3b8;
-      padding: 7px 20px;
+    /* Top Mode Switcher Bar */
+    .top-switcher {
+      background: rgba(7, 19, 41, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
-      border-bottom: 1px solid #1e293b;
       flex-wrap: wrap;
-      gap: 8px;
-    }
-    .corporate-top-bar .highlight {
-      color: #facc15;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* MAIN CORPORATE HEADER */
-    header {
-      background: linear-gradient(180deg, #090e1d 0%, #050914 100%);
-      border-bottom: 2px solid #1e293b;
+      gap: 12px;
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.8);
+      z-index: 100;
     }
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      max-width: 1480px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .brand-container {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-    }
-    .brand-logo-icon {
-      background: linear-gradient(135deg, #facc15 0%, #ea580c 100%);
-      color: #030611;
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      font-weight: 900;
-      box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
-    }
-    .brand-title {
-      font-size: 20px;
-      font-weight: 900;
-      color: #f8fafc;
-      letter-spacing: 0.5px;
-      line-height: 1.1;
-      text-transform: uppercase;
-    }
-    .brand-title span {
-      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .brand-subtitle {
-      font-size: 10px;
-      color: #94a3b8;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-top: 2px;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn-action {
-      padding: 8px 14px;
-      font-size: 12px;
-      font-weight: 800;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 1px solid transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .btn-action:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-complaint { background: #ea580c; color: #fff; }
-    .btn-lead { background: #16a34a; color: #fff; }
-    .btn-amc-login { background: #0c1527; border: 1px solid #0284c7; color: #38bdf8; }
-    .btn-hr-login { background: #1a1638; border: 1px solid #6366f1; color: #c7d2fe; }
-    .btn-guest-mode { background: #1e293b; color: #f1f5f9; border: 1px solid #475569; }
-    .btn-urgent-wa { background: #dc2626; color: #fff; border: 1px solid #ef4444; }
-    .btn-urgent-wa:hover { background: #b91c1c; box-shadow: 0 0 14px rgba(239, 68, 68, 0.5); }
-
-    /* HERO STRIP */
-    .hero {
-      background: linear-gradient(180deg, #090e1d 0%, #030611 100%);
-      padding: 22px 20px 18px 20px;
-      text-align: center;
-      border-bottom: 1px solid #1e293b;
-    }
-    .hero h1 {
-      font-size: 24px;
-      font-weight: 900;
-      color: #facc15;
-      margin-bottom: 4px;
-    }
-    .hero p {
-      font-size: 13px;
-      color: #94a3b8;
-    }
-
-    .tab-nav {
-      display: flex;
-      justify-content: center;
       gap: 10px;
-      margin-top: 15px;
-      flex-wrap: wrap;
+      color: #fff;
     }
-    .tab-btn {
-      padding: 8px 18px;
-      font-size: 13px;
-      font-weight: 800;
-      border-radius: 24px;
-      border: 1px solid #334155;
-      cursor: pointer;
-      background: #090e1d;
+
+    .sun-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      box-shadow: 0 0 14px var(--accent-orange);
+      display: inline-block;
+    }
+
+    .brand h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .brand span {
+      font-size: 0.8rem;
+      color: var(--accent-amber);
+      display: block;
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 4px;
+      border-radius: 10px;
+    }
+
+    .mode-btn {
+      background: transparent;
+      border: none;
       color: #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
       transition: all 0.2s;
     }
-    .tab-btn.active {
-      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
-      color: #030611;
-      border-color: #facc15;
-      box-shadow: 0 0 15px rgba(250, 204, 21, 0.35);
+
+    .mode-btn.active {
+      background: var(--accent-orange);
+      color: #071329;
     }
 
-    .portal-container {
-      max-width: 1480px;
-      margin: 16px auto;
+    /* Main Container */
+    .view-section {
+      display: none;
+      max-width: 1220px;
+      width: 100%;
+      margin: 24px auto;
       padding: 0 16px;
+      flex: 1;
     }
-    .section-view {
-      display: none;
-    }
-    .section-view.active {
+
+    .view-section.active {
       display: block;
     }
 
-    /* OVERDUE ALERT BANNER */
-    .overdue-alert-banner {
-      background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%);
-      border: 1px solid #ef4444;
-      border-radius: 8px;
-      padding: 12px 18px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
+    /* ================= OWNER DASHBOARD ================= */
+    .dashboard-shell {
+      background: var(--surface-light);
+      border-radius: 18px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 680px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
     }
 
-    /* HR CONTROL WINDOW */
-    .employer-window {
-      display: none;
-      background: #0c1222;
-      border: 1px solid #6366f1;
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 6px 25px rgba(99, 102, 241, 0.25);
-    }
-    .employer-window.active {
-      display: block;
-    }
-    .employer-header {
+    .sidebar {
+      background: #0d2244;
+      color: #fff;
+      padding: 24px 16px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1e293b;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 8px;
     }
-    .employer-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-    }
-    .stat-card {
-      background: #030611;
-      padding: 12px 15px;
-      border-radius: 8px;
-      border: 1px solid #1e293b;
-    }
-    .stat-card .title {
-      font-size: 11px;
-      color: #94a3b8;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-    .stat-card .number {
-      font-size: 22px;
-      font-weight: 900;
-      color: #facc15;
-    }
 
-    /* TOOLBAR CARD */
-    .toolbar-card {
-      background: #090e1d;
-      padding: 12px 18px;
-      border-radius: 8px;
-      border: 1px solid #1e293b;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .badge-role {
-      padding: 4px 12px;
-      border-radius: 16px;
-      font-size: 11px;
+    .sidebar-title {
+      font-size: 1.3rem;
       font-weight: 800;
-      color: #fff;
-    }
-    .badge-role.guest { background: #334155; }
-    .badge-role.hr { background: #4f46e5; box-shadow: 0 0 10px rgba(79, 70, 229, 0.5); }
-    .badge-role.amc { background: #0284c7; }
-
-    .btn-export {
-      background: #15803d;
-      color: #fff;
-      padding: 7px 14px;
-      font-size: 12px;
-      font-weight: 700;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-logout {
-      background: #b91c1c;
-      color: #fff;
-      padding: 7px 14px;
-      font-size: 12px;
-      font-weight: 700;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
+      color: var(--accent-amber);
+      margin-bottom: 20px;
+      padding-left: 10px;
     }
 
-    /* TABLES & RED BOX STYLING FOR DAYS PENDING > 10 */
-    .table-card {
-      background: #090e1d;
+    .nav-item {
+      padding: 12px 14px;
       border-radius: 10px;
-      border: 1px solid #1e293b;
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
-    .table-wrapper {
-      overflow-x: auto;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 1150px;
-      font-size: 12px;
-    }
-    th, td {
-      padding: 10px 12px;
-      border: 1px solid #1e293b;
-      text-align: left;
-      vertical-align: middle;
-    }
-    th {
-      background: #030611;
-      color: #38bdf8;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 0.5px;
-      font-weight: 800;
-    }
-    tr:nth-child(even) { background-color: #060a14; }
-    tr:hover { background-color: #111a2f; }
-
-    /* PURE RED DAYS PENDING BOX (>10 DAYS) */
-    .days-box-red {
-      background-color: #dc2626 !important;
-      color: #ffffff !important;
-      font-weight: 900 !important;
-      padding: 5px 10px;
-      border-radius: 5px;
-      display: inline-block;
-      border: 1px solid #f87171;
-      box-shadow: 0 0 12px rgba(220, 38, 38, 0.7);
-      text-align: center;
-      letter-spacing: 0.5px;
-      animation: pulseRed 2s infinite;
-    }
-    @keyframes pulseRed {
-      0% { box-shadow: 0 0 6px rgba(220, 38, 38, 0.4); }
-      50% { box-shadow: 0 0 16px rgba(239, 68, 68, 0.8); }
-      100% { box-shadow: 0 0 6px rgba(220, 38, 38, 0.4); }
-    }
-
-    .days-box-normal {
-      background-color: #1e293b;
-      color: #94a3b8;
-      padding: 4px 8px;
-      border-radius: 4px;
-      display: inline-block;
-      text-align: center;
+      color: #cbd5e1;
+      cursor: pointer;
       font-weight: 600;
+      transition: 0.2s;
+      border: none;
+      background: transparent;
+      text-align: left;
+      font-size: 0.95rem;
     }
 
-    tr.row-overdue {
-      background-color: rgba(185, 28, 28, 0.18) !important;
-      border-left: 4px solid #ef4444 !important;
+    .nav-item.active, .nav-item:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
     }
 
-    .status-badge {
-      padding: 3px 7px;
-      border-radius: 4px;
+    .dash-main {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Top KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .kpi-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 22px;
+      border: 2px solid transparent;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .kpi-card.blue { border-color: #3b82f6; }
+    .kpi-card.green { border-color: #22c55e; }
+    .kpi-card.amber { border-color: #f59e0b; }
+
+    .kpi-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .kpi-value {
+      font-size: 2rem;
       font-weight: 800;
-      font-size: 10px;
-      text-transform: uppercase;
-    }
-    .status-pending { background: #7c2d12; color: #ffedd5; }
-    .status-solved-amc { background: #075985; color: #e0f2fe; }
-    .status-resolved { background: #14532d; color: #bbf7d0; }
-
-    .btn-table-wa {
-      background: #25d366;
-      color: #030611;
-      text-decoration: none;
-      padding: 3px 6px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 800;
-      display: inline-block;
-      margin-top: 3px;
     }
 
-    /* SHEET1 EXCEL LOOK */
-    .excel-container {
-      background: #090e1d;
+    .kpi-card.blue .kpi-value { color: #2563eb; }
+    .kpi-card.green .kpi-value { color: #16a34a; }
+    .kpi-card.amber .kpi-value { color: #d97706; }
+
+    /* Middle Lists Grid */
+    .lists-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 14px;
       padding: 18px;
-      border-radius: 10px;
-      border: 1px solid #1e293b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
-    .excel-grid-title {
-      font-size: 13px;
-      font-weight: 800;
-      color: #f8fafc;
-      margin-bottom: 8px;
+
+    .panel h3 {
+      font-size: 1rem;
+      margin-bottom: 14px;
+      color: var(--text-dark);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #030611;
-      padding: 9px 14px;
-      border-left: 4px solid #10b981;
-      border-radius: 4px;
     }
-    .excel-table {
-      border: 1px solid #334155;
-    }
-    .excel-table th {
-      background: #030611;
-      color: #facc15;
-      border: 1px solid #334155;
-      text-align: center;
-    }
-    .excel-table td {
-      border: 1px solid #1e293b;
-      height: 36px;
-    }
-    .excel-btn-bar {
+
+    .list-item {
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin: 10px 0 24px 0;
-      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f8fafc;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+      transition: 0.15s;
     }
-    .excel-green-btn {
-      background: #15803d;
+
+    .list-item:hover {
+      border-color: #93c5fd;
+      background: #eff6ff;
+    }
+
+    .list-item.selected {
+      border: 2px solid #2563eb;
+      background: #eff6ff;
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #2563eb;
       color: #fff;
-      border: 1px solid #22c55e;
-      padding: 6px 16px;
-      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .item-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .item-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .badge.done { background: #dcfce7; color: #15803d; }
+    .badge.pending { background: #fef3c7; color: #b45309; }
+    .badge.new { background: #dbeafe; color: #1d4ed8; }
+
+    /* Bottom Strip & PDF Button */
+    .bottom-strip {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .photo-gallery {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-top: 8px;
+    }
+
+    .photo-thumb {
+      width: 84px;
+      height: 62px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid #cbd5e1;
+      background: #e2e8f0;
+      flex-shrink: 0;
+    }
+
+    .pdf-action-box {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-pdf {
+      background: var(--accent-orange);
+      color: #0f172a;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
       font-weight: 800;
       cursor: pointer;
-      border-radius: 4px;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
-    .excel-green-btn:hover { background: #16a34a; }
-    .excel-input {
       width: 100%;
-      border: 1px solid #38bdf8;
-      padding: 5px 8px;
-      font-size: 12px;
-      border-radius: 4px;
-      background: #030611;
-      color: #fff;
-      outline: none;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+      transition: transform 0.15s;
     }
 
-    /* MODAL POPUPS */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.88);
-      z-index: 999999;
-      justify-content: center;
-      align-items: center;
+    .btn-pdf:hover {
+      transform: translateY(-1px);
+      background: #eab308;
     }
-    .modal-box {
-      background: #0c1222;
-      color: #f1f5f9;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 10px;
-      padding: 22px;
-      border: 1px solid #334155;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
-    }
-    .modal-head {
+
+    /* ================= WORKER MOBILE PORTAL ================= */
+    .mobile-wrapper {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1e293b;
-      padding-bottom: 10px;
+      justify-content: center;
+      padding: 10px 0 30px;
+    }
+
+    .phone-frame {
+      width: 375px;
+      background: #fff;
+      border-radius: 34px;
+      border: 8px solid #1e293b;
+      padding: 24px 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .phone-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .phone-sun {
+      width: 54px;
+      height: 54px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+    }
+
+    .form-group {
       margin-bottom: 14px;
     }
-    .modal-head h3 {
-      font-size: 16px;
-      color: #facc15;
-    }
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: #94a3b8;
-    }
-    .close-btn:hover { color: #fff; }
-    .form-group { margin-bottom: 13px; }
+
     .form-group label {
       display: block;
-      font-size: 11px;
+      font-size: 0.82rem;
       font-weight: 700;
-      color: #94a3b8;
-      margin-bottom: 4px;
+      color: #334155;
+      margin-bottom: 5px;
     }
-    .form-group input, .form-group select, .form-group textarea {
+
+    .form-control {
       width: 100%;
-      padding: 9px 12px;
-      background: #030611;
-      border: 1px solid #334155;
-      color: #fff;
-      border-radius: 6px;
-      font-size: 13px;
+      padding: 11px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.95rem;
       outline: none;
     }
-    .btn-modal-submit {
+
+    .form-control:focus {
+      border-color: #2563eb;
+    }
+
+    .btn-primary {
       width: 100%;
-      padding: 10px;
-      font-size: 13px;
-      font-weight: 800;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
+      padding: 13px;
+      background: #2563eb;
       color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .btn-success {
+      width: 100%;
+      padding: 13px;
+      background: var(--success-green);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
       margin-top: 8px;
     }
-    .btn-otp-req {
-      background: #25d366;
-      color: #020408;
-      font-weight: 800;
-      border: none;
-      padding: 10px;
-      border-radius: 6px;
-      width: 100%;
+
+    .photo-capture-box {
+      border: 2px dashed #93c5fd;
+      background: #eff6ff;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
       cursor: pointer;
       margin-bottom: 12px;
+    }
+
+    .photo-preview-img {
+      max-width: 100%;
+      max-height: 140px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .progress-bar-wrap {
+      background: #e2e8f0;
+      border-radius: 8px;
+      height: 24px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    .progress-fill {
+      background: var(--success-green);
+      height: 100%;
+      width: 0%;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: width 0.4s;
+    }
+
+    /* ================= CUSTOMER ENQUIRY FORM ================= */
+    .enquiry-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 32px;
+      align-items: center;
+      max-width: 960px;
+      margin: 20px auto;
+    }
+
+    .enquiry-hero {
+      color: #fff;
+    }
+
+    .enquiry-hero h2 {
+      font-size: 2.5rem;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .enquiry-hero h2 span {
+      color: var(--accent-amber);
+    }
+
+    .enquiry-hero p {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .enquiry-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+    }
+
+    .enquiry-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 18px;
+      color: var(--text-dark);
+    }
+
+    .btn-amber {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent-orange);
+      color: #071329;
+      border: none;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--success-green);
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 999;
+    }
+
+    /* Modal for PDF Preview */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 460px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    @media (max-width: 850px) {
+      .dashboard-shell { grid-template-columns: 1fr; }
+      .sidebar { flex-direction: row; overflow-x: auto; padding: 12px; }
+      .sidebar-title { display: none; }
+      .kpi-grid, .lists-grid, .bottom-strip, .enquiry-layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Corporate Strip -->
-  <div class="corporate-top-bar">
-    <div>DIP URJA POWER SOLUTIONS &bull; EPC PROJECTS &bull; SOLAR ROOFTOP &bull; LIFT UPS &bull; AMC</div>
-    <div class="highlight">
-      <span>⚡ Helpdesk: 9022255373 (Amol Sonawane)</span> | 
-      <span>🛡️ Employer / HR Desk: 9175805804</span>
+  <!-- Top Navigation Switcher -->
+  <header class="top-switcher">
+    <div class="brand">
+      <span class="sun-icon"></span>
+      <div>
+        <h1>SolarOne</h1>
+        <span>Smart Solar Management Software</span>
+      </div>
     </div>
-  </div>
 
-  <!-- Corporate Header -->
-  <header>
-    <div class="navbar">
-      <div class="brand-container">
-        <div class="brand-logo-icon">☀️</div>
-        <div>
-          <div class="brand-title">DIP URJA <span>POWER SOLUTIONS</span></div>
-          <div class="brand-subtitle">Corporate Service CRM, Sales &amp; Project Installation Portal</div>
-        </div>
-      </div>
-      
-      <div class="nav-actions">
-        <button class="btn-action btn-complaint" onclick="openModal('complaintModal')">➕ Register Complaint</button>
-        <button class="btn-action btn-lead" onclick="openModal('leadModal')">💼 Add Sales Lead</button>
-        <button class="btn-action btn-urgent-wa" onclick="sendAutomatedOverdueAlertToHr()">📲 WhatsApp Overdue (9175805804)</button>
-        <button class="btn-action btn-guest-mode" onclick="activateGuestMode()">👁️ Guest Mode</button>
-        <button class="btn-action btn-amc-login" onclick="openLoginModal('AMC')">👤 AMC Login</button>
-        <button class="btn-action btn-hr-login" onclick="openLoginModal('HR')">🛡️ HR Login</button>
-      </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" onclick="switchView('dashboard', this)">Owner Dashboard</button>
+      <button class="mode-btn" onclick="switchView('worker', this)">Worker Mobile App</button>
+      <button class="mode-btn" onclick="switchView('customer', this)">Customer Enquiry Form</button>
     </div>
   </header>
 
-  <!-- Hero Strip -->
-  <section class="hero">
-    <h1>Service Complaints, Sales Leads &amp; Project Trackers</h1>
-    <p>ग्राहक तक्रार निवारण, विक्री लीड्स आणि सोलर प्रोजेक्ट इन्स्टॉलेशन / डॉक्युमेंटेशन ट्रॅकर</p>
-    <div class="tab-nav">
-      <button id="tabComplaintsBtn" class="tab-btn" onclick="switchTab('complaints')">🔧 Service Complaints</button>
-      <button id="tabLeadsBtn" class="tab-btn" onclick="switchTab('leads')">📈 Sales Leads Tracker</button>
-      <button id="tabSheetsBtn" class="tab-btn active" onclick="switchTab('sheets')">📊 Solar Installation Tracker (Sheet1)</button>
+  <!-- ==================== 1. OWNER DASHBOARD ==================== -->
+  <section id="view-dashboard" class="view-section active">
+    <div class="dashboard-shell">
+      <aside class="sidebar">
+        <div class="sidebar-title">SolarOne</div>
+        <button class="nav-item active" onclick="filterTab('all', this)">Dashboard</button>
+        <button class="nav-item" onclick="filterTab('workers', this)">Workers</button>
+        <button class="nav-item" onclick="filterTab('enquiries', this)">Enquiries</button>
+        <button class="nav-item" onclick="openPdfModal()">Reports (PDF)</button>
+        <button class="nav-item" style="margin-top:auto; color:#fca5a5;" onclick="resetDemoData()">Reset Demo Data</button>
+      </aside>
+
+      <main class="dash-main">
+        <!-- Top KPI Counters -->
+        <div class="kpi-grid">
+          <div class="kpi-card blue">
+            <div class="kpi-label">Workers</div>
+            <div class="kpi-value" id="kpi-workers">12</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-label">Site Visits</div>
+            <div class="kpi-value" id="kpi-visits">38</div>
+          </div>
+          <div class="kpi-card amber">
+            <div class="kpi-label">Enquiries</div>
+            <div class="kpi-value" id="kpi-enquiries">24</div>
+          </div>
+        </div>
+
+        <!-- Middle Lists: Workers & Enquiries -->
+        <div class="lists-grid">
+          <!-- Workers - Today -->
+          <div class="panel" id="panel-workers">
+            <h3>Workers - Today <span style="font-size:0.75rem; color:#64748b;">Click to select for PDF</span></h3>
+            <div id="workers-list"></div>
+          </div>
+
+          <!-- Recent Enquiries -->
+          <div class="panel" id="panel-enquiries">
+            <h3>Recent Enquiries <span style="font-size:0.75rem; color:#64748b;">Click to select for PDF</span></h3>
+            <div id="enquiries-list"></div>
+          </div>
+        </div>
+
+        <!-- Bottom Strip: Site Photos + Generate PDF -->
+        <div class="bottom-strip">
+          <div class="panel">
+            <h3>Site Photos</h3>
+            <div class="photo-gallery" id="photo-gallery"></div>
+          </div>
+
+          <div class="pdf-action-box">
+            <p style="font-size:0.85rem; color:#475569; margin-bottom:10px;">
+              Selected Record: <strong id="selected-record-label">Rajesh Patil</strong>
+            </p>
+            <button class="btn-pdf" onclick="generatePDFReport()">Generate PDF</button>
+          </div>
+        </div>
+      </main>
     </div>
   </section>
 
-  <!-- Main Body Content -->
-  <div class="portal-container">
-
-    <!-- Overdue Alert Bar (Shown when work > 10 days pending) -->
-    <div id="overdueBanner" class="overdue-alert-banner" style="display:none;">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span style="font-size:24px;">🚨</span>
-        <div>
-          <strong style="color:#fecaca; font-size:13px;" id="overdueCountText">CRITICAL NOTICE: 0 Projects / Sites Pending for Over 10 Days!</strong>
-          <div style="font-size:11px; color:#fca5a5;">फक्त HR लॉगिन (9175805804 किंवा पासवर्ड 902817) द्वारेच या प्रलंबित कामांचे संपादन करता येईल.</div>
-        </div>
-      </div>
-      <div style="display:flex; gap:8px;">
-        <button class="btn-action btn-urgent-wa" onclick="sendAutomatedOverdueAlertToHr()" style="font-size:11px; padding:6px 12px;">
-          📲 Dispatch Alert to HR (9175805804)
-        </button>
-      </div>
-    </div>
-
-    <!-- HR CONTROL WINDOW (Active only on HR Login) -->
-    <div id="employerWindowCard" class="employer-window">
-      <div class="employer-header">
-        <h2 style="font-size:15px; color:#facc15;">🛡️ Employer &amp; HR Admin Control Window (Authorized: 9175805804)</h2>
-        <div style="display:flex; gap:8px;">
-          <button class="btn-action btn-complaint" onclick="openModal('complaintModal')">+ Complaint</button>
-          <button class="btn-action btn-lead" onclick="openModal('leadModal')">+ Lead</button>
-          <button class="btn-action" onclick="toggleEditAllSheets(true)" style="background:#facc15; color:#030611;">✏️ Edit All Sheets</button>
-        </div>
-      </div>
-      <p style="font-size:12px; color:#cbd5e1;">आपण HR Administrator म्हणून लॉगिन आहात. १० दिवसांपेक्षा जास्त प्रलंबित कामे दुरुस्त करण्याचे, अप्रूव्ह करण्याचे व शीट संपादन करण्याचे संपूर्ण अधिकार सक्षम झाले आहेत.</p>
-      <div class="employer-stats">
-        <div class="stat-card"><div class="title">Total Complaints</div><div class="number" id="statTotalComplaints">0</div></div>
-        <div class="stat-card"><div class="title">Awaiting HR</div><div class="number" id="statAwaitingHr" style="color:#fde047;">0</div></div>
-        <div class="stat-card"><div class="title">Overdue Sites (>10 Days)</div><div class="number" id="statOverdueSites" style="color:#ef4444;">0</div></div>
-        <div class="stat-card"><div class="title">Projects Installed</div><div class="number" id="statTotalProjects" style="color:#86efac;">0</div></div>
-      </div>
-    </div>
-
-    <!-- Active Session Toolbar -->
-    <div class="toolbar-card">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <span style="font-size:12px; color:#94a3b8;">Active Session:</span>
-        <span id="sessionBadge" class="badge-role guest">Guest Login (Read Only)</span>
-      </div>
-      <div style="display:flex; gap:8px; align-items:center;">
-        <button id="saveAllSheetsBtn" class="excel-green-btn" style="display:none; background:#16a34a;" onclick="saveAllSheetsData()">💾 Save All Sheets</button>
-        <button class="btn-export" onclick="exportCurrentView()">📥 Export All Excel</button>
-        <button id="logoutBtn" class="btn-logout" style="display:none;" onclick="activateGuestMode()">Logout</button>
-      </div>
-    </div>
-
-    <!-- 1. COMPLAINTS SECTION -->
-    <div id="complaintsSection" class="section-view">
-      <div class="table-card">
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>DATE</th><th>TICKET ID</th><th>CUSTOMER NAME</th><th>MOBILE</th>
-                <th>SYSTEM TYPE</th><th>ISSUE DETAILS</th><th>TECHNICIAN</th><th>DAYS PENDING</th><th>AMC STATUS</th>
-                <th>HR APPROVAL</th><th>FINAL STATUS</th><th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody id="complaintsTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. SALES LEADS SECTION -->
-    <div id="leadsSection" class="section-view">
-      <div class="table-card">
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>DATE</th><th>CUSTOMER NAME</th><th>MOBILE NUMBER</th><th>ADDRESS</th>
-                <th>REQUIREMENT</th><th>REMARK</th><th>NEXT FOLLOW UP</th><th>STATUS</th><th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody id="leadsTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. SHEET1: INSTALLATION & DOCUMENTATION TRACKER -->
-    <div id="sheetsSection" class="section-view active">
-      <div class="excel-container">
-        
-        <!-- Table 1: Technical Hardware Checklist -->
-        <div class="excel-grid-title">
-          <span>📋 1. TECHNICAL / HARDWARE INSTALLATION (Book1 - Sheet1)</span>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <span style="font-size:11px; color:#fca5a5; font-weight:700;">(१० दिवसांवरील सर्व बॉक्स लाल बॅकग्राउंडमध्ये ठळक दिसतील)</span>
-            <button class="excel-green-btn" onclick="addTableRow('tech')" style="padding:3px 10px; font-size:11px;">+ Add Row</button>
+  <!-- ==================== 2. WORKER MOBILE PORTAL ==================== -->
+  <section id="view-worker" class="view-section">
+    <div class="mobile-wrapper">
+      <div class="phone-frame">
+        <!-- Step 1: Worker Login -->
+        <div id="worker-step-login">
+          <div class="phone-header">
+            <div class="phone-sun"></div>
+            <h2>Worker Login</h2>
+            <p style="font-size:0.85rem; color:#64748b;">SolarOne Field App</p>
           </div>
-        </div>
-        <div class="table-wrapper">
-          <table class="excel-table">
-            <thead>
-              <tr>
-                <th style="width:45px;">S.N.</th>
-                <th style="min-width:150px;">CUSTOMER NAME</th>
-                <th style="min-width:120px;">DAYS PENDING</th>
-                <th style="min-width:120px;">STRUCTURE</th>
-                <th style="min-width:120px;">INVERTER AC/DC</th>
-                <th style="min-width:90px;">WIRING</th>
-                <th style="min-width:90px;">EARTHING</th>
-                <th style="min-width:90px;">PANEL</th>
-                <th style="min-width:90px;">G METER</th>
-                <th style="min-width:90px;">N METER</th>
-              </tr>
-            </thead>
-            <tbody id="techTableBody"></tbody>
-          </table>
-        </div>
-        <div class="excel-btn-bar">
-          <input type="file" id="techCsvUpload" accept=".csv" style="display:none;" onchange="uploadTechCsv(event)" />
-          <button class="excel-green-btn" onclick="exportTechExcel()">DOWNLOAD EXCEL</button>
-          <button class="excel-green-btn" onclick="document.getElementById('techCsvUpload').click()">UPLOAD CSV</button>
+          <div class="form-group">
+            <label>Worker ID</label>
+            <input type="text" id="worker-id-input" class="form-control" value="WRK-1024" />
+          </div>
+          <div class="form-group">
+            <label>Worker Name</label>
+            <input type="text" id="worker-name-input" class="form-control" value="Amit K." />
+          </div>
+          <div class="form-group">
+            <label>PIN / Password</label>
+            <input type="password" class="form-control" value="123456" />
+          </div>
+          <button class="btn-primary" onclick="workerLogin()">LOGIN</button>
         </div>
 
-        <!-- Table 2: Documentation & Metering -->
-        <div class="excel-grid-title">
-          <span>📑 2. DOCUMENTS &amp; METERING WORKFLOW (Book1 - Sheet1)</span>
-          <button class="excel-green-btn" onclick="addTableRow('doc')" style="padding:3px 10px; font-size:11px;">+ Add Row</button>
-        </div>
-        <div class="table-wrapper">
-          <table class="excel-table">
-            <thead>
-              <tr>
-                <th style="width:45px;">S.N.</th>
-                <th style="min-width:150px;">CUSTOMER NAME</th>
-                <th style="min-width:110px;">DAYS PENDING</th>
-                <th style="min-width:200px;">DOCUMENTS (NAME CHANGE / LOAD CHANGE)</th>
-                <th style="min-width:120px;">INVERTER AC/DC</th>
-                <th style="min-width:90px;">WIRING</th>
-                <th style="min-width:90px;">EARTHING</th>
-                <th style="min-width:90px;">PANEL</th>
-                <th style="min-width:90px;">G METER</th>
-                <th style="min-width:90px;">N METER</th>
-              </tr>
-            </thead>
-            <tbody id="docTableBody"></tbody>
-          </table>
-        </div>
-        <div class="excel-btn-bar">
-          <input type="file" id="docCsvUpload" accept=".csv" style="display:none;" onchange="uploadDocCsv(event)" />
-          <button class="excel-green-btn" onclick="exportDocExcel()">DOWNLOAD EXCEL</button>
-          <button class="excel-green-btn" onclick="document.getElementById('docCsvUpload').click()">UPLOAD CSV</button>
-          <button class="excel-green-btn" id="editAllBtn" onclick="toggleEditAllSheets()">EDIT ALL SHEETS</button>
-        </div>
+        <!-- Step 2: Site Photo & Visit Details -->
+        <div id="worker-step-visit" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <h3 style="font-size:1.1rem;">Site Visit Details</h3>
+            <span class="badge done" id="logged-worker-badge">WRK-1024</span>
+          </div>
 
+          <!-- Photo Capture -->
+          <div class="photo-capture-box" onclick="document.getElementById('site-photo-file').click()">
+            <div style="font-weight:700; color:#1d4ed8;">📷 Tap to capture / upload site photo</div>
+            <div style="font-size:0.78rem; color:#64748b; margin-top:4px;">Supports JPG, PNG</div>
+            <input type="file" id="site-photo-file" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)" />
+            <img id="worker-photo-preview" class="photo-preview-img" alt="Site Preview" />
+          </div>
+
+          <div class="progress-bar-wrap" id="upload-progress-wrap">
+            <div class="progress-fill" id="upload-progress-fill">Upload 0%</div>
+          </div>
+
+          <div class="form-group">
+            <label>Customer Name</label>
+            <input type="text" id="visit-customer" class="form-control" placeholder="e.g. Rajesh Patil" value="Rajesh Patil" />
+          </div>
+
+          <div class="form-group">
+            <label>Site Location</label>
+            <input type="text" id="visit-site" class="form-control" placeholder="e.g. Baner, Pune" value="Baner, Pune" />
+          </div>
+
+          <div class="form-group">
+            <label>Date & Time</label>
+            <input type="text" id="visit-datetime" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label>Work Type</label>
+            <select id="visit-work" class="form-control">
+              <option value="Site survey">Site survey</option>
+              <option value="Panel Installation">Panel Installation</option>
+              <option value="Inverter Setup">Inverter Setup</option>
+              <option value="AMC / Cleaning">AMC / Cleaning</option>
+            </select>
+          </div>
+
+          <button class="btn-success" onclick="submitSiteVisit()">SUBMIT VISIT</button>
+          <button class="btn-primary" style="background:#64748b;" onclick="workerLogout()">Logout</button>
+        </div>
       </div>
     </div>
+  </section>
 
-  </div>
-
-  <!-- POPUP MODALS -->
-
-  <!-- 1. COMPLAINT REGISTRATION MODAL -->
-  <div id="complaintModal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-head">
-        <h3>नवीन तक्रार नोंदणी</h3>
-        <button class="close-btn" onclick="closeModal('complaintModal')">&times;</button>
+  <!-- ==================== 3. CUSTOMER ENQUIRY FORM ==================== -->
+  <section id="view-customer" class="view-section">
+    <div class="enquiry-layout">
+      <div class="enquiry-hero">
+        <h2>Customer <br /><span>Enquiry Form</span></h2>
+        <p>Ek hi form mein sab details ek jagah. Fill your solar requirement and our team will contact you with a customized proposal.</p>
       </div>
-      <form onsubmit="submitNewComplaint(event)">
-        <div class="form-group"><label>ग्राहक नाव *</label><input type="text" id="cName" required /></div>
-        <div class="form-group"><label>मोबाईल नंबर *</label><input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="उदा. 9876543210" /></div>
-        <div class="form-group"><label>प्रणाली प्रकार *</label>
-          <select id="cType">
-            <option value="Rooftop Solar">Rooftop Solar</option>
-            <option value="LIFT UPS">LIFT UPS</option>
-            <option value="Battery/Inverter">Battery &amp; Inverter</option>
-            <option value="AMC Service">AMC Service</option>
-          </select>
-        </div>
-        <div class="form-group"><label>तपशील *</label><textarea id="cMsg" rows="3" required></textarea></div>
-        <button type="submit" class="btn-modal-submit" style="background:#ea580c;">तक्रार सेव्ह करा आणि Amol Sonawane यांना WhatsApp पाठवा</button>
-      </form>
+
+      <div class="enquiry-card">
+        <h3>New Enquiry</h3>
+        <form onsubmit="submitCustomerEnquiry(event)">
+          <div class="form-group">
+            <label>Naam (Full Name)</label>
+            <input type="text" id="enq-name" class="form-control" placeholder="e.g. Rajesh Patil" required />
+          </div>
+          <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="tel" id="enq-mobile" class="form-control" placeholder="e.g. 98220XXXXX" required />
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" id="enq-address" class="form-control" placeholder="e.g. Pune, Maharashtra" required />
+          </div>
+          <div class="form-group">
+            <label>Requirement</label>
+            <input type="text" id="enq-req" class="form-control" placeholder="e.g. 5 kW Rooftop Solar" required />
+          </div>
+          <div class="form-group">
+            <label>Bill Detail (Monthly Electricity Bill)</label>
+            <input type="text" id="enq-bill" class="form-control" placeholder="e.g. Rs. 4,500 / month" required />
+          </div>
+          <button type="submit" class="btn-amber">SUBMIT ENQUIRY</button>
+        </form>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- 2. SALES LEAD MODAL -->
-  <div id="leadModal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-head">
-        <h3>नवीन विक्री लीड</h3>
-        <button class="close-btn" onclick="closeModal('leadModal')">&times;</button>
+  <!-- Report Preview Modal -->
+  <div class="modal-overlay" id="pdf-modal" onclick="if(event.target===this) closePdfModal()">
+    <div class="modal-card">
+      <h3 style="margin-bottom:12px; color:#0f172a;">Site Visit Report Preview</h3>
+      <div id="modal-report-body" style="background:#f8fafc; padding:16px; border-radius:10px; border:1px solid #e2e8f0; line-height:1.7; font-size:0.92rem;"></div>
+      <div style="display:flex; gap:10px; margin-top:16px;">
+        <button class="btn-pdf" onclick="generatePDFReport()">Download PDF</button>
+        <button class="btn-primary" style="margin-top:0; background:#64748b;" onclick="closePdfModal()">Close</button>
       </div>
-      <form onsubmit="submitNewLead(event)">
-        <div class="form-group"><label>तारीख *</label><input type="date" id="leadDate" required onchange="handleLeadDateChange('leadDate','lFollow')" /></div>
-        <div class="form-group"><label>ग्राहक नाव *</label><input type="text" id="lName" required /></div>
-        <div class="form-group"><label>मोबाईल नंबर *</label><input type="tel" id="lPhone" required pattern="[0-9]{10}" /></div>
-        <div class="form-group"><label>पत्ता *</label><input type="text" id="lAddress" required /></div>
-        <div class="form-group"><label>गरज / Requirement *</label>
-          <select id="lReq">
-            <option value="3 kW Residential">3 kW Residential Solar</option>
-            <option value="5 kW Residential">5 kW Residential Solar</option>
-            <option value="Commercial Solar">Commercial Solar</option>
-            <option value="Lift UPS">Lift UPS</option>
-          </select>
-        </div>
-        <div class="form-group"><label>शेरा / Remark *</label><textarea id="lRemark" rows="2" required></textarea></div>
-        <div class="form-group"><label>पुढील पाठपुरावा (+10 Days Auto) *</label><input type="date" id="lFollow" required /></div>
-        <button type="submit" class="btn-modal-submit" style="background:#16a34a;">लीड सेव्ह करा</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 3. OTP & PASSWORD LOGIN MODAL (HR: 9175805804, REAL OTP OR PASSWORD 902817) -->
-  <div id="otpModal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-head">
-        <h3 id="otpModalTitle">सुरक्षित लॉगिन</h3>
-        <button class="close-btn" onclick="closeModal('otpModal')">&times;</button>
-      </div>
-      <input type="hidden" id="loginRole" />
-      <div class="form-group">
-        <label id="loginMobileLabel">नोंदणीकृत 10-अंकी मोबाईल नंबर:</label>
-        <input type="tel" id="loginMobile" maxlength="10" placeholder="उदा. 9175805804" />
-        <small id="loginNote" style="color:#94a3b8; font-size:11px; display:block; margin-top:4px;"></small>
-      </div>
-      <button type="button" class="btn-otp-req" onclick="sendOtp()">📲 Get Real OTP on WhatsApp (9175805804)</button>
-      <div class="form-group">
-        <label>WhatsApp वर आलेला 4-अंकी OTP किंवा HR पासवर्ड (902817) प्रविष्ट करा:</label>
-        <input type="text" id="enteredOtp" maxlength="6" placeholder="OTP किंवा पासवर्ड 902817 टाका" style="text-align:center; font-size:17px; font-weight:bold; letter-spacing:3px;" />
-        <small style="color:#facc15; font-size:11px; display:block; margin-top:4px;">💡 टीप: HR Admin थेट <strong>902817</strong> पासवर्ड टाकूनही लॉगिन करू शकतात.</small>
-      </div>
-      <button type="button" class="btn-modal-submit" style="background:#0284c7;" onclick="verifyOtp()">Verify OTP / Password &amp; Login</button>
     </div>
   </div>
 
-  <!-- 4. EDIT COMPLAINT MODAL -->
-  <div id="editCompModal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-head">
-        <h3>तक्रार संपादन (Edit Complaint)</h3>
-        <button class="close-btn" onclick="closeModal('editCompModal')">&times;</button>
-      </div>
-      <form onsubmit="saveEditedComplaint(event)">
-        <input type="hidden" id="ecIndex" />
-        <div class="form-group"><label>ग्राहक नाव</label><input type="text" id="ecName" required /></div>
-        <div class="form-group"><label>मोबाईल</label><input type="tel" id="ecPhone" required pattern="[0-9]{10}" /></div>
-        <div class="form-group"><label>तपशील</label><textarea id="ecMsg" rows="3" required></textarea></div>
-        <div class="form-group"><label>प्रलंबित दिवस (Days Pending)</label><input type="number" id="ecDays" min="0" /></div>
-        <button type="submit" class="btn-modal-submit" style="background:#d97706;">बदल जतन करा</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 5. EDIT LEAD MODAL -->
-  <div id="editLeadModal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-head">
-        <h3>लीड संपादन (Edit Lead)</h3>
-        <button class="close-btn" onclick="closeModal('editLeadModal')">&times;</button>
-      </div>
-      <form onsubmit="saveEditedLead(event)">
-        <input type="hidden" id="elIndex" />
-        <div class="form-group"><label>ग्राहक नाव</label><input type="text" id="elName" required /></div>
-        <div class="form-group"><label>मोबाईल</label><input type="tel" id="elPhone" required pattern="[0-9]{10}" /></div>
-        <div class="form-group"><label>पत्ता</label><input type="text" id="elAddress" required /></div>
-        <div class="form-group"><label>शेरा</label><textarea id="elRemark" rows="2" required></textarea></div>
-        <div class="form-group"><label>पुढील पाठपुरावा तारीख</label><input type="date" id="elFollow" required /></div>
-        <button type="submit" class="btn-modal-submit" style="background:#d97706;">बदल जतन करा</button>
-      </form>
-    </div>
-  </div>
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">Saved!</div>
 
   <script>
-    // GLOBAL APP STATE
-    var currentRole = 'GUEST';
-    var isEditingSheets = false;
-    var generatedOtp = '';
-
-    // MODAL CONTROL
-    function openModal(id) {
-      var el = document.getElementById(id);
-      if (el) {
-        el.style.display = 'flex';
-      }
-    }
-
-    function closeModal(id) {
-      var el = document.getElementById(id);
-      if (el) {
-        el.style.display = 'none';
-      }
-    }
-
-    window.onclick = function(e) {
-      if (e.target && e.target.classList && e.target.classList.contains('modal-overlay')) {
-        e.target.style.display = 'none';
-      }
+    // Default initial data matching the video
+    const defaultData = {
+      totalWorkers: 12,
+      totalVisits: 38,
+      totalEnquiries: 24,
+      workers: [
+        { id: 'WRK-1024', name: 'Amit K.', site: 'Baner site', customer: 'Rajesh Patil', date: '26 Oct, 10:42 AM', work: 'Site survey', status: 'Visit done' },
+        { id: 'WRK-1025', name: 'Suresh P.', site: 'Wakad site', customer: 'Meena Joshi', date: '26 Oct, 11:15 AM', work: 'Site survey', status: 'Visit done' },
+        { id: 'WRK-1026', name: 'Rahul D.', site: 'Hadapsar site', customer: 'Sai Traders', date: '26 Oct, 01:30 PM', work: 'Installation', status: 'Pending' },
+        { id: 'WRK-1027', name: 'Nitin S.', site: 'Pune site', customer: 'Anil Deshmukh', date: '26 Oct, 03:00 PM', work: 'Site survey', status: 'Visit done' }
+      ],
+      enquiries: [
+        { name: 'Rajesh Patil', mobile: '98XXXX2210', address: 'Pune, Maharashtra', req: '5 kW Rooftop Solar', bill: 'Rs. 4,500 / month', status: 'New' },
+        { name: 'Meena Joshi', mobile: '97XXXX4412', address: 'Wakad, Pune', req: '3 kW Residential', bill: 'Rs. 3,100 / month', status: 'New' },
+        { name: 'Sai Traders', mobile: '99XXXX8831', address: 'Hadapsar, Pune', req: '10 kW Commercial', bill: 'Rs. 14,000 / month', status: 'New' },
+        { name: 'Anil Deshmukh', mobile: '95XXXX1190', address: 'Nashik, Maharashtra', req: 'Solar Water Pump', bill: 'Rs. 2,800 / month', status: 'New' }
+      ],
+      photos: [
+        'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="140"><rect width="200" height="140" fill="%23dbeafe"/><polygon points="100,25 40,65 160,65" fill="%231e3a8a"/><rect x="55" y="65" width="90" height="55" fill="%233b82f6"/><rect x="70" y="38" width="60" height="22" fill="%230f172a"/></svg>',
+        'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="140"><rect width="200" height="140" fill="%23e0f2fe"/><rect x="30" y="40" width="140" height="70" rx="6" fill="%231d4ed8"/><line x1="30" y1="75" x2="170" y2="75" stroke="%2393c5fd" stroke-width="2"/><line x1="100" y1="40" x2="100" y2="110" stroke="%2393c5fd" stroke-width="2"/></svg>',
+        'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="140"><rect width="200" height="140" fill="%23fef3c7"/><circle cx="155" cy="35" r="18" fill="%23f59e0b"/><rect x="40" y="60" width="110" height="50" fill="%231e293b"/></svg>'
+      ]
     };
 
-    // STORAGE HANDLERS
-    function safeGet(key, fallback) {
-      try {
-        var v = localStorage.getItem(key);
-        if (v) {
-          var parsed = JSON.parse(v);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        }
-      } catch (err) {}
-      return fallback;
+    let appData = JSON.parse(localStorage.getItem('solarOneData')) || JSON.parse(JSON.stringify(defaultData));
+    let selectedReport = {
+      customer: 'Rajesh Patil',
+      worker: 'Amit K.',
+      date: '26 Oct, 10:42 AM',
+      req: '5 kW Rooftop Solar',
+      location: 'Pune, Maharashtra',
+      bill: 'Rs. 4,500 / month',
+      status: 'Completed'
+    };
+    let uploadedPhotoBase64 = '';
+
+    function saveData() {
+      localStorage.setItem('solarOneData', JSON.stringify(appData));
+      renderDashboard();
     }
 
-    function safeSet(key, val) {
-      try {
-        localStorage.setItem(key, JSON.stringify(val));
-      } catch (err) {}
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2800);
     }
 
-    // INITIAL SEED DATA (POPULATES 10 ROWS WITH SOME ENTRIES > 10 DAYS TO TEST RED BOX)
-    function getInitialTech() {
-      var arr = [];
-      for (var i = 1; i <= 10; i++) {
-        arr.push({
-          sn: i,
-          name: i === 1 ? "Suresh Patil (Nashik)" : (i === 2 ? "Ganesh Enterprises" : (i === 3 ? "Kiran Shinde" : (i === 4 ? "Mahesh Deshmukh" : (i === 5 ? "Apex MIDC MIDC" : "Site " + i)))),
-          days: i === 1 ? 14 : (i === 2 ? 6 : (i === 3 ? 12 : (i === 4 ? 4 : (i === 5 ? 15 : 2)))), // 1, 3, 5 are > 10 days (Red Box)
-          struct: i === 1 ? "Pending" : (i === 2 ? "In Progress" : (i === 3 ? "Hold" : "Completed")),
-          inv: i === 1 ? "Awaiting Delivery" : (i === 2 ? "Installed" : "Done"),
-          wire: i === 1 ? "Not Started" : (i === 2 ? "Done" : "Done"),
-          earth: i === 1 ? "Pending" : (i === 2 ? "Done" : "Done"),
-          panel: i === 1 ? "10 Panels" : "Done",
-          gmet: i === 1 ? "Pending" : "Applied",
-          nmet: i === 1 ? "Applied" : "Done"
-        });
-      }
-      return arr;
-    }
-
-    function getInitialDoc() {
-      var arr = [];
-      for (var i = 1; i <= 10; i++) {
-        arr.push({
-          sn: i,
-          name: i === 1 ? "Suresh Patil (Nashik)" : (i === 2 ? "Ganesh Enterprises" : (i === 3 ? "Kiran Shinde" : (i === 4 ? "Amit Kulkarni" : "Customer " + i))),
-          days: i === 1 ? 14 : (i === 2 ? 5 : (i === 3 ? 3 : (i === 4 ? 11 : 1))), // 1 & 4 are > 10 days (Red Box)
-          doc: i === 1 ? "Name Change: Not OK" : (i === 4 ? "Load Change: Pending" : "Name & Load Change: OK"),
-          inv: i === 1 ? "Pending" : "OK",
-          wire: i === 1 ? "Pending" : "OK",
-          earth: i === 1 ? "Pending" : "OK",
-          panel: i === 1 ? "Pending" : "OK",
-          gmet: i === 1 ? "Applied" : "OK",
-          nmet: i === 1 ? "Hold" : "In Process"
-        });
-      }
-      return arr;
-    }
-
-    // TAB NAVIGATION
-    function switchTab(tabName) {
-      document.getElementById('complaintsSection').classList.toggle('active', tabName === 'complaints');
-      document.getElementById('leadsSection').classList.toggle('active', tabName === 'leads');
-      document.getElementById('sheetsSection').classList.toggle('active', tabName === 'sheets');
-
-      document.getElementById('tabComplaintsBtn').classList.toggle('active', tabName === 'complaints');
-      document.getElementById('tabLeadsBtn').classList.toggle('active', tabName === 'leads');
-      document.getElementById('tabSheetsBtn').classList.toggle('active', tabName === 'sheets');
-    }
-
-    // RENDER FUNCTIONS (RED BOX ON DAYS PENDING > 10)
-    function renderAll() {
-      renderComplaints();
-      renderLeads();
-      renderTech();
-      renderDoc();
-      updateStatsAndOverdueBanner();
-    }
-
-    function renderComplaints() {
-      var list = safeGet('c_list', [
-        { date: "15/10/2026", id: "DIP-1021", name: "Suresh Patil", phone: "9822011223", type: "Rooftop Solar", msg: "Inverter generation issue", technician: "Amol Sonawane", days: 14, amc: false, hr: false, status: "Pending" },
-        { date: "24/10/2026", id: "DIP-1022", name: "Ganesh Enterprises", phone: "9423188776", type: "LIFT UPS", msg: "Backup dropping quickly", technician: "Amol Sonawane", days: 5, amc: true, hr: false, status: "Pending (AMC Solved)" }
-      ]);
-      safeSet('c_list', list);
-
-      var tb = document.getElementById('complaintsTableBody');
-      if (!tb) return;
-      tb.innerHTML = '';
-
-      list.forEach(function(c, i) {
-        var isOverdue = (c.days > 10 && c.status !== 'Resolved');
-        var rowClass = isOverdue ? 'class="row-overdue"' : '';
-
-        // RED BACKGROUND BOX FOR DAYS PENDING > 10
-        var daysHtml = isOverdue
-          ? '<span class="days-box-red">⚠️ ' + c.days + ' Days</span>'
-          : '<span class="days-box-normal">' + c.days + ' Days</span>';
-
-        var amcBtn = (currentRole === 'AMC' || currentRole === 'HR')
-          ? '<button class="btn-action" style="background:#0284c7; padding:4px 8px; font-size:11px;" onclick="toggleAmc(' + i + ')">' + (c.amc ? '✓ Solved' : 'Mark Solved') + '</button>'
-          : '<span style="color:' + (c.amc ? '#38bdf8' : '#ea580c') + '; font-weight:bold;">' + (c.amc ? 'Solved ✓' : 'Pending') + '</span>';
-
-        var hrBtn = (currentRole === 'HR')
-          ? '<button class="btn-action" style="background:#16a34a; padding:4px 8px; font-size:11px;" onclick="toggleHr(' + i + ')">' + (c.hr ? '✓ Approved' : 'Approve') + '</button>'
-          : '<span style="color:' + (c.hr ? '#4ade80' : '#94a3b8') + '; font-weight:bold;">' + (c.hr ? 'Approved ✓' : 'Wait HR') + '</span>';
-
-        var act = (currentRole === 'HR')
-          ? '<button onclick="openEditComp(' + i + ')" style="background:#d97706; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Edit</button> <button onclick="delComp(' + i + ')" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Del</button>'
-          : (isOverdue ? '<span style="color:#ef4444; font-size:11px; font-weight:bold;">🔒 HR Edit Only</span>' : '-');
-
-        var waText = "*Dip Urja Service Follow-up*%0A*Ticket ID:* " + c.id + "%0A*Customer:* " + encodeURIComponent(c.name) + "%0A*Details:* " + encodeURIComponent(c.msg);
-        var badgeClass = (c.status === 'Resolved') ? 'status-resolved' : (c.amc ? 'status-solved-amc' : 'status-pending');
-
-        tb.innerHTML += '<tr ' + rowClass + '>' +
-          '<td>' + c.date + '</td>' +
-          '<td><strong style="color:#facc15;">' + c.id + '</strong></td>' +
-          '<td>' + c.name + '</td>' +
-          '<td><a href="tel:' + c.phone + '" style="color:#38bdf8; text-decoration:none; font-weight:bold;">📞 ' + c.phone + '</a></td>' +
-          '<td>' + c.type + '</td>' +
-          '<td>' + c.msg + '</td>' +
-          '<td><strong>' + (c.technician || 'Amol Sonawane') + '</strong><br><a href="https://wa.me/919022255373?text=' + waText + '" target="_blank" class="btn-table-wa">💬 Send Amol</a></td>' +
-          '<td>' + daysHtml + '</td>' +
-          '<td>' + amcBtn + '</td>' +
-          '<td>' + hrBtn + '</td>' +
-          '<td><span class="status-badge ' + badgeClass + '">' + c.status + '</span></td>' +
-          '<td>' + act + '</td>' +
-        '</tr>';
-      });
-    }
-
-    function renderLeads() {
-      var list = safeGet('l_list', [
-        { date: "15/10/2026", name: "Mahesh Deshmukh", phone: "9823145678", addr: "Gangapur Road, Nashik", req: "5 kW Residential Solar", remark: "Site visit done, budget pending", follow: "2026-10-25", days: 14 }
-      ]);
-      safeSet('l_list', list);
-
-      var tb = document.getElementById('leadsTableBody');
-      if (!tb) return;
-      tb.innerHTML = '';
-
-      list.forEach(function(l, i) {
-        var isOverdue = (l.days > 10);
-        var rowClass = isOverdue ? 'class="row-overdue"' : '';
-
-        var act = (currentRole === 'HR')
-          ? '<button onclick="openEditLead(' + i + ')" style="background:#d97706; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Edit</button> <button onclick="delLead(' + i + ')" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Del</button>'
-          : (isOverdue ? '<span style="color:#ef4444; font-size:11px; font-weight:bold;">🔒 HR Edit Only</span>' : '-');
-
-        var statusBadge = isOverdue 
-          ? '<span class="days-box-red">⚠️ Overdue</span>' 
-          : '<span style="color:#4ade80; font-weight:bold;">Active</span>';
-
-        var waText = "*Dip Urja Sales Follow-up*%0A*Customer:* " + encodeURIComponent(l.name) + "%0A*Requirement:* " + encodeURIComponent(l.req);
-
-        tb.innerHTML += '<tr ' + rowClass + '>' +
-          '<td>' + l.date + '</td>' +
-          '<td><strong>' + l.name + '</strong></td>' +
-          '<td><a href="tel:' + l.phone + '" style="color:#38bdf8; text-decoration:none; font-weight:bold;">📞 ' + l.phone + '</a><br><a href="https://wa.me/91' + l.phone + '?text=' + waText + '" target="_blank" class="btn-table-wa">💬 WhatsApp</a></td>' +
-          '<td>' + l.addr + '</td>' +
-          '<td><span style="color:#facc15; font-weight:bold;">' + l.req + '</span></td>' +
-          '<td>' + l.remark + '</td>' +
-          '<td><span style="background:#422006; color:#fde047; padding:2px 8px; border-radius:4px; font-weight:bold;">' + l.follow + '</span></td>' +
-          '<td>' + statusBadge + '</td>' +
-          '<td>' + act + '</td>' +
-        '</tr>';
-      });
-    }
-
-    function renderTech() {
-      var list = safeGet('t_sheet', getInitialTech());
-      safeSet('t_sheet', list);
-
-      var tb = document.getElementById('techTableBody');
-      if (!tb) return;
-      tb.innerHTML = '';
-
-      list.forEach(function(r, i) {
-        var isOverdue = (r.name && r.days > 10);
-        var rowClass = isOverdue ? 'class="row-overdue"' : '';
-
-        // RED BACKGROUND BOX IF DAYS PENDING > 10
-        var daysBox = isOverdue
-          ? '<span class="days-box-red">⚠️ ' + r.days + ' Days</span>'
-          : (r.days ? '<span class="days-box-normal">' + r.days + ' Days</span>' : '-');
-
-        if (isEditingSheets && currentRole === 'HR') {
-          tb.innerHTML += '<tr ' + rowClass + '>' +
-            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
-            '<td><input class="excel-input" value="' + (r.name||'') + '" onchange="upTech(' + i + ',\'name\',this.value)"/></td>' +
-            '<td><input class="excel-input" type="number" value="' + (r.days||0) + '" onchange="upTech(' + i + ',\'days\',parseInt(this.value)||0)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.struct||'') + '" onchange="upTech(' + i + ',\'struct\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.inv||'') + '" onchange="upTech(' + i + ',\'inv\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.wire||'') + '" onchange="upTech(' + i + ',\'wire\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.earth||'') + '" onchange="upTech(' + i + ',\'earth\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.panel||'') + '" onchange="upTech(' + i + ',\'panel\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.gmet||'') + '" onchange="upTech(' + i + ',\'gmet\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.nmet||'') + '" onchange="upTech(' + i + ',\'nmet\',this.value)"/></td>' +
-          '</tr>';
-        } else {
-          tb.innerHTML += '<tr ' + rowClass + '>' +
-            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
-            '<td><strong>' + (r.name||'') + '</strong></td>' +
-            '<td>' + daysBox + '</td>' +
-            '<td>' + (r.struct||'') + '</td>' +
-            '<td>' + (r.inv||'') + '</td>' +
-            '<td>' + (r.wire||'') + '</td>' +
-            '<td>' + (r.earth||'') + '</td>' +
-            '<td>' + (r.panel||'') + '</td>' +
-            '<td>' + (r.gmet||'') + '</td>' +
-            '<td>' + (r.nmet||'') + '</td>' +
-          '</tr>';
-        }
-      });
-    }
-
-    function renderDoc() {
-      var list = safeGet('d_sheet', getInitialDoc());
-      safeSet('d_sheet', list);
-
-      var tb = document.getElementById('docTableBody');
-      if (!tb) return;
-      tb.innerHTML = '';
-
-      list.forEach(function(r, i) {
-        var isOverdue = (r.name && r.days > 10);
-        var rowClass = isOverdue ? 'class="row-overdue"' : '';
-
-        // RED BACKGROUND BOX IF DAYS PENDING > 10
-        var daysBox = isOverdue
-          ? '<span class="days-box-red">⚠️ ' + r.days + ' Days</span>'
-          : (r.days ? '<span class="days-box-normal">' + r.days + ' Days</span>' : '-');
-
-        if (isEditingSheets && currentRole === 'HR') {
-          tb.innerHTML += '<tr ' + rowClass + '>' +
-            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
-            '<td><input class="excel-input" value="' + (r.name||'') + '" onchange="upDoc(' + i + ',\'name\',this.value)"/></td>' +
-            '<td><input class="excel-input" type="number" value="' + (r.days||0) + '" onchange="upDoc(' + i + ',\'days\',parseInt(this.value)||0)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.doc||'') + '" onchange="upDoc(' + i + ',\'doc\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.inv||'') + '" onchange="upDoc(' + i + ',\'inv\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.wire||'') + '" onchange="upDoc(' + i + ',\'wire\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.earth||'') + '" onchange="upDoc(' + i + ',\'earth\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.panel||'') + '" onchange="upDoc(' + i + ',\'panel\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.gmet||'') + '" onchange="upDoc(' + i + ',\'gmet\',this.value)"/></td>' +
-            '<td><input class="excel-input" value="' + (r.nmet||'') + '" onchange="upDoc(' + i + ',\'nmet\',this.value)"/></td>' +
-          '</tr>';
-        } else {
-          tb.innerHTML += '<tr ' + rowClass + '>' +
-            '<td style="text-align:center; font-weight:bold;">' + r.sn + '</td>' +
-            '<td><strong>' + (r.name||'') + '</strong></td>' +
-            '<td>' + daysBox + '</td>' +
-            '<td>' + (r.doc||'') + '</td>' +
-            '<td>' + (r.inv||'') + '</td>' +
-            '<td>' + (r.wire||'') + '</td>' +
-            '<td>' + (r.earth||'') + '</td>' +
-            '<td>' + (r.panel||'') + '</td>' +
-            '<td>' + (r.gmet||'') + '</td>' +
-            '<td>' + (r.nmet||'') + '</td>' +
-          '</tr>';
-        }
-      });
-    }
-
-    function upTech(i, k, v) {
-      var l = safeGet('t_sheet', getInitialTech());
-      if (l[i]) { l[i][k] = v; safeSet('t_sheet', l); }
-    }
-
-    function upDoc(i, k, v) {
-      var l = safeGet('d_sheet', getInitialDoc());
-      if (l[i]) { l[i][k] = v; safeSet('d_sheet', l); }
-    }
-
-    function toggleEditAllSheets(force) {
-      if (currentRole !== 'HR') {
-        alert("१० दिवसांपेक्षा जास्त प्रलंबित कामे व शीट संपादन फक्त HR लॉगिन (9175805804 किंवा पासवर्ड 902817) द्वारेच शक्य आहे!");
-        openLoginModal('HR');
-        return;
-      }
-      isEditingSheets = (typeof force === 'boolean') ? force : !isEditingSheets;
-      document.getElementById('saveAllSheetsBtn').style.display = isEditingSheets ? 'inline-block' : 'none';
-      document.getElementById('editAllBtn').innerText = isEditingSheets ? 'EXIT EDIT MODE' : 'EDIT ALL SHEETS';
-      renderTech();
-      renderDoc();
-    }
-
-    function saveAllSheetsData() {
-      isEditingSheets = false;
-      document.getElementById('saveAllSheetsBtn').style.display = 'none';
-      document.getElementById('editAllBtn').innerText = 'EDIT ALL SHEETS';
-      renderTech();
-      renderDoc();
-      updateStatsAndOverdueBanner();
-      alert("सर्व एक्सेल शीट्सची माहिती सुरक्षितपणे सेव्ह झाली!");
-    }
-
-    function addTableRow(type) {
-      if (currentRole !== 'HR') {
-        alert("नवीन रो जोडण्याचा अधिकार फक्त HR लॉगिनमध्ये उपलब्ध आहे.");
-        openLoginModal('HR');
-        return;
-      }
-      if (type === 'tech') {
-        var lt = safeGet('t_sheet', getInitialTech());
-        lt.push({ sn: lt.length + 1, name: "", days: 0, struct: "", inv: "", wire: "", earth: "", panel: "", gmet: "", nmet: "" });
-        safeSet('t_sheet', lt);
-      } else {
-        var ld = safeGet('d_sheet', getInitialDoc());
-        ld.push({ sn: ld.length + 1, name: "", days: 0, doc: "", inv: "", wire: "", earth: "", panel: "", gmet: "", nmet: "" });
-        safeSet('d_sheet', ld);
-      }
-      toggleEditAllSheets(true);
-    }
-
-    // OVERDUE TRACKING & AUTOMATIC WHATSAPP ALERT (9175805804)
-    function getOverdueItems() {
-      var overdueList = [];
-      var tech = safeGet('t_sheet', []);
-      var doc = safeGet('d_sheet', []);
-      var comp = safeGet('c_list', []);
-
-      tech.forEach(function(t) {
-        if (t.name && t.days > 10) {
-          overdueList.push({ type: "Hardware Installation", name: t.name, days: t.days, detail: t.struct });
-        }
-      });
-      doc.forEach(function(d) {
-        if (d.name && d.days > 10) {
-          overdueList.push({ type: "Documentation/Metering", name: d.name, days: d.days, detail: d.doc });
-        }
-      });
-      comp.forEach(function(c) {
-        if (c.days > 10 && c.status !== 'Resolved') {
-          overdueList.push({ type: "Service Complaint", name: c.name, days: c.days, detail: c.msg });
-        }
-      });
-      return overdueList;
-    }
-
-    function updateStatsAndOverdueBanner() {
-      var c = safeGet('c_list', []);
-      var l = safeGet('l_list', []);
-      var t = safeGet('t_sheet', []);
-      var overdues = getOverdueItems();
-
-      document.getElementById('statTotalComplaints').innerText = c.length;
-      document.getElementById('statAwaitingHr').innerText = c.filter(function(x) { return x.amc && !x.hr; }).length;
-      document.getElementById('statOverdueSites').innerText = overdues.length;
-      document.getElementById('statTotalProjects').innerText = t.filter(function(x) { return x.name && x.name.trim() !== ''; }).length;
-
-      var banner = document.getElementById('overdueBanner');
-      if (overdues.length > 0) {
-        banner.style.display = 'flex';
-        document.getElementById('overdueCountText').innerText = "CRITICAL ALERT: " + overdues.length + " Sites / Tasks Pending for Over 10 Days!";
-      } else {
-        banner.style.display = 'none';
+    // Switch Top Views
+    function switchView(viewName, btn) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.mode-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById('view-' + viewName).classList.add('active');
+      if (btn) btn.classList.add('active');
+      if (viewName === 'worker') {
+        const now = new Date();
+        document.getElementById('visit-datetime').value = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ', ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       }
     }
 
-    function sendAutomatedOverdueAlertToHr() {
-      var overdues = getOverdueItems();
-      var targetNumber = "9175805804";
+    // Render Dashboard
+    function renderDashboard() {
+      document.getElementById('kpi-workers').textContent = appData.totalWorkers;
+      document.getElementById('kpi-visits').textContent = appData.totalVisits;
+      document.getElementById('kpi-enquiries').textContent = appData.totalEnquiries;
 
-      var msg = "*🚨 DIP URJA POWER SOLUTIONS - OVERDUE WORK ALERT (>10 DAYS)*%0A";
-      msg += "*Report Date:* " + new Date().toLocaleDateString() + "%0A%0A";
+      // Render Workers
+      const workersContainer = document.getElementById('workers-list');
+      workersContainer.innerHTML = appData.workers.map((w, idx) => `
+        <div class="list-item ${selectedReport.customer === w.customer ? 'selected' : ''}" onclick="selectWorkerForReport(${idx})">
+          <div class="item-left">
+            <div class="avatar">${w.name.charAt(0)}</div>
+            <div>
+              <div class="item-title">${w.name}</div>
+              <div class="item-sub">${w.site} • ${w.customer}</div>
+            </div>
+          </div>
+          <span class="badge ${w.status === 'Visit done' ? 'done' : 'pending'}">${w.status}</span>
+        </div>
+      `).join('');
 
-      if (overdues.length === 0) {
-        msg += "Great news! Currently there are NO sites or complaints pending for more than 10 days.%0A";
-      } else {
-        msg += "*Total Overdue Sites/Tasks:* " + overdues.length + "%0A";
-        msg += "-----------------------------------%0A";
-        overdues.forEach(function(item, idx) {
-          msg += (idx + 1) + ". *" + item.name + "* (" + item.type + ")%0A";
-          msg += "   ⏳ *Pending Days:* " + item.days + " Days%0A";
-          msg += "   📌 *Status:* " + item.detail + "%0A%0A";
-        });
-        msg += "⚠️ *Action Required:* Please review in HR Panel and assign priority teams.";
-      }
+      // Render Enquiries
+      const enqContainer = document.getElementById('enquiries-list');
+      enqContainer.innerHTML = appData.enquiries.map((e, idx) => `
+        <div class="list-item ${selectedReport.customer === e.name ? 'selected' : ''}" onclick="selectEnquiryForReport(${idx})">
+          <div>
+            <div class="item-title">${e.name}</div>
+            <div class="item-sub">${e.req} • ${e.address}</div>
+          </div>
+          <span class="badge new">${e.status}</span>
+        </div>
+      `).join('');
 
-      window.open("https://wa.me/" + targetNumber + "?text=" + msg, "_blank");
+      // Render Photos
+      const gallery = document.getElementById('photo-gallery');
+      gallery.innerHTML = appData.photos.map(src => `<img src="${src}" class="photo-thumb" alt="Site Visit Photo" />`).join('');
+
+      document.getElementById('selected-record-label').textContent = selectedReport.customer;
     }
 
-    // AUTHENTICATION: SUPPORTS REAL OTP ON 9175805804 OR MASTER PASSWORD 902817
-    function openLoginModal(role) {
-      document.getElementById('loginRole').value = role;
-      var mob = document.getElementById('loginMobile');
-      var note = document.getElementById('loginNote');
-      document.getElementById('enteredOtp').value = '';
-      generatedOtp = '';
-
-      if (role === 'HR') {
-        document.getElementById('otpModalTitle').innerText = "🛡️ HR Login (9175805804)";
-        mob.value = "9175805804";
-        note.innerHTML = "🔐 <strong>नियम:</strong> 9175805804 (किंवा 804 ने संपणारा नंबर) वापरा. आपण थेट <strong>902817</strong> हा पासवर्ड वापरूनही लॉगिन करू शकता.";
-      } else {
-        document.getElementById('otpModalTitle').innerText = "👤 AMC Staff Login";
-        mob.value = "9022255373";
-        note.innerHTML = "📱 नोंदणीकृत 10-अंकी मोबाईल नंबर प्रविष्ट करा.";
-      }
-      openModal('otpModal');
-    }
-
-    function sendOtp() {
-      var r = document.getElementById('loginRole').value;
-      var ph = document.getElementById('loginMobile').value.trim();
-
-      if (!/^\d{10}$/.test(ph)) {
-        alert("कृपया वैध 10-अंकी मोबाईल नंबर प्रविष्ट करा!");
-        return;
-      }
-
-      if (r === 'HR') {
-        if (!ph.endsWith("804")) {
-          alert("प्रवेश नाकारला! HR लॉगिनसाठी नंबरचा शेवट 804 असणे आवश्यक आहे (उदा. 9175805804).");
-          return;
-        }
-      }
-
-      generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-      var msg = "*DIP URJA CRM*%0AYour Real Login Verification OTP is: *" + generatedOtp + "*%0A(Valid for this session)";
-
-      window.open("https://wa.me/91" + ph + "?text=" + msg, "_blank");
-      alert("Real OTP आपल्या WhatsApp नंबरवर (" + ph + ") पाठवला गेला आहे!\n\n(सोयीसाठी आपला OTP: " + generatedOtp + " किंवा आपण थेट पासवर्ड 902817 वापरू शकता.)");
-    }
-
-    function verifyOtp() {
-      var ent = document.getElementById('enteredOtp').value.trim();
-      var r = document.getElementById('loginRole').value;
-      var ph = document.getElementById('loginMobile').value.trim() || "9175805804";
-
-      // 1. MASTER PASSWORD LOGIN FOR HR (902817)
-      if (r === 'HR' && ent === '902817') {
-        currentRole = 'HR';
-        document.getElementById('sessionBadge').innerText = "HR Admin (" + ph + ")";
-        document.getElementById('sessionBadge').className = "badge-role hr";
-        document.getElementById('employerWindowCard').classList.add('active');
-        document.getElementById('logoutBtn').style.display = 'inline-block';
-        closeModal('otpModal');
-        renderAll();
-        alert("अभिनंदन! HR पासवर्डद्वारे (902817) यशस्वी लॉगिन झाले. सर्व संपादन (Edit) अधिकार चालू झाले आहेत.");
-        return;
-      }
-
-      // 2. REAL OTP LOGIN
-      if (generatedOtp && ent === generatedOtp) {
-        currentRole = r;
-        if (r === 'HR') {
-          document.getElementById('sessionBadge').innerText = "HR Admin (" + ph + ")";
-          document.getElementById('sessionBadge').className = "badge-role hr";
-          document.getElementById('employerWindowCard').classList.add('active');
-          alert("अभिनंदन! HR OTP पडताळणी यशस्वी झाली. सर्व संपादन अधिकार चालू झाले.");
-        } else {
-          document.getElementById('sessionBadge').innerText = "AMC Staff (" + ph + ")";
-          document.getElementById('sessionBadge').className = "badge-role amc";
-          document.getElementById('employerWindowCard').classList.remove('active');
-          alert("AMC Staff म्हणून लॉगिन झाले.");
-        }
-        document.getElementById('logoutBtn').style.display = 'inline-block';
-        closeModal('otpModal');
-        renderAll();
-        return;
-      }
-
-      alert("अवैध OTP किंवा चुकीचा पासवर्ड! कृपया WhatsApp वर आलेला OTP टाका किंवा HR पासवर्ड 902817 प्रविष्ट करा.");
-    }
-
-    function activateGuestMode() {
-      currentRole = 'GUEST';
-      isEditingSheets = false;
-      document.getElementById('sessionBadge').innerText = "Guest Login (Read Only)";
-      document.getElementById('sessionBadge').className = "badge-role guest";
-      document.getElementById('employerWindowCard').classList.remove('active');
-      document.getElementById('logoutBtn').style.display = 'none';
-      document.getElementById('saveAllSheetsBtn').style.display = 'none';
-      document.getElementById('editAllBtn').innerText = 'EDIT ALL SHEETS';
-      renderAll();
-      alert("आपण Guest Mode मध्ये आहात. सर्व माहिती Read Only स्वरूपात उपलब्ध आहे.");
-    }
-
-    // FORM HANDLERS
-    function toggleAmc(i) {
-      var l = safeGet('c_list', []);
-      if (l[i]) {
-        l[i].amc = !l[i].amc;
-        l[i].status = l[i].amc ? (l[i].hr ? 'Resolved' : 'Pending (AMC Solved)') : 'Pending';
-        safeSet('c_list', l);
-        renderComplaints();
-        updateStatsAndOverdueBanner();
-      }
-    }
-
-    function toggleHr(i) {
-      var l = safeGet('c_list', []);
-      if (l[i]) {
-        l[i].hr = !l[i].hr;
-        l[i].status = l[i].hr ? 'Resolved' : (l[i].amc ? 'Pending (AMC Solved)' : 'Pending');
-        safeSet('c_list', l);
-        renderComplaints();
-        updateStatsAndOverdueBanner();
-      }
-    }
-
-    function delComp(i) {
-      if (confirm("ही तक्रार हटवायची आहे का?")) {
-        var l = safeGet('c_list', []);
-        l.splice(i, 1);
-        safeSet('c_list', l);
-        renderComplaints();
-        updateStatsAndOverdueBanner();
-      }
-    }
-
-    function delLead(i) {
-      if (confirm("ही विक्री लीड हटवायची आहे का?")) {
-        var l = safeGet('l_list', []);
-        l.splice(i, 1);
-        safeSet('l_list', l);
-        renderLeads();
-        updateStatsAndOverdueBanner();
-      }
-    }
-
-    function submitNewComplaint(e) {
-      e.preventDefault();
-      var l = safeGet('c_list', []);
-      var now = new Date();
-      var name = document.getElementById('cName').value.trim();
-      var phone = document.getElementById('cPhone').value.trim();
-      var type = document.getElementById('cType').value;
-      var msg = document.getElementById('cMsg').value.trim();
-      var ticketId = "DIP-" + Math.floor(1000 + Math.random() * 9000);
-
-      l.unshift({
-        date: now.toLocaleDateString(),
-        id: ticketId,
-        name: name,
-        phone: phone,
-        type: type,
-        msg: msg,
-        technician: "Amol Sonawane",
-        days: 1,
-        amc: false, hr: false, status: "Pending"
-      });
-      safeSet('c_list', l);
-
-      var waText = "*New Service Complaint - Dip Urja*%0A*TICKET ID:* " + ticketId + "%0A*CUSTOMER:* " + encodeURIComponent(name) + "%0A*MOBILE:* " + encodeURIComponent(phone) + "%0A*TYPE:* " + encodeURIComponent(type) + "%0A*DETAILS:* " + encodeURIComponent(msg);
-      window.open("https://wa.me/919022255373?text=" + waText, "_blank");
-
-      alert("नवीन तक्रार यशस्वीरित्या नोंदवली गेली! Ticket ID: " + ticketId);
-      e.target.reset();
-      closeModal('complaintModal');
-      renderComplaints();
-      updateStatsAndOverdueBanner();
-    }
-
-    function submitNewLead(e) {
-      e.preventDefault();
-      var l = safeGet('l_list', []);
-      l.unshift({
-        date: document.getElementById('leadDate').value,
-        name: document.getElementById('lName').value.trim(),
-        phone: document.getElementById('lPhone').value.trim(),
-        addr: document.getElementById('lAddress').value.trim(),
-        req: document.getElementById('lReq').value,
-        remark: document.getElementById('lRemark').value.trim(),
-        follow: document.getElementById('lFollow').value,
-        days: 1
-      });
-      safeSet('l_list', l);
-      alert("नवीन विक्री लीड सेव्ह झाली!");
-      e.target.reset();
-      closeModal('leadModal');
-      renderLeads();
-      updateStatsAndOverdueBanner();
-      switchTab('leads');
-    }
-
-    function openEditComp(i) {
-      var c = safeGet('c_list', [])[i];
-      if (!c) return;
-      document.getElementById('ecIndex').value = i;
-      document.getElementById('ecName').value = c.name;
-      document.getElementById('ecPhone').value = c.phone;
-      document.getElementById('ecMsg').value = c.msg;
-      document.getElementById('ecDays').value = c.days || 0;
-      openModal('editCompModal');
-    }
-
-    function saveEditedComplaint(e) {
-      e.preventDefault();
-      var i = document.getElementById('ecIndex').value;
-      var l = safeGet('c_list', []);
-      if (l[i]) {
-        l[i].name = document.getElementById('ecName').value.trim();
-        l[i].phone = document.getElementById('ecPhone').value.trim();
-        l[i].msg = document.getElementById('ecMsg').value.trim();
-        l[i].days = parseInt(document.getElementById('ecDays').value) || 0;
-        safeSet('c_list', l);
-        closeModal('editCompModal');
-        renderComplaints();
-        updateStatsAndOverdueBanner();
-      }
-    }
-
-    function openEditLead(i) {
-      var l = safeGet('l_list', [])[i];
-      if (!l) return;
-      document.getElementById('elIndex').value = i;
-      document.getElementById('elName').value = l.name;
-      document.getElementById('elPhone').value = l.phone;
-      document.getElementById('elAddress').value = l.addr;
-      document.getElementById('elRemark').value = l.remark;
-      document.getElementById('elFollow').value = l.follow;
-      openModal('editLeadModal');
-    }
-
-    function saveEditedLead(e) {
-      e.preventDefault();
-      var i = document.getElementById('elIndex').value;
-      var l = safeGet('l_list', []);
-      if (l[i]) {
-        l[i].name = document.getElementById('elName').value.trim();
-        l[i].phone = document.getElementById('elPhone').value.trim();
-        l[i].addr = document.getElementById('elAddress').value.trim();
-        l[i].remark = document.getElementById('elRemark').value.trim();
-        l[i].follow = document.getElementById('elFollow').value;
-        safeSet('l_list', l);
-        closeModal('editLeadModal');
-        renderLeads();
-        updateStatsAndOverdueBanner();
-      }
-    }
-
-    function handleLeadDateChange(srcId, targetId) {
-      var src = document.getElementById(srcId);
-      var tgt = document.getElementById(targetId);
-      if (src && tgt && src.value) {
-        var d = new Date(src.value);
-        if (!isNaN(d.getTime())) {
-          d.setDate(d.getDate() + 10);
-          tgt.value = d.toISOString().slice(0, 10);
-        }
-      }
-    }
-
-    // EXPORTS & IMPORTS
-    function exportTechExcel() {
-      var l = safeGet('t_sheet', getInitialTech());
-      var csv = "\uFEFFS.N.,CUSTOMER NAME,DAYS PENDING,STRUCTURE,INVERTER AC/DC,WIRING,EARTHING,PANEL,G METER,N METER\n";
-      l.forEach(function(r) {
-        csv += '"' + r.sn + '","' + (r.name||'') + '","' + (r.days||0) + '","' + (r.struct||'') + '","' + (r.inv||'') + '","' + (r.wire||'') + '","' + (r.earth||'') + '","' + (r.panel||'') + '","' + (r.gmet||'') + '","' + (r.nmet||'') + '"\n';
-      });
-      downloadCsvBlob(csv, "Dip_Urja_Installation_Technical_Sheet.csv");
-    }
-
-    function exportDocExcel() {
-      var l = safeGet('d_sheet', getInitialDoc());
-      var csv = "\uFEFFS.N.,CUSTOMER NAME,DAYS PENDING,DOCUMENTS,INVERTER AC/DC,WIRING,EARTHING,PANEL,G METER,N METER\n";
-      l.forEach(function(r) {
-        csv += '"' + r.sn + '","' + (r.name||'') + '","' + (r.days||0) + '","' + (r.doc||'') + '","' + (r.inv||'') + '","' + (r.wire||'') + '","' + (r.earth||'') + '","' + (r.panel||'') + '","' + (r.gmet||'') + '","' + (r.nmet||'') + '"\n';
-      });
-      downloadCsvBlob(csv, "Dip_Urja_Documentation_Metering_Sheet.csv");
-    }
-
-    function exportCurrentView() {
-      exportTechExcel();
-      setTimeout(exportDocExcel, 300);
-    }
-
-    function downloadCsvBlob(content, filename) {
-      var blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
-      var a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-
-    function uploadTechCsv(e) {
-      var f = e.target.files[0];
-      if (!f) return;
-      var r = new FileReader();
-      r.onload = function(evt) {
-        var lines = evt.target.result.split('\n');
-        var list = [];
-        for (var i = 1; i < lines.length; i++) {
-          var c = lines[i].split(',');
-          if (c.length >= 2) {
-            list.push({
-              sn: c[0].replace(/"/g,'').trim(),
-              name: c[1].replace(/"/g,'').trim(),
-              days: c[2] ? parseInt(c[2].replace(/"/g,'').trim())||0 : 0,
-              struct: c[3] ? c[3].replace(/"/g,'').trim() : '',
-              inv: c[4] ? c[4].replace(/"/g,'').trim() : '',
-              wire: c[5] ? c[5].replace(/"/g,'').trim() : '',
-              earth: c[6] ? c[6].replace(/"/g,'').trim() : '',
-              panel: c[7] ? c[7].replace(/"/g,'').trim() : '',
-              gmet: c[8] ? c[8].replace(/"/g,'').trim() : '',
-              nmet: c[9] ? c[9].replace(/"/g,'').trim() : ''
-            });
-          }
-        }
-        if (list.length > 0) {
-          safeSet('t_sheet', list);
-          renderTech();
-          updateStatsAndOverdueBanner();
-          alert("टेक्निकल शीट CSV आयात झाली!");
-        }
+    function selectWorkerForReport(idx) {
+      const w = appData.workers[idx];
+      const matchingEnq = appData.enquiries.find(e => e.name.toLowerCase() === w.customer.toLowerCase());
+      selectedReport = {
+        customer: w.customer,
+        worker: w.name,
+        date: w.date,
+        req: matchingEnq ? matchingEnq.req : w.work,
+        location: w.site,
+        bill: matchingEnq ? matchingEnq.bill : 'N/A',
+        status: w.status === 'Visit done' ? 'Completed' : 'Pending'
       };
-      r.readAsText(f);
+      renderDashboard();
     }
 
-    function uploadDocCsv(e) {
-      var f = e.target.files[0];
-      if (!f) return;
-      var r = new FileReader();
-      r.onload = function(evt) {
-        var lines = evt.target.result.split('\n');
-        var list = [];
-        for (var i = 1; i < lines.length; i++) {
-          var c = lines[i].split(',');
-          if (c.length >= 2) {
-            list.push({
-              sn: c[0].replace(/"/g,'').trim(),
-              name: c[1].replace(/"/g,'').trim(),
-              days: c[2] ? parseInt(c[2].replace(/"/g,'').trim())||0 : 0,
-              doc: c[3] ? c[3].replace(/"/g,'').trim() : '',
-              inv: c[4] ? c[4].replace(/"/g,'').trim() : '',
-              wire: c[5] ? c[5].replace(/"/g,'').trim() : '',
-              earth: c[6] ? c[6].replace(/"/g,'').trim() : '',
-              panel: c[7] ? c[7].replace(/"/g,'').trim() : '',
-              gmet: c[8] ? c[8].replace(/"/g,'').trim() : '',
-              nmet: c[9] ? c[9].replace(/"/g,'').trim() : ''
-            });
-          }
-        }
-        if (list.length > 0) {
-          safeSet('d_sheet', list);
-          renderDoc();
-          updateStatsAndOverdueBanner();
-          alert("डॉक्युमेंट शीट CSV आयात झाली!");
-        }
+    function selectEnquiryForReport(idx) {
+      const e = appData.enquiries[idx];
+      const matchingWorker = appData.workers.find(w => w.customer.toLowerCase() === e.name.toLowerCase());
+      selectedReport = {
+        customer: e.name,
+        worker: matchingWorker ? matchingWorker.name : 'Assigned Team',
+        date: matchingWorker ? matchingWorker.date : new Date().toLocaleDateString(),
+        req: e.req,
+        location: e.address,
+        bill: e.bill,
+        status: matchingWorker ? 'Completed' : 'Enquiry Logged'
       };
-      r.readAsText(f);
+      renderDashboard();
     }
 
-    // BOOTSTRAP APP
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', renderAll);
-    } else {
-      renderAll();
+    function filterTab(tab, btn) {
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-workers').style.display = (tab === 'all' || tab === 'workers') ? 'block' : 'none';
+      document.getElementById('panel-enquiries').style.display = (tab === 'all' || tab === 'enquiries') ? 'block' : 'none';
     }
-  </script>
-</body>
-</html>
+
+    // Worker App Logic
+    function workerLogin() {
+      const id = document.getElementById('worker-id-input').value.trim() || 'WRK-1024';
+      document.getElementById('logged-worker-badge').textContent = id;
+      document.getElementById('worker-step-login').style.display = 'none';
+      document.getElementById('worker-step-visit').style.display = 'block';
+    }
+
+    function workerLogout() {
+      document.getElementById('worker-step-login').style.display = 'block';
+      document.getElementById('worker-step-visit').style.display = 'none';
+    }
+
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedPhotoBase64 = e.target.result;
+        const preview = document.getElementById('worker-photo-preview');
+        preview.src = uploadedPhotoBase64;
+        preview.style.display = 'inline-block';
+
+        // Animate Upload Bar
+        const wrap = document.getElementById('upload-progress-wrap');
+        const fill = document.getElementById('upload-progress-fill');
+        wrap.style.display = 'block';
+        fill.style.width = '40%';
+        fill.textContent = 'Upload 40%';
+        setTimeout(() => {
+          fill.style.width = '100%';
+          fill.textContent = 'Upload 100% — Photo uploaded!';
+        }, 400);
+      };
+      reader.readAsDataURL(file
